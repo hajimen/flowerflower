@@ -1,0 +1,63 @@
+ff_dotnetのインストールについて
+
+Requirements
+	Visual Studio 2005以降
+		Professionalエディション以上
+	Windows Server 2008以降
+	IIS 7以降
+	SQL Server 2005以降
+	iOS Developer Program
+	Android Developer アカウント
+	配信タイトルの名前
+	デフォルトの配信メッセージ
+		ダイアログや通知リストで表示される文字列
+	Android版配信購読アプリのパッケージ名
+FFSite → FFSetupの順にインストールする
+FFSite
+	iOS Developer Program
+		APNsの証明書を入手してキーチェインからファイルに書き出す
+			パスワードをかけておくことを推奨
+		IISのアプリケーションプールのアカウントと[Network Service]アカウントで読めるよう設定
+	Android Developer アカウント
+		LVLの公開鍵を入手する
+	更新元フォルダを作成
+		[Network Service]アカウントで読めるよう設定
+	IIS
+		構成セクションのロックを一部解除する
+			匿名認証
+				%windir%\system32\inetsrv\APPCMD.EXE unlock config /section:anonymousAuthentication
+			Windows認証
+				デフォルトのweb.configでは必要なし
+				%windir%\system32\inetsrv\APPCMD.EXE unlock config /section:windowsAuthentication
+		サイトを作る
+			フォルダのアクセス許可（フルコントロール）を[Network Service]アカウントに与える
+		Visual StudioからFFSiteを発行する
+	SQL Server
+		Windows認証を許可する
+			SQL Serverのデフォルト設定では許可されている
+		create databaseしてデータベースを作成する
+		ff_dotnet/FFCommon/create.sqlを実行してテーブルを作成する
+		ログインを作成する
+			[Network Service]アカウント
+			IISのアプリケーションプールのアカウント
+				デフォルトではIIS APPPOOL\DefaultAppPool
+			設定用アプリケーションを実行する作業用アカウント
+		データベースのユーザを作成する
+			上の3つのログインにそれぞれユーザを作成する
+			ユーザ名はなんでもいい
+			メンバシップはdb_owner
+	Windows
+		レジストリキーを作成する
+			HKEY_LOCAL_MACHINE\SOFTWARE\Kaoriha\flowerflower
+		レジストリキーのアクセス許可でNETWORK SERVICEを追加し、フルコントロールを許可する
+		このキーの中に文字列値Connection Stringを作成する
+			値は上で作成したデータベースへの接続文字列
+	web.config
+		configuration/appSettings内のadd key="TitleName"のvalueを配信タイトルの名前に書き換える
+FFSetup
+	Requirements
+		FFSiteがインストールされているコンピュータ
+	ビルドして、FFSiteがインストールされているのと同じコンピュータにインストールする
+	[配信タイトルの追加と削除]を起動して、配信タイトルを追加する
+IISを再起動する
+flowerflowerスケジューラを再起動する

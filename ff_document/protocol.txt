@@ -1,0 +1,54 @@
+配信サイトとクライアントのあいだの通信プロトコルについて
+
+HTTP
+	ヘッダ
+		X-flowerflower-AuthScheme
+			リクエスト
+			Android_LVL
+			iOS_APNs
+			なければWebと解釈される
+		X-flowerflower-AuthToken
+			リクエスト・レスポンス
+				Web以外
+			認証トークン
+		X-flowerflower-AuthStatus
+			レスポンス
+				Web以外
+			Outdatedになると付く
+				値はOutdated
+		X-flowerflower-ErrorReason
+			レスポンス
+				Web以外
+				ステータスコードは500 Bad Request
+			Malformed
+			Invalid
+			Security
+
+Webサービス（JSON）
+	Office/AndroidLvl/RequestAuthChallenge.ashx
+		LVLに使うnonceとそのidを発行して渡す
+		サンプル
+			{"id":6,"nonce":869354825}
+	Office/AndroidLvl/RequestAuthToken.ashx
+		LVLの署名付きデータをPOSTで受け取る
+		サンプル
+			"data":"test signed data",
+			"id":1234,
+			"signature":"test signature"
+		発行した認証トークンはX-flowerflower-AuthTokenで渡す
+	Office/IosApns/RequestAuthToken.ashx
+		APNsのデバイストークンを受け取り、APNs経由で認証トークンを渡す
+		サンプル
+			"deviceToken":"deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+
+Webサービス（REST）
+	tonextrelease.txt
+		次のリリースまでのミリセカンド
+		予定がない場合は-1
+
+サーバ監視
+	watchdog.txt
+		回線・IISの異常、flowerflowerスケジューラの異常、それ以外の異常を切り分けるのに使う
+		1分ごとにランダムな内容に更新されている
+			更新されなければflowerflowerスケジューラの異常
+			リクエストへのレスポンスがこなければ回線・IISの異常

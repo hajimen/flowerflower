@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root xmlns="http://kaoriha.org/flowerflower/20111001/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://kaoriha.org/flowerflower/20111001/ schema/flowerflower.xsd">
+    <chapter pushMessage="push message 1" separationId="04c05eb9-ca71-4716-b3ca-5695d1a2a2ed" name="ch1"/>
+    <p>test</p>
+    <separation pushMessage="push message 2" id="ddbbdfbf-a491-408d-83d4-364acf64a25d"/>
+    <p>test2</p>
+    <section/>
+    <p>test3</p>
+    <characterNote name="時子">
+        <p>ボタンの人</p>
+    </characterNote>
+    <p>test4</p>
+    <separation id="28e24798-7a8d-4bf5-88e2-5ec6cbc2932b"/>
+    <p>test5</p>
+    <separation id="06040c89-9b08-4c2b-a78e-e75a7caebeb8"/>
+    <p>test6</p>
+    <separation id="07820932-1a0e-43a7-a68b-872ddc5be2e3"/>
+    <p>test7</p>
+    <chapter pushMessage="push message 3" separationId="6569a476-abee-4f8e-8ac9-b0c47a44b2e4" name="ch2"/>
+    <p>test8</p>
+</root>

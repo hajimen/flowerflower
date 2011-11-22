@@ -1,0 +1,69 @@
+配信コンテンツのデータ構造について
+
+抽象データ構造
+	プログラム上に存在する抽象的な構造
+	Depot
+		ファイルシステムに相当する、もっとも基本的な構造
+		連想配列
+			キーと値は文字列
+		差分はDepot同士の差として抽出される
+		Depotの上にFragmentとIndexElementがある
+	Fragment
+		Depot上に築かれる単方向リンクリスト
+		1本のFragmentのリストは1個のページに対応
+		Fragment1個はたいてい連載1回分に対応
+		Fragment1個はDepotの項目2つに対応
+			コンテンツ
+			次のFragmentへの参照
+	IndexElement
+		目次の1項目に対応
+		項目名
+		起点のFragmentへの参照
+		すべてのIndexElementで1個のDepotの項目
+	Chronicle
+		連想配列
+			配信回がキー、それに対応するDepotが値
+		ff_compileがファイルとして保存する
+			次回コンパイル時にはそのファイルから過去の状態を得る
+	タイムテーブル
+		連想配列
+		配信回がキー、それに対応する配信日時が値
+		ff_compileがファイルとして保存する
+			配信日時を調整したい場合は手で書き換えることができる
+
+配信用ファイル群
+	ディレクトリとファイルからなる
+		サンプル
+			+20111015_1530
+				+Auth
+					-catalogue.json
+					-04c05eb9-ca71-4716-b3ca-5695d1a2a2ed.json
+			+20111016_1530
+				+Auth
+					-catalogue.json
+					-ddbbdfbf-a491-408d-83d4-364acf64a25d.json
+	フォルダ名の日時がくると、そのフォルダの下をまるごと配信サイトのフォルダに上書きコピーする
+		FFSchedulerが行う
+	ff_compileを使って配信原稿から生成する
+	連載1回ごとのDepotの差分をJSONにして静的ファイルを生成する
+		上の04c05eb9-ca71-4716-b3ca-5695d1a2a2ed.jsonなど
+	まとめて差分を受け取るときにリクエストの細分化を防ぐため、連載10回ごとのDepotの差分も生成する
+	差分ファイルのカタログも生成する
+		上のcatalogue.json
+
+catalogue.json
+	差分ファイルのカタログ
+	次回配信のスケジュール
+	サンプル
+		{"next_release":"2011-10-07T15:30:00+09:00",
+		"local":["04c05eb9-ca71-4716-b3ca-5695d1a2a2ed","ddbbdfbf-a491-408d-83d4-364acf64a25d"],
+		"express":{}}
+	next_release
+		次回の配信予定日時
+		ISO 8601型式
+	local
+		リスト
+			1回差分ファイルを第1回から順に
+	express
+		連想配列
+			10回差分ファイルの起点がキー、終点が値

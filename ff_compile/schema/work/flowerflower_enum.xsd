@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://kaoriha.org/flowerflower/20111001/" targetNamespace="http://kaoriha.org/flowerflower/20111001/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:simpleType name="decorateName">
+		<xs:restriction base="xs:normalizedString">
+			<xs:enumeration value="ABC"></xs:enumeration>
+			<xs:enumeration value="DEF"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="specialName">
+		<xs:restriction base="xs:normalizedString">
+			<xs:enumeration value="ABC"></xs:enumeration>
+			<xs:enumeration value="DEF"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

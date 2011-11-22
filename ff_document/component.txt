@@ -1,0 +1,33 @@
+flowerflowerを構成するコンポーネントについて
+
+ff_android
+	Android用配信購読アプリ
+	アプリとしてビルドするための一式とPhonegapのプラグインを含む
+	アプリ自体の動作のほとんどはff_htmlに記述される
+
+ff_ios
+	iOS用配信購読アプリ
+	アプリとしてビルドするための一式とPhonegapのプラグインを含む
+	アプリ自体の動作のほとんどはff_htmlに記述される
+
+ff_compile
+	配信原稿をコンパイルして、配信日時別のフォルダを作り、そこに差分を入れるプログラム
+
+ff_dotnet
+	サーバ用コンポーネント群
+	FFCommon
+		FFSchedulerとFFSiteで共通に用いられるコンポーネント
+	FFScheduler
+		定時に配信を行うためのWindowsサービス
+			サービスの名前：flowerflowerスケジューラ
+		ff_compileの生成物を定時にFFSiteのフォルダにコピーする
+	FFSite
+		配信を行うWebアプリケーション
+	FFSetup
+		FFSchedulerとFFConfigのインストーラ
+	Test*
+		単体テスト
+
+ff_html
+	配信購読アプリのHTML部分
+	ff_androidとff_iosから参照される

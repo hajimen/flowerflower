@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<title>web to server</title>
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=10.0, minimum-scale=1, user-scalable=1">
+    <link rel="stylesheet" href="../tsume/tsume.css">
+	<link rel="stylesheet" href="../design/design.css" />
+	<script src="../jquery-1.6.2.min.js"></script>
+	<script src="../tsume/tsume.js"></script>
+	<script src="../design/design.js"></script>
+	<link rel="stylesheet" href="../design/design.css" />
+	<script src="../flowerflower/web.js"></script>
+	<script src="../flowerflower/common.js"></script>
+	<script>
+	window.ff.Site = "http://michael.kaoriha.local:8080/flowerflower_test/";
+//	localStorage.clear();
+	document.addEventListener('DOMContentLoaded', function() {
+	    window.ff.Start();
+	}, false);
+	</script>
+	<link id="beforeRestoreScrollPosition" rel="stylesheet" href="../design/before_restore_scroll_position.css" />
+	<style id="beforeBuildDomTree">
+<!--
+#nav, #outer_frame {
+	display: none;
+}
+#main {
+	position: static;
+}
+.now_loading {
+	display: block;
+}
+-->
+	</style>
+</head>
+<body>
+	<div id="full_box">
+		<div class="now_loading"><img src="../design/now_loading.png" alt="Now Loading..." /></div>
+		<div id="nav">
+			<ul>
+			</ul>
+		</div>
+		<div id="main">
+			<div id="outer_frame">
+				<div id="text_frame">
+					<div id="content">
+					</div>
+				</div>
+			</div>
+			<div id="status"></div>
+		</div>
+	</div>
+</body>
+</html>

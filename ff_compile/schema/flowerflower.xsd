@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://kaoriha.org/flowerflower/20111001/" targetNamespace="http://kaoriha.org/flowerflower/20111001/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="work/flowerflower_enum.xsd"/>
+
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="rootGroup"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:group name="rootGroup">
+		<xs:choice>
+			<xs:element ref="p"/>
+			<xs:element ref="special"/>
+			<xs:element ref="chapter"/>
+			<xs:element ref="section"/>
+			<xs:element ref="footnote"/>
+			<xs:element ref="separation"/>
+			<xs:element ref="characterNote"/>
+		</xs:choice>
+	</xs:group>
+
+	<xs:group name="pGroup">
+		<xs:choice>
+			<xs:element ref="decorate"/>
+			<xs:element ref="ruby"/>
+			<xs:element ref="special"/>
+		</xs:choice>
+	</xs:group>
+
+	<xs:element name="p">
+		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="pGroup"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ruby">
+		<xs:complexType mixed="true">
+			<xs:attribute name="text" type="xs:normalizedString" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="decorate">
+		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="pGroup"/>
+			</xs:choice>
+			<xs:attribute name="name" type="decorateName" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="special">
+		<xs:complexType>
+			<xs:attribute name="name" type="specialName" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="separationId">
+	</xs:complexType>
+
+	<xs:element name="chapter">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:normalizedString" use="required"/>
+			<xs:attribute name="separationId" type="xs:normalizedString"/>
+			<xs:attribute name="pushMessage" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="section">
+		<xs:complexType />
+	</xs:element>
+
+	<xs:element name="footnote">
+		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="pGroup"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="separation">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:normalizedString"/>
+			<xs:attribute name="pushMessage" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="characterNote">
+		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="p"/>
+			</xs:choice>
+			<xs:attribute name="name" type="xs:normalizedString" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>
