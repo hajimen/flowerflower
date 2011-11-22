@@ -55,9 +55,12 @@ catalogue.json
 	差分ファイルのカタログ
 	次回配信のスケジュール
 	サンプル
-		{"next_release":"2011-10-07T15:30:00+09:00",
+		{"push_message":"test message",
+		"next_release":"2011-10-07T15:30:00+09:00",
 		"local":["04c05eb9-ca71-4716-b3ca-5695d1a2a2ed","ddbbdfbf-a491-408d-83d4-364acf64a25d"],
 		"express":{}}
+	push_message
+		配信の通知に表示される文字列
 	next_release
 		次回の配信予定日時
 		ISO 8601型式

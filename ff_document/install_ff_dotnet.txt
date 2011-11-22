@@ -18,6 +18,16 @@ FFSite
 		APNsの証明書を入手してキーチェインからファイルに書き出す
 			パスワードをかけておくことを推奨
 		IISのアプリケーションプールのアカウントと[Network Service]アカウントで読めるよう設定
+		TestFFCommon/SecureConstant.csを作成し、内容を以下のようにする
+			using System;
+			namespace TestFFCommon
+			{
+			    public class SecureConstant
+			    {
+			        public static readonly string P12File = @"C:\path\to\apns-cert.p12";
+			        public static readonly string P12FilePassword = @"apns-cert-password";
+			    }
+			}
 	Android Developer アカウント
 		LVLの公開鍵を入手する
 	更新元フォルダを作成
@@ -49,7 +59,7 @@ FFSite
 	Windows
 		レジストリキーを作成する
 			HKEY_LOCAL_MACHINE\SOFTWARE\Kaoriha\flowerflower
-		レジストリキーのアクセス許可でNETWORK SERVICEを追加し、フルコントロールを許可する
+		レジストリキーのアクセス許可で[Network Service]アカウントを追加し、フルコントロールを許可する
 		このキーの中に文字列値Connection Stringを作成する
 			値は上で作成したデータベースへの接続文字列
 	web.config

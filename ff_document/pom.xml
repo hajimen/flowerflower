@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.kaoriha.flowerflower</groupId>
+	<artifactId>document</artifactId>
+	<version>0.5</version>
+	<packaging>pom</packaging>
+
+	<name>flowerflower</name>
+	<url>http://kaoriha.org/flowerflower/</url>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/hajimen/flowerflower/issues</url>
+	</issueManagement>
+
+	<developers>
+		<developer>
+			<id>hajimen</id>
+			<name>NAKAZATO Hajime</name>
+			<email>nospam</email>
+			<url>http://kaoriha.org/</url>
+			<organization>西在家香織派</organization>
+			<organizationUrl>http://kaoriha.org/</organizationUrl>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>西在家香織派</name>
+		<url>http://kaoriha.org/</url>
+	</organization>
+
+	<scm>
+		<connection>scm:git://github.com/hajimen/flowerflower.git</connection>
+		<url>https://github.com/hajimen/flowerflower</url>
+		<developerConnection>scm:git@github.com:hajimen/flowerflower.git</developerConnection>
+	</scm>
+
+	<build>
+		<pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<locales>ja</locales>
+					<outputEncoding>UTF-8</outputEncoding>
+					<inputEncoding>UTF-8</inputEncoding>
+				</configuration>
+			</plugin>
+		</plugins>
+		</pluginManagement>
+	</build>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<distributionManagement>
+		<site>
+			<id>kaoriha site</id>
+			<url>scp://kaoriha.org/opt/kaoriha-site/flowerflower/</url>
+		</site>
+		<downloadUrl>
+			https://github.com/hajimen/flowerflower
+		</downloadUrl>
+	</distributionManagement>
+</project>

@@ -1,0 +1,90 @@
+            ------
+            flowerflower
+            ------
+            中里一
+            ------
+             2011-11-22
+
+flowerflowerについて
+
+	flowerflowerは連載配信プラットフォームです。
+
+	flowerflowerは、
+
+	* iOS / Android / Webに連載を配信
+
+	* iOS / Androidの購読者には配信をアプリとして販売可能
+
+	* HTMLで表現可能な内容であれば連載可能
+
+	* オープンソース
+
+* iOS / Android / Webに連載を配信
+
+	* 単一のソースから3つのターゲットに同時に配信
+
+	* 内容が配信のたびに書き足されてゆきます
+
+	* 前に配信された内容を後から書き換えることも可能
+
+* iOS / Androidの購読者には配信をアプリとして販売可能
+
+	* AppStore / Android Marketを通じて、提供者・購読者ともに手軽に決済
+
+	* AppStore / Android Marketの機能により、きわめて柔軟な値付けが可能
+
+* HTMLで表現可能な内容であれば連載可能
+
+	* 書式付きテキスト
+
+	* 静止画像
+
+	* JavaScriptによる動的コンテンツ
+
+* オープンソース
+
+	ただし以下のものが必要です。
+
+	* 知識
+
+		* Webデザイン
+
+		HTML、CSS、JavaScript
+
+		* プログラミング
+
+		言語：C#、Java、Objective-C、JavaScript、XML Schema
+
+		プラットフォーム：Windows Server、ASP.NET 2.0、IIS 7.0、iOS、Android
+
+	* ソフトウェアとその実行環境
+
+		* Windows Server 2008以降
+
+		* MacOS X 10.6以降
+
+		* Visual Studio 2005以降 Professionalエディション以上
+
+		他のソフトウェアは無料で入手できます。
+
+	* ライセンス
+
+		* iOS Developer Program
+
+		他のライセンスは無料で契約できます。
+
+利用にあたって
+
+	現在のところドキュメントが非常に不完全な状態のため、ソースコードを理解することが不可欠です。以下に理解の手がかりのみ記します。
+
+	ff_document/component.txtで全体像をつかむ
+
+	ff_document/content_data_store.txtとff_compile/src/main/java/org.kaoriha.flowerflower.complie.tools.Compilerと
+	ff_compile/schema/flowerflower.xsdとff_compile/org.kaoriha.flowerflower.complie.tools.LocalXJCと
+	src/main/handler/*からデータ構造と要素ハンドラを理解する
+
+	ff_compileの生成物を見て、スケジューラの動作に見当をつける
+
+	ff_dotnetをビルド・インストール・実行してみる
+
+	ff_androidとff_iosをビルド・実行してみる

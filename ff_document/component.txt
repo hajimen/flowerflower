@@ -31,3 +31,13 @@ ff_dotnet
 ff_html
 	配信購読アプリのHTML部分
 	ff_androidとff_iosから参照される
+
+ff_private_template
+	非公開のファイルを格納するリポジトリのテンプレート
+	flowerflowerのリポジトリと同じディレクトリにff_privateという名前のディレクトリを作り、ff_private_templateの中身をそこにコピーする
+	-git_dir-+-flowerflower-+ff_android
+	                        +ff_ios
+	                        +....
+	         +-ff_private-+android
+	                      +ios
+	                      +.....
