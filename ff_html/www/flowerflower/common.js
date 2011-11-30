@@ -452,6 +452,7 @@
 			"cache" : false,
 			"success" : function(data) {
 				processingToNextUpdate = data;
+				SetStatusLine("<p>配信サーバと通信しています...</p>");
 				RequestJson(
 						AUTH_PATH + "catalogue.json",
 						localStorage

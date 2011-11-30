@@ -39,10 +39,6 @@
 		$.ajax(opt);
 	}
 
-	function RequestTokenSuccess(data, status, xhr) {
-		// Do nothing
-	}
-	
     function RegisterSuccess(t) {
     	deviceToken = t;
     }
@@ -54,9 +50,14 @@
     window.ff.RequestToken = function() {
 		window.ff.isUpdatingToken = true;
 		if (deviceToken == null) {
+			alert("アプリのエラー:8d8541ea-a324-41fe-927b-258130a6233e リモート通知に必要なデバイストークンを取得できません。");
 			return;
 		}
-    	RequestJsonService(REQUEST_TOKEN_PATH, "POST", {"deviceToken" : deviceToken}, RequestTokenSuccess, window.ff.AuthErrorHandler);
+		var lastStatusLine = GetStatusLine();
+		SetStatusLine("<p>アプリを認証しています...</p>");
+    	RequestJsonService(REQUEST_TOKEN_PATH, "POST", {"deviceToken" : deviceToken}, function() {
+    		SetStatusLine(lastStatusLine);
+    	}, window.ff.AuthErrorHandler);
 	};
 
 	window.ff.CatalogueUpdated = function(etag, lastSid) {
@@ -64,20 +65,32 @@
 	};
 
 	function SetStatusLine(text) {
-		document.getElementById("status").innerHTML = text;
+		$('#status').html(text);
+	}
+
+	function GetStatusLine() {
+		return $('#status').html();
 	}
 
 	window.ff.AuthStart = function(continuation) {
-		document.addEventListener("remoteNotification", function(event){
-            if (event.payload.authToken) {
-                window.ff.SetToken(event.payload.authToken);
-            } else {
-                window.ff.FireUpdate(1000);
-            }
+		document.addEventListener("remoteNotification", function(event) {
+			if (event.payload.authToken) {
+				window.ff.SetToken(event.payload.authToken);
+			} else {
+				window.ff.FireUpdate(1000);
+			}
 		}, false);
-        window.plugins.remoteNotification.register(RegisterSuccess, RegisterError, {"Badge" : 1, "Alert" : 1, "Sound" : 0});
-
-        continuation();
+		var lastStatusLine = GetStatusLine();
+		SetStatusLine("<p>リモート通知を有効にしています...</p>");
+		window.plugins.remoteNotification.register(function() {
+			RegisterSuccess();
+			SetStatusLine(lastStatusLine);
+			continuation();
+		}, RegisterError, {
+			"Badge" : 1,
+			"Alert" : 1,
+			"Sound" : 0
+		});
 	};
 
     window.ff.ServerConnectionSuccessed = function() {
