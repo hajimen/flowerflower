@@ -17,7 +17,7 @@
 		5717AF75147A5C8300708DCE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5717AF6F147A5C8300708DCE /* Default.png */; };
 		5717AF76147A5C8300708DCE /* Default@2x_LS.png in Resources */ = {isa = PBXBuildFile; fileRef = 5717AF70147A5C8300708DCE /* Default@2x_LS.png */; };
 		5717AF77147A5C8300708DCE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5717AF71147A5C8300708DCE /* Default@2x.png */; };
-		5717AF7B147A5FE600708DCE /* www in Resources */ = {isa = PBXBuildFile; fileRef = 5717AF7A147A5FE600708DCE /* www */; };
+		576466D31485F9C100DA767C /* www in Resources */ = {isa = PBXBuildFile; fileRef = 576466D21485F9C100DA767C /* www */; };
 		57AC6E10141DC703002CC2A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AC6E0F141DC703002CC2A0 /* Foundation.framework */; };
 		57AC6E12141DC703002CC2A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AC6E11141DC703002CC2A0 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		57AC6E14141DC703002CC2A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AC6E13141DC703002CC2A0 /* CoreGraphics.framework */; };
@@ -46,7 +46,6 @@
 		570C5A011429E2380026F8A3 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = Plugins/GTMDefines.h; sourceTree = "<group>"; };
 		570C5A021429E2380026F8A3 /* GTMStringEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMStringEncoding.h; path = Plugins/GTMStringEncoding.h; sourceTree = "<group>"; };
 		570C5A031429E2380026F8A3 /* GTMStringEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMStringEncoding.m; path = Plugins/GTMStringEncoding.m; sourceTree = "<group>"; };
-		5717AF5F147A58D900708DCE /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../ff_private/www; sourceTree = "<group>"; };
 		5717AF66147A5C5300708DCE /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72.png"; path = "../../ff_private/ios/Resources/icons/icon-72.png"; sourceTree = "<group>"; };
 		5717AF67147A5C5300708DCE /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../ff_private/ios/Resources/icons/icon.png; sourceTree = "<group>"; };
 		5717AF68147A5C5300708DCE /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../../ff_private/ios/Resources/icons/icon@2x.png"; sourceTree = "<group>"; };
@@ -56,8 +55,9 @@
 		5717AF6F147A5C8300708DCE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../../ff_private/ios/Resources/splash/Default.png; sourceTree = "<group>"; };
 		5717AF70147A5C8300708DCE /* Default@2x_LS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x_LS.png"; path = "../../ff_private/ios/Resources/splash/Default@2x_LS.png"; sourceTree = "<group>"; };
 		5717AF71147A5C8300708DCE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../ff_private/ios/Resources/splash/Default@2x.png"; sourceTree = "<group>"; };
-		5717AF7A147A5FE600708DCE /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
-		577A2C2A141DC9AC001D1BE0 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../ff_html/www; sourceTree = "<group>"; };
+		57276FE91485F4EB00760274 /* www_private */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www_private; path = ../../ff_private/www_private; sourceTree = "<group>"; };
+		576466D01485F99A00DA767C /* ff_html */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ff_html; path = ../ff_html; sourceTree = "<group>"; };
+		576466D21485F9C100DA767C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		57AC6E0B141DC703002CC2A0 /* 紅茶ボタン.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "紅茶ボタン.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AC6E0F141DC703002CC2A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		57AC6E11141DC703002CC2A0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -123,7 +123,9 @@
 		57AC6DFD141DC702002CC2A0 = {
 			isa = PBXGroup;
 			children = (
-				5717AF7A147A5FE600708DCE /* www */,
+				576466D21485F9C100DA767C /* www */,
+				576466D01485F99A00DA767C /* ff_html */,
+				57276FE91485F4EB00760274 /* www_private */,
 				5717AF6C147A5C8300708DCE /* Default_LS.png */,
 				5717AF6D147A5C8300708DCE /* Default-Landscape~ipad.png */,
 				5717AF6E147A5C8300708DCE /* Default-Portrait~ipad.png */,
@@ -133,8 +135,6 @@
 				5717AF66147A5C5300708DCE /* icon-72.png */,
 				5717AF67147A5C5300708DCE /* icon.png */,
 				5717AF68147A5C5300708DCE /* icon@2x.png */,
-				5717AF5F147A58D900708DCE /* www */,
-				577A2C2A141DC9AC001D1BE0 /* www */,
 				57AC6E29141DC703002CC2A0 /* ff_ios */,
 				57AC6E0E141DC703002CC2A0 /* Frameworks */,
 				57AC6E0C141DC703002CC2A0 /* Products */,
@@ -292,7 +292,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5717AF7B147A5FE600708DCE /* www in Resources */,
 				5717AF72147A5C8300708DCE /* Default_LS.png in Resources */,
 				5717AF73147A5C8300708DCE /* Default-Landscape~ipad.png in Resources */,
 				5717AF74147A5C8300708DCE /* Default-Portrait~ipad.png in Resources */,
@@ -307,6 +306,7 @@
 				57AC6E3C141DC703002CC2A0 /* Localizable.strings in Resources */,
 				57AC6E4A141DC703002CC2A0 /* Capture.bundle in Resources */,
 				57AC6E4C141DC703002CC2A0 /* PhoneGap.plist in Resources */,
+				576466D31485F9C100DA767C /* www in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +324,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "\n\t\t\t\t\t\t\t\tif [ ! -d \"$PROJECT_DIR/www\" ] ; then\n\t\t\t\t\t\t\t\t\tcp -R /Users/Shared/PhoneGap/Frameworks/PhoneGap.framework/www \"$PROJECT_DIR\"\n\t\t\t\t\t\t\t\tfi\n\t\t\t\t\t\t\t\t# detect www folder reference in project, if missing, print warning\n\t\t\t\t\t\t\t\tgrep \"{isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = \\\"<group>\\\"; };\" \"$PROJECT_DIR/$PROJECT_NAME.xcodeproj/project.pbxproj\"\n\t\t\t\t\t\t\t\trc=$? \n\t\t\t\t\t\t\t\tif [ $rc != 0 ] ; then\n\t\t\t\t\t\t\t\techo -e \"warning: Missing - Add $PROJECT_DIR/www as a folder reference in your project. Just drag and drop the folder into your project, in Xcode 4.\" 1>&2\n\t\t\t\t\t\t\t\tfi\t\t\t\t\t\t\t\nrm -rf $PROJECT_DIR/www/*\n# */\ncp -rf $PROJECT_DIR/../ff_html/www $PROJECT_DIR/\ncp -rf $PROJECT_DIR/../../ff_private/www $PROJECT_DIR/\necho \"/*\" > $PROJECT_DIR/www/.gitignore";
+			shellScript = "rm -rf $PROJECT_DIR/www\nmkdir $PROJECT_DIR/www\ncp -rf $PROJECT_DIR/../ff_html/* $PROJECT_DIR/www\n# */\ncp -rf $PROJECT_DIR/../../ff_private/www_private/* $PROJECT_DIR/www\n# */\necho \"/*\" > $PROJECT_DIR/www/.gitignore";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -377,7 +377,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		578984551470969F0071693D /* AppStore */ = {
+		577EA9DC148614F600E22552 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -397,12 +397,16 @@
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = AppStore;
+			name = AdHoc;
 		};
-		578984561470969F0071693D /* AppStore */ = {
+		577EA9DD148614F600E22552 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = /Users/Shared/PhoneGap/Frameworks;
@@ -415,6 +419,54 @@
 				PRODUCT_NAME = "紅茶ボタン";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv6 armv7";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
+		578984551470969F0071693D /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: kenichi iwata";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CBD172F2-6F99-4ED2-86C7-B53EFCD995E6";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = AppStore;
+		};
+		578984561470969F0071693D /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = /Users/Shared/PhoneGap/Frameworks;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ff_ios/ff_ios-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "PHONEGAP_FRAMEWORK=YES";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				INFOPLIST_FILE = "ff_ios/ff_ios-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				PRODUCT_NAME = "紅茶ボタン";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv6 armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = AppStore;
@@ -472,6 +524,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = /Users/Shared/PhoneGap/Frameworks;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -483,6 +539,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = "紅茶ボタン";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv6 armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -491,6 +548,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = /Users/Shared/PhoneGap/Frameworks;
@@ -503,6 +564,7 @@
 				PRODUCT_NAME = "紅茶ボタン";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv6 armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -516,6 +578,7 @@
 				57AC6E53141DC703002CC2A0 /* Debug */,
 				57AC6E54141DC703002CC2A0 /* Release */,
 				578984551470969F0071693D /* AppStore */,
+				577EA9DC148614F600E22552 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = AppStore;
@@ -526,6 +589,7 @@
 				57AC6E56141DC703002CC2A0 /* Debug */,
 				57AC6E57141DC703002CC2A0 /* Release */,
 				578984561470969F0071693D /* AppStore */,
+				577EA9DD148614F600E22552 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = AppStore;
