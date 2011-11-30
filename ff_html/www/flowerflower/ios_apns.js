@@ -39,10 +39,6 @@
 		$.ajax(opt);
 	}
 
-    function RegisterSuccess(t) {
-    	deviceToken = t;
-    }
-
     function RegisterError(message) {
         alert("アプリのエラー:11d97b4e-eca6-4c7e-b6ad-8da4d9df1e3f " + message);
     }
@@ -82,8 +78,8 @@
 		}, false);
 		var lastStatusLine = GetStatusLine();
 		SetStatusLine("<p>リモート通知を有効にしています...</p>");
-		window.plugins.remoteNotification.register(function() {
-			RegisterSuccess();
+		window.plugins.remoteNotification.register(function(t) {
+	    	deviceToken = t;
 			SetStatusLine(lastStatusLine);
 			continuation();
 		}, RegisterError, {
