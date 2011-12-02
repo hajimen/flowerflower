@@ -62,7 +62,9 @@
 			el.style.display = "block";
 		});
 		var s = $(".separation");
-		SetLastViewedSeparationId(s[s.length - 1].id);
+		if (s.length > 0) {
+			SetLastViewedSeparationId(s[s.length - 1].id);
+		}
 		setInterval(Tick, 1000);
 	}
 
