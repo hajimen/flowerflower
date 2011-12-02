@@ -15,6 +15,15 @@ namespace FFCommon.Apns
         private Connection connection;
         private Archive archive;
         private bool isClosed = false;
+        public bool IsThreadAlive
+        {
+            get
+            {
+                bool result = (thread != null && thread.IsAlive);
+                if (!result) logger.Debug("Apns Reader thread has died!");
+                return result;
+            }
+        }
 
         public Reader(Connection connection, Stream stream, Archive archive)
         {

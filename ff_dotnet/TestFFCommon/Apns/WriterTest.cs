@@ -19,7 +19,7 @@ namespace TestFFCommon.Apns
             {
                 Archive a = new Archive();
                 BlockingQueue<Notification> queue = new BlockingQueue<Notification>();
-                Writer w = new Writer(ms, queue, a);
+                Writer w = new Writer(new TConnection(), ms, queue, a);
                 w.Close();
             }
         }
@@ -31,7 +31,7 @@ namespace TestFFCommon.Apns
             {
                 Archive a = new Archive();
                 BlockingQueue<Notification> queue = new BlockingQueue<Notification>();
-                Writer w = new Writer(ms, queue, a);
+                Writer w = new Writer(new TConnection(), ms, queue, a);
 
                 Payload p = new Payload();
                 p.Badge = 1;
@@ -46,6 +46,19 @@ namespace TestFFCommon.Apns
                 byte[] buf = ms.ToArray();
                 Expect(buf.Length, Is.GreaterThan(50));
             }
+        }
+    }
+
+
+    class TConnection : IConnection
+    {
+        public void Aborting(int identifier)
+        {
+        }
+
+        public bool SocketConnected
+        {
+            get { return true; }
         }
     }
 }

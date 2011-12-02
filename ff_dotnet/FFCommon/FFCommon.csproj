@@ -52,6 +52,7 @@
     <Compile Include="AFeedbackService.cs" />
     <Compile Include="ApnsException.cs" />
     <Compile Include="ApnsPusher.cs" />
+    <Compile Include="Apns\IConnection.cs" />
     <Compile Include="Apns\Archive.cs" />
     <Compile Include="Apns\BadDeviceTokenException.cs" />
     <Compile Include="Apns\BlockingQueue.cs" />

@@ -9,15 +9,28 @@ namespace FFCommon.Apns
     public class Writer : IDisposable
     {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly TimeSpan doubtConnectionTimeoutSpan = new TimeSpan(0, 5, 0);
+
+        private IConnection connection;
         private Stream stream;
         private BlockingQueue<Notification> queue;
         private Archive archive;
         private Thread thread;
         private bool isClosing = false;
         private bool isClosed = false;
-
-        public Writer(Stream stream, BlockingQueue<Notification> queue, Archive archive)
+        public bool IsThreadAlive
         {
+            get
+            {
+                bool result = (thread != null && thread.IsAlive);
+                if (!result) logger.Debug("Apns Writer thread has died!");
+                return result;
+            }
+        }
+
+        public Writer(IConnection connection, Stream stream, BlockingQueue<Notification> queue, Archive archive)
+        {
+            this.connection = connection;
             this.stream = stream;
             this.queue = queue;
             this.archive = archive;
@@ -29,6 +42,7 @@ namespace FFCommon.Apns
         private void Run()
         {
             int identifier = 0;
+            DateTime lastSendTime = DateTime.Now;
 
             while (true)
             {
@@ -46,7 +60,18 @@ namespace FFCommon.Apns
 
                 try
                 {
+                    DateTime now = DateTime.Now;
                     n.Write(identifier, stream);
+                    if (now - lastSendTime > doubtConnectionTimeoutSpan)
+                    {
+                        Thread.Sleep(1000);
+                    }
+                    if (!connection.SocketConnected)
+                    {
+                        connection.Aborting(identifier - 1);
+                        return;
+                    }
+                    lastSendTime = now;
                 }
                 catch (IOException)
                 {

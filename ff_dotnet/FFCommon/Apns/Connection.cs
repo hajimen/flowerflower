@@ -10,8 +10,10 @@ using System.IO;
 
 namespace FFCommon.Apns
 {
-    public class Connection : IDisposable
+    public class Connection : IDisposable, IConnection
     {
+        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private X509CertificateCollection certCollection;
         private X509Certificate cert;
         private TcpClient tcpClient;
@@ -21,6 +23,11 @@ namespace FFCommon.Apns
         private bool isClosed = false;
         private Reader reader;
         private Writer writer;
+
+        public bool IsThreadAlive
+        {
+            get { return reader.IsThreadAlive && writer.IsThreadAlive; }
+        }
 
         public Connection(string host, int port, string p12File, string p12FilePassword, BlockingQueue<Notification> queue, Archive archive, Service service)
         {
@@ -44,7 +51,7 @@ namespace FFCommon.Apns
             }
 
             reader = new Reader(this, stream, archive);
-            writer = new Writer(stream, queue, archive);
+            writer = new Writer(this, stream, queue, archive);
         }
 
         public void Aborting(int identifier)
@@ -61,6 +68,14 @@ namespace FFCommon.Apns
             X509Certificate remoteCertificate, string[] acceptableIssuers)
         {
             return cert;
+        }
+
+        public bool SocketConnected
+        {
+            get
+            {
+                return tcpClient.Connected;
+            }
         }
 
         public void Close()
