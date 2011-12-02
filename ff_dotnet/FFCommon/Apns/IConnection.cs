@@ -11,5 +11,9 @@ namespace FFCommon.Apns
         {
             get;
         }
+        bool IsClosed
+        {
+            get;
+        }
     }
 }

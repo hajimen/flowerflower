@@ -64,11 +64,14 @@ namespace FFCommon.Apns
                     n.Write(identifier, stream);
                     if (now - lastSendTime > doubtConnectionTimeoutSpan)
                     {
-                        Thread.Sleep(1000);
+                        Thread.Sleep(500);
                     }
                     if (!connection.SocketConnected)
                     {
-                        connection.Aborting(identifier - 1);
+                        if (!connection.IsClosed)
+                        { // APNs disconnected silently
+                            connection.Aborting(identifier - 1);
+                        }
                         return;
                     }
                     lastSendTime = now;

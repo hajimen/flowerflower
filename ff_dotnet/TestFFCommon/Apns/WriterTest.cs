@@ -60,5 +60,10 @@ namespace TestFFCommon.Apns
         {
             get { return true; }
         }
+
+        public bool IsClosed
+        {
+            get { return true; }
+        }
     }
 }

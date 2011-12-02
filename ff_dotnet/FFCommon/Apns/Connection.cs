@@ -21,6 +21,10 @@ namespace FFCommon.Apns
         private Service service;
 
         private bool isClosed = false;
+        public bool IsClosed
+        {
+            get { return isClosed; }
+        }
         private Reader reader;
         private Writer writer;
 
