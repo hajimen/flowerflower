@@ -429,6 +429,11 @@ public class Notifier {
 	}
 
 	private void pollBackground() {
+		if (getToken() == null) {
+			rescheduleAfterFail();
+			return;
+		}
+
 		ToNextReleasePolling tp = new ToNextReleasePolling();
 		tp.poll();
 		if (tp.isFailed) {
