@@ -13,7 +13,8 @@ namespace TestFFCommon.Apns
         [Test]
         public void TestSimple()
         {
-            using (Connection c = new Connection("gateway.sandbox.push.apple.com", 2195, SecureConstant.P12File, SecureConstant.P12FilePassword, new BlockingQueue<Notification>(), new Archive(), new Service(true, "", "")))
+            using (Connection c = new Connection("gateway.sandbox.push.apple.com", 2195, SecureConstant.P12File, SecureConstant.P12FilePassword, new BlockingQueue<Notification>(),
+                new Archive(), new Service(true, SecureConstant.P12File, SecureConstant.P12FilePassword)))
             {
                 c.Close();
             }

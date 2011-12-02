@@ -57,6 +57,8 @@ namespace FFCommon.Apns
 
         public void Enqueue(Notification n)
         {
+            if (!connection.IsThreadAlive) logger.Debug("Apns Connection thread has died!");
+            if (thread == null || !thread.IsAlive) logger.Debug("Apns Service thread has died!");
             queue.Enqueue(n);
         }
 

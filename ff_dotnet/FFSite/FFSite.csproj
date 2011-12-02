@@ -58,12 +58,12 @@
     <Content Include="NotFoundError.html" />
     <Content Include="Office\AskAuthenticationKey.aspx" />
     <Content Include="Office\BadConfiguration.aspx" />
-    <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Office\LockedOut.aspx" />
     <Content Include="UnknownError.html" />
     <None Include="TestPage\SetupCookie.aspx" />
     <None Include="TestPage\SetupTestToken.aspx" />
+    <None Include="tsume\tsume.ttf" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -89,13 +89,6 @@
     </Compile>
     <Compile Include="Office\BadConfiguration.aspx.designer.cs">
       <DependentUpon>BadConfiguration.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Default.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="DoubtfulAuthBehaviorException.cs" />
     <Compile Include="Global.asax.cs">
@@ -153,7 +146,25 @@
     <Content Include="Office\AndroidLvl\RequestAuthToken.ashx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="design\before_restore_scroll_position.css" />
+    <Content Include="design\blank_square.png" />
+    <Content Include="design\design.css" />
+    <Content Include="design\design.js" />
+    <Content Include="design\left_top.png" />
+    <Content Include="design\list_marker.png" />
+    <Content Include="design\list_marker_current.png" />
+    <Content Include="design\now_loading.png" />
+    <Content Include="flowerflower\fire_content_updated.js" />
+    <Content Include="jquery-1.6.2.min.js" />
+    <Content Include="jquery-cookie.js" />
     <Content Include="Office\IosApns\RequestAuthToken.ashx" />
+    <Content Include="Public\apps.html" />
+    <Content Include="Public\catchphrase.png" />
+    <Content Include="Public\index.html" />
+    <Content Include="Public\screenshot.png" />
+    <Content Include="tsume\index.html" />
+    <Content Include="tsume\tsume.css" />
+    <Content Include="tsume\tsume.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Auth\" />

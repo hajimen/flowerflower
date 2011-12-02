@@ -86,10 +86,10 @@
         <!-- only package resources if *not* a library project -->
         <do-only-if-not-library elseText="Library project: do not package resources..." >
         	<copy todir="${out.absolute.dir}/asset/www" overwrite="true">
-        		<fileset dir="${asset.dir}/www" />
+        		<fileset dir="${asset.www.dir}" />
         	</copy>
         	<copy todir="${out.absolute.dir}/asset/www" overwrite="true">
-        		<fileset dir="${private_asset.dir}/www" />
+        		<fileset dir="${private_asset.www.dir}" />
         	</copy>
             <aapt executable="${aapt}"
                     command="package"
@@ -119,7 +119,7 @@
     <target name="debug" depends="-set-debug-files, -do-debug"
                 description="Builds the application and signs it with a debug key.">
         <record-build-info />
-    	<move file="${out.absolute.dir}/${ant.project.name}-debug.apk" tofile="${out.absolute.dir}/${ant.project.name}.apk" />
+    	<copy file="${out.absolute.dir}/${ant.project.name}-debug.apk" tofile="${out.absolute.dir}/${ant.project.name}.apk" />
     </target>
 
 </project>

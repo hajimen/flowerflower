@@ -50,7 +50,7 @@ namespace FFSite
             }
             string tokenBody = Guid.NewGuid().ToString("N");
             DataSet.TokenRow t = dt.AddTokenRow(subscriber, now, tokenBody);
-            ta.Update(t);
+            ta.Update(dt);
 
             return t;
         }
