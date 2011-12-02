@@ -158,7 +158,9 @@ public class Builder {
 				if (f.getHtml().length() == 0) {
 					continue;
 				}
-				sb.append("<div class=\"separation\">");
+				sb.append("<div class=\"separation\" id=\"");
+				sb.append(f.getKey());
+				sb.append("\">");
 				sb.append(f.getHtml());
 				sb.append("</div>");
 			}
