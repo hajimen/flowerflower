@@ -70,6 +70,13 @@
     <Compile Include="AAuthStrategy.cs" />
     <Compile Include="AndroidLvlAuthStrategy.cs" />
     <Compile Include="AuthScheme.cs" />
+    <Compile Include="Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ErrorReason.cs" />
     <Compile Include="IosApnsAuthStrategy.cs" />
     <Compile Include="Office\AndroidLvl\Verifier.cs" />
@@ -146,6 +153,7 @@
     <Content Include="Office\AndroidLvl\RequestAuthToken.ashx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Default.aspx" />
     <Content Include="design\before_restore_scroll_position.css" />
     <Content Include="design\blank_square.png" />
     <Content Include="design\design.css" />
