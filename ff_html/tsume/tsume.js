@@ -230,6 +230,7 @@
                 }
             }
         }
+        newHf += hf.substr(i, 1);
         return newHf;
     }
 
