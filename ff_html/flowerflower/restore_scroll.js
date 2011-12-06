@@ -58,9 +58,11 @@
 
 		Tick();
 
-		$('#' + GetLastViewedSeparationId()).nextAll().each(function(index, el) {
-			el.style.display = "block";
-		});
+		if (GetLastViewedSeparationId() != null) {
+			$('#' + GetLastViewedSeparationId()).nextAll().each(function(index, el) {
+				el.style.display = "block";
+			});
+		}
 		var s = $(".separation");
 		if (s.length > 0) {
 			SetLastViewedSeparationId(s[s.length - 1].id);
