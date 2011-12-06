@@ -103,6 +103,7 @@ public class Builder {
 						vm.put(Constant.LatestSeparationHtml.INDEX, indexStr);
 
 						vm.put(Constant.LatestSeparationHtml.CONTENT, "<div class=\"separation\">" + f.getHtml() + "</div>");
+						vm.put(Constant.LatestSeparationHtml.START_SID, "latest.html");
 
 						File file = new File(dir, Constant.LATEST_SEPARATION_HTML_FILENAME);
 						fos = new FileOutputStream(file, false);
@@ -152,6 +153,7 @@ public class Builder {
 			Map<String, String> vm = new HashMap<String, String>();
 			vm.put(Constant.Html.TITLE, ie.getName());
 			vm.put(Constant.Html.INDEX, indexStr);
+			vm.put(Constant.Html.START_SID, ie.getStartFragment().getKey());
 
 			StringBuilder sb = new StringBuilder();
 			for (Fragment f = ie.getStartFragment(); f != null; f = f.getNext()) {

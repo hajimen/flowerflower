@@ -50,6 +50,7 @@ public class Constant {
 		public static final String TITLE = "title";
 		public static final String INDEX = "index";
 		public static final String CONTENT = "content";
+		public static final String START_SID = "startSid";
 	}
 
 	public static class LatestSeparationHtml {
@@ -60,5 +61,6 @@ public class Constant {
 		public static final String yyyy = "yyyy";
 		public static final String MM = "MM";
 		public static final String dd = "dd";
+		public static final String START_SID = "startSid";
 	}
 }
