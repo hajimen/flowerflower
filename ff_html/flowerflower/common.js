@@ -559,7 +559,11 @@
 		var statusText = "配信を受け取れませんでした。";
 		window.ff.isUpdatingToken = false;
 		if (xhr.status != 400) { // 400 bad request
-			statusText += "配信サーバとの通信または配信サーバに異常があります。アプリまたは本体を再起動し、インターネットとの接続状態を確認してください。ステータスコード:" + xhr.status;
+			if (xhr.status == 0) {
+				statusText += "配信サーバとの通信に異常があります。インターネットの接続状態を確認してください。";
+			} else {
+				statusText += "配信サーバとの通信または配信サーバに異常があります。インターネットの接続状態を確認してください。ステータスコード:" + xhr.status;
+			}
 			SetStatusLine("<p>" + statusText + "</p>");
 			if (retry < MAX_RETRY) {
 				retry++;
