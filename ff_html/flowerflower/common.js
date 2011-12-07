@@ -14,6 +14,7 @@
 	window.ff.EVENT_NEW_TOKEN = "newtoken";
 	window.ff.EVENT_BEFORE_REBUILD_PAGE = "beforerebuildpage";
 
+	var TIMEOUT = 5000;
 	var EVENT_CONTENT_UPDATED = "contentupdated";
 	var TO_NEXT_RELEASE_PATH = "tonextrelease.txt";
 	var AUTH_PATH = "Auth/";
@@ -184,8 +185,13 @@
 			return;
 		}
 
-		if (nextUpdate < new Date().getTime() && window.ff.IsConnectionOk()) {
-			Update();
+		if (nextUpdate < new Date().getTime()) {
+			if (window.ff.IsConnectionOk()) {
+				Update();
+			} else {
+				nextUpdate = NEXT_RELEASE_UPDATING_SPAN + new Date().getTime();
+				SetStatusLine(null);
+			}
 		}
 		var v = "" + window.pageYOffset + "," + $(document).height();
 		if (lastScroll != v) {
@@ -417,7 +423,7 @@
 					xhr.setRequestHeader("If-None-Match", '"never-match-this"');
 				}
 			},
-			"timeout" : 3000
+			"timeout" : TIMEOUT
 		};
 		$.ajax(opt);
 	}
@@ -438,7 +444,6 @@
 			}
 		}
 	}
-	;
 
 	function Update() {
 		nextUpdate = NEXT_RELEASE_UPDATING_SPAN + new Date().getTime();
@@ -446,6 +451,7 @@
 			return;
 		}
 		isUpdating = true;
+		SetStatusLine("<p>配信サーバと接続しています...</p>");
 
 		var opt = {
 			"type" : "GET",
@@ -495,7 +501,7 @@
 					retry = 0;
 				}
 			},
-			"timeout" : 3000
+			"timeout" : TIMEOUT
 		};
 		$.ajax(opt);
 	}
@@ -598,9 +604,11 @@
 	};
 
 	window.ff.FireUpdate = function(after) {
-		if (window.ff.IsConnectionOk()) {
-			SetStatusLine("<p>配信サーバと接続しています...</p>");
+		if (isUpdating || !window.ff.IsConnectionOk()) {
+			return;
 		}
+
+		SetStatusLine("<p>配信サーバと接続します...</p>");
 		if (after) {
 			nextUpdate = after + new Date().getTime();
 		} else {
@@ -643,7 +651,7 @@
 			setInterval(Tick, 1000);
 			if (localStorage.getItem(DepotStorageKey.Index) == null) {
 				if (window.ff.IsConnectionOk()) {
-					SetStatusLine("<p>配信サーバと接続しています...</p>");
+					SetStatusLine("<p>配信サーバと接続します...</p>");
 					Update();
 				} else {
 					SetStatusLine("<p>配信サーバと接続できないため、なにもお見せできません。インターネット接続が可能な状態になったら、もう一度アプリを起動してください。</p>");
