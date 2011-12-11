@@ -527,10 +527,8 @@
 			$(this).html(h);
 		});
 
-		var e = document.createEvent('Events');
-		e.initEvent(EVENT_CONTENT_UPDATED, false, false);
-		e.updated = jo;
-		document.dispatchEvent(e);
+		var ev = $.Event(EVENT_CONTENT_UPDATED, {"updated" : jo});
+		$(document).trigger(ev);
 	}
 
 	window.ff.AuthErrorSequenceFunc = function(xhr, status) {
@@ -1007,13 +1005,13 @@
 	sequenceInstanceSet['Initialize'] = Initialize;
 
 	window.ff.Start = function() {
-		document.addEventListener(EVENT_CONTENT_UPDATED, function() {
+		$(document).bind(EVENT_CONTENT_UPDATED, function(e) {
 			if (isEnableRestoreScrollPosition) {
 				isEnableRestoreScrollPosition = false;
 				ScreenMode.Set(ScreenMode.Scrolling);
 				RestoreScrollPosition.Start();
 			}
-		}, false);
+		});
 
 		Initialize.Start();
 	};

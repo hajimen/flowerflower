@@ -1,7 +1,7 @@
 (function() {
 var isTsumeEnabled = true;
 
-document.addEventListener("contentupdated", function(e){
+$(document).bind("contentupdated", function(e) {
 	$('.in_nav p').html('<a href="#top" class="display_nav_top_inline" style="background-color: transparent; position: absolute; right: 5em; width: 2em;">目次</a>'
 			+ '＊' + window.ff.CharacterNoteElement.substring(0, window.ff.CharacterNoteElement.length - 1)
 			+ ' class="display_nav_top_inline" style="background-color: transparent; position: absolute; left: 3em; width: 6em;">登場人物紹介</a>');
@@ -16,15 +16,17 @@ document.addEventListener("contentupdated", function(e){
 	if (isTsumeEnabled) {
 		window.tsume(e.updated);
 	}
-}, false);
+});
 
-document.addEventListener("DOMContentLoaded", function(){
-	$('body').append('<p id="compare_a" style="visibility: hidden;">漢字漢字漢字</p><p id="compare_b" style="visibility: hidden;">「」。：（）</p>');
-	if ($('#compare_a').width() != $('#compare_b').width()) {
+$(document).ready(function() {
+	$('body').append('<p id="compare_a" style="visibility:hidden; width: 6em;">漢字漢字漢字</p><p id="compare_b" style="visibility:hidden; width: 5.9em;">「」。：（）</p><p id="compare_c" style="visibility:hidden; width: 6em;">漢</p>');
+	
+	if ($('#compare_a').height() != $('#compare_c').height() || $('#compare_b').height() == $('#compare_c').height()) {
 		isTsumeEnabled = false;
 	}
 	$('#compare_a').remove();
 	$('#compare_b').remove();
+	$('#compare_c').remove();
 
 	var separator = '<p style="text-align:center;"><span style="color: rgb(44, 160, 44)">■</span>　<span style="color: rgb(170, 170, 90)">■</span>　<span style="color: rgb(128, 51, 0)">■</span></p>';
 	$('#nav ul').wrap('<div id="inner_nav"></div>');
@@ -72,6 +74,6 @@ document.addEventListener("DOMContentLoaded", function(){
 	} else if (ua.indexOf('AppleWebKit') != -1 && (ua.indexOf('OS 3_') != -1 || ua.indexOf('OS 4_') != -1)) {
 		fixFixedPosition();
 	}
-}, false);
+});
 
 })();

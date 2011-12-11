@@ -108,7 +108,7 @@
 
 	window.ff.CharacterNoteElement = '<a href="character_note.html">';
 
-	document.addEventListener("contentupdated", function(){
+	$(document).bind("contentupdated", function(e) {
 		ContentUpdated();
-	}, false);
+	});
 })();
