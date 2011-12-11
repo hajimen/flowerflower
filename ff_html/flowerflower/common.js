@@ -116,7 +116,7 @@
 		this.contextSetIndexCounter = 0;
 	}
 	Sequence.prototype._caller = function(f, context, args, loc) {
-		if (context.$_isTimeouted) {
+		if (context.$_isTimeouted || context.$_isExited) {
 			return;
 		}
 		var sequenceInstance = this;
@@ -246,6 +246,7 @@
 		} else {
 			context = {};
 		}
+		context.$_isExited = false;
 		context.$_lastPassedTime = null;
 		context.$_isTimeouted = false;
 		context.$IsTimeouted = function(now) {
@@ -269,6 +270,7 @@
 			if (scopeThis.onExit) {
 				scopeThis.onExit.apply(context, arguments);
 			}
+			context.$_isExited = true;
 			delete scopeThis.contextSet[context.$_index];
 		};
 		context.$onError = function() {
@@ -991,7 +993,7 @@
 		StatusSection.Set(StatusSection.Type.Error, "アプリの初期化に失敗しました。",
 				"リセット", Initialize.Start);
 	}, 7000, function() {
-		StatusSection.Set(StatusSection.Type.Error, "アプリの初期化に失敗しました。",
+		StatusSection.Set(StatusSection.Type.Error, "アプリの初期化がタイムアウトしました。",
 				"リセット", Initialize.Start);
 	});
 	sequenceInstanceSet['Initialize'] = Initialize;
