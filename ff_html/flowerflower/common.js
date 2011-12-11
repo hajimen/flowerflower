@@ -364,7 +364,7 @@
 	};
 	StatusSection.PushAction = function(text) {
 		StatusSection._inActionStack.push(text);
-		_Show();
+		StatusSection._Show();
 	};
 	StatusSection._Show = function() {
 		with (StatusSection) {
@@ -851,7 +851,7 @@
 
 	var RequestToken = new Sequence(window.ff.RequestTokenSequenceGenerator(),
 			null, null, 10000, function() {	// timeout
-		StatusSection.Set(StatusSection.Type.Error, "アプリの認証がタイムアウトしました。", "リトライ", RequestToken.Start);
+		StatusSection.Set(StatusSection.Type.Error, "アプリの認証がタイムアウトしました。", "リトライ", function() { RequestToken.Start(); });
 	});
 	sequenceInstanceSet['RequestToken'] = RequestToken;
 
@@ -989,10 +989,10 @@
 			Initialize.Start();
 		}, false);
 		StatusSection.Set(StatusSection.Type.Error, "アプリの初期化に失敗しました。",
-				"リセット", Initialize.Start);
+			"リセット", function() { Initialize.Start() });
 	}, 7000, function() {
 		StatusSection.Set(StatusSection.Type.Error, "アプリの初期化に失敗しました。",
-				"リセット", Initialize.Start);
+			"リセット", function() { Initialize.Start() });
 	});
 	sequenceInstanceSet['Initialize'] = Initialize;
 
