@@ -4,24 +4,26 @@
 		window.ff = {};
 	}
 
-	window.ff.RequestToken = function() {
-	};
+	window.ff.RequestTokenSequenceGenerator = function() {return [function() {
+		return;
+	}]; };
 
-	window.ff.CatalogueUpdated = function(etag, lastSid) {
+    window.ff.ServerConnectionSuccessed = function() {
+    	// Do nothing
+    };
+
+    window.ff.ReceiveTokenSequenceGenerator = function() { return [function() {
+    	this.token = "dummy";
+    }]; };
+
+    window.ff.CatalogueUpdated = function(etag, lastSid) {
 		// Do nothing
 	};
 
-	window.ff.AuthStart = function(continuation) {
-		// Do nothing
-		continuation();
-	};
-
-	window.ff.SetToken = function(token) {
-	};
-
-	window.ff.GetToken = function() {
-		return "dummy";
-	};
+	window.ff.AuthStartSequenceGenerator = function() { return [
+		function(){
+		}
+	]; };
 
 	window.ff.IsConnectionOk = function() {
 		return true;

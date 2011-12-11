@@ -19,6 +19,7 @@
   font-family: 'tsume';
   src: url('../tsume/tsume.ttf') format('truetype');
 }
+
 .tsume-ml4 
 {
 	margin-left:-0.25em;
@@ -79,29 +80,34 @@
 .tsume-a0
 {
 	letter-spacing:0.0em;
+	line-height: 1em;
 	font-family: 'tsume';
 }
 
 .tsume-a4
 {
 	letter-spacing:0.25em;
+	line-height: 1em;
 	font-family: 'tsume';
 }
 
 .tsume-a2
 {
 	letter-spacing:0.5em;
+	line-height: 1em;
 	font-family: 'tsume';
 }
 
 .tsume-a34
 {
 	letter-spacing:0.75em;
+	line-height: 1em;
 	font-family: 'tsume';
 }
 
 .tsume-a1
 {
 	letter-spacing:1.0em;
+	line-height: 1em;
 	font-family: 'tsume';
 }

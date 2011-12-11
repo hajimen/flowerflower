@@ -1,8 +1,13 @@
 (function() {
 	var PSKEY_TOKEN = "token";
 	var REQUEST_TOKEN_PATH = "Office/IosApns/RequestAuthToken.ashx";
+	var EVENT_NEW_TOKEN = "newtoken";
+	var EVENT_NEW_TOKEN_TIMEOUT = 5000;
+
 	var isUpdatingToken = false;
 	var deviceToken = null;
+	var tokenCache = null;
+	var eventNewTokenTimeout = null;
 
 	if (window.ff) {
 	} else {
@@ -23,83 +28,113 @@
 			'removeItem' : function(k) { window.localStorage.removeItem(k); }
 	};
 
-	function RequestJsonService(path, type, data, successFunc, errorFunc) {
-		var url = window.ff.Site + path;
-		var opt = {
-				"type" : type,
-				"url" : url,
-				"cache" : false,
-				"success" : successFunc,
-				"error" : errorFunc,
-				"timeout" : 3000
-		};
-		if (data) {
-			opt.data = data;
-		}
-		$.ajax(opt);
-	}
-
-    function RegisterError(message) {
-        alert("アプリのエラー:11d97b4e-eca6-4c7e-b6ad-8da4d9df1e3f " + message);
-    }
-
-    window.ff.RequestToken = function() {
-		window.ff.isUpdatingToken = true;
-		if (deviceToken == null) {
-			alert("アプリのエラー:8d8541ea-a324-41fe-927b-258130a6233e リモート通知に必要なデバイストークンを取得できません。");
-			return;
-		}
-    	RequestJsonService(REQUEST_TOKEN_PATH, "POST", {"deviceToken" : deviceToken}, null, window.ff.AuthErrorHandler);
-	};
-
 	window.ff.CatalogueUpdated = function(etag, lastSid) {
 		// Do nothing
 	};
 
-	function SetStatusLine(text) {
-		$('#status').html(text);
-	}
-
-	function GetStatusLine() {
-		return $('#status').html();
-	}
-
-	window.ff.AuthStart = function(continuation) {
-		document.addEventListener("remoteNotification", function(event) {
-			if (event.payload.authToken) {
-				window.ff.SetToken(event.payload.authToken);
-			} else {
-				window.ff.FireUpdate(1000);
+	function RemoteNotificationHanlder(event) {
+		if (event.payload.authToken) {
+			if (eventNewTokenTimeout) {
+				clearTimeout(eventNewTokenTimeout);
+				eventNewTokenTimeout = null;
 			}
-		}, false);
-		var lastStatusLine = GetStatusLine();
-		SetStatusLine("<p>リモート通知を有効にしています...</p>");
-		window.plugins.remoteNotification.register(function(t) {
+			tokenCache = event.payload.authToken;
+			localStorage.setItem(PSKEY_TOKEN, tokenCache);
+			isUpdatingToken = false;
+		    var e = document.createEvent('Events'); 
+		    e.initEvent(EVENT_NEW_TOKEN, false, false);
+		    e.isOk = true;
+		    document.dispatchEvent(e);
+		} else {
+			window.ff.FireUpdate(1000);
+		}
+	}
+
+	window.ff.AuthStartSequenceGenerator = function() { return [
+		function() {
+			document.addEventListener("remoteNotification", RemoteNotificationHanlder, false);
+			tokenCache = localStorage.getItem(PSKEY_TOKEN);
+			window.ff.StatusSection.PushAction("リモート通知を有効にしています...");
+			var scopeThis = this;
+			window.plugins.remoteNotification.register(this.$next, function(message) {
+				alert("アプリのエラー:11d97b4e-eca6-4c7e-b6ad-8da4d9df1e3f " + message);
+				scopeThis.$onError();
+			}, {
+				"Badge" : 1,
+				"Alert" : 1,
+				"Sound" : 0
+			});
+			return true;
+		},
+		function(t) {
 	    	deviceToken = t;
-			SetStatusLine(lastStatusLine);
-			continuation();
-		}, RegisterError, {
-			"Badge" : 1,
-			"Alert" : 1,
-			"Sound" : 0
-		});
-	};
+			window.ff.StatusSection.PopAction();
+		}
+	]; };
 
     window.ff.ServerConnectionSuccessed = function() {
         window.plugins.remoteNotification.clearBadge();
     };
 
-    window.ff.SetToken = function(token) {
-		localStorage.setItem(PSKEY_TOKEN, token);
-		isUpdatingToken = false;
+    window.ff.RequestTokenSequenceGenerator = function() {return [
+		function() {
+			var scopeThis = this;
+			var l = function(event) {
+				document.removeEventListener(EVENT_NEW_TOKEN, arguments.callee, false);
+				if (event.isOk) {
+					scopeThis.$parent();
+				} else {
+					scopeThis.$onError();
+				}
+			};
+			document.addEventListener(EVENT_NEW_TOKEN, l, false);
+			this.tokenEventListener = l;
+
+			if (isUpdatingToken) {
+			} else {
+				isUpdatingToken = true;
+				eventNewTokenTimeout = setTimeout(NewTokenTimeouted, EVENT_NEW_TOKEN_TIMEOUT);
+				window.ff.RequestService(
+						REQUEST_TOKEN_PATH,
+						"POST",
+						{"deviceToken" : deviceToken},
+						null,
+						this.$next);
+			}
+	    	return true;
+		},
+		function(xhr, status) {
+			document.removeEventListener(EVENT_NEW_TOKEN, this.tokenEventListener, false);
+			this.$next(xhr, status);
+			return true;
+		},
+		window.ff.AuthErrorSequenceFunc
+	]; };
+
+    function NewTokenTimeouted() {
+    	alert("アプリのエラー:5c358cdf-7bc8-4ad0-b209-8300da00ceff 配信サーバとの通信または配信サーバに異常があります。");
 	    var e = document.createEvent('Events'); 
-	    e.initEvent(window.ff.EVENT_NEW_TOKEN, false, false);
+	    e.initEvent(EVENT_NEW_TOKEN, false, false);
+	    e.isOk = false;
 	    document.dispatchEvent(e);
-	};
-	
-	window.ff.GetToken = function() {
-		return localStorage.getItem(PSKEY_TOKEN);
-	};
+		isUpdatingToken = false;
+    }
+
+    window.ff.ReceiveTokenSequenceGenerator = function() {return [
+		function() {
+			if (tokenCache) {
+				this.token = tokenCache;
+				return;
+			}
+
+			this.$1();
+			return true;
+		},
+		window.ff.RequestTokenSequenceGenerator(),
+		function() {
+			this.token = tokenCache;
+		}
+	]; };
 
 	window.ff.IsConnectionOk = function() {
         var t = navigator.network.connection.type;
