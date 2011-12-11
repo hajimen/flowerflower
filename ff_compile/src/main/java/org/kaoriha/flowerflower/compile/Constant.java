@@ -43,6 +43,10 @@ public class Constant {
 
 	public static final String CHARACTER_NOTE_INITIAL_KEY = "character_note";
 	public static final String CHARACTER_NOTE_NAME = PROJECT_RESOURCE.getString("character_note_name");
+
+	public static final String ABOUT_THIS_APP_FILENAME = "about_this_app.txt";
+	public static final String ABOUT_THIS_APP_INITIAL_KEY = "about_this_app";
+
 	public static final String LATEST_SEPARATION_NAME = PROJECT_RESOURCE.getString("latest_separation_name");
 
 	public static class Html {

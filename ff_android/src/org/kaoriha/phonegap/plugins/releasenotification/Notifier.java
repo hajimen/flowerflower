@@ -131,6 +131,10 @@ public class Notifier {
 		schedule(Long.parseLong(toNextRelease));
 	}
 
+	public void clear() {
+		pref.edit().clear().commit();
+	}
+
 	public void setToken(String token) {
 		pref.edit().putString(SPKEY_TOKEN, token).commit();
 	}

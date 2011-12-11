@@ -28,4 +28,7 @@
 	window.ff.IsConnectionOk = function() {
 		return true;
 	};
+
+	window.ff.AuthClearStorage = function() {
+	};
 })();

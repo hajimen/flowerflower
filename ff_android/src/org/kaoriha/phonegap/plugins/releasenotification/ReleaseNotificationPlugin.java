@@ -17,7 +17,8 @@ public class ReleaseNotificationPlugin extends Plugin {
 		stop,
 		updated,
 		setToken,
-		getToken
+		getToken,
+		clear
 	}
 	
 	/**
@@ -70,6 +71,11 @@ public class ReleaseNotificationPlugin extends Plugin {
 				JSONObject j = new JSONObject();
 				j.put("token", token);
 				return new PluginResult(PluginResult.Status.OK, j);
+			}
+			case clear:
+			{
+				new Notifier(ctx).clear();
+				break;
 			}
 			}
 			result = new PluginResult(Status.OK);

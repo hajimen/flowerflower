@@ -873,8 +873,8 @@
 			}
 		}
 		nav += '<li><a href="javascript:void(0)" onclick="window.ff.OnLinkClick(\'character_note\'); return false;">登場人物紹介</a></li>';
+		nav += '<li><a href="javascript:void(0)" onclick="window.ff.OnLinkClick(\'about_this_app\'); return false;">このアプリについて</a></li>';
 		nav += '<li><a href="http://kaoriha.org/latest_item.html">近刊案内</a></li>';
-		nav += '<li><a href="about.html">このアプリについて</a></li>';
 
 		$('#nav ul').html(nav);
 
@@ -948,6 +948,14 @@
 		window.ff.StartSid = sid;
 		isEnableRestoreScrollPosition = true;
 	}
+
+	window.ff.ClearAllStorage = function() {
+        window.localStorage.clear();
+        window.ff.AuthClearStorage();
+        alert('ストレージを削除しました。');
+        ScreenMode.Set(ScreenMode.Loading);
+        Initialize.Start();
+	};
 
 	var Initialize = new Sequence([
 		function() {

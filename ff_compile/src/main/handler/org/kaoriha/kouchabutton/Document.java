@@ -1,15 +1,20 @@
 package org.kaoriha.kouchabutton;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.StringWriter;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.kaoriha.flowerflower.compile.Constant;
 import org.kaoriha.flowerflower.compile.document.Chronicle;
 import org.kaoriha.flowerflower.compile.document.Depot;
 import org.kaoriha.flowerflower.compile.document.DocumentHandler;
 import org.kaoriha.flowerflower.compile.document.Fragment;
 import org.kaoriha.flowerflower.compile.document.IndexEntry;
 import org.kaoriha.flowerflower.compile.document.PushMessageMap;
-import org.kaoriha.flowerflower.compile.Constant;
 
 import com.googlecode.jatl.Html;
 
@@ -39,6 +44,35 @@ public class Document extends DocumentHandler {
 			cnf.setKey(Constant.CHARACTER_NOTE_INITIAL_KEY);
 		}
 		depot.getFragmentSet().add(cnf);
+
+		Fragment cnf2 = depot.fromKey(Constant.ABOUT_THIS_APP_INITIAL_KEY);
+		if (cnf2 == null) {
+			cnf2 = new Fragment();
+			File f = new File(Constant.ABOUT_THIS_APP_FILENAME);
+			try {
+				if (f.canRead()) {
+					FileInputStream fis = new FileInputStream(f);
+					InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+					BufferedReader br = new BufferedReader(isr);
+
+					StringBuilder sb = new StringBuilder();
+					String s;
+					while ((s = br.readLine()) != null) {
+						sb.append(s);
+					}
+					cnf2.setHtml(sb.toString());
+
+					br.close();
+					isr.close();
+					fis.close();
+				}
+			} catch (IOException e) {
+				System.out.println("ABOUT_THIS_APP_FILENAME file not found or bad.");
+				cnf2.setHtml("");
+			}
+			cnf2.setKey(Constant.ABOUT_THIS_APP_INITIAL_KEY);
+		}
+		depot.getFragmentSet().add(cnf2);
 	}
 
 	@Override

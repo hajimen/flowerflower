@@ -43,6 +43,10 @@ ReleaseNotification.prototype.setToken = function(token) {
     return PhoneGap.exec(null, null, 'ReleaseNotification', 'setToken', [token]);
 };
 
+ReleaseNotification.prototype.clear = function() {
+    return PhoneGap.exec(null, null, 'ReleaseNotification', 'clear', []);
+};
+
 /**
  * 	Load ReleaseNotification
  */
