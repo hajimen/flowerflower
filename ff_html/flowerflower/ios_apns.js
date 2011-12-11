@@ -2,7 +2,7 @@
 	var PSKEY_TOKEN = "token";
 	var REQUEST_TOKEN_PATH = "Office/IosApns/RequestAuthToken.ashx";
 	var EVENT_NEW_TOKEN = "newtoken";
-	var EVENT_NEW_TOKEN_TIMEOUT = 5000;
+	var EVENT_NEW_TOKEN_TIMEOUT = 10000;
 
 	var isUpdatingToken = false;
 	var deviceToken = null;
@@ -139,5 +139,8 @@
 	window.ff.IsConnectionOk = function() {
         var t = navigator.network.connection.type;
 		return t != Connection.NONE && t != Connection.UNKNOWN;
+	};
+
+	window.ff.AuthClearStorage = function() {
 	};
 })();
