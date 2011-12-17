@@ -102,12 +102,14 @@
 			window.ff.StatusSection.PopAction();
 			if (this.isFirstRun) {
 				window.ff.ScreenMode.Set(window.ff.ScreenMode.Authenticating);
+				window.ff.StatusSection.PushAction("アプリを認証しています...");
 				this.$1();
 				return true;
 			}
 		},
 		window.ff.RequestTokenSequenceGenerator(),
 		function() {
+			window.ff.StatusSection.PopAction();
 			window.ff.ScreenMode.Set(window.ff.ScreenMode.Loading);
 		}
 	]; };

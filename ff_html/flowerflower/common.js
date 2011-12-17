@@ -983,6 +983,7 @@
 			isEnableRestoreScrollPosition = true;
 
 			if (isFirstRun) {
+				ScreenMode.Set(ScreenMode.NotInitialized);
 				if (window.ff.IsConnectionOk()) {
 					StatusSection.Set(StatusSection.Type.InAction, "配信サーバと接続します...");
 					Update.Start();
