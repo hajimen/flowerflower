@@ -1,5 +1,6 @@
 (function() {
 	var PSKEY_TOKEN = "token";
+	var PSKEY_HAS_PUSH_AGREEMENT = "pushAgreement";
 	var REQUEST_TOKEN_PATH = "Office/IosApns/RequestAuthToken.ashx";
 	var EVENT_NEW_TOKEN = "newtoken";
 	var EVENT_NEW_TOKEN_TIMEOUT = 10000;
@@ -52,6 +53,36 @@
 
 	window.ff.AuthStartSequenceGenerator = function() { return [
 		function() {
+			if (localStorage.getItem(PSKEY_HAS_PUSH_AGREEMENT) === null) {
+				this.isFirstRun = true;
+				navigator.notification.confirm('このアプリはリモート通知を使います。よろしいですか？',
+						this.$1,
+						window.ff.Title,
+						'はい,いいえ');
+			} else {
+				this.$next();
+			}
+			return true;
+		},
+		[
+			function(button) {
+				if (button === 1) {
+					localStorage.setItem(PSKEY_HAS_PUSH_AGREEMENT, "true");
+					return;
+				} else {
+					navigator.notification.alert('リモート通知を許可されない場合、このアプリはご利用になれません。',
+							this.$next,
+							window.ff.Title,
+							'OK');
+					return true;
+				}
+			},
+			function() {
+				this.$onError();
+				return true;
+			}
+		],
+		function() {
 			document.addEventListener("remoteNotification", RemoteNotificationHanlder, false);
 			tokenCache = localStorage.getItem(PSKEY_TOKEN);
 			window.ff.StatusSection.PushAction("リモート通知を有効にしています...");
@@ -69,6 +100,15 @@
 		function(t) {
 	    	deviceToken = t;
 			window.ff.StatusSection.PopAction();
+			if (this.isFirstRun) {
+				window.ff.ScreenMode.Set(window.ff.ScreenMode.Authenticating);
+				this.$1();
+				return true;
+			}
+		},
+		window.ff.RequestTokenSequenceGenerator(),
+		function() {
+			window.ff.ScreenMode.Set(window.ff.ScreenMode.Loading);
 		}
 	]; };
 

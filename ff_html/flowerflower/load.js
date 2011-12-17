@@ -1,4 +1,5 @@
-document.write("<script src='../jquery-1.6.2.min.js'></script>");
+document.write("<script src='../jquery-1.6.2.min.js'></script>"
+		+ "<script src='../design/spin.min.js'></script>");
 var userAgent = navigator.userAgent.toLowerCase();
 if (userAgent.match(/android/)) {
 	document.write("<script src='../android/phonegap-1.1.0.js'></script>"

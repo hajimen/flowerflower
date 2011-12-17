@@ -119,14 +119,11 @@
 		if (context.$_isTimeouted || context.$_isExited) {
 			return;
 		}
-		var sequenceInstance = this;
 		var lf = f;
 		var lloc = loc;
 		while (true) {
 			this._prepareCall(lf, context, this.fa, null, lloc, 0, []);
-			context.$self = function() {
-				sequenceInstance._caller(lf, context, arguments, lloc);
-			};
+			context.$self = this._generateFunc(lf, context, lloc);
 			context.$_lastPassedTime = new Date().getTime();
 			if (lf.apply(context, args)) {
 				return;
@@ -141,22 +138,26 @@
 			context.$onExit();
 		}
 	};
+	Sequence.prototype._generateFunc = function(f, context,  loc) {
+		var that = this;
+		return function() {
+				that._caller(f, context, arguments, loc);
+		};
+	};
 	Sequence.prototype._prepareCall = function(f, context, cfa, pf, loc, depth, ploc) {
-		var sequenceInstance = this;
-		delete context.$next;
-		delete context.$1;
-		delete context.$2;
-		delete context.$3;
-		delete context.$4;
 		for (var i = loc[depth]; i < cfa.length; i ++) {
 			var a = cfa[i];
 			if (a === f) {
+				delete context.$next;
+				var c = 1;
+				while (context['$' + c]) {
+					delete context['$' + c];
+					c++;
+				}
 				if (pf) {
 					context.$_parent = pf;
 					context.$_parentLoc = ploc;
-					context.$parent =  function() {
-						sequenceInstance._caller(pf, context, arguments, ploc);
-					};
+					context.$parent =  this._generateFunc(pf, context, ploc);
 				} else {
 					delete context.$_parent;
 					delete context.$parent;
@@ -166,9 +167,7 @@
 					if (typeof(nf) == 'function') {
 						var nloc = loc.concat();
 						nloc[depth] = ii;
-						context.$next = function() {
-							sequenceInstance._caller(nf, context, arguments, nloc);
-						};
+						context.$next =  this._generateFunc(nf, context, nloc);
 						break;
 					}
 				}
@@ -180,47 +179,10 @@
 							if (typeof(n[ii]) != 'function') {
 								continue;
 							}
-							switch(c) {
-								case 1: {
-									var c1 = n[ii];
-									var c1loc = loc.concat([ii]);
-									c1loc[depth] = i + 1;
-									context.$1 = function() {
-										sequenceInstance._caller(c1, context, arguments, c1loc);
-									};
-									break;
-								}
-								case 2: {
-									var c2 = n[ii];
-									var c2loc = loc.concat([ii]);
-									c2loc[depth] = i + 1;
-									context.$2 = function() {
-										sequenceInstance._caller(c2, context, arguments, c2loc);
-									};
-									break;
-								}
-								case 3: {
-									var c3 = n[ii];
-									var c3loc = loc.concat([ii]);
-									c3loc[depth] = i + 1;
-									context.$3 = function() {
-										sequenceInstance._caller(c3, context, arguments, c3loc);
-									};
-									break;
-								}
-								case 4: {
-									var c4 = n[ii];
-									var c4loc = loc.concat([ii]);
-									c4loc[depth] = i + 1;
-									context.$4 = function() {
-										sequenceInstance._caller(c4, context, arguments, c4loc);
-									};
-									break;
-								}
-								default:
-									alert("アプリのエラー:fb185496-0f7c-401e-b378-491fc73c0492 アプリの製造元にご連絡ください。");
-									break;
-							}
+							var cf = n[ii];
+							var cfloc = loc.concat([ii]);
+							cfloc[depth] = i + 1;
+							context['$' + c] = this._generateFunc(cf, context, cfloc);
 							c ++;
 						}
 					}
@@ -241,20 +203,19 @@
 		}
 	};
 	Sequence.prototype.Start = function(context) {
-		var scopeThis = this;
-		if (context) {
-		} else {
+		var that = this;
+		if (!context) {
 			context = {};
 		}
 		context.$_isExited = false;
 		context.$_lastPassedTime = null;
 		context.$_isTimeouted = false;
 		context.$IsTimeouted = function(now) {
-			if (context.$_isTimeouted) {
+			if (context.$_isTimeouted || context.$_isExited) {
 				return true;
 			}
-			if (scopeThis.timeout) {
-				if (scopeThis.timeout + context.$_lastPassedTime < now) {
+			if (that.timeout) {
+				if (that.timeout + context.$_lastPassedTime < now) {
 					context.$onTimeout();
 					if (context.$onExit) {
 						context.$onExit();
@@ -267,21 +228,21 @@
 		};
 		context.$onExit = function() {
 			delete context.$onExit;
-			if (scopeThis.onExit) {
-				scopeThis.onExit.apply(context, arguments);
+			if (that.onExit) {
+				that.onExit.apply(context, arguments);
 			}
 			context.$_isExited = true;
-			delete scopeThis.contextSet[context.$_index];
+			delete that.contextSet[context.$_index];
 		};
 		context.$onError = function() {
-			if (scopeThis.onError) {
-				scopeThis.onError.apply(context, arguments);
+			if (that.onError) {
+				that.onError.apply(context, arguments);
 			}
 			context.$onExit();
 		};
 		context.$onTimeout = function() {
-			if (scopeThis.onTimeout) {
-				scopeThis.onTimeout.apply(context, arguments);
+			if (that.onTimeout) {
+				that.onTimeout.apply(context, arguments);
 			}
 			context.$onExit();
 		};
@@ -293,19 +254,65 @@
 
 	var ScreenMode = {
 			"Loading" : "Loading",
+			"Authenticating" : "Authenticating",
+			"NotInitialized" : "NotInitialized",
 			"Scrolling" : "Scrolling",
-			"Content" : "Content"
+			"Content" : "Content",
+			"_spinner" : null
 	};
 	ScreenMode.Set = function(mode) {
 		var d = document.getElementById("beforeBuildDomTree");
 		var s = document.getElementById("beforeRestoreScrollPosition");
+
+		if (mode === ScreenMode.Authenticating
+				|| mode === ScreenMode.Loading) {
+			var opts = {
+					  lines: 12, // The number of lines to draw
+					  length: 7, // The length of each line
+					  width: 4, // The line thickness
+					  radius: 30, // The radius of the inner circle
+					  color: '#000', // #rgb or #rrggbb
+					  speed: 1, // Rounds per second
+					  trail: 60, // Afterglow percentage
+					  shadow: false // Whether to render a shadow
+					};
+			if (!ScreenMode._spinner) {
+				ScreenMode._spinner = new Spinner(opts).spin(document.getElementById('busy_screen'));
+			}
+		} else if (ScreenMode._spinner) {
+			ScreenMode._spinner.stop();
+			ScreenMode._spinner = null;
+		}
+
 		switch (mode) {
+		case ScreenMode.NotInitialized:
+			if (s) {
+				s.disabled = false;
+			}
+			if (d) {
+				d.disabled = false;
+				$('#now_loading').css("display", "block");
+				$('#now_authenticating').css("display", "none");
+			}
+			break;
 		case ScreenMode.Loading:
 			if (s) {
 				s.disabled = false;
 			}
 			if (d) {
 				d.disabled = false;
+				$('#now_loading').css("display", "block");
+				$('#now_authenticating').css("display", "none");
+			}
+			break;
+		case ScreenMode.Authenticating:
+			if (s) {
+				s.disabled = false;
+			}
+			if (d) {
+				d.disabled = false;
+				$('#now_loading').css("display", "none");
+				$('#now_authenticating').css("display", "block");
 			}
 			break;
 		case ScreenMode.Scrolling:
@@ -957,16 +964,18 @@
 
 	var Initialize = new Sequence([
 		function() {
+			StatusSection.Set(StatusSection.Type.InAction, "アプリを初期化しています...");
+			ScreenMode.Set(ScreenMode.Loading);
 			this.$1();
 			return true;
 		},
 		window.ff.AuthStartSequenceGenerator(),
 		function() {
-			if (localStorage.getItem(DepotStorageKey.Index) == null) {
+			if (localStorage.getItem(DepotStorageKey.Index) === null) {
 				isFirstRun = true;
 			}
 
-			if (localStorage.getItem(PreferenceStorageKey.LastOpenSid) != null) {
+			if (localStorage.getItem(PreferenceStorageKey.LastOpenSid) !== null) {
 				window.ff.StartSid = localStorage.getItem(PreferenceStorageKey.LastOpenSid);
 			} else {
 				window.ff.StartSid = "";
@@ -996,11 +1005,9 @@
 			document.removeEventListener("resume", arguments.callee, false);
 			Initialize.Start();
 		}, false);
+		ScreenMode.Set(ScreenMode.NotInitialized);
 		StatusSection.Set(StatusSection.Type.Error, "アプリの初期化に失敗しました。",
 			"リセット", function() { Initialize.Start() });
-	}, 7000, function() {
-		StatusSection.Set(StatusSection.Type.Error, "アプリの初期化がタイムアウトしました。",
-				"リセット", Initialize.Start);
 	});
 	sequenceInstanceSet['Initialize'] = Initialize;
 
