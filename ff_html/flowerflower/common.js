@@ -954,13 +954,23 @@
 		isEnableRestoreScrollPosition = true;
 	}
 
-	window.ff.ClearAllStorage = function() {
-        window.localStorage.clear();
-        window.ff.AuthClearStorage();
-        alert('ストレージを削除しました。');
-        ScreenMode.Set(ScreenMode.Loading);
-        Initialize.Start();
-	};
+	var ClearAllStorageSequence = new Sequence([
+		function() {
+			navigator.notification.confirm('ストレージを削除します。よろしいですか？',
+					this.$next,
+					window.ff.Title,
+					'いいえ,はい');
+			return true;
+		},
+		function(button) {
+			if (button === 2) {
+		        window.localStorage.clear();
+		        window.ff.AuthClearStorage();
+		        Initialize.Start();
+			}
+		}
+	]);
+	window.ff.ClearAllStorage = function() { ClearAllStorageSequence.Start(); };
 
 	var Initialize = new Sequence([
 		function() {
