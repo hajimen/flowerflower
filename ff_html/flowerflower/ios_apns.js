@@ -14,19 +14,25 @@
 	} else {
 		window.ff = {};
 	}
-    window.ff.AuthScheme = "iOS_APNs";
+	window.ff.AuthScheme = "iOS_APNs";
 
 	// iPad 3.2 bug workaround
 	var localStorage = {
-			'setItem' : function(k, v) {
-				if (window.localStorage.getItem(k) != null) {
-					window.localStorage.removeItem(k);
-				}
-				window.localStorage.setItem(k, v);
-			},
-			'getItem' : function(k) { return window.localStorage.getItem(k); },
-			'clear' : function() { window.localStorage.clear(); },
-			'removeItem' : function(k) { window.localStorage.removeItem(k); }
+		'setItem' : function(k, v) {
+			if (window.localStorage.getItem(k) != null) {
+				window.localStorage.removeItem(k);
+			}
+			window.localStorage.setItem(k, v);
+		},
+		'getItem' : function(k) {
+			return window.localStorage.getItem(k);
+		},
+		'clear' : function() {
+			window.localStorage.clear();
+		},
+		'removeItem' : function(k) {
+			window.localStorage.removeItem(k);
+		}
 	};
 
 	window.ff.CatalogueUpdated = function(etag, lastSid) {
@@ -42,10 +48,10 @@
 			tokenCache = event.payload.authToken;
 			localStorage.setItem(PSKEY_TOKEN, tokenCache);
 			isUpdatingToken = false;
-		    var e = document.createEvent('Events'); 
-		    e.initEvent(EVENT_NEW_TOKEN, false, false);
-		    e.isOk = true;
-		    document.dispatchEvent(e);
+			var e = document.createEvent('Events');
+			e.initEvent(EVENT_NEW_TOKEN, false, false);
+			e.isOk = true;
+			document.dispatchEvent(e);
 		} else {
 			window.ff.FireUpdate(1000);
 		}
@@ -55,10 +61,10 @@
 		function() {
 			if (localStorage.getItem(PSKEY_HAS_PUSH_AGREEMENT) === null) {
 				this.isFirstRun = true;
-				navigator.notification.confirm('このアプリはリモート通知を使います。よろしいですか？',
+				navigator.notification.confirm(
+						'このアプリはリモート通知を使います。よろしいですか？',
 						this.$1,
-						window.ff.Title,
-						'いいえ,はい');
+						window.ff.Title, 'いいえ,はい');
 			} else {
 				this.$next();
 			}
@@ -70,7 +76,8 @@
 					localStorage.setItem(PSKEY_HAS_PUSH_AGREEMENT, "true");
 					return;
 				} else {
-					navigator.notification.alert('リモート通知を許可されない場合、このアプリはご利用になれません。',
+					navigator.notification.alert(
+							'リモート通知を許可されない場合、このアプリはご利用になれません。',
 							this.$onError,
 							window.ff.Title,
 							'OK');
@@ -83,18 +90,20 @@
 			tokenCache = localStorage.getItem(PSKEY_TOKEN);
 			window.ff.StatusSection.PushAction("リモート通知を有効にしています...");
 			var scopeThis = this;
-			window.plugins.remoteNotification.register(this.$next, function(message) {
-				alert("アプリのエラー:11d97b4e-eca6-4c7e-b6ad-8da4d9df1e3f " + message);
-				scopeThis.$onError();
-			}, {
-				"Badge" : 1,
-				"Alert" : 1,
-				"Sound" : 0
-			});
+			window.plugins.remoteNotification.register(
+					this.$next,
+					function(message) {
+						alert("アプリのエラー:11d97b4e-eca6-4c7e-b6ad-8da4d9df1e3f " + message);
+						scopeThis.$onError();
+					}, {
+						"Badge" : 1,
+						"Alert" : 1,
+						"Sound" : 0
+					});
 			return true;
 		},
 		function(t) {
-	    	deviceToken = t;
+			deviceToken = t;
 			window.ff.StatusSection.PopAction();
 			if (this.isFirstRun) {
 				window.ff.ScreenMode.Set(window.ff.ScreenMode.Authenticating);
@@ -110,27 +119,27 @@
 		}
 	]; };
 
-    window.ff.ServerConnectionSuccessed = function() {
-        window.plugins.remoteNotification.clearBadge();
-    };
+	window.ff.ServerConnectionSuccessed = function() {
+		window.plugins.remoteNotification.clearBadge();
+	};
 
-    window.ff.RequestTokenSequenceGenerator = function() {return [
-        function() {
-            window.plugins.remoteNotification.enabledTypes(this.$next);
-            return true;
-        },
+	window.ff.RequestTokenSequenceGenerator = function() { return [
+		function() {
+			window.plugins.remoteNotification.enabledTypes(this.$next);
+			return true;
+		},
 		function(enabledTypes) {
-			var scopeThis = this;
-            if (!enabledTypes.Badge && !enabledTypes.Alert) {
-                navigator.notification.alert('このアプリはリモート通知を使います。ホーム画面の[設定]→[通知]から[' + window.ff.Title + ']のバッジと通知を有効にしてください。',
-                        function() {
-                            window.ff.ScreenMode.Set(window.ff.ScreenMode.NotInitialized);
-                            scopeThis.$onError();
-                        },
+			if (!enabledTypes.Badge && !enabledTypes.Alert) {
+				navigator.notification.alert(
+						'このアプリはリモート通知を使います。ホーム画面の[設定]→[通知]から['
+								+ window.ff.Title
+								+ ']のバッジと通知を有効にしてください。',
+						this.$onError,
 						window.ff.Title,
 						'OK');
-                return true;
-            }
+				return true;
+			}
+			var scopeThis = this;
 			var l = function(event) {
 				document.removeEventListener(EVENT_NEW_TOKEN, arguments.callee, false);
 				if (event.isOk) {
@@ -146,36 +155,32 @@
 			} else {
 				isUpdatingToken = true;
 				eventNewTokenTimeout = setTimeout(NewTokenTimeouted, EVENT_NEW_TOKEN_TIMEOUT);
-				window.ff.RequestService(
-						REQUEST_TOKEN_PATH,
-						"POST",
-						{"deviceToken" : deviceToken},
-						null,
-						this.$next);
+				window.ff.RequestService(REQUEST_TOKEN_PATH, "POST", {
+					"deviceToken" : deviceToken
+				}, null, this.$next);
 			}
-	    	return true;
+			return true;
 		},
 		function(xhr, status) {
 			document.removeEventListener(EVENT_NEW_TOKEN, this.tokenEventListener, false);
 			this.$next(xhr, status);
 			return true;
-		},
-		window.ff.AuthErrorSequenceFunc
+		}, window.ff.AuthErrorSequenceFunc
 	]; };
 
-    function NewTokenTimeouted() {
-        if (window.ff.IsConnectionOk()) {
-            alert("アプリのエラー:5c358cdf-7bc8-4ad0-b209-8300da00ceff リモート通知を受け取れませんでした。配信サーバとの通信または配信サーバに異常があります。");
-        }
-	    var e = document.createEvent('Events'); 
-	    e.initEvent(EVENT_NEW_TOKEN, false, false);
-	    e.isOk = false;
-	    document.dispatchEvent(e);
+	function NewTokenTimeouted() {
+		if (window.ff.IsConnectionOk()) {
+			alert("アプリのエラー:5c358cdf-7bc8-4ad0-b209-8300da00ceff リモート通知を受け取れませんでした。配信サーバとの通信または配信サーバに異常があります。");
+		}
+		var e = document.createEvent('Events');
+		e.initEvent(EVENT_NEW_TOKEN, false, false);
+		e.isOk = false;
+		document.dispatchEvent(e);
 		isUpdatingToken = false;
-    }
+	}
 
-    window.ff.ReceiveTokenSequenceGenerator = function() {return [
-		function() {
+	window.ff.ReceiveTokenSequenceGenerator = function() { return [
+        function() {
 			if (tokenCache) {
 				this.token = tokenCache;
 				return;
@@ -191,7 +196,7 @@
 	]; };
 
 	window.ff.IsConnectionOk = function() {
-        var t = navigator.network.connection.type;
+		var t = navigator.network.connection.type;
 		return t != Connection.NONE && t != Connection.UNKNOWN;
 	};
 
