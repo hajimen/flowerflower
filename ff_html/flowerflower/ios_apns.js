@@ -3,7 +3,7 @@
 	var PSKEY_HAS_PUSH_AGREEMENT = "pushAgreement";
 	var REQUEST_TOKEN_PATH = "Office/IosApns/RequestAuthToken.ashx";
 	var EVENT_NEW_TOKEN = "newtoken";
-	var EVENT_NEW_TOKEN_TIMEOUT = 10000;
+	var EVENT_NEW_TOKEN_TIMEOUT = 30000;
 
 	var isUpdatingToken = false;
 	var deviceToken = null;
@@ -71,15 +71,11 @@
 					return;
 				} else {
 					navigator.notification.alert('リモート通知を許可されない場合、このアプリはご利用になれません。',
-							this.$next,
+							this.$onError,
 							window.ff.Title,
 							'OK');
 					return true;
 				}
-			},
-			function() {
-				this.$onError();
-				return true;
 			}
 		],
 		function() {
@@ -119,8 +115,22 @@
     };
 
     window.ff.RequestTokenSequenceGenerator = function() {return [
-		function() {
+        function() {
+            window.plugins.remoteNotification.enabledTypes(this.$next);
+            return true;
+        },
+		function(enabledTypes) {
 			var scopeThis = this;
+            if (!enabledTypes.Badge && !enabledTypes.Alert) {
+                navigator.notification.alert('このアプリはリモート通知を使います。ホーム画面の[設定]→[通知]から[' + window.ff.Title + ']のバッジと通知を有効にしてください。',
+                        function() {
+                            window.ff.ScreenMode.Set(window.ff.ScreenMode.NotInitialized);
+                            scopeThis.$onError();
+                        },
+						window.ff.Title,
+						'OK');
+                return true;
+            }
 			var l = function(event) {
 				document.removeEventListener(EVENT_NEW_TOKEN, arguments.callee, false);
 				if (event.isOk) {
@@ -154,7 +164,9 @@
 	]; };
 
     function NewTokenTimeouted() {
-    	alert("アプリのエラー:5c358cdf-7bc8-4ad0-b209-8300da00ceff 配信サーバとの通信または配信サーバに異常があります。");
+        if (window.ff.IsConnectionOk()) {
+            alert("アプリのエラー:5c358cdf-7bc8-4ad0-b209-8300da00ceff リモート通知を受け取れませんでした。配信サーバとの通信または配信サーバに異常があります。");
+        }
 	    var e = document.createEvent('Events'); 
 	    e.initEvent(EVENT_NEW_TOKEN, false, false);
 	    e.isOk = false;

@@ -250,10 +250,10 @@
 			buildPhases = (
 				57AC6E04141DC703002CC2A0 /* Sources */,
 				57AC6E05141DC703002CC2A0 /* Frameworks */,
+				57AC6E09141DC703002CC2A0 /* ShellScript */,
 				57AC6E06141DC703002CC2A0 /* Resources */,
 				57AC6E07141DC703002CC2A0 /* Sources */,
 				57AC6E08141DC703002CC2A0 /* Frameworks */,
-				57AC6E09141DC703002CC2A0 /* ShellScript */,
 			);
 			buildRules = (
 			);

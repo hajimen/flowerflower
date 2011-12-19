@@ -13,6 +13,10 @@ RemoteNotification.prototype.clearBadge = function(successFunc, errorFunc, optio
     PhoneGap.exec(successFunc, errorFunc, "org.kaoriha.phonegap.plugins.remotenotification", "clearBadge", [options]);
 };
 
+RemoteNotification.prototype.enabledTypes = function(successFunc, errorFunc, options) {
+    PhoneGap.exec(successFunc, errorFunc, "org.kaoriha.phonegap.plugins.remotenotification", "enabledTypes", [options]);
+};
+
 function RNglp(payload) {
     window.plugins.remoteNotification.launchPayload = null;
     if (payload !== null) {

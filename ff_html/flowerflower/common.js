@@ -1008,7 +1008,7 @@
 		}, false);
 		ScreenMode.Set(ScreenMode.NotInitialized);
 		StatusSection.Set(StatusSection.Type.Error, "アプリの初期化に失敗しました。",
-			"リセット", function() { Initialize.Start() });
+			"リトライ", function() { Initialize.Start() });
 	});
 	sequenceInstanceSet['Initialize'] = Initialize;
 

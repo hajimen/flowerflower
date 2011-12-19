@@ -34,5 +34,6 @@
 - (void)registerFailed:(NSError*)err;
 - (void)receive:(NSDictionary *)payload;
 - (void)clearBadge:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+- (void)enabledTypes:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
 
 @end

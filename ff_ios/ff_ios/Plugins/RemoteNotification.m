@@ -77,6 +77,28 @@ UIRemoteNotificationType genRNType(NSMutableDictionary* dict, NSString* key, UIR
      registerForRemoteNotificationTypes: accum];
 }
 
+- (void)enabledTypes:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options {
+    NSString* cid = [arguments objectAtIndex:0];
+    NSMutableDictionary *types = [[NSMutableDictionary alloc] init];
+
+    UIRemoteNotificationType userConfig = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+
+    if (userConfig & UIRemoteNotificationTypeBadge) {
+        [types setObject:@"true" forKey:@"Badge"]; 
+    }
+    if (userConfig & UIRemoteNotificationTypeSound) {
+        [types setObject:@"true" forKey:@"Sound"]; 
+    }
+    if (userConfig & UIRemoteNotificationTypeAlert) {
+        [types setObject:@"true" forKey:@"Alert"]; 
+    }
+
+    PluginResult* result = [PluginResult resultWithStatus: PGCommandStatus_OK messageAsDictionary:types];
+    NSString* js = [result toSuccessCallbackString:cid];
+    [self writeJavascript:js];
+}
+
+
 - (void)registerOK:(NSData*)deviceToken {
     GTMStringEncoding *encoding = [GTMStringEncoding hexStringEncoding];
     NSString* hexToken = [encoding encode:deviceToken];
