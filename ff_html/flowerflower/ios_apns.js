@@ -58,7 +58,7 @@
 				navigator.notification.confirm('このアプリはリモート通知を使います。よろしいですか？',
 						this.$1,
 						window.ff.Title,
-						'はい,いいえ');
+						'いいえ,はい');
 			} else {
 				this.$next();
 			}
@@ -66,7 +66,7 @@
 		},
 		[
 			function(button) {
-				if (button === 1) {
+				if (button === 2) {
 					localStorage.setItem(PSKEY_HAS_PUSH_AGREEMENT, "true");
 					return;
 				} else {
