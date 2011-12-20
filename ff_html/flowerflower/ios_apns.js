@@ -62,7 +62,7 @@
 			if (localStorage.getItem(PSKEY_HAS_PUSH_AGREEMENT) === null) {
 				this.isFirstRun = true;
 				navigator.notification.confirm(
-						'このアプリはリモート通知を使います。よろしいですか？',
+						'このアプリはプッシュ通知を使います。よろしいですか？',
 						this.$1,
 						window.ff.Title, 'いいえ,はい');
 			} else {
@@ -77,7 +77,7 @@
 					return;
 				} else {
 					navigator.notification.alert(
-							'リモート通知を許可されない場合、このアプリはご利用になれません。',
+							'プッシュ通知を許可されない場合、このアプリはご利用になれません。',
 							this.$onError,
 							window.ff.Title,
 							'OK');
@@ -88,7 +88,20 @@
 		function() {
 			document.addEventListener("remoteNotification", RemoteNotificationHanlder, false);
 			tokenCache = localStorage.getItem(PSKEY_TOKEN);
-			window.ff.StatusSection.PushAction("リモート通知を有効にしています...");
+			window.ff.StatusSection.PushAction("プッシュ通知を有効にしています...");
+            window.plugins.remoteNotification.enabledTypes(this.$next);
+            return true;
+        },
+        function(enabledTypes) {
+            if (!this.isFirstRun && !enabledTypes.Badge && !enabledTypes.Alert) {
+                navigator.notification.alert(
+                    'このアプリはプッシュ通知を使います。ホーム画面の[設定]→[通知]から[' + window.ff.Title
+                        + ']のバッジと通知を有効にしてください。',
+                    this.$onError,
+                    window.ff.Title,
+                    'OK');
+                return true;
+            }
 			var scopeThis = this;
 			window.plugins.remoteNotification.register(
 					this.$next,
@@ -100,15 +113,31 @@
 						"Alert" : 1,
 						"Sound" : 0
 					});
+			var timeoutWait = 1000;
+			if (this.isFirstRun) {
+				timeoutWait = 10000;
+			}
+			this.deviceTokenTimeout = setTimeout(
+				function() {
+					navigator.notification.alert(
+						'このアプリはプッシュ通知を使います。ホーム画面の[設定]→[通知]から[' + window.ff.Title
+						+ ']のバッジと通知を有効にしてください。',
+						scopeThis.$onError,
+						window.ff.Title,
+						'OK');
+				}, timeoutWait
+			);
 			return true;
 		},
 		function(t) {
+			clearTimeout(this.deviceTokenTimeout);
+			delete this.deviceTokenTimeout;
 			deviceToken = t;
 			window.ff.StatusSection.PopAction();
 			if (this.isFirstRun) {
 				window.ff.ScreenMode.Set(window.ff.ScreenMode.Authenticating);
 				window.ff.StatusSection.PushAction("アプリを認証しています...");
-				this.$1();
+                setTimeout(this.$1, 1000);
 				return true;
 			}
 		},
@@ -131,7 +160,7 @@
 		function(enabledTypes) {
 			if (!enabledTypes.Badge && !enabledTypes.Alert) {
 				navigator.notification.alert(
-						'このアプリはリモート通知を使います。ホーム画面の[設定]→[通知]から['
+						'このアプリはプッシュ通知を使います。ホーム画面の[設定]→[通知]から['
 								+ window.ff.Title
 								+ ']のバッジと通知を有効にしてください。',
 						this.$onError,
@@ -170,7 +199,7 @@
 
 	function NewTokenTimeouted() {
 		if (window.ff.IsConnectionOk()) {
-			alert("アプリのエラー:5c358cdf-7bc8-4ad0-b209-8300da00ceff リモート通知を受け取れませんでした。配信サーバとの通信または配信サーバに異常があります。");
+			alert("アプリのエラー:5c358cdf-7bc8-4ad0-b209-8300da00ceff プッシュ通知を受け取れませんでした。配信サーバとの通信または配信サーバに異常があります。");
 		}
 		var e = document.createEvent('Events');
 		e.initEvent(EVENT_NEW_TOKEN, false, false);
