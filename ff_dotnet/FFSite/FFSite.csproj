@@ -70,6 +70,13 @@
     <Compile Include="AAuthStrategy.cs" />
     <Compile Include="AndroidLvlAuthStrategy.cs" />
     <Compile Include="AuthScheme.cs" />
+    <Compile Include="Auth\Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Auth\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
@@ -118,6 +125,13 @@
     <Compile Include="Office\AndroidLvl\RequestAuthToken.ashx.cs">
       <DependentUpon>RequestAuthToken.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Public\PublishAuthenticationKey.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>PublishAuthenticationKey.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Public\PublishAuthenticationKey.aspx.designer.cs">
+      <DependentUpon>PublishAuthenticationKey.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteConstant.cs" />
     <Compile Include="Util.cs" />
@@ -153,29 +167,30 @@
     <Content Include="Office\AndroidLvl\RequestAuthToken.ashx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Auth\Default.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="design\before_build_dom_tree.css" />
     <Content Include="design\before_restore_scroll_position.css" />
     <Content Include="design\blank_square.png" />
     <Content Include="design\design.css" />
     <Content Include="design\design.js" />
+    <Content Include="design\design_ie8.css" />
     <Content Include="design\left_top.png" />
     <Content Include="design\list_marker.png" />
     <Content Include="design\list_marker_current.png" />
     <Content Include="design\now_loading.png" />
     <Content Include="flowerflower\fire_content_updated.js" />
+    <Content Include="flowerflower\restore_scroll.js" />
     <Content Include="jquery-1.6.2.min.js" />
     <Content Include="jquery-cookie.js" />
     <Content Include="Office\IosApns\RequestAuthToken.ashx" />
+    <Content Include="Public\PublishAuthenticationKey.aspx" />
     <Content Include="Public\apps.html" />
     <Content Include="Public\catchphrase.png" />
     <Content Include="Public\index.html" />
     <Content Include="Public\screenshot.png" />
-    <Content Include="tsume\index.html" />
     <Content Include="tsume\tsume.css" />
     <Content Include="tsume\tsume.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Auth\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v8.0\WebApplications\Microsoft.WebApplication.targets" />
