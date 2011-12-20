@@ -24,6 +24,10 @@ namespace TestFFCommon.Apns
             p.Custom["custom"] = "custom value";
             Expect(p.ToJsonString(), Is.EqualTo("{\"custom\":\"custom value\",\"aps\":{\"alert\":\"test\",\"badge\":1,\"sound\":\"sound.wav\"}}"));
 
+            Payload p2 = new Payload();
+            p2.Custom["custom"] = "custom value";
+            Expect(p2.ToJsonString(), Is.EqualTo("{\"custom\":\"custom value\"}"));
+
             string t = "";
             for (int i = 0; i < 16; i++)
             {
