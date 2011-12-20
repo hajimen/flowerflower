@@ -35,7 +35,6 @@
 		57AC6E30141DC703002CC2A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AC6E2F141DC703002CC2A0 /* main.m */; };
 		57AC6E33141DC703002CC2A0 /* PhoneGap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AC6E32141DC703002CC2A0 /* PhoneGap.framework */; };
 		57AC6E38141DC703002CC2A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57AC6E36141DC703002CC2A0 /* Localizable.strings */; };
-		57AC6E3C141DC703002CC2A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57AC6E3A141DC703002CC2A0 /* Localizable.strings */; };
 		57AC6E4A141DC703002CC2A0 /* Capture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57AC6E49141DC703002CC2A0 /* Capture.bundle */; };
 		57AC6E4C141DC703002CC2A0 /* PhoneGap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57AC6E4B141DC703002CC2A0 /* PhoneGap.plist */; };
 		57AC6E50141DC703002CC2A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AC6E4F141DC703002CC2A0 /* AppDelegate.m */; };
@@ -78,7 +77,6 @@
 		57AC6E31141DC703002CC2A0 /* ff_ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ff_ios-Prefix.pch"; sourceTree = "<group>"; };
 		57AC6E32141DC703002CC2A0 /* PhoneGap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhoneGap.framework; path = /Users/Shared/PhoneGap/Frameworks/PhoneGap.framework; sourceTree = "<absolute>"; };
 		57AC6E37141DC703002CC2A0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		57AC6E3B141DC703002CC2A0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Resources/es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		57AC6E49141DC703002CC2A0 /* Capture.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Capture.bundle; path = Resources/Capture.bundle; sourceTree = "<group>"; };
 		57AC6E4B141DC703002CC2A0 /* PhoneGap.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PhoneGap.plist; sourceTree = "<group>"; };
 		57AC6E4E141DC703002CC2A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 		57AC6E39141DC703002CC2A0 /* es.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				57AC6E3A141DC703002CC2A0 /* Localizable.strings */,
 			);
 			name = es.lproj;
 			sourceTree = "<group>";
@@ -303,7 +300,6 @@
 				5717AF6B147A5C5300708DCE /* icon@2x.png in Resources */,
 				57AC6E2E141DC703002CC2A0 /* InfoPlist.strings in Resources */,
 				57AC6E38141DC703002CC2A0 /* Localizable.strings in Resources */,
-				57AC6E3C141DC703002CC2A0 /* Localizable.strings in Resources */,
 				57AC6E4A141DC703002CC2A0 /* Capture.bundle in Resources */,
 				57AC6E4C141DC703002CC2A0 /* PhoneGap.plist in Resources */,
 				576466D31485F9C100DA767C /* www in Resources */,
@@ -366,64 +362,9 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		57AC6E3A141DC703002CC2A0 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				57AC6E3B141DC703002CC2A0 /* es */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		577EA9DC148614F600E22552 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = AdHoc;
-		};
-		577EA9DD148614F600E22552 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = /Users/Shared/PhoneGap/Frameworks;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ff_ios/ff_ios-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "PHONEGAP_FRAMEWORK=YES";
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				INFOPLIST_FILE = "ff_ios/ff_ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
-				PRODUCT_NAME = "紅茶ボタン";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv6 armv7";
-				WRAPPER_EXTENSION = app;
-			};
-			name = AdHoc;
-		};
 		578984551470969F0071693D /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -439,7 +380,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CBD172F2-6F99-4ED2-86C7-B53EFCD995E6";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -493,32 +434,10 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
-		};
-		57AC6E54141DC703002CC2A0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
 		};
 		57AC6E56141DC703002CC2A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -544,31 +463,6 @@
 			};
 			name = Debug;
 		};
-		57AC6E57141DC703002CC2A0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = /Users/Shared/PhoneGap/Frameworks;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ff_ios/ff_ios-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "PHONEGAP_FRAMEWORK=YES";
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				INFOPLIST_FILE = "ff_ios/ff_ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
-				PRODUCT_NAME = "紅茶ボタン";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv6 armv7";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -576,9 +470,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57AC6E53141DC703002CC2A0 /* Debug */,
-				57AC6E54141DC703002CC2A0 /* Release */,
 				578984551470969F0071693D /* AppStore */,
-				577EA9DC148614F600E22552 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = AppStore;
@@ -587,9 +479,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57AC6E56141DC703002CC2A0 /* Debug */,
-				57AC6E57141DC703002CC2A0 /* Release */,
 				578984561470969F0071693D /* AppStore */,
-				577EA9DD148614F600E22552 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = AppStore;
