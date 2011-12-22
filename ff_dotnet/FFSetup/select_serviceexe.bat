@@ -1,0 +1,1 @@
+cscript /nologo "..\WiRunSQL.vbs" "flowerflower_server_setup.msi" "SELECT Component_ FROM File WHERE FileName='FFSCHE~1.EXE|FFScheduler.exe'"
