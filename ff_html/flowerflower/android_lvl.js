@@ -29,7 +29,15 @@
 		function(o) {
 			if (o.token) {
 				tokenCache = o.token;
+			} else {
+				window.ff.StatusSection.PushAction("アプリを認証しています...");
+				this.$1();
+				return true;
 			}
+		},
+		window.ff.RequestTokenSequenceGenerator(),
+		function() {
+			window.ff.StatusSection.PopAction();
 		}
 	]; };
 
