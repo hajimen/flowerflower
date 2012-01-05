@@ -138,6 +138,7 @@
 			delete this.deviceTokenTimeout;
 			deviceToken = t;
 			window.ff.StatusSection.PopAction();
+			document.addEventListener("orientationchange", OnOrientationChanged);
 			if (this.isFirstRun) {
 				window.ff.ScreenMode.Set(window.ff.ScreenMode.Authenticating);
 				window.ff.StatusSection.PushAction("アプリを認証しています...");
@@ -148,7 +149,6 @@
 		window.ff.RequestTokenSequenceGenerator(),
 		function() {
 			window.ff.StatusSection.PopAction();
-			document.addEventListener("orientationChanged", OnOrientationChanged);
 			window.ff.ScreenMode.Set(window.ff.ScreenMode.Loading);
 		}
 	]; };
@@ -189,9 +189,9 @@
 			} else {
 				isUpdatingToken = true;
 				eventNewTokenTimeout = setTimeout(NewTokenTimeouted, EVENT_NEW_TOKEN_TIMEOUT);
-				window.ff.RequestService(REQUEST_TOKEN_PATH, "POST", {
-					"deviceToken" : deviceToken
-				}, null, this.$next);
+//				window.ff.RequestService(REQUEST_TOKEN_PATH, "POST", {
+//					"deviceToken" : deviceToken
+//				}, null, this.$next);
 			}
 			return true;
 		},
