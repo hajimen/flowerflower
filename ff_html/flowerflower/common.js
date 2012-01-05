@@ -264,26 +264,6 @@
 		var d = document.getElementById("beforeBuildDomTree");
 		var s = document.getElementById("beforeRestoreScrollPosition");
 
-		if (mode === ScreenMode.Authenticating
-				|| mode === ScreenMode.Loading) {
-			var opts = {
-					  lines: 12, // The number of lines to draw
-					  length: 7, // The length of each line
-					  width: 4, // The line thickness
-					  radius: 30, // The radius of the inner circle
-					  color: '#000', // #rgb or #rrggbb
-					  speed: 1, // Rounds per second
-					  trail: 60, // Afterglow percentage
-					  shadow: false // Whether to render a shadow
-					};
-			if (!ScreenMode._spinner) {
-				ScreenMode._spinner = new Spinner(opts).spin(document.getElementById('busy_screen'));
-			}
-		} else if (ScreenMode._spinner) {
-			ScreenMode._spinner.stop();
-			ScreenMode._spinner = null;
-		}
-
 		switch (mode) {
 		case ScreenMode.NotInitialized:
 			if (s) {
@@ -340,6 +320,24 @@
 				d.disabled = true;
 			}
 			break;
+		}
+
+		var isToSpin = (mode === ScreenMode.Authenticating || mode === ScreenMode.Loading);
+		if (isToSpin && !ScreenMode._spinner) {
+			var opts = {
+					  lines: 12, // The number of lines to draw
+					  length: 7, // The length of each line
+					  width: 4, // The line thickness
+					  radius: 30, // The radius of the inner circle
+					  color: '#000', // #rgb or #rrggbb
+					  speed: 1, // Rounds per second
+					  trail: 60, // Afterglow percentage
+					  shadow: false // Whether to render a shadow
+					};
+			ScreenMode._spinner = new Spinner(opts).spin(document.getElementById('busy_screen'));
+		} else if (!isToSpin && ScreenMode._spinner) {
+			ScreenMode._spinner.stop();
+			ScreenMode._spinner = null;
 		}
 	};
 	window.ff.ScreenMode = ScreenMode;
@@ -444,8 +442,14 @@
 		return parseInt(GetLastScroll().split(',')[0]);
 	}
 
+	var isRunningRestoreScrollPosition = false;
 	var RestoreScrollPosition = new Sequence([
 		function() {
+			if (isRunningRestoreScrollPosition) {
+				return;
+			}
+			isRunningRestoreScrollPosition = true;
+			isTickEnabled = false;
 			if (GetLastScroll() == null || GetLastScrollPosition() === 0) {
 				this.$2();
 			} else {
@@ -479,8 +483,10 @@
 	], function() {	// on exit
 		ScreenMode.Set(ScreenMode.Content);
 		isTickEnabled = true;
+		isRunningRestoreScrollPosition = false;
 	}, null, 3000);
 	sequenceInstanceSet['RestoreScrollPosition'] = RestoreScrollPosition;
+	window.ff.RestoreScrollPosition = RestoreScrollPosition;
 
 	function Tick() {
 		if (!isTickEnabled) {
@@ -588,6 +594,7 @@
 		},
 		window.ff.ReceiveTokenSequenceGenerator(),
 		function() {
+			this.retryFunc = this.$self;
 			var opt = {
 				"type" : "GET",
 				"url" : window.ff.Site + this.path,
@@ -623,7 +630,23 @@
 					return true;
 				}
 			},
-			window.ff.AuthErrorSequenceFunc
+			function(xhr, status) {
+				if (xhr.status == 403 && !this.isRetry) {	// 403 forbidden
+					this.isRetry = true;
+					StatusSection.PushAction("アプリを認証しています...");
+					this.$1();
+					return true;
+				} else {
+					window.ff.AuthErrorSequenceFunc(xhr, status);
+					return true;
+				}
+			},
+			window.ff.RequestTokenSequenceGenerator(),
+			function() {
+				StatusSection.PopAction();
+				this.retryFunc();
+				return true;
+			}
 		]
 	];
 
@@ -841,7 +864,7 @@
 		isUpdating = false;
 	},  function() {	// error
 		StatusSection.Set(StatusSection.Type.Error, "配信サーバとの通信にエラーが発生しました。", "再接続", window.ff.FireUpdate);
-	}, 10000, function() {	// timeout
+	}, 50000, function() {	// timeout
 		StatusSection.Set(StatusSection.Type.Error, "配信サーバとの通信がタイムアウトしました。", "再接続", window.ff.FireUpdate);
 	});
 	sequenceInstanceSet['UpdateImpl'] = UpdateImpl;
@@ -857,7 +880,7 @@
 	};
 
 	var RequestToken = new Sequence(window.ff.RequestTokenSequenceGenerator(),
-			null, null, 10000, function() {	// timeout
+			null, null, 40000, function() {	// timeout
 		StatusSection.Set(StatusSection.Type.Error, "アプリの認証がタイムアウトしました。", "リトライ", function() { RequestToken.Start(); });
 	});
 	sequenceInstanceSet['RequestToken'] = RequestToken;

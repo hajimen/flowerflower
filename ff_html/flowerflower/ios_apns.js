@@ -57,6 +57,10 @@
 		}
 	}
 
+	function OnOrientationChanged(event) {
+		window.ff.RestoreScrollPosition.Start();
+	}
+
 	window.ff.AuthStartSequenceGenerator = function() { return [
 		function() {
 			if (localStorage.getItem(PSKEY_HAS_PUSH_AGREEMENT) === null) {
@@ -144,6 +148,7 @@
 		window.ff.RequestTokenSequenceGenerator(),
 		function() {
 			window.ff.StatusSection.PopAction();
+			document.addEventListener("orientationChanged", OnOrientationChanged);
 			window.ff.ScreenMode.Set(window.ff.ScreenMode.Loading);
 		}
 	]; };
