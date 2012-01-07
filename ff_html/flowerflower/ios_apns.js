@@ -189,9 +189,9 @@
 			} else {
 				isUpdatingToken = true;
 				eventNewTokenTimeout = setTimeout(NewTokenTimeouted, EVENT_NEW_TOKEN_TIMEOUT);
-//				window.ff.RequestService(REQUEST_TOKEN_PATH, "POST", {
-//					"deviceToken" : deviceToken
-//				}, null, this.$next);
+				window.ff.RequestService(REQUEST_TOKEN_PATH, "POST", {
+					"deviceToken" : deviceToken
+				}, null, this.$next);
 			}
 			return true;
 		},
