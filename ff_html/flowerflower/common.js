@@ -751,6 +751,8 @@
 				}
 			}
 			if (diffFilenameList.length === 0) {
+				StatusSection.Set(StatusSection.Type.InAction, null);
+				StatusSection.Set(StatusSection.Type.Schedule, null);
 				return;
 			}
 
