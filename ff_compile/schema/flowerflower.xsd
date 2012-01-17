@@ -54,7 +54,7 @@
 	</xs:element>
 
 	<xs:element name="special">
-		<xs:complexType>
+		<xs:complexType mixed="true">
 			<xs:attribute name="name" type="specialName" use="required"/>
 		</xs:complexType>
 	</xs:element>

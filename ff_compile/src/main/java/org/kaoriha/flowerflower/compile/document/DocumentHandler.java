@@ -9,6 +9,8 @@ public abstract class DocumentHandler {
 
 	abstract public Chronicle getChronicle();
 
+	abstract public void setChronicle(Chronicle c);
+
 	abstract public Html getHtml();
 
 	abstract public PushMessageMap getPushMessageMap();

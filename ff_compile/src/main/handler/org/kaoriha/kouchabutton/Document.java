@@ -36,6 +36,11 @@ public class Document extends DocumentHandler {
 	}
 
 	@Override
+	public void setChronicle(Chronicle c) {
+		chronicle = c;
+	}
+
+	@Override
 	public void start() {
 		Fragment cnf = depot.fromKey(Constant.CHARACTER_NOTE_INITIAL_KEY);
 		if (cnf == null) {
@@ -159,6 +164,34 @@ public class Document extends DocumentHandler {
 		depot.getFragmentSet().add(currentCNFragment);
 		currentCNFragment = null;
 		isCharacterNote = false;
+	}
+
+	public void removeCharacterNote(String name) {
+		if (isCharacterNote) {
+			throw new IllegalStateException("removeCharacterNote called after startCharacterNode called.");
+		}
+		String key = DigestUtils.md5Hex(name);
+		Fragment lf = null;
+		for (Fragment f = depot.fromKey(Constant.CHARACTER_NOTE_INITIAL_KEY); f != null; f = f.getNext()) {
+			if (f.getKey().equals(key)) {
+				if (f.getNext() == null) {
+					if (lf == null) {
+						depot.getFragmentSet().remove(f);
+					} else {
+						lf.setNext(null);
+					}
+				} else {
+					if (lf == null) {
+						depot.getFragmentSet().remove(f);
+						depot.getFragmentSet().add(f.getNext());
+					} else {
+						lf.setNext(f.getNext());
+					}
+				}
+				break;
+			}
+			lf = f;
+		}
 	}
 
 	@Override

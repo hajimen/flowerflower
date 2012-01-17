@@ -97,6 +97,7 @@ public class Compiler {
 		}
 		tt.save();
 		mc.save(chronicleFile);
+		sp.getDocumentHandler().setChronicle(mc);
 
 		// ビルド
 		File d = new File("gen");

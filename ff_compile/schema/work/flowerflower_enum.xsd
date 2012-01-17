@@ -11,7 +11,10 @@
 	<xs:simpleType name="specialName">
 		<xs:restriction base="xs:normalizedString">
 			<xs:enumeration value="ABC"></xs:enumeration>
-			<xs:enumeration value="DEF"></xs:enumeration>
+			<xs:enumeration value="めぐみさん1"></xs:enumeration>
+			<xs:enumeration value="めぐみさん2"></xs:enumeration>
+			<xs:enumeration value="めぐみさん3"></xs:enumeration>
+			<xs:enumeration value="累乗"></xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
 
