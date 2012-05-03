@@ -13,6 +13,7 @@ import java.util.Map;
 
 import net.arnx.jsonic.JSON;
 
+import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
 import org.kaoriha.flowerflower.compile.document.Depot;
@@ -51,6 +52,12 @@ public class Builder {
 				isAfter = true;
 			}
 		}
+
+		Depot lastDepot = doc.getChronicle().getDepot(separationIdList.get(separationIdList.size() - 1));
+		File totalDir = new File(outputDir, Constant.TOTAL_DIR_NAME);
+		FileOutputStream fos = new FileOutputStream(new File(totalDir, "total.json"));
+		JSON.encode(lastDepot.diff(new Depot()), fos);
+		fos.close();
 	}
 
 	private void buildEach(String sid) throws IOException {
@@ -73,6 +80,20 @@ public class Builder {
 		}
 		
 		buildLatestSeparationHtml(pubDir, sid);
+
+		File totalDir = new File(outputDir, Constant.TOTAL_DIR_NAME);
+		File totalAuthDir = new File(totalDir, Constant.AUTH_DIR_NAME);
+		for (File f : authDir.listFiles()) {
+			if (f.isFile()) {
+				FileUtils.copyFileToDirectory(f, totalAuthDir);
+			}
+		}
+		File totalPubDir = new File(totalDir, Constant.PUBLIC_DIR_NAME);
+		for (File f : pubDir.listFiles()) {
+			if (f.isFile()) {
+				FileUtils.copyFileToDirectory(f, totalPubDir);
+			}
+		}
 	}
 
 	private void buildLatestSeparationHtml(File dir, String sid) throws FileNotFoundException, IOException {

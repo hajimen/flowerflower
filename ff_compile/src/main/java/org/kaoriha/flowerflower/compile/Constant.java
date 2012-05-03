@@ -36,6 +36,7 @@ public class Constant {
 
 	public static final String AUTH_DIR_NAME = "Auth";
 	public static final String PUBLIC_DIR_NAME = "Public";
+	public static final String TOTAL_DIR_NAME = "Total";
 	public static final String LATEST_SEPARATION_HTML_FILENAME = "latest.html";
 
 	private static final ResourceBundle PROJECT_RESOURCE = ResourceBundle

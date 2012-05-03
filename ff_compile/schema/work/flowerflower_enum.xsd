@@ -15,6 +15,7 @@
 			<xs:enumeration value="めぐみさん2"></xs:enumeration>
 			<xs:enumeration value="めぐみさん3"></xs:enumeration>
 			<xs:enumeration value="累乗"></xs:enumeration>
+			<xs:enumeration value="おわり"></xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
 
