@@ -15,6 +15,7 @@
 	var TIMEOUT = 5000;
 	var EVENT_CONTENT_UPDATED = "contentupdated";
 	var TO_NEXT_RELEASE_PATH = "tonextrelease.txt";
+	var TOTAL_JSON_URL = "../total.json";
 	var AUTH_PATH = "Auth/";
 	var NEXT_RELEASE_UNKNOWN_SPAN = 24 * 60 * 60 * 1000;
 	var NEXT_RELEASE_UPDATING_SPAN = 60 * 1000;
@@ -26,6 +27,7 @@
 	var isUpdating = false;
 	var isTickEnabled = true;
 	var isEnableRestoreScrollPosition = false;
+	var isContentFixed = false;
 	var sequenceInstanceSet = {};
 
 	// iPad 3.2 bug workaround
@@ -57,7 +59,8 @@
 		"LastScroll" : "ff_last_scroll",
 		"LastRequestCatalogueTime" : "ff_last_request_catalogue_time",
 		"NextReleaseText" : "ff_next_release_text",
-		"LastOpenSid" : "ff_last_open_sid"
+		"LastOpenSid" : "ff_last_open_sid",
+		"IsContentFixed" : "ff_is_content_fixed"
 	};
 
 	var HttpHeader = {
@@ -501,19 +504,21 @@
 			}
 		}
 
-		if (localStorage.getItem("h" + window.ff.StartSid) == null
-				&& !window.ff.IsConnectionOk()) {
-			StatusSection.Set(StatusSection.Type.Error, "配信サーバと接続できないため、なにもお見せできません。",
-					"再接続", window.ff.FireUpdate);
-			return;
-		}
+		if (!isContentFixed) {
+			if (localStorage.getItem("h" + window.ff.StartSid) == null
+					&& !window.ff.IsConnectionOk()) {
+				StatusSection.Set(StatusSection.Type.Error, "配信サーバと接続できないため、なにもお見せできません。",
+						"再接続", window.ff.FireUpdate);
+				return;
+			}
 
-		if (nextUpdate < now) {
-			if (window.ff.IsConnectionOk()) {
-				Update.Start();
-			} else {
-				nextUpdate = NEXT_RELEASE_UPDATING_SPAN + now;
-				StatusSection.Set(StatusSection.Type.Schedule, null);
+			if (nextUpdate < now) {
+				if (window.ff.IsConnectionOk()) {
+					Update.Start();
+				} else {
+					nextUpdate = NEXT_RELEASE_UPDATING_SPAN + now;
+					StatusSection.Set(StatusSection.Type.Schedule, null);
+				}
 			}
 		}
 		var v = "" + window.pageYOffset + "," + $(document).height();
@@ -957,7 +962,7 @@
 	window.ff.CharacterNoteElement = '<a href="javascript:void(0)" onclick="window.ff.OnLinkClick(\'character_note\'); return false;">';
 
 	window.ff.FireUpdate = function(after) {
-		if (isUpdating) {
+		if (isUpdating || isContentFixed) {
 			return;
 		}
 		if (!window.ff.IsConnectionOk()) {
@@ -1001,15 +1006,48 @@
 		function() {
 			StatusSection.Set(StatusSection.Type.InAction, "アプリを初期化しています...");
 			ScreenMode.Set(ScreenMode.Loading);
-			this.$1();
+
+			if (localStorage.getItem(DepotStorageKey.Index) === null) {
+				isFirstRun = true;
+				var opt = {
+						"type" : "GET",
+						"url" : TOTAL_JSON_URL,
+						"success" : this.$1,
+						"error" : this.$2,
+						"dataType" : "json",
+						"timeout" : TIMEOUT
+				};
+				$.ajax(opt);
+			} else {
+				if (localStorage.getItem(DepotStorageKey.IsContentFixed) !== null) {
+					isContentFixed = true;
+				}
+				this.$next();
+			}
+
 			return true;
+		},
+		[
+			function(data, status, xhr) {	// success
+				for (var k in data) {
+					localStorage.setItem(k, data[k]);
+				}
+				localStorage.setItem(DepotStorageKey.IsContentFixed, "true");
+				isContentFixed = true;
+				isFirstRun = false;
+			},
+			function(xhr, status) {	// error
+			}
+		],
+		function () {
+			if (isContentFixed) {
+				this.$next();
+			} else {
+				this.$1();
+			}
 		},
 		window.ff.AuthStartSequenceGenerator(),
 		function() {
-			if (localStorage.getItem(DepotStorageKey.Index) === null) {
-				isFirstRun = true;
-			}
-
 			if (localStorage.getItem(PreferenceStorageKey.LastOpenSid) !== null) {
 				window.ff.StartSid = localStorage.getItem(PreferenceStorageKey.LastOpenSid);
 			} else {
