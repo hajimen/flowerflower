@@ -1,7 +1,6 @@
 /gen
 /bin
 /local.properties
-/AndroidManifest.xml
 /.classpath
 /.project
 /.externalToolBuilders
