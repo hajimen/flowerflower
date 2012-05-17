@@ -1,9 +1,10 @@
 共通
-	flowerflowerのgitリポジトリがあるのと同じディレクトリにff_privateという名前のディレクトリを作り、そこに../ff_private_templateの内容をコピーする
+	gitのブランチを作成する
+		git checkout -b foobar
 iOS
 	Supporting Files/PhoneGap.plistのExternalHostsに配信サーバを追加
 Android
-	AndroidManifest.xmlを追加
-		AndroidManifest_kouchabutton.xmlを参照
+	AndroidManifest.xmlを編集
+		manifest要素のpackage属性
 	local.propertiesを追加
 		$ android update project --path .
