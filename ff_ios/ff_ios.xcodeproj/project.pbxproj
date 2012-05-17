@@ -45,17 +45,16 @@
 		570C5A011429E2380026F8A3 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMDefines.h; path = Plugins/GTMDefines.h; sourceTree = "<group>"; };
 		570C5A021429E2380026F8A3 /* GTMStringEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMStringEncoding.h; path = Plugins/GTMStringEncoding.h; sourceTree = "<group>"; };
 		570C5A031429E2380026F8A3 /* GTMStringEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMStringEncoding.m; path = Plugins/GTMStringEncoding.m; sourceTree = "<group>"; };
-		5717AF66147A5C5300708DCE /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72.png"; path = "../../ff_private/ios/Resources/icons/icon-72.png"; sourceTree = "<group>"; };
-		5717AF67147A5C5300708DCE /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../ff_private/ios/Resources/icons/icon.png; sourceTree = "<group>"; };
-		5717AF68147A5C5300708DCE /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../../ff_private/ios/Resources/icons/icon@2x.png"; sourceTree = "<group>"; };
-		5717AF6C147A5C8300708DCE /* Default_LS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default_LS.png; path = ../../ff_private/ios/Resources/splash/Default_LS.png; sourceTree = "<group>"; };
-		5717AF6D147A5C8300708DCE /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../../ff_private/ios/Resources/splash/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
-		5717AF6E147A5C8300708DCE /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../../ff_private/ios/Resources/splash/Default-Portrait~ipad.png"; sourceTree = "<group>"; };
-		5717AF6F147A5C8300708DCE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../../ff_private/ios/Resources/splash/Default.png; sourceTree = "<group>"; };
-		5717AF70147A5C8300708DCE /* Default@2x_LS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x_LS.png"; path = "../../ff_private/ios/Resources/splash/Default@2x_LS.png"; sourceTree = "<group>"; };
-		5717AF71147A5C8300708DCE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../ff_private/ios/Resources/splash/Default@2x.png"; sourceTree = "<group>"; };
-		57276FE91485F4EB00760274 /* www_private */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www_private; path = ../../ff_private/www_private; sourceTree = "<group>"; };
-		576466D01485F99A00DA767C /* ff_html */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ff_html; path = ../ff_html; sourceTree = "<group>"; };
+		5717AF66147A5C5300708DCE /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72.png"; path = "../ff_private/ios/Resources/icons/icon-72.png"; sourceTree = "<group>"; };
+		5717AF67147A5C5300708DCE /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../ff_private/ios/Resources/icons/icon.png; sourceTree = "<group>"; };
+		5717AF68147A5C5300708DCE /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../ff_private/ios/Resources/icons/icon@2x.png"; sourceTree = "<group>"; };
+		5717AF6C147A5C8300708DCE /* Default_LS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default_LS.png; path = ../ff_private/ios/Resources/splash/Default_LS.png; sourceTree = "<group>"; };
+		5717AF6D147A5C8300708DCE /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../ff_private/ios/Resources/splash/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		5717AF6E147A5C8300708DCE /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../ff_private/ios/Resources/splash/Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		5717AF6F147A5C8300708DCE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../ff_private/ios/Resources/splash/Default.png; sourceTree = "<group>"; };
+		5717AF70147A5C8300708DCE /* Default@2x_LS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x_LS.png"; path = "../ff_private/ios/Resources/splash/Default@2x_LS.png"; sourceTree = "<group>"; };
+		5717AF71147A5C8300708DCE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../ff_private/ios/Resources/splash/Default@2x.png"; sourceTree = "<group>"; };
+		57276FE91485F4EB00760274 /* ff_private */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ff_private; path = ../ff_private; sourceTree = "<group>"; };
 		576466D21485F9C100DA767C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		57AC6E0B141DC703002CC2A0 /* 紅茶ボタン.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "紅茶ボタン.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AC6E0F141DC703002CC2A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -122,8 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				576466D21485F9C100DA767C /* www */,
-				576466D01485F99A00DA767C /* ff_html */,
-				57276FE91485F4EB00760274 /* www_private */,
+				57276FE91485F4EB00760274 /* ff_private */,
 				5717AF6C147A5C8300708DCE /* Default_LS.png */,
 				5717AF6D147A5C8300708DCE /* Default-Landscape~ipad.png */,
 				5717AF6E147A5C8300708DCE /* Default-Portrait~ipad.png */,
@@ -320,7 +318,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "rm -rf $PROJECT_DIR/www\nmkdir $PROJECT_DIR/www\ncp -rf $PROJECT_DIR/../ff_html/* $PROJECT_DIR/www\n# */\ncp -rf $PROJECT_DIR/../../ff_private/www_private/* $PROJECT_DIR/www\n# */\necho \"/*\" > $PROJECT_DIR/www/.gitignore";
+			shellScript = "rm -rf $PROJECT_DIR/www\nmkdir $PROJECT_DIR/www\ncp -rf $PROJECT_DIR/../ff_html/* $PROJECT_DIR/www\n# */\ncp -rf $PROJECT_DIR/../ff_private/www_private/* $PROJECT_DIR/www\n# */\n#echo \"/*\" > $PROJECT_DIR/www/.gitignore";
 		};
 /* End PBXShellScriptBuildPhase section */
 
