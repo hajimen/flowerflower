@@ -40,10 +40,12 @@ namespace FFSite.Office.IosApns
                 return;
             }
 
+            logger.Info("認証要求を受け取りました。RequestInfo: " + WebUtil.RequestInfo(context));
             try
             {
                 new RequestProcessor().Process(deviceToken);
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
+                logger.Info("認証要求は正常に処理されました。RequestInfo: " + WebUtil.RequestInfo(context));
             }
             catch (DoubtfulAuthBehaviorException e)
             {

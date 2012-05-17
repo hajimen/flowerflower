@@ -125,13 +125,6 @@
     <Compile Include="Office\AndroidLvl\RequestAuthToken.ashx.cs">
       <DependentUpon>RequestAuthToken.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Public\PublishAuthenticationKey.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-      <DependentUpon>PublishAuthenticationKey.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\PublishAuthenticationKey.aspx.designer.cs">
-      <DependentUpon>PublishAuthenticationKey.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteConstant.cs" />
     <Compile Include="Util.cs" />
@@ -169,6 +162,8 @@
   <ItemGroup>
     <Content Include="Auth\Default.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="design\android_market_badge.png" />
+    <Content Include="design\app_store_badge.png" />
     <Content Include="design\before_build_dom_tree.css" />
     <Content Include="design\before_restore_scroll_position.css" />
     <Content Include="design\blank_square.png" />
@@ -184,6 +179,7 @@
     <Content Include="jquery-1.6.2.min.js" />
     <Content Include="jquery-cookie.js" />
     <Content Include="Office\IosApns\RequestAuthToken.ashx" />
+    <Content Include="design\insert_app_badge.js" />
     <Content Include="Public\PublishAuthenticationKey.aspx" />
     <Content Include="Public\apps.html" />
     <Content Include="Public\catchphrase.png" />

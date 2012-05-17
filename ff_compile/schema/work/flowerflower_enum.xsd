@@ -16,6 +16,9 @@
 			<xs:enumeration value="めぐみさん3"></xs:enumeration>
 			<xs:enumeration value="累乗"></xs:enumeration>
 			<xs:enumeration value="おわり"></xs:enumeration>
+			<xs:enumeration value="次回作画像"></xs:enumeration>
+			<xs:enumeration value="次回作へのリンク"></xs:enumeration>
+			<xs:enumeration value="次回作へのマーケットロゴとリンク"></xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
 

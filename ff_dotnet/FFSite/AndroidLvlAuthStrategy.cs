@@ -38,22 +38,27 @@ namespace FFSite
             TokenVerifier v = new TokenVerifier(tokenBody, now);
             if (!v.IsValid)
             {
-                return false;
+                logger.Info("token invalid. RequestInfo: " + WebUtil.RequestInfo(context));
+                // return false;
             }
             if (!v.IsAuthScheme(AuthScheme.Android_LVL))
             {
-                return false;
+                logger.Info("scheme is not Android_LVL. RequestInfo: " + WebUtil.RequestInfo(context));
+                // return false;
             }
             if (v.IsLockedOut)
             {
-                return false;
+                logger.Info("token is locked out. RequestInfo: " + WebUtil.RequestInfo(context));
+                // return false;
             }
             if (!v.IsLiving)
             {
-                return false;
+                logger.Info("token is not living. RequestInfo: " + WebUtil.RequestInfo(context));
+                // return false;
             }
             if (v.IsOutdated)
             {
+                logger.Info("token is Outdated. RequestInfo: " + WebUtil.RequestInfo(context));
                 context.Response.Headers[SiteConstant.AuthStatusRequestResposeHeaderName] = "Outdated";
             }
             context.User = new GenericPrincipal(new GenericIdentity("user"), null);

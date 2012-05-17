@@ -28,16 +28,19 @@ namespace FFSite
             TokenVerifier v = new TokenVerifier(tokenBody, now);
             if (!v.IsValid)
             {
+                logger.Info("token invalid. RequestInfo: " + WebUtil.RequestInfo(context));
                 WebUtil.RedirectToAskAuthPage(context);
                 return;
             }
             if (v.IsLockedOut)
             {
+                logger.Info("token is locked out. RequestInfo: " + WebUtil.RequestInfo(context));
                 WebUtil.RedirectToLockout(context, v.Subscriber.LockoutUntil);
                 return;
             }
             if (v.IsOutdated)
             {
+                logger.Info("token is Outdated. RequestInfo: " + WebUtil.RequestInfo(context));
                 TokenPublisher p = new TokenPublisher(v.Subscriber, now);
                 DataSet.TokenRow t;
                 try

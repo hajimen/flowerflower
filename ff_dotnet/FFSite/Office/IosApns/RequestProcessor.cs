@@ -28,6 +28,7 @@ namespace FFSite.Office.IosApns
             DataSet.SubscriberRow subscriber;
             if (dt.Count == 0)
             {
+                logger.Info("new subscriber: deviceToken:" + deviceToken);
                 CheckDeviceTokenFormat(deviceToken);
                 subscriber = Util.PublishSubscriber(AuthScheme.iOS_APNs);
                 dt.AddAPNsRow(subscriber, deviceToken, false, 0, false);
@@ -42,10 +43,12 @@ namespace FFSite.Office.IosApns
                     ta.Update(apns);
                 }
                 SubscriberTableAdapter sta = new SubscriberTableAdapter();
-                subscriber = sta.GetDataById(dt[0].SubscriberId)[0];
+                subscriber = sta.GetDataById(apns.SubscriberId)[0];
+                logger.Info("refresh token: deviceToken:" + deviceToken + " subscriber id:" + subscriber.Id);
             }
             TokenPublisher tp = new TokenPublisher(subscriber, DateTime.Now);
             DataSet.TokenRow token = tp.Publish();
+            logger.Info("token: deviceToken:" + deviceToken + " tokenBody:" + token.Body);
             ApnsPusher pusher = ApnsPusher.GetInstance(SiteConstant.Title);
             pusher.PushToken(subscriber, token.Body);
         }

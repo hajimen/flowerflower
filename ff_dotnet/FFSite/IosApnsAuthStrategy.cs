@@ -36,28 +36,34 @@ namespace FFSite
                 return false;
             }
 
+            logger.Info("token:" + tokenBody + " RequestInfo:" + WebUtil.RequestInfo(context));
             TokenVerifier v = new TokenVerifier(tokenBody, now);
             if (!v.IsValid)
             {
+                logger.Info("token invalid. RequestInfo: " + WebUtil.RequestInfo(context));
                 return false;
             }
             if (!v.IsAuthScheme(AuthScheme.iOS_APNs))
             {
-                return false;
+                logger.Info("scheme is not APNs. RequestInfo: " + WebUtil.RequestInfo(context));
+                // return false;
             }
             if (v.IsLockedOut)
             {
-                return false;
+                logger.Info("token is locked out. RequestInfo: " + WebUtil.RequestInfo(context));
+                // return false;
             }
             if (!v.IsLiving)
             {
-                return false;
+                logger.Info("token is not living. RequestInfo: " + WebUtil.RequestInfo(context));
+                // return false;
             }
             if (v.IsOutdated)
             {
+                logger.Info("token is Outdated. RequestInfo: " + WebUtil.RequestInfo(context));
                 context.Response.Headers[SiteConstant.AuthStatusRequestResposeHeaderName] = "Outdated";
             }
-
+            
             APNsTableAdapter ata = new APNsTableAdapter();
             DataSet.APNsDataTable adt = ata.GetDataBySubscriberId(v.Subscriber.Id);
             if (adt[0].UnreadRelease > 0)
