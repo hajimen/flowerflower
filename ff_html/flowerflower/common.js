@@ -1045,6 +1045,7 @@
 			} else {
 				this.$1();
 			}
+		   return true;
 		},
 		window.ff.AuthStartSequenceGenerator(),
 		function() {
