@@ -1,6 +1,7 @@
 共通
 	gitのブランチを作成する
 		git checkout -b foobar
+	配信サイトのURLをff_private/www_private/flowerflower/site_constant.js
 iOS
 	Supporting Files/PhoneGap.plistのExternalHostsに配信サーバを追加
 Android
