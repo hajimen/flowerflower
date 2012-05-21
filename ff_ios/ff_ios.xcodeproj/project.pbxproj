@@ -318,7 +318,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "rm -rf $PROJECT_DIR/www\nmkdir $PROJECT_DIR/www\ncp -rf $PROJECT_DIR/../ff_html/* $PROJECT_DIR/www\n# */\ncp -rf $PROJECT_DIR/../ff_private/www_private/* $PROJECT_DIR/www\n# */\n#echo \"/*\" > $PROJECT_DIR/www/.gitignore";
+			shellScript = "rm -rf $PROJECT_DIR/www/*\n# */\nmkdir $PROJECT_DIR/www/*\n# */\ncp -rf $PROJECT_DIR/../ff_html/* $PROJECT_DIR/www\n# */\ncp -rf $PROJECT_DIR/../ff_private/www_private/* $PROJECT_DIR/www\n# */";
 		};
 /* End PBXShellScriptBuildPhase section */
 
