@@ -17,6 +17,9 @@
 		5717AF75147A5C8300708DCE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5717AF6F147A5C8300708DCE /* Default.png */; };
 		5717AF76147A5C8300708DCE /* Default@2x_LS.png in Resources */ = {isa = PBXBuildFile; fileRef = 5717AF70147A5C8300708DCE /* Default@2x_LS.png */; };
 		5717AF77147A5C8300708DCE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5717AF71147A5C8300708DCE /* Default@2x.png */; };
+		5746D3081569DBAB00B353FA /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5746D3071569DBAB00B353FA /* Default-Portrait@2x~ipad.png */; };
+		5746D3111569DD9700B353FA /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5746D3101569DD9700B353FA /* Default-Landscape@2x~ipad.png */; };
+		5756D8BB1569D45E0096BF5B /* icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 5756D8BA1569D45E0096BF5B /* icon-144.png */; };
 		576466D31485F9C100DA767C /* www in Resources */ = {isa = PBXBuildFile; fileRef = 576466D21485F9C100DA767C /* www */; };
 		57AC6E10141DC703002CC2A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AC6E0F141DC703002CC2A0 /* Foundation.framework */; };
 		57AC6E12141DC703002CC2A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AC6E11141DC703002CC2A0 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -55,6 +58,9 @@
 		5717AF70147A5C8300708DCE /* Default@2x_LS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x_LS.png"; path = "../ff_private/ios/Resources/splash/Default@2x_LS.png"; sourceTree = "<group>"; };
 		5717AF71147A5C8300708DCE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../ff_private/ios/Resources/splash/Default@2x.png"; sourceTree = "<group>"; };
 		57276FE91485F4EB00760274 /* ff_private */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ff_private; path = ../ff_private; sourceTree = "<group>"; };
+		5746D3071569DBAB00B353FA /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait@2x~ipad.png"; path = "../ff_private/ios/Resources/splash/Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
+		5746D3101569DD9700B353FA /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../ff_private/ios/Resources/splash/Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		5756D8BA1569D45E0096BF5B /* icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-144.png"; path = "../ff_private/ios/Resources/icons/icon-144.png"; sourceTree = "<group>"; };
 		576466D21485F9C100DA767C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		57AC6E0B141DC703002CC2A0 /* 紅茶ボタン.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "紅茶ボタン.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AC6E0F141DC703002CC2A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -122,6 +128,9 @@
 			children = (
 				576466D21485F9C100DA767C /* www */,
 				57276FE91485F4EB00760274 /* ff_private */,
+				5746D3101569DD9700B353FA /* Default-Landscape@2x~ipad.png */,
+				5746D3071569DBAB00B353FA /* Default-Portrait@2x~ipad.png */,
+				5756D8BA1569D45E0096BF5B /* icon-144.png */,
 				5717AF6C147A5C8300708DCE /* Default_LS.png */,
 				5717AF6D147A5C8300708DCE /* Default-Landscape~ipad.png */,
 				5717AF6E147A5C8300708DCE /* Default-Portrait~ipad.png */,
@@ -264,6 +273,9 @@
 /* Begin PBXProject section */
 		57AC6DFF141DC702002CC2A0 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
 			buildConfigurationList = 57AC6E02141DC702002CC2A0 /* Build configuration list for PBXProject "ff_ios" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -301,6 +313,9 @@
 				57AC6E4A141DC703002CC2A0 /* Capture.bundle in Resources */,
 				57AC6E4C141DC703002CC2A0 /* PhoneGap.plist in Resources */,
 				576466D31485F9C100DA767C /* www in Resources */,
+				5756D8BB1569D45E0096BF5B /* icon-144.png in Resources */,
+				5746D3081569DBAB00B353FA /* Default-Portrait@2x~ipad.png in Resources */,
+				5746D3111569DD9700B353FA /* Default-Landscape@2x~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +333,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "rm -rf $PROJECT_DIR/www/*\n# */\nmkdir $PROJECT_DIR/www/*\n# */\ncp -rf $PROJECT_DIR/../ff_html/* $PROJECT_DIR/www\n# */\ncp -rf $PROJECT_DIR/../ff_private/www_private/* $PROJECT_DIR/www\n# */";
+			shellScript = "rm -rf $PROJECT_DIR/www/*\n# */\n#mkdir $PROJECT_DIR/www/\n# */\ncp -rf $PROJECT_DIR/../ff_html/* $PROJECT_DIR/www\n# */\ncp -rf $PROJECT_DIR/../ff_private/www_private/* $PROJECT_DIR/www\n# */";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -374,6 +389,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -399,6 +415,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ff_ios/ff_ios-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "PHONEGAP_FRAMEWORK=YES";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				INFOPLIST_FILE = "ff_ios/ff_ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
@@ -428,6 +446,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -451,6 +470,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ff_ios/ff_ios-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "PHONEGAP_FRAMEWORK=YES";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				INFOPLIST_FILE = "ff_ios/ff_ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
