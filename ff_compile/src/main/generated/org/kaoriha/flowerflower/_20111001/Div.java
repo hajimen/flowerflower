@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
@@ -32,9 +33,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;choice maxOccurs="unbounded" minOccurs="0">
- *         &lt;element ref="{http://kaoriha.org/flowerflower/20111001/}p"/>
+ *         &lt;group ref="{http://kaoriha.org/flowerflower/20111001/}rootGroup"/>
  *       &lt;/choice>
- *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}normalizedString" />
+ *       &lt;attribute name="class" type="{http://www.w3.org/2001/XMLSchema}normalizedString" />
+ *       &lt;attribute name="style" type="{http://www.w3.org/2001/XMLSchema}normalizedString" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -46,16 +48,29 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "", propOrder = {
     "content"
 })
-@XmlRootElement(name = "characterNote")
-public class CharacterNote {
+@XmlRootElement(name = "div")
+public class Div {
 
-    @XmlElementRef(name = "p", namespace = "http://kaoriha.org/flowerflower/20111001/", type = P.class)
+    @XmlElementRefs({
+        @XmlElementRef(name = "section", namespace = "http://kaoriha.org/flowerflower/20111001/", type = Section.class),
+        @XmlElementRef(name = "div", namespace = "http://kaoriha.org/flowerflower/20111001/", type = Div.class),
+        @XmlElementRef(name = "footnote", namespace = "http://kaoriha.org/flowerflower/20111001/", type = Footnote.class),
+        @XmlElementRef(name = "characterNote", namespace = "http://kaoriha.org/flowerflower/20111001/", type = CharacterNote.class),
+        @XmlElementRef(name = "p", namespace = "http://kaoriha.org/flowerflower/20111001/", type = P.class),
+        @XmlElementRef(name = "raw", namespace = "http://kaoriha.org/flowerflower/20111001/", type = Raw.class),
+        @XmlElementRef(name = "chapter", namespace = "http://kaoriha.org/flowerflower/20111001/", type = Chapter.class),
+        @XmlElementRef(name = "separation", namespace = "http://kaoriha.org/flowerflower/20111001/", type = Separation.class)
+    })
     @XmlMixed
     protected List<Object> content;
-    @XmlAttribute(required = true)
+    @XmlAttribute(name = "class")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     @XmlSchemaType(name = "normalizedString")
-    protected String name;
+    protected String clazz;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    @XmlSchemaType(name = "normalizedString")
+    protected String style;
 
     /**
      * Gets the value of the content property.
@@ -75,8 +90,15 @@ public class CharacterNote {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link P }
+     * {@link Section }
+     * {@link Div }
+     * {@link Footnote }
      * {@link String }
+     * {@link CharacterNote }
+     * {@link P }
+     * {@link Raw }
+     * {@link Separation }
+     * {@link Chapter }
      * 
      * 
      */
@@ -88,27 +110,51 @@ public class CharacterNote {
     }
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the clazz property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getClazz() {
+        return clazz;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the clazz property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setClazz(String value) {
+        this.clazz = value;
+    }
+
+    /**
+     * Gets the value of the style property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getStyle() {
+        return style;
+    }
+
+    /**
+     * Sets the value of the style property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setStyle(String value) {
+        this.style = value;
     }
 
 }

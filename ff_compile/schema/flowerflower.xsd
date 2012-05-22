@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://kaoriha.org/flowerflower/20111001/" targetNamespace="http://kaoriha.org/flowerflower/20111001/" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:include schemaLocation="work/flowerflower_enum.xsd"/>
-
 	<xs:element name="root">
 		<xs:complexType>
 			<xs:choice maxOccurs="unbounded">
@@ -13,20 +11,21 @@
 	<xs:group name="rootGroup">
 		<xs:choice>
 			<xs:element ref="p"/>
-			<xs:element ref="special"/>
 			<xs:element ref="chapter"/>
 			<xs:element ref="section"/>
 			<xs:element ref="footnote"/>
 			<xs:element ref="separation"/>
 			<xs:element ref="characterNote"/>
+			<xs:element ref="div"/>
+			<xs:element ref="raw"/>
 		</xs:choice>
 	</xs:group>
 
 	<xs:group name="pGroup">
 		<xs:choice>
-			<xs:element ref="decorate"/>
 			<xs:element ref="ruby"/>
-			<xs:element ref="special"/>
+			<xs:element ref="span"/>
+			<xs:element ref="raw"/>
 		</xs:choice>
 	</xs:group>
 
@@ -44,18 +43,28 @@
 		</xs:complexType>
 	</xs:element>
 
-	<xs:element name="decorate">
+	<xs:element name="div">
+		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="rootGroup"/>
+			</xs:choice>
+			<xs:attribute name="class" type="xs:normalizedString" use="optional"/>
+			<xs:attribute name="style" type="xs:normalizedString" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="span">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:group ref="pGroup"/>
 			</xs:choice>
-			<xs:attribute name="name" type="decorateName" use="required"/>
+			<xs:attribute name="class" type="xs:normalizedString" use="optional"/>
+			<xs:attribute name="style" type="xs:normalizedString" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 
-	<xs:element name="special">
+	<xs:element name="raw">
 		<xs:complexType mixed="true">
-			<xs:attribute name="name" type="specialName" use="required"/>
 		</xs:complexType>
 	</xs:element>
 
