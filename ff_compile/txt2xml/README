@@ -1,0 +1,38 @@
+txt2xmlツールチェイン
+
+注意：
+　これは完全なピタゴラ装置です。ごく限られたケースでのみ役に立ちます。
+
+目的：
+　flowerflowerは連載配信プラットフォームです。連載というものの性質上、原稿は配信のたびに書かれてゆくことが多くなります。
+　原稿は、org.kaoriha.flowerflower.compile.tools.CompilerのソースとなるXML（以下target.xml）を直接書くのは面倒なので、テキストファイル（以下genko.txt）として書いて変換することになります。
+　しかし、genko.txtだけを原料にしてtarget.xmlを生成することはできませんし、そうすることが望ましくもありません。
+　なぜできないのかというと、Compilerがtarget.xmlにseparation idを書き込むからです。
+　なぜ望ましくないのかというと、原稿を書くときには不要な細部がgenko.txtに表れることになり、わずらわしいからです。
+　そのため、配信のたびにgenko.txtの変更分をtarget.xmlに反映させる作業が必要になります。これを自動化するのがtxt2xmlツールチェインです。
+
+基本の流れ
+	genko.txt ==(genko2transient.py)==> transient.xml ==(transient2target.patch)==> target.xml
+		makeのデフォルトゴール
+
+automatker.py
+	LinuxのFUSEを用いたファイルシステムフィルタ
+	ファイル（仮にfoo）を書き込むと、書き込み後に"make foo.modified"を実行する
+	ファイル（仮にbar）を読み込もうとすると、読み込む前に"make bar"を実行する
+	target.xmlに加えた変更を失わないようにするために使う
+
+Makefile
+	基本的には、genko.txtからtarget.xmlを生成（デフォルトゴール）
+	target.xml.modifiedターゲットを実行すると、transient2target.patchを生成
+
+genko2transient.py
+	genko.txtに記法を定めるにはこれをいじる
+
+Requirements
+	Linux
+	libfuse2
+	Python 2.7以降
+	make
+	fusepy
+	diff
+	patch
