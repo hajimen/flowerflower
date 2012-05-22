@@ -73,7 +73,7 @@ public class DepotTest extends TestCase {
 		nd.getIndexEntryList().add(e2);
 
 		Assert.assertEquals(
-				"{\"h30fe8509\":\"test2\",\"INDEX_KEY\":[\"{\\\"start\\\":\\\"30fe8509\\\",\\\"name\\\":\\\"test\\\"}\",\"{\\\"start\\\":\\\"30fe8509\\\",\\\"name\\\":\\\"test3\\\"}\"]}",
+				"{\"h30fe8509\":\"test2\",\"INDEX_KEY\":\"[{\\\"start\\\":\\\"30fe8509\\\",\\\"name\\\":\\\"test\\\"},{\\\"start\\\":\\\"30fe8509\\\",\\\"name\\\":\\\"test3\\\"}]\"}",
 				JSON.encode(nd.diff(d)));
 
 		nd.getFragmentSet().remove(f2);

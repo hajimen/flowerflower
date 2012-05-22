@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Map;
 
 import org.kaoriha.flowerflower.compile.document.Chronicle;
 import org.kaoriha.flowerflower.compile.document.Depot;
@@ -58,7 +59,9 @@ public class ChronicleTest extends TestCase {
 		Assert.assertFalse(c == nc);
 		Assert.assertTrue(c.equals(nc));
 
-		Assert.assertEquals("{\"h10fe8509\":\"test0\",\"n30fe8509\":\"10fe8509\",\"n10fe8509\":null}", c
-				.getDepot("SEP_2").diff(c.getDepot("SEP_1")));
+		Map<String, Object> m = c.getDepot("SEP_2").diff(c.getDepot("SEP_1"));
+		Assert.assertEquals("test0", m.get("h10fe8509"));
+		Assert.assertEquals("10fe8509", m.get("n30fe8509"));
+		Assert.assertEquals(null, m.get("n10fe8509"));
 	}
 }
