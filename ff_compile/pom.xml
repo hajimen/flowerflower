@@ -111,10 +111,8 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>src/main/java</source>
 								<source>src/main/generated</source>
 								<source>src/main/handler</source>
-								<source>src/test/java</source>
 							</sources>
 						</configuration>
 					</execution>
