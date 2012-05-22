@@ -22,6 +22,8 @@ HTTP
 				ステータスコードは400 Bad Request
 			Invalid
 			LockedOut
+			Malformed
+			Security
 
 Webサービス（JSON）
 	Office/AndroidLvl/RequestAuthChallenge.ashx

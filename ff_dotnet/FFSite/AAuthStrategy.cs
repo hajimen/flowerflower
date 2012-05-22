@@ -60,7 +60,7 @@ namespace FFSite
             if (!v.IsValid)
             {
                 logger.Info("token invalid. RequestInfo: " + WebUtil.RequestInfo(context));
-                context.Response.Headers[SiteConstant.ErrorReasonResposeHeaderName] = SiteConstant.ErrorReason.Invalid.ToString();
+                WebUtil.AddErrorReasonHeader(context, ErrorReason.Invalid);
                 return HttpStatusCode.BadRequest;
             }
             if (!v.IsAuthScheme(authScheme))
@@ -71,14 +71,14 @@ namespace FFSite
             if (v.IsLockedOut)
             {
                 logger.Info("subscriber is locked out. RequestInfo: " + WebUtil.RequestInfo(context));
-                context.Response.Headers[SiteConstant.ErrorReasonResposeHeaderName] = SiteConstant.ErrorReason.LockedOut.ToString();
+                WebUtil.AddErrorReasonHeader(context, ErrorReason.LockedOut);
                 return HttpStatusCode.BadRequest;
             }
 
             if (!v.IsLiving)
             {
                 logger.Info("token is not living. RequestInfo: " + WebUtil.RequestInfo(context));
-                context.Response.Headers[SiteConstant.ErrorReasonResposeHeaderName] = SiteConstant.ErrorReason.Invalid.ToString();
+                WebUtil.AddErrorReasonHeader(context, ErrorReason.Invalid);
                 return HttpStatusCode.BadRequest;
             }
 
