@@ -42,11 +42,11 @@ namespace FFSite
             }
         }
 
-        public bool IsFresh
+        public bool IsUsed
         {
             get
             {
-                return token.PublishedDate > now - Constant.AuthTokenFreshSpan;
+                return token.Used;
             }
         }
 
@@ -106,6 +106,20 @@ namespace FFSite
         public bool IsAuthScheme(AuthScheme authScheme)
         {
             return subscriber.AuthScheme == authScheme.ToString();
+        }
+
+        public void Refresh()
+        {
+            TokenTableAdapter tta = new TokenTableAdapter();
+            token.PublishedDate = now;
+            tta.Update(token);
+        }
+
+        public void SetUsed()
+        {
+            TokenTableAdapter tta = new TokenTableAdapter();
+            token.Used = true;
+            tta.Update(token);
         }
     }
 }

@@ -23,7 +23,8 @@ create table dbo.Token
 	SubscriberId bigint not null,
 	constraint FK_Subscriber_Token foreign key (SubscriberId) references dbo.Subscriber(id),
 	Body nvarchar(50) not null unique,
-	PublishedDate datetime not null
+	PublishedDate datetime not null,
+	Used bit not null
 )
 go
 create table dbo.APNs

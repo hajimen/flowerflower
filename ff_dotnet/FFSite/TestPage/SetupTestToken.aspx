@@ -15,7 +15,7 @@
         <p>
             <asp:Button ID="LivingButton" runat="server" OnClick="LivingButton_Click" Text="Living" />&nbsp;</p>
         <p>
-            <asp:Button ID="FreshButton" runat="server" OnClick="FreshButton_Click" Text="Fresh" />&nbsp;</p>
+            <asp:Button ID="NotUsedButton" runat="server" OnClick="NotUsedButton_Click" Text="Not Used" />&nbsp;</p>
         <p>
             <asp:Button ID="CleanUpButton" runat="server" OnClick="CleanUpButton_Click" Text="Clean Up" />&nbsp;</p>
         <p>

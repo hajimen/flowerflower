@@ -71,9 +71,8 @@
 	};
 
 	var ErrorReason = {
-		"Malformed" : "Malformed",
 		"Invalid" : "Invalid",
-		"Security" : "Security"
+		"LockedOut" : "LockedOut"
 	};
 
 	var AuthStatus = {
@@ -567,20 +566,10 @@
 		} else {
 			var errorReason = xhr.getResponseHeader(HttpHeader.ErrorReason);
 			switch (errorReason) {
-			case ErrorReason.Malformed:
-				statusText += "配信サーバとの通信経路または配信サーバに異常があります。";
-				StatusSection.Set(StatusSection.Type.Error, statusText, "再接続", window.ff.FireUpdate);
-				if (retry < MAX_RETRY) {
-					retry++;
-				} else {
-					alert("アプリのエラー:8128648a-17b1-41d3-83d2-0ef99524a335  配信サーバとの通信または配信サーバに異常があります。");
-					retry = 0;
-				}
-				break;
 			case ErrorReason.Invalid:
 				alert("アプリのエラー:25f65c6b-a769-410b-8630-c67610a951d5  配信サーバがこのアプリの認証を拒否しました。");
 				break;
-			case ErrorReason.Security:
+			case ErrorReason.LockedOut:
 				alert("アプリのエラー:a5b36c3a-66bd-42cb-a5bf-e82cd32c3a86 不正アクセスなどの理由により配信サーバがこのアプリの認証を拒否しました。");
 				break;
 			default:
@@ -594,12 +583,13 @@
 
 	var RequestJsonSequence = [
 		function() {
+			this.isRetry = false;
+			this.retryFunc = this.$1;
 			this.$1();
 			return true;
 		},
 		window.ff.ReceiveTokenSequenceGenerator(),
 		function() {
-			this.retryFunc = this.$self;
 			var opt = {
 				"type" : "GET",
 				"url" : window.ff.Site + this.path,
@@ -636,7 +626,7 @@
 				}
 			},
 			function(xhr, status) {
-				if (xhr.status == 403 && !this.isRetry) {	// 403 forbidden
+				if (xhr.status == 400 && !this.isRetry && xhr.getResponseHeader(HttpHeader.ErrorReason) != ErrorReason.LockedOut) {	// 403 forbidden
 					this.isRetry = true;
 					StatusSection.PushAction("アプリを認証しています...");
 					this.$1();

@@ -26,7 +26,6 @@ namespace FFCommon
             }
         }
         public static readonly TimeSpan AuthTokenOutdateSpan = new TimeSpan(72, 0, 0);
-        public static readonly TimeSpan AuthTokenFreshSpan = new TimeSpan(0, 1, 0);
         public static readonly TimeSpan AuthTokenDoubtLeakSpan = new TimeSpan(24, 0, 0);
         public static readonly TimeSpan AuthTokenLifeSpan = new TimeSpan(120, 0, 0);
         public static readonly int AuthTokenMaxCount = 3;

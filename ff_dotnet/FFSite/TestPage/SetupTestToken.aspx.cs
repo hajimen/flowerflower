@@ -41,14 +41,8 @@ namespace FFSite.TestPage
         protected void LivingButton_Click(object sender, EventArgs e)
         {
             DataSet.TokenRow r = ta.GetDataByBody("debugdeadbeef")[0];
-            r.PublishedDate = DateTime.Now - Constant.AuthTokenFreshSpan - new TimeSpan(1, 0, 0);
-            ta.Update(r);
-        }
-
-        protected void FreshButton_Click(object sender, EventArgs e)
-        {
-            DataSet.TokenRow r = ta.GetDataByBody("debugdeadbeef")[0];
-            r.PublishedDate = DateTime.Now - Constant.AuthTokenFreshSpan + new TimeSpan(0, 3, 0);
+            r.PublishedDate = DateTime.Now - new TimeSpan(0, 3, 0);
+            r.Used = true;
             ta.Update(r);
         }
 
@@ -62,7 +56,7 @@ namespace FFSite.TestPage
             ta.Update(dt);
 
             SubscriberTableAdapter sta = new SubscriberTableAdapter();
-            dt.AddTokenRow(subscriber, new DateTime(2000, 1, 1), "debugdeadbeef");
+            dt.AddTokenRow(subscriber, new DateTime(2000, 1, 1), "debugdeadbeef", true);
             ta.Update(dt);
             subscriber.LockoutUntil = Constant.Ago;
             sta.Update(subscriber);
@@ -71,13 +65,20 @@ namespace FFSite.TestPage
         protected void BeforeLockoutButton_Click(object sender, EventArgs e)
         {
             CleanUpButton_Click(sender, e);
-            ta.Insert(subscriber.Id, DateTime.Now - new TimeSpan(0, 4, 0), "deadbeef2");
-            ta.Insert(subscriber.Id, DateTime.Now - new TimeSpan(0, 3, 0), "deadbeef3");
+            ta.Insert(subscriber.Id, DateTime.Now - new TimeSpan(0, 4, 0), "deadbeef2", true);
+            ta.Insert(subscriber.Id, DateTime.Now - new TimeSpan(0, 3, 0), "deadbeef3", true);
             /*
             DataSet.TokenRow r = ta.GetDataBySubscriberId(s.Id)[0];
             r.PublishedDate = DateTime.Now - new TimeSpan(0, 5, 0);
             ta.Update(r);
              */
+        }
+
+        protected void NotUsedButton_Click(object sender, EventArgs e)
+        {
+            DataSet.TokenRow r = ta.GetDataByBody("debugdeadbeef")[0];
+            r.Used = false;
+            ta.Update(r);
         }
     }
 }

@@ -51,8 +51,8 @@ namespace TestFFSite
                 }
 
                 TokenTableAdapter kta = new TokenTableAdapter();
-                kta.Insert(s1.Id, new DateTime(2011, 10, 12, 0, 0, 0), "deadbeef");
-                kta.Insert(s2.Id, new DateTime(2011, 10, 12, 4, 59, 50), "deadbeef2");
+                kta.Insert(s1.Id, new DateTime(2011, 10, 12, 0, 0, 0), "deadbeef", false);
+                kta.Insert(s2.Id, new DateTime(2011, 10, 12, 4, 59, 50), "deadbeef2", true);
 
                 Expect(SiteConstant.IsConfigurationOK, Is.EqualTo(true));
 
@@ -61,7 +61,7 @@ namespace TestFFSite
                 Expect(v.IsValid, Is.EqualTo(true));
                 Expect(v.IsLockedOut, Is.EqualTo(false));
                 Expect(v.IsOutdated, Is.EqualTo(false));
-                Expect(v.IsFresh, Is.EqualTo(false));
+                Expect(v.IsUsed, Is.EqualTo(false));
 
                 TokenVerifier v2 = new TokenVerifier("no such token", now);
                 Expect(v2.IsValid, Is.EqualTo(false));
@@ -70,7 +70,7 @@ namespace TestFFSite
                 Expect(v3.IsValid, Is.EqualTo(true));
                 Expect(v3.IsLockedOut, Is.EqualTo(true));
                 Expect(v3.IsOutdated, Is.EqualTo(false));
-                Expect(v3.IsFresh, Is.EqualTo(true));
+                Expect(v3.IsUsed, Is.EqualTo(true));
             }
         }
     }

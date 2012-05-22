@@ -17,6 +17,11 @@ namespace FFSite
     {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        public WebAuthStrategy()
+            : base(AuthScheme.Web)
+        {
+        }
+
         override public void AuthenticateRequest(HttpContext context)
         {
             if (context.Request.Cookies[SiteConstant.AuthTokenCookieName] == null)
@@ -65,12 +70,12 @@ namespace FFSite
                 cookie.Expires = DateTime.MaxValue;
                 context.Response.Cookies.Add(cookie);
             }
+            if (!v.IsUsed)
+            {
+                v.SetUsed();
+            }
 
             context.User = new GenericPrincipal(new GenericIdentity("user"), null);
-        }
-
-        override public void EndRequest(HttpContext context)
-        {
         }
     }
 }

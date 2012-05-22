@@ -35,8 +35,8 @@ namespace TestFFSite
                 DataSet.TitleRow title = tta.GetDataByName("test title")[0];
 
                 SubscriberTableAdapter sta = new SubscriberTableAdapter();
-                sta.Insert(title.Id, "test authkey", "web", Constant.Ago);
-                sta.Insert(title.Id, "test authkey 2", "web", new DateTime(2011, 10, 13));
+                sta.Insert(title.Id, "test authkey", AuthScheme.Web.ToString(), Constant.Ago);
+                sta.Insert(title.Id, "test authkey 2", AuthScheme.Web.ToString(), new DateTime(2011, 10, 13));
                 DataSet.SubscriberDataTable sdt = sta.GetDataByTitleId(title.Id);
                 DataSet.SubscriberRow s1, s2;
                 if (sdt[0].AuthenticationKey == "test authkey")
@@ -51,8 +51,8 @@ namespace TestFFSite
                 }
 
                 TokenTableAdapter kta = new TokenTableAdapter();
-                kta.Insert(s1.Id, new DateTime(2011, 10, 12, 0, 0, 0), "deadbeef");
-                kta.Insert(s2.Id, new DateTime(2011, 10, 12, 4, 59, 50), "deadbeef2");
+                kta.Insert(s1.Id, new DateTime(2011, 10, 12, 0, 0, 0), "deadbeef", true);
+                kta.Insert(s2.Id, new DateTime(2011, 10, 12, 4, 59, 50), "deadbeef2", false);
                 DataSet.TokenRow k1, k2;
                 k1 = kta.GetDataByBody("deadbeef")[0];
                 k2 = kta.GetDataByBody("deadbeef2")[0];
@@ -69,8 +69,8 @@ namespace TestFFSite
                 DataSet.TokenRow pk2 = p2.Publish();
                 Expect(pk2.Id, Is.EqualTo(k2.Id));
 
-                kta.Insert(s2.Id, new DateTime(2011, 10, 12, 4, 59, 10), "deadbeef3");
-                kta.Insert(s2.Id, new DateTime(2011, 10, 12, 4, 59, 20), "deadbeef4");
+                kta.Insert(s2.Id, new DateTime(2011, 10, 12, 4, 59, 10), "deadbeef3", true);
+                kta.Insert(s2.Id, new DateTime(2011, 10, 12, 4, 59, 20), "deadbeef4", true);
 
                 TokenPublisher p2_2 = new TokenPublisher(s2, now);
                 try

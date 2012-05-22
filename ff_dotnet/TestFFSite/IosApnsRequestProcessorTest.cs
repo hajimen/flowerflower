@@ -60,7 +60,7 @@ namespace TestFFSite
 
             TokenTableAdapter tta = new TokenTableAdapter();
             DataSet.TokenDataTable tdt = new DataSet.TokenDataTable();
-            tdt.AddTokenRow(subscriber, DateTime.Now - new TimeSpan(48, 0, 0), "deadbeef");
+            tdt.AddTokenRow(subscriber, DateTime.Now - new TimeSpan(48, 0, 0), "deadbeef", true);
             tta.Update(tdt);
 
             return subscriber;

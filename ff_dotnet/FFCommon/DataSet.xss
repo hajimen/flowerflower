@@ -9,7 +9,7 @@
     <Shape ID="DesignTable:Title" ZOrder="1" X="247" Y="166" Height="251" Width="276" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="133" />
     <Shape ID="DesignTable:Subscriber" ZOrder="10" X="555" Y="175" Height="251" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="133" />
     <Shape ID="DesignTable:APNs" ZOrder="7" X="899" Y="164" Height="335" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="154" />
-    <Shape ID="DesignTable:Token" ZOrder="5" X="831" Y="516" Height="209" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="112" />
+    <Shape ID="DesignTable:Token" ZOrder="5" X="831" Y="516" Height="230" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="133" />
     <Shape ID="DesignTable:LVL" ZOrder="4" X="311" Y="560" Height="167" Width="207" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="91" />
     <Shape ID="DesignTable:Credential" ZOrder="2" X="11" Y="439" Height="188" Width="285" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="112" />
   </Shapes>

@@ -38,8 +38,9 @@ namespace FFSite
 
                 DataSet.TokenRow r2 = dt[dt.Count - 1];
                 TokenVerifier v = new TokenVerifier(r2, now);
-                if (v.IsFresh)
+                if (!v.IsUsed)
                 {
+                    v.Refresh();
                     return r2;
                 }
             }
@@ -49,7 +50,7 @@ namespace FFSite
                 dt[i].Delete();
             }
             string tokenBody = Guid.NewGuid().ToString("N");
-            DataSet.TokenRow t = dt.AddTokenRow(subscriber, now, tokenBody);
+            DataSet.TokenRow t = dt.AddTokenRow(subscriber, now, tokenBody, false);
             ta.Update(dt);
 
             return t;

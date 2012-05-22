@@ -19,10 +19,9 @@ HTTP
 		X-flowerflower-ErrorReason
 			レスポンス
 				Web以外
-				ステータスコードは500 Bad Request
-			Malformed
+				ステータスコードは400 Bad Request
 			Invalid
-			Security
+			LockedOut
 
 Webサービス（JSON）
 	Office/AndroidLvl/RequestAuthChallenge.ashx

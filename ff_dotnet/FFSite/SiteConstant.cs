@@ -35,6 +35,10 @@ namespace FFSite
         public static readonly string AuthTokenRequestResposeHeaderName = "X-flowerflower-AuthToken";
         public static readonly string AuthStatusRequestResposeHeaderName = "X-flowerflower-AuthStatus";
         public static readonly string ErrorReasonResposeHeaderName = "X-flowerflower-ErrorReason";
+        public enum ErrorReason
+        {
+            Invalid, LockedOut
+        }
         public static readonly string MinuteGrainDateTimeFormat = "yyyy”NMMŒŽdd“úhhŽžmm•ª";
         public static readonly int LvlResponseCodeShouldBe;
 
