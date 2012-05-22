@@ -30,6 +30,10 @@ public class Compiler {
 	 */
 	public static void main(String[] args) throws JAXBException, ClassNotFoundException, SAXException, IOException {
 		ArrayList<String> s = new ArrayList<String>(Arrays.asList(args));
+		if (s.size() < 3) {
+			System.out.println("Usage: source.xml chronicle.bin timetable.json [lastReleasedSeparationId]");
+			return;
+		}
 		String sourceFilename = s.get(0);
 		s.remove(0);
 		String chronicleFilename = s.get(0);
