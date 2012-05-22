@@ -14,6 +14,7 @@ namespace FFSite
     {
 	    Malformed,
 	    Invalid,
-	    Security
+	    Security,
+        LockedOut
     }
 }
