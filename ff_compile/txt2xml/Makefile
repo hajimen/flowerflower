@@ -1,9 +1,9 @@
-target.xml: transient.xml transient2target.patch
-	patch transient.xml < transient2target.patch -o target.xml
+target.xml: transient.tmp transient2target.patch
+	patch transient.tmp < transient2target.patch -o target.xml
 
-transient.xml: genko.txt
-	python genko2transient.py genko.txt > transient.xml
+transient.tmp: genko.txt
+	python genko2transient.py genko.txt > transient.tmp
 
 .IGNORE: target.xml.modified
-target.xml.modified:
-	diff -c transient.xml target.xml > transient2target.patch
+target.xml.modified: transient.tmp
+	diff -c transient.tmp target.xml > transient2target.patch
