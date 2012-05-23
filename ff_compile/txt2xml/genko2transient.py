@@ -12,7 +12,7 @@ def prettify(elem):
 	"""
 	rough_string = ElementTree.tostring(elem, 'utf-8')
 	reparsed = minidom.parseString(rough_string)
-	return reparsed.toprettyxml(indent="	")
+	return reparsed.toprettyxml(indent="  ", newl='\n', encoding='UTF-8')
 
 if len(sys.argv) == 1:
 	print 'Usage: # python %s filename' % sys.argv[0]

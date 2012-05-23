@@ -12,7 +12,7 @@ txt2xmlツールチェイン
 　そのため、配信のたびにgenko.txtの変更分をtarget.xmlに反映させる作業が必要になります。これを自動化するのがtxt2xmlツールチェインです。
 
 基本の流れ
-	genko.txt ==(genko2transient.py)==> transient.xml ==(transient2target.patch)==> target.xml
+	genko.txt ==(genko2transient.py)==> transient.tmp ==(transient2target.patch)==> target.xml
 		makeのデフォルトゴール
 
 automatker.py
@@ -32,7 +32,10 @@ Requirements
 	Linux
 	libfuse2
 	Python 2.7以降
-	make
+		sitecustomize.pyでsys.setdefaultencoding('utf-8')
 	fusepy
+	make
 	diff
 	patch
+	libxml2
+		xmllint
