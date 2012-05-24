@@ -15,6 +15,8 @@ import net.arnx.jsonic.JSON;
 
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.kaoriha.flowerflower.compile.document.Depot;
 import org.kaoriha.flowerflower.compile.document.DocumentHandler;
@@ -39,6 +41,26 @@ public class Builder {
 	}
 
 	public void build() throws IOException {
+		// clean up old/invalidated directory
+		DateTime lastReleasedDateTime = timeTable.getDateTime(lastReleasedSeparationId);
+		if (lastReleasedDateTime == null) {
+			lastReleasedDateTime = new DateTime(0L);
+		}
+		DateTimeFormatter dtf = DateTimeFormat.forPattern(Constant.DATE_DIR_NAME_FORMAT);
+		for (File f : outputDir.listFiles()) {
+			if (!f.isDirectory()) {
+				continue;
+			}
+			try {
+				DateTime dt = dtf.parseDateTime(f.getName());
+				if (dt.isAfter(lastReleasedDateTime)) {
+					FileUtils.deleteDirectory(f);
+				}
+			} catch (IllegalArgumentException e) {
+				// nop
+			}
+		}
+
 		separationIdList = new ArrayList<String>();
 		for (Map.Entry<DateTime, String> e : timeTable.getMap().entrySet()) {
 			separationIdList.add(e.getValue());

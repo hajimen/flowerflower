@@ -1,8 +1,8 @@
 target.xml: transient.tmp transient2target.patch
 	patch transient.tmp < transient2target.patch -o target.xml
 
-transient.tmp: genko.txt
-	python genko2transient.py genko.txt |xmllint --format - > transient.tmp
+transient.tmp: draft.txt
+	python draft2transient.py draft.txt |xmllint --format - > transient.tmp
 
 transient2target.patch:
 	touch -a transient2target.patch

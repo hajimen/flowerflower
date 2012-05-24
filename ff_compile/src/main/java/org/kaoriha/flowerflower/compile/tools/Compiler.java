@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.xml.bind.JAXBException;
 
-import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.kaoriha.flowerflower.compile.Builder;
@@ -31,7 +30,7 @@ public class Compiler {
 	public static void main(String[] args) throws JAXBException, ClassNotFoundException, SAXException, IOException {
 		ArrayList<String> s = new ArrayList<String>(Arrays.asList(args));
 		if (s.size() < 3) {
-			System.out.println("Usage: source.xml chronicle.bin timetable.json [lastReleasedSeparationId]");
+			System.out.println("Arguments: source.xml chronicle.bin timetable.json [lastReleasedSeparationId]");
 			return;
 		}
 		String sourceFilename = s.get(0);
@@ -105,10 +104,12 @@ public class Compiler {
 
 		// ビルド
 		File d = new File("gen");
-		if (d.isDirectory()) {
-			FileUtils.cleanDirectory(d);
+		if (d.exists()) {
+			if (!d.isDirectory()) {
+				throw new IllegalArgumentException("gen should be a directory.");
+			}
 		} else if (!d.mkdir()) {
-			throw new IllegalArgumentException("gen should be a directory.");
+			throw new IllegalArgumentException("cannot create gen directory.");
 		}
 		Builder b = new Builder(sp.getDocumentHandler(), tt, lastReleasedSeparationId, d);
 		b.build();

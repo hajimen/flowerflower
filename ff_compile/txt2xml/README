@@ -5,14 +5,14 @@ txt2xmlツールチェイン
 
 目的：
 　flowerflowerは連載配信プラットフォームです。連載というものの性質上、原稿は配信のたびに書かれてゆくことが多くなります。
-　原稿は、org.kaoriha.flowerflower.compile.tools.CompilerのソースとなるXML（以下target.xml）を直接書くのは面倒なので、テキストファイル（以下genko.txt）として書いて変換することになります。
-　しかし、genko.txtだけを原料にしてtarget.xmlを生成することはできませんし、そうすることが望ましくもありません。
+　原稿は、org.kaoriha.flowerflower.compile.tools.CompilerのソースとなるXML（以下target.xml）を直接書くのは面倒なので、テキストファイル（以下draft.txt）として書いて変換することになります。
+　しかし、draft.txtだけを原料にしてtarget.xmlを生成することはできませんし、そうすることが望ましくもありません。
 　なぜできないのかというと、Compilerがtarget.xmlにseparation idを書き込むからです。
-　なぜ望ましくないのかというと、原稿を書くときには不要な細部がgenko.txtに表れることになり、わずらわしいからです。
-　そのため、配信のたびにgenko.txtの変更分をtarget.xmlに反映させる作業が必要になります。これを自動化するのがtxt2xmlツールチェインです。
+　なぜ望ましくないのかというと、原稿を書くときには不要な細部がdraft.txtに表れることになり、わずらわしいからです。
+　そのため、配信のたびにdraft.txtの変更分をtarget.xmlに反映させる作業が必要になります。これを自動化するのがtxt2xmlツールチェインです。
 
 基本の流れ
-	genko.txt ==(genko2transient.py)==> transient.tmp ==(transient2target.patch)==> target.xml
+	draft.txt ==(draft2transient.py)==> transient.tmp ==(transient2target.patch)==> target.xml
 		makeのデフォルトゴール
 
 automatker.py
@@ -22,11 +22,11 @@ automatker.py
 	target.xmlに加えた変更を失わないようにするために使う
 
 Makefile
-	基本的には、genko.txtからtarget.xmlを生成（デフォルトゴール）
+	基本的には、draft.txtからtarget.xmlを生成（デフォルトゴール）
 	target.xml.modifiedターゲットを実行すると、transient2target.patchを生成
 
-genko2transient.py
-	genko.txtに記法を定めるにはこれをいじる
+draft2transient.py
+	draft.txtに記法を定めるにはこれをいじる
 
 Requirements
 	Linux

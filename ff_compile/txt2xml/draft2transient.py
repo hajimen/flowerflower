@@ -28,11 +28,24 @@ def removeLastLineIfBlank(blockElementList):
 
 def processLine(line, nextLine, blockElementList):
 	ce = blockElementList[-1]
-	if line.strip() == u'＊':
+	linestrip = line.strip()
+	if len(linestrip) == 0 and (nextLine == None or len(nextLine.strip()) == 0):
+		return 1
+	if len(linestrip) > 0 and linestrip[0] == u'：':
+		chapterName = line.strip()[1:]
+		removeLastLineIfBlank(blockElementList)
+		ElementTree.SubElement(ce, "chapter", {'name' : chapterName})
+		if nextLine == None or len(nextLine.strip()) == 0:
+			return 2
+		else:
+			return 1
+	if len(linestrip) == u'＊':
 		removeLastLineIfBlank(blockElementList)
 		ElementTree.SubElement(ce, "section")
 		if nextLine == None or len(nextLine.strip()) == 0:
 			return 2
+		else:
+			return 1
 	if line[0] == '\t' and len(blockElementList) == 1:
 		removeLastLineIfBlank(blockElementList)
 		divElement = ElementTree.SubElement(ce, "div", {'class' : 'indent'})
