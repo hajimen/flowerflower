@@ -1,7 +1,8 @@
 共通
 	gitのブランチを作成する
 		git checkout -b foobar
-	配信サイトのURLをff_private/www_private/flowerflower/site_constant.js
+	ff_private/www_private/flowerflower/site_constant.jsを編集して、タイトルと配信サイトのURLを入れる
+	ff_compile/about_this_app.txtを編集する
 iOS
 	Supporting Files/PhoneGap.plistのExternalHostsに配信サーバを追加
 Android
