@@ -225,13 +225,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_40460A7BED85896BFDFF106B7206A7C5"
+        "MsmKey" = "8:_4247DB7655F02EC925F691210F60EF80"
         "OwnerKey" = "8:_EC70C0477A65474F9A8C9799F26BFF01"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_40460A7BED85896BFDFF106B7206A7C5"
+        "MsmKey" = "8:_4247DB7655F02EC925F691210F60EF80"
         "OwnerKey" = "8:_F7A46B41E5DD451DAC9121691F541F10"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -261,18 +261,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5B64AD0F36A54D6426A7E1EA2CF8657A"
-        "OwnerKey" = "8:_40460A7BED85896BFDFF106B7206A7C5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5B64AD0F36A54D6426A7E1EA2CF8657A"
-        "OwnerKey" = "8:_EC70C0477A65474F9A8C9799F26BFF01"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_603CCC554B5CA25FCACA2EF98988154D"
         "OwnerKey" = "8:_F7A46B41E5DD451DAC9121691F541F10"
         "MsmSig" = "8:_UNDEFINED"
@@ -292,13 +280,25 @@
         "Entry"
         {
         "MsmKey" = "8:_603CCC554B5CA25FCACA2EF98988154D"
+        "OwnerKey" = "8:_EC70C0477A65474F9A8C9799F26BFF01"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_60AB13A11176BFE598013CB4A34BC09C"
+        "OwnerKey" = "8:_4247DB7655F02EC925F691210F60EF80"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_60AB13A11176BFE598013CB4A34BC09C"
         "OwnerKey" = "8:_EC70C0477A65474F9A8C9799F26BFF01"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_6781E1D7704E8930B7F761921C41602D"
-        "OwnerKey" = "8:_40460A7BED85896BFDFF106B7206A7C5"
+        "OwnerKey" = "8:_4247DB7655F02EC925F691210F60EF80"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -520,7 +520,7 @@
         "Entry"
         {
         "MsmKey" = "8:_CDA156B0F59D1D77AB3ED4B3B63DAF61"
-        "OwnerKey" = "8:_40460A7BED85896BFDFF106B7206A7C5"
+        "OwnerKey" = "8:_4247DB7655F02EC925F691210F60EF80"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -676,7 +676,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_40460A7BED85896BFDFF106B7206A7C5"
+        "OwnerKey" = "8:_4247DB7655F02EC925F691210F60EF80"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -688,7 +688,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5B64AD0F36A54D6426A7E1EA2CF8657A"
+        "OwnerKey" = "8:_60AB13A11176BFE598013CB4A34BC09C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1107,14 +1107,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_40460A7BED85896BFDFF106B7206A7C5"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4247DB7655F02EC925F691210F60EF80"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:FFCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_40460A7BED85896BFDFF106B7206A7C5"
+                    "_4247DB7655F02EC925F691210F60EF80"
                     {
                     "Name" = "8:FFCommon.dll"
                     "Attributes" = "3:512"
@@ -1169,20 +1169,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5B64AD0F36A54D6426A7E1EA2CF8657A"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_603CCC554B5CA25FCACA2EF98988154D"
             {
             "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:JdSoft.Apns.Feedback, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyIsInGAC" = "11:TRUE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Transactions.Bridge, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_5B64AD0F36A54D6426A7E1EA2CF8657A"
+                    "_603CCC554B5CA25FCACA2EF98988154D"
                     {
-                    "Name" = "8:JdSoft.Apns.Feedback.dll"
+                    "Name" = "8:Microsoft.Transactions.Bridge.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:JdSoft.Apns.Feedback.dll"
+            "SourcePath" = "8:Microsoft.Transactions.Bridge.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5D55DACEEB9C4D3CA88562BCDD0490F5"
@@ -1200,20 +1200,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_603CCC554B5CA25FCACA2EF98988154D"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_60AB13A11176BFE598013CB4A34BC09C"
             {
             "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:TRUE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.Transactions.Bridge, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:JdSoft.Apns.Feedback, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_603CCC554B5CA25FCACA2EF98988154D"
+                    "_60AB13A11176BFE598013CB4A34BC09C"
                     {
-                    "Name" = "8:Microsoft.Transactions.Bridge.dll"
+                    "Name" = "8:JdSoft.Apns.Feedback.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Microsoft.Transactions.Bridge.dll"
+            "SourcePath" = "8:JdSoft.Apns.Feedback.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5D55DACEEB9C4D3CA88562BCDD0490F5"
@@ -1661,14 +1661,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:flowerflower サーバ用コンポーネント群"
-        "ProductCode" = "8:{3B823E71-89B6-422D-9AB4-0B9ECAD00533}"
-        "PackageCode" = "8:{AC8B6617-FDCE-43C4-BDFB-184AB45510EF}"
+        "ProductCode" = "8:{836D72FE-441B-4BBA-9B88-653AD865D243}"
+        "PackageCode" = "8:{199B2BB2-AE60-4085-84C2-71DC252ABCAE}"
         "UpgradeCode" = "8:{30308AB7-9906-4FF0-8DE8-42FE4D1A1703}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.1.0"
         "Manufacturer" = "8:Nishizaike Kaoriha"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
