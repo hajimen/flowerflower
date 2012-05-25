@@ -16,7 +16,11 @@ public class P extends ElementHandler<Document> {
 			}
 		}
 		doc.getHtml().p();
-		sp.process(p.getContent(), p);
+		if (p.getContent().size() == 0) {
+			doc.getHtml().classAttr("blank_line").text("_");
+		} else {
+			sp.process(p.getContent(), p);
+		}
 		doc.getHtml().end();
 	}
 
