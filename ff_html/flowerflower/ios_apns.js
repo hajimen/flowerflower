@@ -3,7 +3,7 @@
 	var PSKEY_HAS_PUSH_AGREEMENT = "pushAgreement";
 	var REQUEST_TOKEN_PATH = "Office/IosApns/RequestAuthToken.ashx";
 	var EVENT_NEW_TOKEN = "newtoken";
-	var EVENT_NEW_TOKEN_TIMEOUT = 30000;
+	var EVENT_NEW_TOKEN_TIMEOUT = 60000;
 
 	var isUpdatingToken = false;
 	var deviceToken = null;

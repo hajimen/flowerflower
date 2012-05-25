@@ -1033,6 +1033,7 @@
 			if (isContentFixed) {
 				this.$next();
 			} else {
+				this.isFirstRun = isFirstRun;
 				this.$1();
 			}
 		   return true;
