@@ -78,6 +78,19 @@ ul {
 #nav {
 	position: relative;
 }
+div.indent {
+	margin: 0.5em 0.5em 0.5em 0.5em;
+	background-color: rgb(240, 240, 240);
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+div.indent p {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+.blank_line {
+	color: transparent;
+}
 @media screen and (min-width: 14em) and (max-width: 17.99em) {
 	#text_frame, #status, .now_loading img {
 		width: 13em;

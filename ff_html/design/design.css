@@ -5,6 +5,9 @@ body {
 	font-family: 'メイリオ';
 	background-color: rgb(250, 250, 250);
 }
+a img {
+    border-style:none;
+}
 p, h1 {
 	margin: 0px;
 	padding: 0px;
