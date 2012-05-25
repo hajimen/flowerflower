@@ -1,7 +1,7 @@
 <h1>このアプリについて</h1>
-<p>　このアプリは小説『紅茶ボタン』の配信を受け取って表示するものです。</p>
+<p>　このアプリは小説『完全人型』の配信を受け取って表示するものです。</p>
 <p>　このアプリと配信内容の一切の著作権は西在家香織派と中里一に帰属しています。</p>
-<p>　このアプリと配信サーバは<a href="http://kaoriha.org/flowerflower/">flowerflower</a>を用いています。</p>
+<p>　このアプリと配信サーバは <a href="http://kaoriha.org/flowerflower/">flowerflower</a> を用いています。</p>
 <h1>特殊な操作</h1>
 <p>　下の「ストレージを削除」ボタンを押すと、このアプリの保持している記憶がすべて削除されます。アプリの動作に異常があるときにだけ押してください。</p>
-<p> <input type="button" name="clear" value="ストレージを削除" onclick="localStorage.clear(); alert('ストレージを削除しました。');" /> </p>
+<p> <input type="button" name="clear" value="ストレージを削除" onclick="window.ff.ClearAllStorage();" /> </p>
