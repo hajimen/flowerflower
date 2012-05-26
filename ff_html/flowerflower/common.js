@@ -1058,6 +1058,7 @@
 				}
 			} else {
 				BuildDomTree();
+				StatusSection.Set(StatusSection.Type.InAction, null);
 			}
 
 			setInterval(Tick, 1000);
