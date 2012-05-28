@@ -1,10 +1,5 @@
 package org.kaoriha.kouchabutton;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringWriter;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -53,28 +48,7 @@ public class Document extends DocumentHandler {
 		Fragment cnf2 = depot.fromKey(Constant.ABOUT_THIS_APP_INITIAL_KEY);
 		if (cnf2 == null) {
 			cnf2 = new Fragment();
-			File f = new File(Constant.ABOUT_THIS_APP_FILENAME);
-			try {
-				if (f.canRead()) {
-					FileInputStream fis = new FileInputStream(f);
-					InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-					BufferedReader br = new BufferedReader(isr);
-
-					StringBuilder sb = new StringBuilder();
-					String s;
-					while ((s = br.readLine()) != null) {
-						sb.append(s);
-					}
-					cnf2.setHtml(sb.toString());
-
-					br.close();
-					isr.close();
-					fis.close();
-				}
-			} catch (IOException e) {
-				System.out.println("ABOUT_THIS_APP_FILENAME file not found or bad.");
-				cnf2.setHtml("");
-			}
+			cnf2.setHtml(Constant.ABOUT_THIS_APP);
 			cnf2.setKey(Constant.ABOUT_THIS_APP_INITIAL_KEY);
 		}
 		depot.getFragmentSet().add(cnf2);
