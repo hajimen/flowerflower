@@ -2,8 +2,8 @@
 //  main.m
 //  ff_ios
 //
-//  Created by 岩田 健一 on 11/09/12.
-//  Copyright __MyCompanyName__ 2011. All rights reserved.
+//  Created by NAKAZATO Hajime on 11/09/12.
+//  Copyright Nishizaike Kaoriha 2011. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

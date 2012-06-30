@@ -11,6 +11,7 @@ if (userAgent.match(/android/)) {
 } else {
 	document.write("<script src='../ios/phonegap-1.1.0.js'></script>"
 			+ "<script src='../ios/remoteNotification.js'></script>"
+			+ "<script src='../ios/scaleChanger.js'></script>"
 			+ "<script src='../flowerflower/ios_apns.js'></script>"
 //			+ "<script src='../flowerflower/web.js'></script>"
 			);

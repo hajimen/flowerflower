@@ -20,10 +20,10 @@
     self = [super init];
     if (self) {
         // Initialization code here.
+        isReadyRemoteNotificationFireEvent = NO;
+        isOnceRegistered = NO;
+        isOnceReceivedLaunchPayload = NO;
     }
-    isReadyRemoteNotificationFireEvent = NO;
-    isOnceRegistered = NO;
-    isOnceReceivedLaunchPayload = NO;
     
     return self;
 }

@@ -48,6 +48,8 @@
 		<string>PGSplashScreen</string>
 		<key>org.kaoriha.phonegap.plugins.remotenotification</key>
 		<string>RemoteNotification</string>
+		<key>org.kaoriha.phonegap.plugins.scalechanger</key>
+		<string>ScaleChanger</string>
 	</dict>
 </dict>
 </plist>
