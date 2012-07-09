@@ -3,7 +3,11 @@
 		git checkout -b foobar
 	ff_private/www_private/flowerflower/site_constant.jsを編集して、タイトルと配信サイトのURLを入れる
 	ff_compile/about_this_app.txtを編集する
+	ff_private/www_private/design/の画像ファイルを差し替える
 iOS
+	https://github.com/hajimen/incubator-cordova-iosの1.1.0-branchをチェックアウトする
+	incubator-cordova-iosのPhoneGapLibのUniversalFrameworkをビルドする
+	PhoneGapLib/build/Release-universal/PhoneGap.frameworkを/Users/Shared/PhoneGap/Frameworks/にコピーする
 	Supporting Files/PhoneGap.plistのExternalHostsに配信サーバを追加
 Android
 	AndroidManifest.xmlを編集

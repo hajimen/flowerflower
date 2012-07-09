@@ -3,7 +3,7 @@
             ------
             中里一
             ------
-             2011-11-22
+             2012-07-09
 
 flowerflowerについて
 
@@ -29,9 +29,9 @@ flowerflowerについて
 
 * iOS / Androidの購読者には配信をアプリとして販売可能
 
-	* AppStore / Android Marketを通じて、提供者・購読者ともに手軽に決済
+	* AppStore / Google Playを通じて、提供者・購読者ともに手軽に決済
 
-	* AppStore / Android Marketの機能により、きわめて柔軟な値付けが可能
+	* AppStore / Google Playの機能により、きわめて柔軟な値付けが可能
 
 * HTMLで表現可能な内容であれば連載可能
 
@@ -70,6 +70,8 @@ flowerflowerについて
 	* ライセンス
 
 		* iOS Developer Program
+
+		* Google Play Developer
 
 		他のライセンスは無料で契約できます。
 
