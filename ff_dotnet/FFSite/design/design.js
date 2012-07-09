@@ -2,9 +2,9 @@
 var isTsumeEnabled = true;
 
 $(document).bind("contentupdated", function(e) {
-	$('.in_nav p').html('<a href="#top" class="display_nav_top_inline" style="background-color: transparent; position: absolute; right: 5em; width: 2em;">目次</a>'
+	$('.in_nav p').html('<a href="#top" class="display_nav_top_inline display_nav_top_inline_left">目次</a>'
 			+ '＊' + window.ff.CharacterNoteElement.substring(0, window.ff.CharacterNoteElement.length - 1)
-			+ ' class="display_nav_top_inline" style="background-color: transparent; position: absolute; left: 3em; width: 6em;">登場人物紹介</a>');
+			+ ' class="display_nav_top_inline display_nav_top_inline_right">登場人物紹介</a>');
 
 	$('#inner_nav li').each(function() {
 		if ($(this).html().indexOf(window.ff.StartSid) != -1) {

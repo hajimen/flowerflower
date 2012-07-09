@@ -162,7 +162,6 @@
   <ItemGroup>
     <Content Include="Auth\Default.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="design\android_market_badge.png" />
     <Content Include="design\app_store_badge.png" />
     <Content Include="design\before_build_dom_tree.css" />
     <Content Include="design\before_restore_scroll_position.css" />
@@ -170,6 +169,7 @@
     <Content Include="design\design.css" />
     <Content Include="design\design.js" />
     <Content Include="design\design_ie8.css" />
+    <Content Include="design\google_play_badge.png" />
     <Content Include="design\left_top.png" />
     <Content Include="design\list_marker.png" />
     <Content Include="design\list_marker_current.png" />

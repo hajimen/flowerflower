@@ -1,0 +1,80 @@
+@charset "utf-8";
+body {
+	font-family: 'ＭＳ 明朝';
+	font-size: 12pt;
+}
+a img {
+    border-style:none;
+}
+p, h1 {
+	margin: 0px;
+	padding: 0px;
+}
+h1 {
+	line-height: 30pt;
+	margin-bottom: 10pt;
+}
+p {
+	line-height: 20pt;
+}
+.now_loading {
+	display: none;
+}
+.left_top {
+	display: none;
+}
+.out_square {
+	display: none;
+}
+#outer_frame, .now_loading {
+}
+#outer_frame, #text_frame, #status, #full_box, #nav, .now_loading, .now_loading img {
+	margin-left: auto;
+	margin-right: auto;
+}
+#status {
+	display: none;
+}
+.display_nav_left {
+	display: none;
+}
+.display_nav_top {
+	display: none;
+}
+.display_nav_top_inline {
+	display: none;
+}
+.display_nav_top_inline_left {
+	display: none;
+}
+.display_nav_top_inline_right {
+	display: none;
+}
+#inner_nav {
+	display: none;
+}
+#content .separation {
+}
+#content :first-child {
+}
+#nav {
+	display: none;
+}
+div.indent {
+	margin: 0.5em 0.5em 0.5em 0.5em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+div.indent p {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+.in_nav p {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1em;
+	line-height: 3em;
+}
+.blank_line {
+	visibility:hidden;
+}
