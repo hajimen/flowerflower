@@ -117,9 +117,9 @@
 						"Alert" : 1,
 						"Sound" : 0
 					});
-			var timeoutWait = 1000;
+			var timeoutWait = 10000;
 			if (this.isFirstRun) {
-				timeoutWait = 10000;
+				timeoutWait = 100000;
 			}
 			this.deviceTokenTimeout = setTimeout(
 				function() {
