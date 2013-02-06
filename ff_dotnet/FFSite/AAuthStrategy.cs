@@ -92,12 +92,15 @@ namespace FFSite
                 v.SetUsed();
             }
 
-            APNsTableAdapter ata = new APNsTableAdapter();
-            DataSet.APNsDataTable adt = ata.GetDataBySubscriberId(v.Subscriber.Id);
-            if (adt[0].UnreadRelease > 0)
+            if (v.IsAuthScheme(AuthScheme.iOS_APNs))
             {
-                adt[0].UnreadRelease = 0;
-                ata.Update(adt);
+                APNsTableAdapter ata = new APNsTableAdapter();
+                DataSet.APNsDataTable adt = ata.GetDataBySubscriberId(v.Subscriber.Id);
+                if (adt[0].UnreadRelease > 0)
+                {
+                    adt[0].UnreadRelease = 0;
+                    ata.Update(adt);
+                }
             }
 
             context.User = new GenericPrincipal(new GenericIdentity("user"), null);
