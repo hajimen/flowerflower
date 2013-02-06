@@ -21,6 +21,7 @@
 		5746D3111569DD9700B353FA /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5746D3101569DD9700B353FA /* Default-Landscape@2x~ipad.png */; };
 		5756D8BB1569D45E0096BF5B /* icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 5756D8BA1569D45E0096BF5B /* icon-144.png */; };
 		576466D31485F9C100DA767C /* www in Resources */ = {isa = PBXBuildFile; fileRef = 576466D21485F9C100DA767C /* www */; };
+		5775986216C2499C00E65DCB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5775986116C2499C00E65DCB /* Default-568h@2x.png */; };
 		57A76279156A016000B8E835 /* ff_html in Resources */ = {isa = PBXBuildFile; fileRef = 57A76278156A016000B8E835 /* ff_html */; };
 		57AC6E10141DC703002CC2A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AC6E0F141DC703002CC2A0 /* Foundation.framework */; };
 		57AC6E12141DC703002CC2A0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AC6E11141DC703002CC2A0 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -88,8 +89,9 @@
 		5746D3101569DD9700B353FA /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../ff_private/ios/Resources/splash/Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		5756D8BA1569D45E0096BF5B /* icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-144.png"; path = "../ff_private/ios/Resources/icons/icon-144.png"; sourceTree = "<group>"; };
 		576466D21485F9C100DA767C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
+		5775986116C2499C00E65DCB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../ff_private/ios/Resources/splash/Default-568h@2x.png"; sourceTree = "<group>"; };
 		57A76278156A016000B8E835 /* ff_html */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ff_html; path = ../ff_html; sourceTree = "<group>"; };
-		57AC6E0B141DC703002CC2A0 /* 紅茶ボタン.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "紅茶ボタン.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57AC6E0B141DC703002CC2A0 /* 鄙の姫、宮....app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "鄙の姫、宮....app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AC6E0F141DC703002CC2A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		57AC6E11141DC703002CC2A0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		57AC6E13141DC703002CC2A0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -211,7 +213,7 @@
 		57AC6E0C141DC703002CC2A0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				57AC6E0B141DC703002CC2A0 /* 紅茶ボタン.app */,
+				57AC6E0B141DC703002CC2A0 /* 鄙の姫、宮....app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -302,6 +304,7 @@
 		57C23DFC159B906800C92287 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5775986116C2499C00E65DCB /* Default-568h@2x.png */,
 				5746D3101569DD9700B353FA /* Default-Landscape@2x~ipad.png */,
 				5746D3071569DBAB00B353FA /* Default-Portrait@2x~ipad.png */,
 				5756D8BA1569D45E0096BF5B /* icon-144.png */,
@@ -415,7 +418,7 @@
 			);
 			name = ff_ios;
 			productName = ff_ios;
-			productReference = 57AC6E0B141DC703002CC2A0 /* 紅茶ボタン.app */;
+			productReference = 57AC6E0B141DC703002CC2A0 /* 鄙の姫、宮....app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -474,6 +477,7 @@
 				57C23E3F159B916600C92287 /* IASKPSToggleSwitchSpecifierViewCell.xib in Resources */,
 				57C23E40159B916600C92287 /* IASKSpecifierValuesView.xib in Resources */,
 				57C23E4F159B934D00C92287 /* Settings.bundle in Resources */,
+				5775986216C2499C00E65DCB /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,7 +601,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				INFOPLIST_FILE = "ff_ios/ff_ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRODUCT_NAME = "紅茶ボタン";
+				PRODUCT_NAME = "鄙の姫、宮...";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7";
@@ -652,7 +656,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				INFOPLIST_FILE = "ff_ios/ff_ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRODUCT_NAME = "紅茶ボタン";
+				PRODUCT_NAME = "鄙の姫、宮...";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv6 armv7";
 				WRAPPER_EXTENSION = app;
