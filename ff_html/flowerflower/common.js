@@ -999,6 +999,13 @@
 
 			if (localStorage.getItem(DepotStorageKey.Index) === null) {
 				isFirstRun = true;
+			} else if (localStorage.getItem(DepotStorageKey.IsContentFixed) !== null) {
+				isContentFixed = true;
+			}
+
+			if (isContentFixed) {
+				this.$next();
+			} else {
 				var opt = {
 						"type" : "GET",
 						"url" : TOTAL_JSON_URL,
@@ -1008,11 +1015,6 @@
 						"timeout" : TIMEOUT
 				};
 				$.ajax(opt);
-			} else {
-				if (localStorage.getItem(DepotStorageKey.IsContentFixed) !== null) {
-					isContentFixed = true;
-				}
-				this.$next();
 			}
 
 			return true;
