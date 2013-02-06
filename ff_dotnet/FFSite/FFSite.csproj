@@ -180,6 +180,7 @@
     <Content Include="jquery-cookie.js" />
     <Content Include="Office\IosApns\RequestAuthToken.ashx" />
     <Content Include="design\insert_app_badge.js" />
+    <Content Include="Public\affiliate.html" />
     <Content Include="Public\PublishAuthenticationKey.aspx" />
     <Content Include="Public\apps.html" />
     <Content Include="Public\catchphrase.png" />
