@@ -61,6 +61,7 @@
     <Content Include="Global.asax" />
     <Content Include="Office\LockedOut.aspx" />
     <Content Include="UnknownError.html" />
+    <Content Include="Office\Author\RequestAuthCookie.ashx" />
     <None Include="TestPage\SetupCookie.aspx" />
     <None Include="TestPage\SetupTestToken.aspx" />
     <None Include="tsume\tsume.ttf" />
@@ -97,6 +98,9 @@
       <DependentUpon>AskAuthenticationKey.aspx</DependentUpon>
     </Compile>
     <Compile Include="AuthModule.cs" />
+    <Compile Include="Office\Author\RequestAuthCookie.ashx.cs">
+      <DependentUpon>RequestAuthCookie.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Office\BadConfiguration.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>BadConfiguration.aspx</DependentUpon>

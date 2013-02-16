@@ -83,6 +83,11 @@ public class DepotTest extends TestCase {
 
 	public void testLoadFromJson() throws Exception {
 		Depot d = new Depot();
-		d.load("depot");
+		d.load("depot", Constant.DEFAULT_COOKIE_FILENAME, null);
+	}
+
+	public void testLoadFromRemote() throws Exception {
+		Depot d = new Depot();
+		d.load("http://kaoriha.org/kanzenhitogata/", Constant.DEFAULT_COOKIE_FILENAME, "4235f8e7c5714ba4931a7ce8bdf20a2d");
 	}
 }

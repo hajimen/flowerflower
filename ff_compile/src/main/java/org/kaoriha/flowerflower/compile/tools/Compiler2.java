@@ -30,14 +30,20 @@ public class Compiler2 {
 	private static final int QUICK_FIX_ABANDON_MIN = 15;
 
 	/**
-	 * args: source.xml (--init | #depot#) #timeTable#
+	 * args: source.xml (--init | #depot#) #timeTable# {#cookie#} {#authCode#}
 	 * 
 	 *  #depot#
-	 * 		http://example.com/foobar/ # from remote
+	 * 		http://example.com/foobar/ # from remote. Not 'Auth'.
 	 * 		foobar # from local
 	 * 
 	 * #timeTable#
 	 * 		tt.json	# always from local
+	 * 
+	 * #cookie#
+	 * 		cookie file
+	 * 
+	 * #authCode#
+	 * 		auth code
 	 * 
 	 * @param args
 	 * @throws SAXException 
@@ -54,6 +60,14 @@ public class Compiler2 {
 		String sourceFilename = s.get(0);
 		String depotLocation = s.get(1);
 		String timeTableFilename = s.get(2);
+		String cookieFilename = Constant.DEFAULT_COOKIE_FILENAME;
+		String authCode = null;
+		if (s.size() >= 4) {
+			cookieFilename = s.get(3);
+		}
+		if (s.size() >= 5) {
+			authCode = s.get(4);
+		}
 
 		// ソースからChronicleを構築
 		SourceProcessor sp = new SourceProcessor("org.kaoriha.flowerflower._20111001");
@@ -70,7 +84,7 @@ public class Compiler2 {
 				if (!ttf.delete()) throw new IllegalArgumentException("cannot delete file:" + timeTableFilename);
 			}
 		} else {
-			publishedIdList = publishedDepot.load(depotLocation);
+			publishedIdList = publishedDepot.load(depotLocation, cookieFilename, authCode);
 			lastPublishedId = publishedIdList.get(publishedIdList.size() - 1);
 		}
 

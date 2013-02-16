@@ -54,4 +54,11 @@ public class Constant {
 	}
 
 	public static final String INDEX_KEY = "INDEX_KEY";
+
+	public static class RequestAuthCookie {
+		public static final String AUTH_CODE_PARAM_NAME = "authCode";
+		public static final String PATH = "Office/Author/RequestAuthCookie.ashx";
+	}
+
+	public static final String DEFAULT_COOKIE_FILENAME = "cookie.bin";
 }
