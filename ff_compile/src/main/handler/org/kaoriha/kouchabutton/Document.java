@@ -1,6 +1,8 @@
 package org.kaoriha.kouchabutton;
 
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.kaoriha.flowerflower.compile.Constant;
@@ -24,6 +26,7 @@ public class Document extends DocumentHandler {
 	private Html cnHtml;
 	private boolean isCharacterNote = false;
 	private PushMessageMap pushMessageMap = new PushMessageMap();
+	private List<String> separationIdList = new ArrayList<String>();
 
 	@Override
 	public Chronicle getChronicle() {
@@ -79,6 +82,7 @@ public class Document extends DocumentHandler {
 			currentFragment.setHtml(sw.getBuffer().toString());
 			depot.getFragmentSet().add(currentFragment);
 			chronicle.snapshot(currentFragment.getKey(), depot);
+			separationIdList.add(currentFragment.getKey());
 			currentFragment.setNext(f);
 		}
 		currentFragment = f;
@@ -90,6 +94,7 @@ public class Document extends DocumentHandler {
 		currentFragment.setHtml(sw.getBuffer().toString());
 		depot.getFragmentSet().add(currentFragment);
 		chronicle.snapshot(currentFragment.getKey(), depot);
+		separationIdList.add(currentFragment.getKey());
 		currentFragment = null;
 	}
 
@@ -180,5 +185,10 @@ public class Document extends DocumentHandler {
 		} else {
 			return currentFragment;
 		}
+	}
+
+	@Override
+	public List<String> getSeparationIdList() {
+		return separationIdList;
 	}
 }

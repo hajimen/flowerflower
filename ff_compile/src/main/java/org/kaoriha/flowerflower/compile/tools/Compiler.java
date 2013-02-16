@@ -12,7 +12,6 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.kaoriha.flowerflower.compile.Builder;
 import org.kaoriha.flowerflower.compile.Constant;
-import org.kaoriha.flowerflower.compile.Merger;
 import org.kaoriha.flowerflower.compile.SourceProcessor;
 import org.kaoriha.flowerflower.compile.TimeTable;
 import org.kaoriha.flowerflower.compile.document.Chronicle;
@@ -27,6 +26,7 @@ public class Compiler {
 	 * @throws SAXException 
 	 * @throws IOException 
 	 */
+/*
 	public static void main(String[] args) throws JAXBException, ClassNotFoundException, SAXException, IOException {
 		ArrayList<String> s = new ArrayList<String>(Arrays.asList(args));
 		if (s.size() < 3) {
@@ -63,7 +63,7 @@ public class Compiler {
 		Chronicle mc;
 		TimeTable tt = new TimeTable(timeTableFilename);
 		if (Constant.TEST_RELEASE_PERIOD != null) {
-			tt.getMap().clear();
+			tt.getList().clear();
 		}
 		File chronicleFile = new File(chronicleFilename);
 		if (chronicleFile.exists()) {
@@ -71,7 +71,7 @@ public class Compiler {
 
 			if (lastReleasedSeparationId == null) {
 				DateTime dt = DateTime.now().plusHours(1);
-				for (Map.Entry<DateTime, String> e: tt.getMap().entrySet()) {
+				for (Map.Entry<DateTime, String> e: tt.getList()) {
 					if (e.getKey().isBefore(dt)) {
 						lastReleasedSeparationId = e.getValue();
 					} else {
@@ -114,4 +114,5 @@ public class Compiler {
 		Builder b = new Builder(sp.getDocumentHandler(), tt, lastReleasedSeparationId, d);
 		b.build();
 	}
+*/
 }

@@ -81,9 +81,8 @@ public class DepotTest extends TestCase {
 		Assert.assertEquals("{\"h10fe8509\":null,\"h30fe8509\":\"test2\",\"n10fe8509\":null}", JSON.encode(nd.diff(d)));
 	}
 
-	public void testDiffSame() {
-
+	public void testLoadFromJson() throws Exception {
+		Depot d = new Depot();
+		d.load("depot");
 	}
-
-	// TODO hashCode縺ｮ繝�せ繝�
 }

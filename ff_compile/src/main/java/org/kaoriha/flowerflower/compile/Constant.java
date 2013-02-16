@@ -1,11 +1,6 @@
 package org.kaoriha.flowerflower.compile;
 
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-
-import org.joda.time.LocalTime;
-import org.joda.time.Period;
-import org.joda.time.format.PeriodFormat;
 
 public class Constant {
 	private static final ResourceBundle RESOURCE = ResourceBundle
@@ -13,18 +8,7 @@ public class Constant {
 
 	public static final String PROJECT_NAME = RESOURCE.getString("projectName");
 
-	public static final LocalTime RELEASE_TIME = LocalTime.parse(RESOURCE
-			.getString("releaseTime"));
-	public static final Period TEST_RELEASE_PERIOD;
-	static {
-		Period p;
-		try {
-			p = Period.parse(RESOURCE.getString("testReleasePeriod"), PeriodFormat.getDefault());
-		} catch (MissingResourceException e) {
-			p = null;
-		}
-		TEST_RELEASE_PERIOD = p;
-	}
+	public static final String RELEASE_CRON_PATTERN = RESOURCE.getString("releaseCronPattern");
 
 	public static final String DATE_DIR_NAME_FORMAT = "yyyyMMdd_HHmm";
 
@@ -68,4 +52,6 @@ public class Constant {
 		public static final String dd = "dd";
 		public static final String START_SID = "startSid";
 	}
+
+	public static final String INDEX_KEY = "INDEX_KEY";
 }

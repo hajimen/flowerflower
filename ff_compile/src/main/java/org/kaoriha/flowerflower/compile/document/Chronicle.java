@@ -2,77 +2,20 @@ package org.kaoriha.flowerflower.compile.document;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class Chronicle implements Serializable {
-	public static class Entry implements Serializable {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
+public class Chronicle {
+	private Map<String, Depot> map = new HashMap<String, Depot>();
 
-		private String separationId;
-		private Depot depot;
-
-		public Entry(String separationId, Depot depot) {
-			this.separationId = separationId;
-			this.depot = depot;
-		}
-		public Depot getDepot() {
-			return depot;
-		}
-		public String getSeparationId() {
-			return separationId;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			Entry e = (Entry) obj;
-			return new EqualsBuilder().append(separationId, e.separationId).append(depot, e.depot).isEquals();
-		}
-
-		@Override
-		public int hashCode() {
-			return new HashCodeBuilder().append(separationId).append(depot).toHashCode();
-		}
-	}
-
-	private List<Entry> list = new ArrayList<Entry>();
-	private void put(String separationId, Depot depot) {
-		list.add(new Entry(separationId, depot));
-	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	public void save(File file) throws IOException {
-		FileOutputStream fos = new FileOutputStream(file);
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(this);
-		oos.close();
-		fos.close();
-	}
-
-	public static Chronicle load(File file) throws IOException, ClassNotFoundException {
-		FileInputStream fis = new FileInputStream(file);
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		Chronicle c = (Chronicle) ois.readObject();
-		ois.close();
-		fis.close();
-		return c;
+	private void put(String publicationId, Depot depot) {
+		map.put(publicationId, depot);
 	}
 
 	public void snapshot(String separationId, Depot depot) {
@@ -109,24 +52,15 @@ public class Chronicle implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		Chronicle c = (Chronicle) obj;
-		return new EqualsBuilder().append(list, c.list).isEquals();
+		return new EqualsBuilder().append(map, c.map).isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(list).toHashCode();
+		return new HashCodeBuilder().append(map).toHashCode();
 	}
 
 	public Depot getDepot(String separationId) {
-		for (Entry e : list) {
-			if (e.getSeparationId().equals(separationId)) {
-				return e.getDepot();
-			}
-		}
-		return null;
-	}
-
-	public List<Entry> getEntryList() {
-		return list;
+		return map.get(separationId);
 	}
 }

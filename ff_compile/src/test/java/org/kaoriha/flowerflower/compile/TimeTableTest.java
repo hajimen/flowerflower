@@ -17,20 +17,17 @@ public class TimeTableTest extends TestCase {
 		}
 
 		TimeTable t = new TimeTable("bin/tabletest.json");
-		t.getMap().put(DateTime.now(), "1234");
+		t.add(DateTime.now(), "1234");
 		t.save();
-
-		TimeTable t2 = new TimeTable("bin/tabletest.json");
-		t2.getMap().firstKey().toString();
 	}
 
 	public void testGetSidDT() throws JSONException, IOException {
 		TimeTable t = new TimeTable("bin/tabletest.json");
-		t.getMap().clear();
+		t.getList().clear();
 		DateTime dt1 = DateTime.now().minusDays(1);
 		DateTime dt2 = dt1.plusDays(1);
-		t.getMap().put(dt1, "1234");
-		t.getMap().put(dt2, "5678");
+		t.add(dt1, "1234");
+		t.add(dt2, "5678");
 		Assert.assertEquals(dt1, t.getDateTime("1234"));
 		Assert.assertEquals(null, t.getDateTime("9012"));
 	}

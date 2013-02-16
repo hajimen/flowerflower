@@ -62,7 +62,7 @@ public class Builder {
 		}
 
 		separationIdList = new ArrayList<String>();
-		for (Map.Entry<DateTime, String> e : timeTable.getMap().entrySet()) {
+		for (Map.Entry<DateTime, String> e : timeTable.getList()) {
 			separationIdList.add(e.getValue());
 		}
 		boolean isAfter = (lastReleasedSeparationId == null);
