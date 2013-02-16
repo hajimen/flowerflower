@@ -7,8 +7,8 @@ public class Root extends ElementHandler<Document> {
 
 	@Override
 	public void handle(SourceProcessor sp, Object parent, Object target) {
-		org.kaoriha.flowerflower._20111001.Root r = (org.kaoriha.flowerflower._20111001.Root) target;
-		sp.process(r.getPOrChapterOrSection(), r);
+		org.kaoriha.flowerflower._20130216.Root r = (org.kaoriha.flowerflower._20130216.Root) target;
+		sp.process(r.getTextOrChapterOrSection(), r);
 	}
 
 }

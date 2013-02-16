@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://kaoriha.org/flowerflower/20111001/" targetNamespace="http://kaoriha.org/flowerflower/20111001/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://kaoriha.org/flowerflower/20130216/" targetNamespace="http://kaoriha.org/flowerflower/20130216/" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:element name="root">
 		<xs:complexType>
 			<xs:choice maxOccurs="unbounded">
@@ -10,7 +10,7 @@
 
 	<xs:group name="rootGroup">
 		<xs:choice>
-			<xs:element ref="p"/>
+			<xs:element ref="text"/>
 			<xs:element ref="chapter"/>
 			<xs:element ref="section"/>
 			<xs:element ref="footnote"/>
@@ -29,7 +29,7 @@
 		</xs:choice>
 	</xs:group>
 
-	<xs:element name="p">
+	<xs:element name="text">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:group ref="pGroup"/>
@@ -101,7 +101,7 @@
 	<xs:element name="characterNote">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="p"/>
+				<xs:element ref="text"/>
 			</xs:choice>
 			<xs:attribute name="name" type="xs:normalizedString" use="required"/>
 		</xs:complexType>

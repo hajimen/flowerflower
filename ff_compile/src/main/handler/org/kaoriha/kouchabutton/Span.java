@@ -7,7 +7,7 @@ public class Span extends ElementHandler<Document> {
 
 	@Override
 	public void handle(SourceProcessor sp, Object parent, Object target) {
-		org.kaoriha.flowerflower._20111001.Span span = (org.kaoriha.flowerflower._20111001.Span) target;
+		org.kaoriha.flowerflower._20130216.Span span = (org.kaoriha.flowerflower._20130216.Span) target;
 		doc.getHtml().span();
 		if (span.getClazz() != null) {
 			doc.getHtml().classAttr(span.getClazz());

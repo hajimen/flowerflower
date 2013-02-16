@@ -70,7 +70,7 @@ public class Compiler2 {
 		}
 
 		// ソースからChronicleを構築
-		SourceProcessor sp = new SourceProcessor("org.kaoriha.flowerflower._20111001");
+		SourceProcessor sp = new SourceProcessor("org.kaoriha.flowerflower._20130216");
 		sp.parse(sourceFilename);
 		Chronicle chronicle = sp.getDocumentHandler().getChronicle();
 

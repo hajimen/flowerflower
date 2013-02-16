@@ -16,7 +16,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import org.kaoriha.flowerflower._20111001.Root;
+import org.kaoriha.flowerflower._20130216.Root;
 import org.kaoriha.flowerflower.compile.document.DocumentHandler;
 import org.kaoriha.flowerflower.compile.document.ElementHandler;
 import org.xml.sax.SAXException;
@@ -86,7 +86,7 @@ public class SourceProcessor {
 
 	public void save(String sourceFilename) throws JAXBException, IOException {
 		Marshaller m = context.createMarshaller();
-		m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://kaoriha.org/flowerflower/20111001/ schema/flowerflower.xsd");
+		m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://kaoriha.org/flowerflower/20130216/ schema/flowerflower.xsd");
 		m.setProperty("jaxb.formatted.output", Boolean.TRUE);
 		OutputStream os = new FileOutputStream(sourceFilename);
 		m.marshal(root, os);

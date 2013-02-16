@@ -9,7 +9,7 @@ import org.kaoriha.flowerflower.compile.document.Fragment;
 public class Chapter extends ElementHandler<Document> {
 	@Override
 	public void handle(SourceProcessor sp, Object parent, Object target) {
-		org.kaoriha.flowerflower._20111001.Chapter c = (org.kaoriha.flowerflower._20111001.Chapter) target;
+		org.kaoriha.flowerflower._20130216.Chapter c = (org.kaoriha.flowerflower._20130216.Chapter) target;
 		if (c.getSeparationId() == null) {
 			c.setSeparationId(UUID.randomUUID().toString());
 		}

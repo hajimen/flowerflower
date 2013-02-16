@@ -9,7 +9,7 @@ public class Separation extends ElementHandler<Document> {
 
 	@Override
 	public void handle(SourceProcessor sp, Object parent, Object target) {
-		org.kaoriha.flowerflower._20111001.Separation s = (org.kaoriha.flowerflower._20111001.Separation) target;
+		org.kaoriha.flowerflower._20130216.Separation s = (org.kaoriha.flowerflower._20130216.Separation) target;
 		if (s.getId() == null) {
 			s.setId(UUID.randomUUID().toString());
 		}

@@ -7,7 +7,7 @@ public class Div extends ElementHandler<Document> {
 
 	@Override
 	public void handle(SourceProcessor sp, Object parent, Object target) {
-		org.kaoriha.flowerflower._20111001.Div div = (org.kaoriha.flowerflower._20111001.Div) target;
+		org.kaoriha.flowerflower._20130216.Div div = (org.kaoriha.flowerflower._20130216.Div) target;
 		doc.getHtml().div();
 		if (div.getClazz() != null) {
 			doc.getHtml().classAttr(div.getClazz());
