@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 	var separator = '<p style="text-align:center;"><span style="color: rgb(44, 160, 44)">■</span>　<span style="color: rgb(170, 170, 90)">■</span>　<span style="color: rgb(128, 51, 0)">■</span></p>';
 	$('#nav ul').wrap('<div id="inner_nav"></div>');
-	$('#nav').prepend('<a name="top" href="/kouchabutton/Public/"><img class="left_top" src="../design/left_top.png" alt="" border="0" /></a>');
+	$('#nav').prepend('<a name="top" href="/miyako/Public/"><img class="left_top" src="../design/left_top.png" alt="" border="0" /></a>');
 	$('#inner_nav').prepend(separator + '<h2>目次</h2>');
 	$('#inner_nav').append(separator);
 	$('#nav').prepend('<img class="display_nav_top out_square" src="../design/blank_square.png" alt="" style="position:absolute; left: 0px;" />');
