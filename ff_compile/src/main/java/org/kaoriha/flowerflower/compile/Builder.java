@@ -15,8 +15,6 @@ import net.arnx.jsonic.JSON;
 
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.kaoriha.flowerflower.compile.document.Depot;
 import org.kaoriha.flowerflower.compile.document.DocumentHandler;
@@ -33,38 +31,27 @@ public class Builder {
 	private final File outputDir;
 	private List<String> separationIdList;
 
-	public Builder(DocumentHandler doc, TimeTable timeTable, String lastReleasedSeparationId, File outputDir) {
+	public Builder(DocumentHandler doc, TimeTable timeTable, String lastReleasedSeparationId, File outputDir, List<String> separationIdList) {
 		this.doc = doc;
 		this.timeTable = timeTable;
 		this.lastReleasedSeparationId = lastReleasedSeparationId;
 		this.outputDir = outputDir;
+		this.separationIdList = separationIdList;
 	}
 
 	public void build() throws IOException {
-		// clean up old/invalidated directory
-		DateTime lastReleasedDateTime = timeTable.getDateTime(lastReleasedSeparationId);
-		if (lastReleasedDateTime == null) {
-			lastReleasedDateTime = new DateTime(0L);
-		}
-		DateTimeFormatter dtf = DateTimeFormat.forPattern(Constant.DATE_DIR_NAME_FORMAT);
+		// clean up old directory
 		for (File f : outputDir.listFiles()) {
 			if (!f.isDirectory()) {
 				continue;
 			}
 			try {
-				DateTime dt = dtf.parseDateTime(f.getName());
-				if (dt.isAfter(lastReleasedDateTime)) {
-					FileUtils.deleteDirectory(f);
-				}
+				FileUtils.deleteDirectory(f);
 			} catch (IllegalArgumentException e) {
 				// nop
 			}
 		}
 
-		separationIdList = new ArrayList<String>();
-		for (Map.Entry<DateTime, String> e : timeTable.getList()) {
-			separationIdList.add(e.getValue());
-		}
 		boolean isAfter = (lastReleasedSeparationId == null);
 		for (int i = 0; i < separationIdList.size(); i++) {
 			if (isAfter) {

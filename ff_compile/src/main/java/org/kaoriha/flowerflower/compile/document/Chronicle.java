@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -62,5 +63,9 @@ public class Chronicle {
 
 	public Depot getDepot(String separationId) {
 		return map.get(separationId);
+	}
+
+	public Set<String> getSeparationIdSet() {
+		return map.keySet();
 	}
 }

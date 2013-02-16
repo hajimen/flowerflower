@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.xml.bind.JAXBException;
@@ -59,7 +62,7 @@ public class Compiler2 {
 
 		// リモートからDepotを構築、publication idの履歴を得る
 		Depot publishedDepot = new Depot();
-		List<String> publishedIdList = null;
+		List<String> publishedIdList = new ArrayList<String>();
 		String lastPublishedId = null;
 		if (depotLocation.equals("--init")) {
 			File ttf = new File(timeTableFilename);
@@ -71,19 +74,29 @@ public class Compiler2 {
 			lastPublishedId = publishedIdList.get(publishedIdList.size() - 1);
 		}
 
-		// TimeTableをロード、発行済みのpublication idを消す
+		// TimeTableをロード、発行済みのpublication idとソースにないidを消す
 		TimeTable timeTable = new TimeTable(timeTableFilename);
-		if (publishedIdList != null) {
+		if (lastPublishedId != null) {
 			for (String id : publishedIdList) {
 				timeTable.remove(id);
 			}
+			Set<Map.Entry<DateTime, String>> toRemove = new HashSet<Map.Entry<DateTime,String>>();
+			for (Map.Entry<DateTime, String> e : timeTable.getList()) {
+				if (publishedIdList.contains(e.getValue())) {
+					toRemove.add(e);
+				} else if (!chronicle.getSeparationIdSet().contains(e.getValue())) {
+					toRemove.add(e);
+				}
+			}
+			for (Map.Entry<DateTime, String> e : toRemove) {
+				timeTable.remove(e.getValue());
+			}
 		}
-		timeTable.add(now, publishedIdList.get(0));
 
 		// publication idの履歴のなかで最後にseparation idと重なるidを探す。重なったところをbase idとする
 		String baseId = null;
 		List<String> futurePublishIdList = new ArrayList<String>(sp.getDocumentHandler().getSeparationIdList());
-		if (publishedIdList != null) {
+		if (lastPublishedId != null) {
 			for (String id : sp.getDocumentHandler().getSeparationIdList()) {
 				if (publishedIdList.contains(id)) {
 					baseId = id;
@@ -105,7 +118,7 @@ public class Compiler2 {
 			} else {
 				String quickFixId = UUID.randomUUID().toString();
 				chronicle.snapshot(quickFixId, chronicle.getDepot(baseId));
-				timeTable.add(DateTime.now().plusMinutes(QUICK_FIX_MIN), quickFixId);
+				timeTable.add(now.plusMinutes(QUICK_FIX_MIN), quickFixId);
 				futurePublishIdList.add(0, quickFixId);
 			}
 		}
@@ -139,10 +152,15 @@ public class Compiler2 {
 		} else if (!d.mkdir()) {
 			throw new IllegalArgumentException("cannot create gen directory.");
 		}
-		Builder b = new Builder(sp.getDocumentHandler(), timeTable, lastPublishedId, d);
+		List<String> separationIdList = new ArrayList<String>(publishedIdList);
+		for (Map.Entry<DateTime, String> e : timeTable.getList()) {
+			separationIdList.add(e.getValue());
+		}
+		Builder b = new Builder(sp.getDocumentHandler(), timeTable, lastPublishedId, d, separationIdList);
 		b.build();
 
 		// TimeTableを保存
+		timeTable.remove(lastPublishedId);
 		timeTable.save();
 	}
 
