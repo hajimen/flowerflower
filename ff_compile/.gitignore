@@ -1,7 +1,7 @@
-/timetable.json
-/chronicle.bin
+/*.json
+/*.bin
 /gen
 /bin
-/test2.xml
+/test?.xml
 /target
 /depot

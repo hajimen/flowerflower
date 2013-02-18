@@ -9,11 +9,9 @@
   <classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.5/commons-codec-1.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-io/commons-io/2.3/commons-io-2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.5/commons-lang-2.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.0.1/commons-lang3-3.0.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/ibm/icu/icu4j/4.8.1.1/icu4j-4.8.1.1.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/googlecode/jatl/jatl/0.1.0/jatl-0.1.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/joda-time/joda-time/2.1/joda-time-2.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/net/arnx/jsonic/1.2.11/jsonic-1.2.11.jar"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.2/junit-3.8.2.jar"/>
