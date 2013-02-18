@@ -44,7 +44,9 @@ public class Text extends ElementHandler<Document> {
 				}
 
 				String[] lines = c.split("\n");
-				currentLine.add(lines[0]);
+				if (lines[0].length() > 0) {
+					currentLine.add(lines[0]);
+				}
 				if (lines.length == 1) {
 					continue;
 				}
@@ -61,14 +63,30 @@ public class Text extends ElementHandler<Document> {
 			}
 		}
 
-		for (List<Object> o : lineList) {
-			html.p();
-			if (o.size() == 0) {
+		for (int i = 0; i < lineList.size(); i ++) {
+			List<Object> line = lineList.get(i);
+			if (line.size() == 0) {
+				if (i < lineList.size() - 2) {
+					List<Object> o2 = lineList.get(i + 1);
+					List<Object> o3 = lineList.get(i + 2);
+					if (o3.size() == 0 && o2.size() == 1 && o2.get(0) instanceof String) {
+						String s2 = (String) o2.get(0);
+						if (s2.matches("\t*＊")) {
+							html.div().classAttr("in_nav").p().text("＊").end().end();
+							i += 2;
+							continue;
+						}
+					}
+				}
+
+				html.p();
 				html.classAttr(Css.BLANK_LINE).text("_");
+				html.end();
 			} else {
-				sp.process(o, text);
+				html.p();
+				sp.process(line, text);
+				html.end();
 			}
-			html.end();
 		}
 	}
 
