@@ -43,7 +43,6 @@ namespace FFConfig
             lvlPackageNameTextBox.DataBindings.Add("Text", sourceCredential, "LvlPackageName");
             sitePathTextBox.DataBindings.Add("Text", sourceTitle, "SiteRootPath");
             standByPathTextBox.DataBindings.Add("Text", sourceTitle, "StandByPath");
-            defaultPushMessageTextBox.DataBindings.Add("Text", sourceTitle, "PushMessage");
         }
 
         private void apnsFileBrowseButton_Click(object sender, EventArgs e)
@@ -142,14 +141,6 @@ namespace FFConfig
             {
                 MessageBox.Show("更新元フォルダのパスが指定されていません。");
                 return;
-            }
-
-            if (defaultPushMessageTextBox.Text.Length == 0)
-            {
-                if (MessageBox.Show("デフォルトの配信通知メッセージが空です。よろしいですか？", "確認", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
-                {
-                    return;
-                }
             }
 
             DialogResult = DialogResult.OK;

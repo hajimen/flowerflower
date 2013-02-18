@@ -13,7 +13,6 @@ namespace FFCommon
  
         private readonly long id;
         private readonly Credential credential;
-        private readonly string defaultPushMessage;
         private readonly ANotificationService service;
 
         private ApnsPusher(DataSet.TitleRow title)
@@ -22,7 +21,6 @@ namespace FFCommon
 
             this.id = title.Id;
             this.credential = new Credential(title);
-            this.defaultPushMessage = title.PushMessage;
 
             service = Settings.NewNotificationService(credential.ApnsIsSandbox, credential.ApnsPkcs12FilePath, credential.ApnsPkcs12FilePassword);
         }
@@ -39,8 +37,7 @@ namespace FFCommon
             {
                 ApnsPusher ins = InstanceDictionary[title.Id];
                 Credential c = new Credential(title);
-                if (ins.defaultPushMessage != title.PushMessage
-                    || ins.credential != c)
+                if (ins.credential != c)
                 {
                     ins.service.Close();
                     ins.service.Dispose();
@@ -58,19 +55,10 @@ namespace FFCommon
             }
         }
 
-        public void PushReleaseNotification(string pushMessage)
+        public void PushReleaseNotification(string msg)
         {
             APNsTableAdapter ta = new APNsTableAdapter();
             DataSet.APNsDataTable apnsTable = ta.GetDataByTitleId(id);
-            string msg;
-            if (pushMessage == null)
-            {
-                msg = defaultPushMessage;
-            }
-            else
-            {
-                msg = pushMessage;
-            }
 
             foreach (DataSet.APNsRow apnsRow in apnsTable)
             {

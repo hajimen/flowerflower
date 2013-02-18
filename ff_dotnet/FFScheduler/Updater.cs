@@ -70,8 +70,11 @@ namespace FFScheduler
                     if (startDT >= dt && dt > lastDT)
                     {
                         CopyDirectory(d, title.SiteRootPath);
-                        ApnsPusher pusher = ApnsPusher.GetInstance(title);
-                        pusher.PushReleaseNotification(pushMessage);
+                        if (pushMessage != null)
+                        {
+                            ApnsPusher pusher = ApnsPusher.GetInstance(title);
+                            pusher.PushReleaseNotification(pushMessage);
+                        }
                     }
                 }
                 catch (FormatException)
@@ -125,7 +128,10 @@ namespace FFScheduler
                     {
                         JavaScriptSerializer js = new JavaScriptSerializer();
                         IDictionary<string, object> catalogue = (IDictionary<string, object>)js.DeserializeObject(sr.ReadToEnd());
-                        pushMessage = js.ConvertToType<string>(catalogue[Constant.CataloguePushMessageKeyName]);
+                        if (catalogue.ContainsKey(Constant.CataloguePushMessageKeyName))
+                        {
+                            pushMessage = js.ConvertToType<string>(catalogue[Constant.CataloguePushMessageKeyName]);
+                        }
                     }
                 }
                 File.Copy(fn, distPath + @"\" + Path.GetFileName(fn), true);

@@ -39,8 +39,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.sitePathTextBox = new System.Windows.Forms.TextBox();
             this.sitePathBrowseButton = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.defaultPushMessageTextBox = new System.Windows.Forms.TextBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.sitePathBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -148,27 +146,10 @@
             this.sitePathBrowseButton.UseVisualStyleBackColor = true;
             this.sitePathBrowseButton.Click += new System.EventHandler(this.sitePathBrowseButton_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 413);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(152, 12);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "デフォルトの配信通知メッセージ";
-            // 
-            // defaultPushMessageTextBox
-            // 
-            this.defaultPushMessageTextBox.Location = new System.Drawing.Point(15, 428);
-            this.defaultPushMessageTextBox.Multiline = true;
-            this.defaultPushMessageTextBox.Name = "defaultPushMessageTextBox";
-            this.defaultPushMessageTextBox.Size = new System.Drawing.Size(463, 65);
-            this.defaultPushMessageTextBox.TabIndex = 11;
-            // 
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(402, 500);
+            this.cancelButton.Location = new System.Drawing.Point(402, 409);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 13;
@@ -177,7 +158,7 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(321, 500);
+            this.okButton.Location = new System.Drawing.Point(321, 409);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 12;
@@ -264,7 +245,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(490, 538);
+            this.ClientSize = new System.Drawing.Size(490, 443);
             this.Controls.Add(this.apnsIsSandboxCheckBox);
             this.Controls.Add(this.lvlPackageNameTextBox);
             this.Controls.Add(this.label8);
@@ -275,8 +256,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.defaultPushMessageTextBox);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.sitePathBrowseButton);
             this.Controls.Add(this.sitePathTextBox);
             this.Controls.Add(this.label4);
@@ -307,8 +286,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox sitePathTextBox;
         private System.Windows.Forms.Button sitePathBrowseButton;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox defaultPushMessageTextBox;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.FolderBrowserDialog sitePathBrowserDialog;
