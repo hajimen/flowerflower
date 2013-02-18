@@ -39,8 +39,14 @@
 
 	<xs:element name="ruby">
 		<xs:complexType mixed="true">
-			<xs:attribute name="text" type="xs:normalizedString" use="required"/>
+			<xs:choice minOccurs="1" maxOccurs="unbounded">
+				<xs:element ref="rt"/>
+			</xs:choice>
 		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="rt">
+		<xs:complexType mixed="true" />
 	</xs:element>
 
 	<xs:element name="div">
