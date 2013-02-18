@@ -27,7 +27,6 @@ namespace FFSite
         {
             Exception ex = Server.GetLastError().GetBaseException();
             logger.Error("Error Caught in Application_Error. Error in: " + Request.Url.ToString(), ex);
-            Server.ClearError();
         }
     }
 }
