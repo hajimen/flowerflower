@@ -17,7 +17,7 @@ namespace FFSite.Auth
         {
             if (Request.Cookies["last_viewed_pathname"] == null)
             {
-                Response.Redirect("04c05eb9-ca71-4716-b3ca-5695d1a2a2ed.html");
+                Response.Redirect("9dc22e47-3b96-4366-a77d-42059568324e.html");
             }
             else
             {
