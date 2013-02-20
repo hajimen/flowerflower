@@ -30,11 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.titleDataGridView = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pushMessageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.siteRootPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.standByPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataSet = new FFCommon.DataSet();
             this.titleTableAdapter = new FFCommon.DataSetTableAdapters.TitleTableAdapter();
@@ -42,6 +37,10 @@
             this.newTitleButton = new System.Windows.Forms.Button();
             this.deleteTitleButton = new System.Windows.Forms.Button();
             this.editTitleButton = new System.Windows.Forms.Button();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.siteRootPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.standByPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.titleDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
@@ -54,48 +53,14 @@
             this.titleDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
             this.nameDataGridViewTextBoxColumn,
-            this.pushMessageDataGridViewTextBoxColumn,
             this.siteRootPathDataGridViewTextBoxColumn,
             this.standByPathDataGridViewTextBoxColumn});
             this.titleDataGridView.DataSource = this.titleBindingSource;
             this.titleDataGridView.Location = new System.Drawing.Point(12, 12);
             this.titleDataGridView.Name = "titleDataGridView";
             this.titleDataGridView.RowTemplate.Height = 21;
-            this.titleDataGridView.Size = new System.Drawing.Size(605, 359);
+            this.titleDataGridView.Size = new System.Drawing.Size(645, 359);
             this.titleDataGridView.TabIndex = 0;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn.Width = 70;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // pushMessageDataGridViewTextBoxColumn
-            // 
-            this.pushMessageDataGridViewTextBoxColumn.DataPropertyName = "PushMessage";
-            this.pushMessageDataGridViewTextBoxColumn.HeaderText = "PushMessage";
-            this.pushMessageDataGridViewTextBoxColumn.Name = "pushMessageDataGridViewTextBoxColumn";
-            this.pushMessageDataGridViewTextBoxColumn.Width = 160;
-            // 
-            // siteRootPathDataGridViewTextBoxColumn
-            // 
-            this.siteRootPathDataGridViewTextBoxColumn.DataPropertyName = "SiteRootPath";
-            this.siteRootPathDataGridViewTextBoxColumn.HeaderText = "SiteRootPath";
-            this.siteRootPathDataGridViewTextBoxColumn.Name = "siteRootPathDataGridViewTextBoxColumn";
-            // 
-            // standByPathDataGridViewTextBoxColumn
-            // 
-            this.standByPathDataGridViewTextBoxColumn.DataPropertyName = "StandByPath";
-            this.standByPathDataGridViewTextBoxColumn.HeaderText = "StandByPath";
-            this.standByPathDataGridViewTextBoxColumn.Name = "standByPathDataGridViewTextBoxColumn";
             // 
             // titleBindingSource
             // 
@@ -113,7 +78,7 @@
             // 
             // closeButton
             // 
-            this.closeButton.Location = new System.Drawing.Point(542, 377);
+            this.closeButton.Location = new System.Drawing.Point(582, 377);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(75, 23);
             this.closeButton.TabIndex = 1;
@@ -151,11 +116,39 @@
             this.editTitleButton.UseVisualStyleBackColor = true;
             this.editTitleButton.Click += new System.EventHandler(this.editTitleButton_Click);
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Width = 70;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // siteRootPathDataGridViewTextBoxColumn
+            // 
+            this.siteRootPathDataGridViewTextBoxColumn.DataPropertyName = "SiteRootPath";
+            this.siteRootPathDataGridViewTextBoxColumn.HeaderText = "SiteRootPath";
+            this.siteRootPathDataGridViewTextBoxColumn.Name = "siteRootPathDataGridViewTextBoxColumn";
+            this.siteRootPathDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // standByPathDataGridViewTextBoxColumn
+            // 
+            this.standByPathDataGridViewTextBoxColumn.DataPropertyName = "StandByPath";
+            this.standByPathDataGridViewTextBoxColumn.HeaderText = "StandByPath";
+            this.standByPathDataGridViewTextBoxColumn.Name = "standByPathDataGridViewTextBoxColumn";
+            this.standByPathDataGridViewTextBoxColumn.Width = 200;
+            // 
             // TitleListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 412);
+            this.ClientSize = new System.Drawing.Size(676, 409);
             this.Controls.Add(this.editTitleButton);
             this.Controls.Add(this.deleteTitleButton);
             this.Controls.Add(this.newTitleButton);
@@ -177,14 +170,13 @@
         private FFCommon.DataSet dataSet;
         private System.Windows.Forms.BindingSource titleBindingSource;
         private FFCommon.DataSetTableAdapters.TitleTableAdapter titleTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn pushMessageDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn siteRootPathDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn standByPathDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button newTitleButton;
         private System.Windows.Forms.Button deleteTitleButton;
         private System.Windows.Forms.Button editTitleButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn siteRootPathDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn standByPathDataGridViewTextBoxColumn;
     }
 }
