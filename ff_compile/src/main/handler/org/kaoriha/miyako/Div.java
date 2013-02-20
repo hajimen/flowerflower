@@ -1,4 +1,4 @@
-package org.kaoriha.kouchabutton;
+package org.kaoriha.miyako;
 
 import org.kaoriha.flowerflower.compile.SourceProcessor;
 import org.kaoriha.flowerflower.compile.document.ElementHandler;

@@ -9,8 +9,6 @@ Requirements
 	iOS Developer Program
 	Android Developer アカウント
 	配信タイトルの名前
-	デフォルトの配信メッセージ
-		ダイアログや通知リストで表示される文字列
 	Android版配信購読アプリのパッケージ名
 FFSite → FFSetupの順にインストールする
 FFSite

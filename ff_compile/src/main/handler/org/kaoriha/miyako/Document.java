@@ -1,4 +1,4 @@
-package org.kaoriha.kouchabutton;
+package org.kaoriha.miyako;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
