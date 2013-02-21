@@ -20,4 +20,5 @@ document.write("<script src='../flowerflower/common.js'></script>"
 		+ "<script src='../design/design.js'></script>"
 		+ "<script src='../tsume/tsume.js'></script>"
 		+ "<script src='../flowerflower/site_constant.js'></script>"
+		+ "<script src='../android/ruby_fix.js'></script>"
 		);
