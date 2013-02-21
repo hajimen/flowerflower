@@ -164,6 +164,8 @@
     <Content Include="Office\AndroidLvl\RequestAuthToken.ashx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="android\ruby_fix.css" />
+    <Content Include="android\ruby_fix.js" />
     <Content Include="Auth\Default.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="design\app_store_badge.png" />
