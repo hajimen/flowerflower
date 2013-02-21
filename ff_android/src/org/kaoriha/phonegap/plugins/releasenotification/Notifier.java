@@ -60,7 +60,6 @@ public class Notifier {
 	private static final String SPKEY_LAST_CATALOGUE_ETAG = "catalogueETag";
 	private static final String SPKEY_TITLE = "title";
 	private static final String SPKEY_FAIL_REPEAD = "failRepeat";
-	private static final String SPKEY_DEFAULT_PUSH_MESSAGE = "defaultPushMessage";
 	private static final String SPKEY_TOKEN = "token";
 
 	private static final String CATALOGUE_PATH = "Auth/catalogue.json";
@@ -100,12 +99,11 @@ public class Notifier {
 		}
 	}
 
-	public void start(String site, String lastEtag, String lastSid, String title, String defaultPushMessage) {
+	public void start(String site, String lastEtag, String lastSid, String title) {
 		pref.edit().putString(SPKEY_SITE, site)
 				.putString(SPKEY_LAST_CATALOGUE_ETAG, lastEtag)
 				.putString(SPKEY_LAST_SID, lastSid)
-				.putString(SPKEY_TITLE, title)
-				.putString(SPKEY_DEFAULT_PUSH_MESSAGE, defaultPushMessage).commit();
+				.putString(SPKEY_TITLE, title).commit();
 		this.site = site;
 
 		ToNextReleasePolling tp = new ToNextReleasePolling();
@@ -463,16 +461,13 @@ public class Notifier {
 			return;
 		}
 
-		String pushMessage;
+		String pushMessage = null;
 		if (cp.catalogue.has(CATALOGUE_PUSH_MESSAGE_KEY) ) {
 			try {
 				pushMessage = cp.catalogue.getString(CATALOGUE_PUSH_MESSAGE_KEY);
 			} catch (JSONException e) {
 				Log.i(TAG, "pollBackground()", e);
-				pushMessage = pref.getString(SPKEY_DEFAULT_PUSH_MESSAGE, null);
 			}
-		} else {
-			pushMessage = pref.getString(SPKEY_DEFAULT_PUSH_MESSAGE, null);
 		}
 
 		String lastSid;
@@ -487,16 +482,18 @@ public class Notifier {
 			return;
 		}
 
-		int icon = R.drawable.notification;
-		Notification n = new Notification(icon, pushMessage, System.currentTimeMillis());
-		n.flags = Notification.FLAG_AUTO_CANCEL;
-		Intent i = new Intent(ctx, FlowerflowerActivity.class);
-		i.setAction(Intent.ACTION_MAIN);
-		i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pi = PendingIntent.getActivity(ctx, 0, i, 0);
-        n.setLatestEventInfo(ctx.getApplicationContext(), pref.getString(SPKEY_TITLE, null), pushMessage, pi);
-        NotificationManager nm = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.notify(NOTIFICATION_ID, n);
+		if (pushMessage != null) {
+			int icon = R.drawable.notification;
+			Notification n = new Notification(icon, pushMessage, System.currentTimeMillis());
+			n.flags = Notification.FLAG_AUTO_CANCEL;
+			Intent i = new Intent(ctx, FlowerflowerActivity.class);
+			i.setAction(Intent.ACTION_MAIN);
+			i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+	        PendingIntent pi = PendingIntent.getActivity(ctx, 0, i, 0);
+	        n.setLatestEventInfo(ctx.getApplicationContext(), pref.getString(SPKEY_TITLE, null), pushMessage, pi);
+	        NotificationManager nm = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+	        nm.notify(NOTIFICATION_ID, n);
+		}
         
         pref.edit().putString(SPKEY_LAST_SID, lastSid).putString(SPKEY_LAST_CATALOGUE_ETAG, cp.etag).commit();
 

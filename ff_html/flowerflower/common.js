@@ -2,7 +2,6 @@
  * Constant:
  * 		window.ff.Site: サイト
  * 		window.ff.Title: 配信タイトル
- * 		window.ff.DefaultPushMessage: デフォルトの配信メッセージ
  * 
  */
 (function() {

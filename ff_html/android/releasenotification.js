@@ -11,10 +11,9 @@ var ReleaseNotification = function() {
  * @param lastEtag last catalogue.js's etag.
  * @param lastSid last catalogue.js's lastSid.
  * @param title Title.
- * @param defaultPushMessage Default push message.
  */
-ReleaseNotification.prototype.start = function(site, lastEtag, lastSid, title, defaultPushMessage) {
-    return PhoneGap.exec(null, null, 'ReleaseNotification', 'start', [site, lastEtag, lastSid, title, defaultPushMessage]);
+ReleaseNotification.prototype.start = function(site, lastEtag, lastSid, title) {
+    return PhoneGap.exec(null, null, 'ReleaseNotification', 'start', [site, lastEtag, lastSid, title]);
 };
 
 /**

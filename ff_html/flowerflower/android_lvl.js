@@ -20,7 +20,7 @@
 		function() {
 			if (localStorage.getItem(PSKEY_ONCE_STARTED) != "started") {
 				window.plugins.releasenotification.start(window.ff.Site, null,
-						null, window.ff.Title, window.ff.DefaultPushMessage);
+						null, window.ff.Title);
 				localStorage.setItem(PSKEY_ONCE_STARTED, "started");
 			}
 			window.plugins.releasenotification.getToken(this.$next);

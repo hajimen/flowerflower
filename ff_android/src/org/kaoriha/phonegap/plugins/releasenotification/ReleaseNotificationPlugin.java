@@ -42,8 +42,7 @@ public class ReleaseNotificationPlugin extends Plugin {
 				String lastEtag = data.getString(1);
 				String lastSid = data.getString(2);
 				String title = data.getString(3);
-				String defaultPushMessage = data.getString(4);
-				new Notifier(ctx).start(site, lastEtag, lastSid, title, defaultPushMessage);
+				new Notifier(ctx).start(site, lastEtag, lastSid, title);
 				break;
 			}
 			case stop:
