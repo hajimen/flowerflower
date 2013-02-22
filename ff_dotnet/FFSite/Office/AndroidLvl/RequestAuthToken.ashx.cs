@@ -64,6 +64,8 @@ namespace FFSite.Office.AndroidLvl
             if (!v.IsOK())
             {
                 logger.Info("不正なデータによる認証要求を受け取りました。RequestInfo: " + WebUtil.RequestInfo(context));
+                logger.Info("data:" + data + " signature:" + signature);
+                logger.Info("nonce should be:" + v.NonceShouldBe.ToString() + " packageName should be:" + SiteConstant.Credential.LvlPackageName + " responseCode should be:" + SiteConstant.LvlResponseCodeShouldBe.ToString());
                 WebUtil.AddErrorReasonHeader(context, ErrorReason.Invalid);
                 return false;
             }

@@ -27,7 +27,8 @@ namespace FFSite.Office.AndroidLvl
 
         public bool IsOk(string data, string signature)
         {
-            return rsa.VerifyData(Encoding.ASCII.GetBytes(data), "SHA1", Convert.FromBase64String(signature));
+            string sha1Oid = CryptoConfig.MapNameToOID("SHA1");
+            return rsa.VerifyData(Encoding.ASCII.GetBytes(data), sha1Oid, Convert.FromBase64String(signature));
         }
     }
 }

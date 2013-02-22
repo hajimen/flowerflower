@@ -16,6 +16,10 @@ $(document).bind("contentupdated", function(e) {
 	if (isTsumeEnabled) {
 		window.tsume(e.updated);
 	}
+
+    if (window.ruby_fix) {
+        window.ruby_fix(e.updated);
+    }
 });
 
 $(document).ready(function() {

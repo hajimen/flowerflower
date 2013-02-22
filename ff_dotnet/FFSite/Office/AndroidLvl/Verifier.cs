@@ -30,6 +30,16 @@ namespace FFSite.Office.AndroidLvl
             this.now = now;
         }
 
+        public ResponseData ResponseData
+        {
+            get { return responseData; }
+        }
+
+        public int NonceShouldBe
+        {
+            get { return nonceShouldBe; }
+        }
+
         public bool IsOK()
         {
             return IsIdOK()
@@ -37,7 +47,7 @@ namespace FFSite.Office.AndroidLvl
                 && responseData.nonce == nonceShouldBe
                 && responseData.responseCode == SiteConstant.LvlResponseCodeShouldBe
                 && responseData.packageName == SiteConstant.Credential.LvlPackageName
-                && SignVerifier.IsOk(data, signature);
+                && ((!SiteConstant.LvlVerifySign) || SignVerifier.IsOk(data, signature));
         }
 
         private bool IsIdOK()

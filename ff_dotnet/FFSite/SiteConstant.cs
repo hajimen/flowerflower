@@ -37,6 +37,7 @@ namespace FFSite
         public static readonly string ErrorReasonResposeHeaderName = "X-flowerflower-ErrorReason";
         public static readonly string MinuteGrainDateTimeFormat = "yyyy年MM月dd日hh時mm分";
         public static readonly int LvlResponseCodeShouldBe;
+        public static readonly bool LvlVerifySign;
 
         private SiteConstant()
         {
@@ -56,6 +57,13 @@ namespace FFSite
             if (lr == null || !int.TryParse(lr, out LvlResponseCodeShouldBe))
             {
                 logger.Fatal("LvlResponseCodeShouldBeがweb.configに設定されていないか、値が整数ではありません。");
+                IsConfigurationOK = false;
+                return;
+            }
+            string lv = ConfigurationManager.AppSettings["LvlVerifySign"];
+            if (lv == null || !bool.TryParse(lv, out LvlVerifySign))
+            {
+                logger.Fatal("LvlVerifySignがweb.configに設定されていないか、値がboolではありません。");
                 IsConfigurationOK = false;
                 return;
             }

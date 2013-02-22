@@ -1,0 +1,15 @@
+rt {
+	position:relative;
+	top: 8px;
+}
+.ruby_o {
+	display:inline-block;
+	overflow:visible;
+	height: 16px;
+}
+.ruby_i {
+	display:block;
+	overflow:visible;
+	position: relative;
+	top: -16px;
+}
