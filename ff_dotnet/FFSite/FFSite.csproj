@@ -182,10 +182,10 @@
     <Content Include="design\now_loading.png" />
     <Content Include="flowerflower\fire_content_updated.js" />
     <Content Include="flowerflower\restore_scroll.js" />
-    <Content Include="ie\ruby_fix.css" />
-    <Content Include="ie\ruby_fix.js" />
     <Content Include="jquery-1.6.2.min.js" />
     <Content Include="jquery-cookie.js" />
+    <Content Include="meiryo\meiryo_fix.css" />
+    <Content Include="meiryo\meiryo_fix.js" />
     <Content Include="Office\IosApns\RequestAuthToken.ashx" />
     <Content Include="design\insert_app_badge.js" />
     <Content Include="Public\PublishAuthenticationKey.aspx" />

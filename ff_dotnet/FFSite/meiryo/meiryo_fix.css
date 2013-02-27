@@ -1,6 +1,10 @@
+﻿@charset "utf-8";
+body {
+	font-family: 'メイリオ';
+}
 rt {
 	position:relative;
-	top: 8px;
+	top: 6px;
 }
 .ruby_o {
 	display:inline-block;
