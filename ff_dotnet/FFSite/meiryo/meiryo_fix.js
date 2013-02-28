@@ -21,7 +21,7 @@
         return (test_width < 60);
     }
 
-    if(fontAvailable('メイリオ') && rubyAvailable()) {
+    if(fontAvailable('メイリオ') && rubyAvailable() && document.documentMode >= 8) {
         $("#content p").each(
             function() {
                 $(this).children("ruby").each(
