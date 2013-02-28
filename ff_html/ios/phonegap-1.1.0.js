@@ -85,8 +85,9 @@ PhoneGap.addConstructor = function(func) {
                             
         var state = document.readyState;
                             
-        if ( ( state == 'loaded' || state == 'complete' ) && DeviceInfo.uuid != null )
+        if ( ( state == 'loaded' || state == 'complete' ) && DeviceInfo.platform != null )
         {
+            DeviceInfo.uuid = 'fakeuuid';
             clearInterval(timer); // stop looking
             // run our constructors list
             while (PhoneGap._constructors.length > 0) 
