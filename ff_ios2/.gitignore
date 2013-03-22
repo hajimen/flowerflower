@@ -3,3 +3,5 @@ Pods
 .DS_Store
 ff_ios2.xcworkspace
 Podfile.lock
+ff_ios2.xcodeproj
+
