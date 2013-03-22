@@ -13,6 +13,7 @@
 #import "PSTCollectionView.h"
 
 #import "TitleCollectionViewController.h"
+#import "TitleCollectionViewLayout.h"
 
 @implementation AppDelegate
 
@@ -34,7 +35,7 @@
     self.viewController = sv;
      */
 
-    self.viewController = [[TitleCollectionViewController alloc] initWithCollectionViewLayout:[PSUICollectionViewFlowLayout new]];
+    self.viewController = [[TitleCollectionViewController alloc] initWithCollectionViewLayout:[TitleCollectionViewLayout new]];
     
     UITabBarController *tabController = [UITabBarController new];
     

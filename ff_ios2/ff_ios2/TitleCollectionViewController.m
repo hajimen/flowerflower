@@ -11,7 +11,6 @@
 
 @interface TitleCollectionViewController ()
 @property (atomic, readwrite, assign) NSInteger cellCount;
-@property (atomic, readwrite, assign) NSInteger itemsPerRow;
 @end
 
 @implementation TitleCollectionViewController
@@ -34,7 +33,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - PSTCollectionViewDataSource
 
-- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(PSUICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     return self.cellCount;
 }
 
@@ -43,21 +42,13 @@
 
 - (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TitleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MY_CELL" forIndexPath:indexPath];
-    int row = (indexPath.item / self.itemsPerRow);
-    if (row % 2 == 1) {
-        cell.label.backgroundColor = [UIColor whiteColor];
-    }
+    cell.label.text = [NSString stringWithFormat: @"%d", indexPath.item];
     return cell;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 -(void)viewWillLayoutSubviews {
-    PSUICollectionViewFlowLayout *flowLayout = (PSUICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
-    self.itemsPerRow = 2;
-    CGFloat itemWidth = (self.view.bounds.size.width - 10) / 2;
-    flowLayout.itemSize = CGSizeMake(itemWidth, 200);
-    flowLayout.minimumLineSpacing = 50;
-    flowLayout.minimumInteritemSpacing = 10;
+    [super viewWillLayoutSubviews];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

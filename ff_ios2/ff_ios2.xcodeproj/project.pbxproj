@@ -26,6 +26,8 @@
 		57C6428316F2DC180079AFEB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428216F2DC180079AFEB /* Settings.bundle */; };
 		57E71A0116FBFD0E0068B631 /* TitleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A0016FBFD0E0068B631 /* TitleCollectionViewController.m */; };
 		57E71A0416FBFE000068B631 /* TitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A0316FBFE000068B631 /* TitleCell.m */; };
+		57E71A4816FC32010068B631 /* TitleCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A4716FC32010068B631 /* TitleCollectionViewLayout.m */; };
+		57E71A5416FC54100068B631 /* TitleCollectionViewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A5316FC54100068B631 /* TitleCollectionViewLayoutAttributes.m */; };
 		68BF7781322545F8A52B4F94 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A03098055CB04106863AEA93 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +70,10 @@
 		57E71A0016FBFD0E0068B631 /* TitleCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleCollectionViewController.m; sourceTree = "<group>"; };
 		57E71A0216FBFE000068B631 /* TitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCell.h; sourceTree = "<group>"; };
 		57E71A0316FBFE000068B631 /* TitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleCell.m; sourceTree = "<group>"; };
+		57E71A4616FC32000068B631 /* TitleCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCollectionViewLayout.h; sourceTree = "<group>"; };
+		57E71A4716FC32010068B631 /* TitleCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleCollectionViewLayout.m; sourceTree = "<group>"; };
+		57E71A5216FC540F0068B631 /* TitleCollectionViewLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCollectionViewLayoutAttributes.h; sourceTree = "<group>"; };
+		57E71A5316FC54100068B631 /* TitleCollectionViewLayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleCollectionViewLayoutAttributes.m; sourceTree = "<group>"; };
 		73AC0F31BFE545E9AFC95898 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		A03098055CB04106863AEA93 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -140,6 +146,10 @@
 				577E80B416F1F64F00DA7DBA /* Supporting Files */,
 				57E719FF16FBFD0E0068B631 /* TitleCollectionViewController.h */,
 				57E71A0016FBFD0E0068B631 /* TitleCollectionViewController.m */,
+				57E71A4616FC32000068B631 /* TitleCollectionViewLayout.h */,
+				57E71A4716FC32010068B631 /* TitleCollectionViewLayout.m */,
+				57E71A5216FC540F0068B631 /* TitleCollectionViewLayoutAttributes.h */,
+				57E71A5316FC54100068B631 /* TitleCollectionViewLayoutAttributes.m */,
 			);
 			path = ff_ios2;
 			sourceTree = "<group>";
@@ -311,6 +321,8 @@
 				577E80BE16F1F64F00DA7DBA /* AppDelegate.m in Sources */,
 				57E71A0116FBFD0E0068B631 /* TitleCollectionViewController.m in Sources */,
 				57E71A0416FBFE000068B631 /* TitleCell.m in Sources */,
+				57E71A4816FC32010068B631 /* TitleCollectionViewLayout.m in Sources */,
+				57E71A5416FC54100068B631 /* TitleCollectionViewLayoutAttributes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
