@@ -23,6 +23,9 @@
 		577E80D916F1F64F00DA7DBA /* ff_ios2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E80D816F1F64F00DA7DBA /* ff_ios2Tests.m */; };
 		57C6427F16F2D4930079AFEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 57C6427E16F2D4930079AFEB /* config.xml */; };
 		57C6428116F2D4E10079AFEB /* www in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428016F2D4E10079AFEB /* www */; };
+		57C6428316F2DC180079AFEB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428216F2DC180079AFEB /* Settings.bundle */; };
+		57E71A0116FBFD0E0068B631 /* TitleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A0016FBFD0E0068B631 /* TitleCollectionViewController.m */; };
+		57E71A0416FBFE000068B631 /* TitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A0316FBFE000068B631 /* TitleCell.m */; };
 		68BF7781322545F8A52B4F94 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A03098055CB04106863AEA93 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +63,11 @@
 		57C6427D16F2D0C90079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427E16F2D4930079AFEB /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		57C6428016F2D4E10079AFEB /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
+		57C6428216F2DC180079AFEB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		57E719FF16FBFD0E0068B631 /* TitleCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCollectionViewController.h; sourceTree = "<group>"; };
+		57E71A0016FBFD0E0068B631 /* TitleCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleCollectionViewController.m; sourceTree = "<group>"; };
+		57E71A0216FBFE000068B631 /* TitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCell.h; sourceTree = "<group>"; };
+		57E71A0316FBFE000068B631 /* TitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleCell.m; sourceTree = "<group>"; };
 		73AC0F31BFE545E9AFC95898 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		A03098055CB04106863AEA93 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -125,9 +133,13 @@
 		577E80B316F1F64F00DA7DBA /* ff_ios2 */ = {
 			isa = PBXGroup;
 			children = (
+				57E71A0216FBFE000068B631 /* TitleCell.h */,
+				57E71A0316FBFE000068B631 /* TitleCell.m */,
 				577E80BC16F1F64F00DA7DBA /* AppDelegate.h */,
 				577E80BD16F1F64F00DA7DBA /* AppDelegate.m */,
 				577E80B416F1F64F00DA7DBA /* Supporting Files */,
+				57E719FF16FBFD0E0068B631 /* TitleCollectionViewController.h */,
+				57E71A0016FBFD0E0068B631 /* TitleCollectionViewController.m */,
 			);
 			path = ff_ios2;
 			sourceTree = "<group>";
@@ -135,6 +147,7 @@
 		577E80B416F1F64F00DA7DBA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				57C6428216F2DC180079AFEB /* Settings.bundle */,
 				57C6427E16F2D4930079AFEB /* config.xml */,
 				577E80B516F1F64F00DA7DBA /* ff_ios2-Info.plist */,
 				577E80B616F1F64F00DA7DBA /* InfoPlist.strings */,
@@ -245,6 +258,7 @@
 				577E80C416F1F64F00DA7DBA /* Default-568h@2x.png in Resources */,
 				57C6427F16F2D4930079AFEB /* config.xml in Resources */,
 				57C6428116F2D4E10079AFEB /* www in Resources */,
+				57C6428316F2DC180079AFEB /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +309,8 @@
 			files = (
 				577E80BA16F1F64F00DA7DBA /* main.m in Sources */,
 				577E80BE16F1F64F00DA7DBA /* AppDelegate.m in Sources */,
+				57E71A0116FBFD0E0068B631 /* TitleCollectionViewController.m in Sources */,
+				57E71A0416FBFE000068B631 /* TitleCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

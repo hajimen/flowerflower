@@ -1,3 +1,4 @@
 platform :ios, '5.1'
 pod 'Cordova', :podspec => 'Cordova.podspec'
 pod 'InAppSettingsKit', :podspec => 'InAppSettingsKit.podspec'
+pod 'PSTCollectionView', :podspec => 'PSTCollectionView.podspec'

@@ -9,6 +9,10 @@
 #import "AppDelegate.h"
 
 #import "Cordova/CDVViewController.h"
+#import "IASKAppSettingsViewController.h"
+#import "PSTCollectionView.h"
+
+#import "TitleCollectionViewController.h"
 
 @implementation AppDelegate
 
@@ -17,10 +21,28 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    CDVViewController* cdvviewController = [CDVViewController new];
+/*
+    CDVViewController* cdvviewController = [[CDVViewController alloc] init];
     cdvviewController.wwwFolderName = @"www";
     cdvviewController.view.frame = [[UIScreen mainScreen] bounds];
     self.viewController = cdvviewController;
+ */
+    /*
+    IASKAppSettingsViewController* sv = [[IASKAppSettingsViewController alloc] init];
+    sv.showDoneButton = YES;
+    sv.delegate = self;
+    self.viewController = sv;
+     */
+
+    self.viewController = [[TitleCollectionViewController alloc] initWithCollectionViewLayout:[PSUICollectionViewFlowLayout new]];
+    
+    UITabBarController *tabController = [UITabBarController new];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    
+    [tabController setViewControllers:[NSArray arrayWithObject:navController] animated:NO];
+    self.viewController = tabController;
+
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;
