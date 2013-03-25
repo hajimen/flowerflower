@@ -25,7 +25,7 @@
     return self;
 }
 
--(void)applyLayoutAttributes:(PSUICollectionViewLayoutAttributes *)layoutAttributes {
+-(void)applyLayoutAttributes:(PSTCollectionViewLayoutAttributes *)layoutAttributes {
     [super applyLayoutAttributes:layoutAttributes];
     
     TitleCollectionViewLayoutAttributes *attr = (TitleCollectionViewLayoutAttributes *) layoutAttributes;

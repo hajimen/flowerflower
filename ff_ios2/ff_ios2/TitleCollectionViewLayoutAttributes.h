@@ -8,7 +8,7 @@
 
 #import "PSTCollectionView.h"
 
-@interface TitleCollectionViewLayoutAttributes : PSUICollectionViewLayoutAttributes
+@interface TitleCollectionViewLayoutAttributes : PSTCollectionViewLayoutAttributes
 
 @property (nonatomic, assign) NSInteger row;
 

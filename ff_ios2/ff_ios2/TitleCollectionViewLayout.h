@@ -8,6 +8,6 @@
 
 #import "PSTCollectionView.h"
 
-@interface TitleCollectionViewLayout : PSUICollectionViewFlowLayout
+@interface TitleCollectionViewLayout : PSTCollectionViewFlowLayout
 
 @end

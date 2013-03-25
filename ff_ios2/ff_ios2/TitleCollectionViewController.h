@@ -8,6 +8,6 @@
 
 #import "PSTCollectionView.h"
 
-@interface TitleCollectionViewController : PSUICollectionViewController
+@interface TitleCollectionViewController : PSTCollectionViewController
 
 @end

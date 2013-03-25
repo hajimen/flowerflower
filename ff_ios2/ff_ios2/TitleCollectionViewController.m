@@ -33,14 +33,14 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - PSTCollectionViewDataSource
 
-- (NSInteger)collectionView:(PSUICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(PSTCollectionView *)view numberOfItemsInSection:(NSInteger)section {
     return self.cellCount;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - PSTCollectionViewDelegate
 
-- (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (PSTCollectionViewCell *)collectionView:(PSTCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TitleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MY_CELL" forIndexPath:indexPath];
     cell.label.text = [NSString stringWithFormat: @"%d", indexPath.item];
     return cell;

@@ -15,10 +15,26 @@
 #import "TitleCollectionViewController.h"
 #import "TitleCollectionViewLayout.h"
 
+#import "RemoteNotification.h"
+
+@interface AppDelegate()
+
+@property (nonatomic) RemoteNotification *remoteNotification;
+
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.remoteNotification = [RemoteNotification new];
+    [self.remoteNotification register_];
+    [self.remoteNotification receive:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+
+#if DEBUG
+    [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"NKDontThrottleNewsstandContentNotifications"];
+#endif
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
@@ -74,6 +90,24 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+////////////////////////////////////////////////////////////////////////
+// remote notification
+////////////////////////////////////////////////////////////////////////
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+	NSLog(@"deviceToken: %@", deviceToken);
+    [self.remoteNotification registerOk: deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    NSLog(@"Error in registration. Error: %@", err);
+    [self.remoteNotification registerFailedWithError:err];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)payload {
+    NSLog(@"didReceiveNotification");
+    [self.remoteNotification receive:payload];
 }
 
 @end
