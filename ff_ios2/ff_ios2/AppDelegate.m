@@ -26,6 +26,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSLog(@"didFinishLaunchingWithOptions");
+
+    self.download = [Download new];
+    if ([launchOptions objectForKey:UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
+        NSLog(@"UIApplicationLaunchOptionsNewsstandDownloadsKey exists: %@", [launchOptions objectForKey:UIApplicationLaunchOptionsNewsstandDownloadsKey]);
+        for (NKAssetDownload *ad in [[NKLibrary sharedLibrary] downloadingAssets]) {
+            NSLog(@"NKLibrary downloadingAssets exist");
+//            [ad downloadWithDelegate: self.download];
+        }
+    }
+    
     self.remoteNotification = [RemoteNotification new];
     [self.remoteNotification register_];
     [self.remoteNotification receive:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
@@ -33,14 +43,6 @@
 #if DEBUG
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"NKDontThrottleNewsstandContentNotifications"];
 #endif
-
-    self.download = [Download new];
-    if ([launchOptions objectForKey:UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
-        NSLog(@"resume NKAssetDownload");
-        for (NKAssetDownload *ad in [[NKLibrary sharedLibrary] downloadingAssets]) {
-            [ad downloadWithDelegate: self.download];
-        }
-    }
 
     return YES;
 }

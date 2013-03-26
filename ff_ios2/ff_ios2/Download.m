@@ -12,24 +12,33 @@
 @interface Download ()
 
 @property (nonatomic) BOOL test;
+@property (nonatomic) int testCount;
 
 @end
 
 @implementation Download
 
 #define TEST_ISSUE_NAME @"TEST ISSUE"
-#define TEST_DOWNLOAD_URL @"http://kaoriha.org/nikki/"
+#define TEST_DOWNLOAD_URL @"http://kaoriha.org/mozc-bin.tar.gz"
 
 -(id)init {
     self = [super init];
     if (self) {
         self.test = NO;
+        self.testCount = 0;
     }
     return self;
 }
 
 -(void)connection:(NSURLConnection *)connection didWriteData:(long long)bytesWritten totalBytesWritten:(long long)totalBytesWritten expectedTotalBytes:(long long)expectedTotalBytes {
     NSLog(@"didWriteData");
+    if (self.test) {
+        self.testCount ++;
+        if (self.testCount > 5) {
+            NSLog(@"abort for test");
+            exit(0);
+        }
+    }
 }
 
 -(void)connectionDidResumeDownloading:(NSURLConnection *)connection totalBytesWritten:(long long)totalBytesWritten expectedTotalBytes:(long long)expectedTotalBytes {
