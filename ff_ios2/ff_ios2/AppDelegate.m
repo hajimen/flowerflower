@@ -6,20 +6,18 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
+#import <NewsstandKit/NewsstandKit.h>
 #import "AppDelegate.h"
 
-#import "Cordova/CDVViewController.h"
-#import "IASKAppSettingsViewController.h"
-#import "PSTCollectionView.h"
-
-#import "TitleCollectionViewController.h"
-#import "TitleCollectionViewLayout.h"
-
+#import "Foreground.h"
 #import "RemoteNotification.h"
+#import "Download.h"
 
 @interface AppDelegate()
 
 @property (nonatomic) RemoteNotification *remoteNotification;
+@property (nonatomic) Foreground *foreground;
+@property (nonatomic) Download *download;
 
 @end
 
@@ -36,33 +34,14 @@
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"NKDontThrottleNewsstandContentNotifications"];
 #endif
 
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-/*
-    CDVViewController* cdvviewController = [[CDVViewController alloc] init];
-    cdvviewController.wwwFolderName = @"www";
-    cdvviewController.view.frame = [[UIScreen mainScreen] bounds];
-    self.viewController = cdvviewController;
- */
-    /*
-    IASKAppSettingsViewController* sv = [[IASKAppSettingsViewController alloc] init];
-    sv.showDoneButton = YES;
-    sv.delegate = self;
-    self.viewController = sv;
-     */
+    self.download = [Download new];
+    if ([launchOptions objectForKey:UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
+        NSLog(@"resume NKAssetDownload");
+        for (NKAssetDownload *ad in [[NKLibrary sharedLibrary] downloadingAssets]) {
+            [ad downloadWithDelegate: self.download];
+        }
+    }
 
-    self.viewController = [[TitleCollectionViewController alloc] initWithCollectionViewLayout:[TitleCollectionViewLayout new]];
-    
-    UITabBarController *tabController = [UITabBarController new];
-    
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
-    
-    [tabController setViewControllers:[NSArray arrayWithObject:navController] animated:NO];
-    self.viewController = tabController;
-
-    self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
     return YES;
 }
 
@@ -87,6 +66,9 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if (!self.foreground) {
+        self.foreground = [Foreground new];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

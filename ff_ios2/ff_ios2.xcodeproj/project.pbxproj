@@ -21,6 +21,9 @@
 		577E80CE16F1F64F00DA7DBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577E80AF16F1F64F00DA7DBA /* Foundation.framework */; };
 		577E80D616F1F64F00DA7DBA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 577E80D416F1F64F00DA7DBA /* InfoPlist.strings */; };
 		577E80D916F1F64F00DA7DBA /* ff_ios2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E80D816F1F64F00DA7DBA /* ff_ios2Tests.m */; };
+		57827BCD1701194900095B1E /* Foreground.m in Sources */ = {isa = PBXBuildFile; fileRef = 57827BCC1701194900095B1E /* Foreground.m */; };
+		57827BCF17011EB000095B1E /* NewsstandKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57827BCE17011EB000095B1E /* NewsstandKit.framework */; };
+		57827BD217011F6D00095B1E /* Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 57827BD117011F6D00095B1E /* Download.m */; };
 		57C6427F16F2D4930079AFEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 57C6427E16F2D4930079AFEB /* config.xml */; };
 		57C6428116F2D4E10079AFEB /* www in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428016F2D4E10079AFEB /* www */; };
 		57C6428316F2DC180079AFEB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428216F2DC180079AFEB /* Settings.bundle */; };
@@ -63,6 +66,11 @@
 		577E80D516F1F64F00DA7DBA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		577E80D716F1F64F00DA7DBA /* ff_ios2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ff_ios2Tests.h; sourceTree = "<group>"; };
 		577E80D816F1F64F00DA7DBA /* ff_ios2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ff_ios2Tests.m; sourceTree = "<group>"; };
+		57827BCB1701194900095B1E /* Foreground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foreground.h; sourceTree = "<group>"; };
+		57827BCC1701194900095B1E /* Foreground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foreground.m; sourceTree = "<group>"; };
+		57827BCE17011EB000095B1E /* NewsstandKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NewsstandKit.framework; path = System/Library/Frameworks/NewsstandKit.framework; sourceTree = SDKROOT; };
+		57827BD017011F6D00095B1E /* Download.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Download.h; sourceTree = "<group>"; };
+		57827BD117011F6D00095B1E /* Download.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Download.m; sourceTree = "<group>"; };
 		57C6427C16F2D0C80079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427D16F2D0C90079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427E16F2D4930079AFEB /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
@@ -90,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57827BCF17011EB000095B1E /* NewsstandKit.framework in Frameworks */,
 				577E80AE16F1F64F00DA7DBA /* UIKit.framework in Frameworks */,
 				577E80B016F1F64F00DA7DBA /* Foundation.framework in Frameworks */,
 				577E80B216F1F64F00DA7DBA /* CoreGraphics.framework in Frameworks */,
@@ -134,6 +143,7 @@
 		577E80AC16F1F64F00DA7DBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				57827BCE17011EB000095B1E /* NewsstandKit.framework */,
 				577E80AD16F1F64F00DA7DBA /* UIKit.framework */,
 				577E80AF16F1F64F00DA7DBA /* Foundation.framework */,
 				577E80B116F1F64F00DA7DBA /* CoreGraphics.framework */,
@@ -153,6 +163,10 @@
 				57E71A5516FFFC870068B631 /* View */,
 				57E71A56170003ED0068B631 /* RemoteNotification.h */,
 				57E71A57170003ED0068B631 /* RemoteNotification.m */,
+				57827BCB1701194900095B1E /* Foreground.h */,
+				57827BCC1701194900095B1E /* Foreground.m */,
+				57827BD017011F6D00095B1E /* Download.h */,
+				57827BD117011F6D00095B1E /* Download.m */,
 			);
 			path = ff_ios2;
 			sourceTree = "<group>";
@@ -353,6 +367,8 @@
 				57E71A5416FC54100068B631 /* TitleCollectionViewLayoutAttributes.m in Sources */,
 				57E71A58170003ED0068B631 /* RemoteNotification.m in Sources */,
 				57E71A5D17000ADC0068B631 /* GTMStringEncoding.m in Sources */,
+				57827BCD1701194900095B1E /* Foreground.m in Sources */,
+				57827BD217011F6D00095B1E /* Download.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
