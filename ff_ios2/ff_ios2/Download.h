@@ -10,4 +10,6 @@
 
 @interface Download : NSObject <NSURLConnectionDownloadDelegate>
 
+-(void)resume;
+
 @end

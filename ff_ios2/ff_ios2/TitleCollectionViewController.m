@@ -15,6 +15,8 @@
 
 @implementation TitleCollectionViewController
 
+// TODO encodeRestorableStateWithCoder, decodeRestorableStateWithCoder (iOS 6)
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

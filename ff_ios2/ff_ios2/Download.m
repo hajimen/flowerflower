@@ -30,13 +30,20 @@
     return self;
 }
 
+-(void)resume {
+    for (NKAssetDownload *ad in [[NKLibrary sharedLibrary] downloadingAssets]) {
+        NSLog(@"NKLibrary downloadingAssets exist");
+        [ad downloadWithDelegate: self];
+    }
+}
+
 -(void)connection:(NSURLConnection *)connection didWriteData:(long long)bytesWritten totalBytesWritten:(long long)totalBytesWritten expectedTotalBytes:(long long)expectedTotalBytes {
     NSLog(@"didWriteData");
     if (self.test) {
         self.testCount ++;
         if (self.testCount > 5) {
-            NSLog(@"abort for test");
-            exit(0);
+//            NSLog(@"abort for test");
+//            exit(0);
         }
     }
 }

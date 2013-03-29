@@ -42,7 +42,6 @@
     NSLog(@"remote notification received");
 
     NKLibrary *lib = [NKLibrary sharedLibrary];
-    NSLog(@"issues %@", [lib issues]);
     NKIssue *old = [lib issueWithName:TEST_ISSUE_NAME];
     if (old) {
         NSLog(@"old test issue removed");

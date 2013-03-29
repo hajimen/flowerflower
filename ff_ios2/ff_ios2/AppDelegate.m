@@ -7,17 +7,21 @@
 //
 
 #import <NewsstandKit/NewsstandKit.h>
+#import "ReactiveCocoa/ReactiveCocoa.h"
+
 #import "AppDelegate.h"
 
 #import "Foreground.h"
 #import "RemoteNotification.h"
 #import "Download.h"
+#import "MKStoreManager.h"
+#import "InAppPurchaseStore.h"
 
 @interface AppDelegate()
 
 @property (nonatomic) RemoteNotification *remoteNotification;
 @property (nonatomic) Foreground *foreground;
-@property (nonatomic) Download *download;
+@property (nonatomic) InAppPurchaseStore *iapStore;
 
 @end
 
@@ -27,13 +31,8 @@
 {
     NSLog(@"didFinishLaunchingWithOptions");
 
-    self.download = [Download new];
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
-        NSLog(@"UIApplicationLaunchOptionsNewsstandDownloadsKey exists: %@", [launchOptions objectForKey:UIApplicationLaunchOptionsNewsstandDownloadsKey]);
-        for (NKAssetDownload *ad in [[NKLibrary sharedLibrary] downloadingAssets]) {
-            NSLog(@"NKLibrary downloadingAssets exist");
-//            [ad downloadWithDelegate: self.download];
-        }
+        [[Download new] resume];
     }
     
     self.remoteNotification = [RemoteNotification new];
@@ -44,6 +43,23 @@
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"NKDontThrottleNewsstandContentNotifications"];
 #endif
 
+//    [MKStoreManager sharedManager];ngTransaction:NO plist:@"MKStoreKitConfigs.plist"
+    self.iapStore = [[InAppPurchaseStore alloc] initWithRunningTransaction:NO plist:@"MKStoreKitConfigs.plist" onPurchase:^(NSString *productId, NSData *receiptData){
+        NSLog(@"onPurchase called");
+    } onFailed:^(NSError *error){
+        NSLog(@"onFailed called");
+    } onRestore:^(NSString *productId, NSData *receiptData){
+        NSLog(@"onRestore called");
+    }];
+    
+    [[RACAble(self.iapStore.online) take: 1] subscribeNext:^(NSNumber *online) {
+        NSLog(@"going to buy");
+        [self.iapStore buy:@"non_consumable_test_1"];
+        [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
+            NSLog(@"buy ok");
+        }];
+    }];
+    
     return YES;
 }
 
@@ -71,6 +87,11 @@
     if (!self.foreground) {
         self.foreground = [Foreground new];
     }
+/*
+    NSLog(@"isFeaturePurchased: %d", [MKStoreManager isFeaturePurchased:@"not_hit"]);
+    NSLog(@"purchasableObjects: %@", [[MKStoreManager sharedManager] purchasableObjects]);
+    NSLog(@"pricesDictionary: %@", [[MKStoreManager sharedManager] pricesDictionary]);
+*/
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -24,6 +24,9 @@
 		57827BCD1701194900095B1E /* Foreground.m in Sources */ = {isa = PBXBuildFile; fileRef = 57827BCC1701194900095B1E /* Foreground.m */; };
 		57827BCF17011EB000095B1E /* NewsstandKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57827BCE17011EB000095B1E /* NewsstandKit.framework */; };
 		57827BD217011F6D00095B1E /* Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 57827BD117011F6D00095B1E /* Download.m */; };
+		57827BD6170461A300095B1E /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57827BD5170461A300095B1E /* MKStoreKitConfigs.plist */; };
+		57827BDB1705224F00095B1E /* InAppPurchaseStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 57827BDA1705224F00095B1E /* InAppPurchaseStore.m */; };
+		57827BDE17052E0500095B1E /* InAppPurchaseProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 57827BDD17052E0500095B1E /* InAppPurchaseProduct.m */; };
 		57C6427F16F2D4930079AFEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 57C6427E16F2D4930079AFEB /* config.xml */; };
 		57C6428116F2D4E10079AFEB /* www in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428016F2D4E10079AFEB /* www */; };
 		57C6428316F2DC180079AFEB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428216F2DC180079AFEB /* Settings.bundle */; };
@@ -71,6 +74,11 @@
 		57827BCE17011EB000095B1E /* NewsstandKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NewsstandKit.framework; path = System/Library/Frameworks/NewsstandKit.framework; sourceTree = SDKROOT; };
 		57827BD017011F6D00095B1E /* Download.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Download.h; sourceTree = "<group>"; };
 		57827BD117011F6D00095B1E /* Download.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Download.m; sourceTree = "<group>"; };
+		57827BD5170461A300095B1E /* MKStoreKitConfigs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MKStoreKitConfigs.plist; sourceTree = "<group>"; };
+		57827BD91705224F00095B1E /* InAppPurchaseStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseStore.h; sourceTree = "<group>"; };
+		57827BDA1705224F00095B1E /* InAppPurchaseStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppPurchaseStore.m; sourceTree = "<group>"; };
+		57827BDC17052E0500095B1E /* InAppPurchaseProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseProduct.h; sourceTree = "<group>"; };
+		57827BDD17052E0500095B1E /* InAppPurchaseProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppPurchaseProduct.m; sourceTree = "<group>"; };
 		57C6427C16F2D0C80079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427D16F2D0C90079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427E16F2D4930079AFEB /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
@@ -156,6 +164,7 @@
 		577E80B316F1F64F00DA7DBA /* ff_ios2 */ = {
 			isa = PBXGroup;
 			children = (
+				57827BD71705216400095B1E /* Model */,
 				57E71A5917000AB00068B631 /* Tool */,
 				577E80BC16F1F64F00DA7DBA /* AppDelegate.h */,
 				577E80BD16F1F64F00DA7DBA /* AppDelegate.m */,
@@ -174,6 +183,7 @@
 		577E80B416F1F64F00DA7DBA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				57827BD5170461A300095B1E /* MKStoreKitConfigs.plist */,
 				57C6428216F2DC180079AFEB /* Settings.bundle */,
 				57C6427E16F2D4930079AFEB /* config.xml */,
 				577E80B516F1F64F00DA7DBA /* ff_ios2-Info.plist */,
@@ -204,6 +214,17 @@
 				577E80D416F1F64F00DA7DBA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		57827BD71705216400095B1E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				57827BD91705224F00095B1E /* InAppPurchaseStore.h */,
+				57827BDA1705224F00095B1E /* InAppPurchaseStore.m */,
+				57827BDC17052E0500095B1E /* InAppPurchaseProduct.h */,
+				57827BDD17052E0500095B1E /* InAppPurchaseProduct.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		57E71A5516FFFC870068B631 /* View */ = {
@@ -311,6 +332,7 @@
 				57C6427F16F2D4930079AFEB /* config.xml in Resources */,
 				57C6428116F2D4E10079AFEB /* www in Resources */,
 				57C6428316F2DC180079AFEB /* Settings.bundle in Resources */,
+				57827BD6170461A300095B1E /* MKStoreKitConfigs.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +391,8 @@
 				57E71A5D17000ADC0068B631 /* GTMStringEncoding.m in Sources */,
 				57827BCD1701194900095B1E /* Foreground.m in Sources */,
 				57827BD217011F6D00095B1E /* Download.m in Sources */,
+				57827BDB1705224F00095B1E /* InAppPurchaseStore.m in Sources */,
+				57827BDE17052E0500095B1E /* InAppPurchaseProduct.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
