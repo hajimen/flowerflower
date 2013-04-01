@@ -17,6 +17,7 @@
 #define PKEY_LAST_UPDATED @"InAppPurchaseStore.lastUpdated"
 #define PKEY_PRODUCT_DIC @"InAppPurchaseStore.productDic"
 #define PRODUCT_UPDATE_INTERVAL 60.0 * 60.0
+#define TRANSACTION_TIMEOUT 5.0
 
 @interface InAppPurchaseStore ()
 
@@ -28,6 +29,7 @@
 @property (nonatomic, strong) void (^onTransactionFailed)(NSError *error);
 @property (nonatomic, strong) void (^onTransactionPurchased)(NSString *productId, NSData* receiptData);
 @property (nonatomic, strong) void (^onTransactionRestored)(NSString *productId, NSData* receiptData);
+@property (nonatomic) NSDate *transactionConsistentAt;
 
 @end
 
@@ -42,14 +44,6 @@
     _onTransactionPurchased = purchaseBlock;
     _onTransactionFailed = failBlock;
     _onTransactionRestored = restoreBlock;
-
-    if (!running) {
-        SKPaymentQueue *q = [SKPaymentQueue defaultQueue];
-        NSArray *ts = [q transactions];
-        for (SKPaymentTransaction *t in ts) {
-            [q finishTransaction:t];
-        }
-    }
 
     _online = NO;
     _transactionRunning = running;
@@ -87,6 +81,18 @@
 	[_productsRequest start];
     [[RACSignal interval: PRODUCT_UPDATE_INTERVAL] subscribeNext:^(NSDate *date) {
         [_productsRequest start];
+    }];
+
+    _transactionConsistentAt = [NSDate date];
+    [[RACSignal interval: 1.0] subscribeNext:^(NSDate *date) {
+        if (self.transactionRunning && [[[SKPaymentQueue defaultQueue] transactions] count] == 0) {
+            if ([date timeIntervalSinceDate: _transactionConsistentAt] > TRANSACTION_TIMEOUT) {
+                NSLog(@"transaction timeouted");
+                self.transactionRunning = NO;
+            }
+        } else {
+            _transactionConsistentAt = date;
+        }
     }];
 
     return self;
@@ -173,32 +179,49 @@
 	[[SKPaymentQueue defaultQueue] addPayment:payment];
 }
 
+-(void)restore {
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+}
+
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
 	for (SKPaymentTransaction *transaction in transactions) {
 		switch (transaction.transactionState) {
 			case SKPaymentTransactionStatePurchasing:
-                continue;
+                break;
 				
 			case SKPaymentTransactionStatePurchased:
                 [self onTransactionPurchased](transaction.payment.productIdentifier, transaction.transactionReceipt);
+                [queue finishTransaction: transaction];
+                [self setTransactionRunning: NO];
                 break;
 				
             case SKPaymentTransactionStateFailed:
                 [self onTransactionFailed](transaction.error);
+                [queue finishTransaction: transaction];
+                [self setTransactionRunning: NO];
                 break;
 				
             case SKPaymentTransactionStateRestored:
-                [self onTransactionRestored](transaction.payment.productIdentifier, transaction.transactionReceipt);
                 break;
 				
             default:
                 NSLog(@"unknown SKPaymentTransactionState");
                 break;
 		}
-        [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
 	}
-    [self setTransactionRunning: NO];
 }
 
+-(void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
+    NSLog(@"paymentQueueRestoreCompletedTransactionsFinished");
+    for (SKPaymentTransaction *t in queue.transactions) {
+        NSLog(@"transaction %@", t);
+        [self onTransactionRestored](t.payment.productIdentifier, t.transactionReceipt);
+        [queue finishTransaction:t];
+    }
+}
+
+-(void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
+    NSLog(@"restoreCompletedTransactionsFailedWithError %@", error);
+}
 
 @end

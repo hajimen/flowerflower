@@ -44,20 +44,30 @@
 #endif
 
 //    [MKStoreManager sharedManager];ngTransaction:NO plist:@"MKStoreKitConfigs.plist"
-    self.iapStore = [[InAppPurchaseStore alloc] initWithRunningTransaction:NO plist:@"MKStoreKitConfigs.plist" onPurchase:^(NSString *productId, NSData *receiptData){
+    self.iapStore = [[InAppPurchaseStore alloc] initWithRunningTransaction: NO plist:@"MKStoreKitConfigs.plist" onPurchase:^(NSString *productId, NSData *receiptData){
         NSLog(@"onPurchase called");
     } onFailed:^(NSError *error){
-        NSLog(@"onFailed called");
+        NSLog(@"onFailed called error: %@", error);
     } onRestore:^(NSString *productId, NSData *receiptData){
-        NSLog(@"onRestore called");
+        NSLog(@"onRestore called productId: %@", productId);
     }];
     
+    SKPaymentQueue *q = [SKPaymentQueue defaultQueue];
+    NSArray *ts = [q transactions];
+    NSLog(@"first paymentQueue transactions: %@", ts);
+    [[RACSignal interval: 10.0] subscribeNext:^(NSDate *date) {
+        SKPaymentQueue *q = [SKPaymentQueue defaultQueue];
+        NSArray *ts = [q transactions];
+        NSLog(@"paymentQueue transactions: %@", ts);
+    }];
+
     [[RACAble(self.iapStore.online) take: 1] subscribeNext:^(NSNumber *online) {
-        NSLog(@"going to buy");
-        [self.iapStore buy:@"non_consumable_test_1"];
+        NSLog(@"store online");
+        [self.iapStore restore];
+        /*[self.iapStore buy:@"non_consumable_test_1"];
         [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
             NSLog(@"buy ok");
-        }];
+        }];*/  
     }];
     
     return YES;

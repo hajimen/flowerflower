@@ -14,6 +14,7 @@
 -(id)initWithRunningTransaction:(BOOL)running plist:(NSString *)plist onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock;
 -(void)buy:(NSString *)productId;
 -(void)checkOnline;
+-(void)restore;
 
 @property (nonatomic, readonly) BOOL online;
 @property (nonatomic, readonly) BOOL transactionRunning;
