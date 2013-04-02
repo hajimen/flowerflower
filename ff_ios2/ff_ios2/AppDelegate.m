@@ -63,7 +63,7 @@
 
     [RACAble(self.iapStore.transactionRunning) subscribeNext:^(NSNumber *transactionRunning) {
         if ([transactionRunning boolValue]) {
-            [SVProgressHUD showWithStatus:@"transaction running" maskType:SVProgressHUDMaskTypeClear];
+            [SVProgressHUD showWithStatus: NSLocalizedString(@"transactionRunning", nil) maskType:SVProgressHUDMaskTypeClear];
         } else {
             [SVProgressHUD dismiss];
         }
