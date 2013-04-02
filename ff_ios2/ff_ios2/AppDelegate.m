@@ -8,13 +8,13 @@
 
 #import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
+#import "SVProgressHUD.h"
 
 #import "AppDelegate.h"
 
 #import "Foreground.h"
 #import "RemoteNotification.h"
 #import "Download.h"
-#import "MKStoreManager.h"
 #import "InAppPurchaseStore.h"
 
 @interface AppDelegate()
@@ -34,11 +34,11 @@
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
         [[Download new] resume];
     }
-    
+/*
     self.remoteNotification = [RemoteNotification new];
     [self.remoteNotification register_];
     [self.remoteNotification receive:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
-
+*/
 #if DEBUG
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"NKDontThrottleNewsstandContentNotifications"];
 #endif
@@ -61,13 +61,21 @@
         NSLog(@"paymentQueue transactions: %@", ts);
     }];
 
+    [RACAble(self.iapStore.transactionRunning) subscribeNext:^(NSNumber *transactionRunning) {
+        if ([transactionRunning boolValue]) {
+            [SVProgressHUD showWithStatus:@"transaction running" maskType:SVProgressHUDMaskTypeClear];
+        } else {
+            [SVProgressHUD dismiss];
+        }
+    }];
+    
     [[RACAble(self.iapStore.online) take: 1] subscribeNext:^(NSNumber *online) {
         NSLog(@"store online");
-        [self.iapStore restore];
-        /*[self.iapStore buy:@"non_consumable_test_1"];
+       // [self.iapStore restore];
+        [self.iapStore buy:@"non_consumable_test_1"];
         [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
             NSLog(@"buy ok");
-        }];*/  
+        }]; /* */
     }];
     
     return YES;

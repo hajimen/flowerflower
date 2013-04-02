@@ -30,6 +30,7 @@
 		57C6427F16F2D4930079AFEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 57C6427E16F2D4930079AFEB /* config.xml */; };
 		57C6428116F2D4E10079AFEB /* www in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428016F2D4E10079AFEB /* www */; };
 		57C6428316F2DC180079AFEB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428216F2DC180079AFEB /* Settings.bundle */; };
+		57C66B6F170A7C1500559028 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C66B6E170A7C1500559028 /* StoreKit.framework */; };
 		57E71A0116FBFD0E0068B631 /* TitleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A0016FBFD0E0068B631 /* TitleCollectionViewController.m */; };
 		57E71A0416FBFE000068B631 /* TitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A0316FBFE000068B631 /* TitleCell.m */; };
 		57E71A4816FC32010068B631 /* TitleCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A4716FC32010068B631 /* TitleCollectionViewLayout.m */; };
@@ -84,6 +85,7 @@
 		57C6427E16F2D4930079AFEB /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		57C6428016F2D4E10079AFEB /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		57C6428216F2DC180079AFEB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		57C66B6E170A7C1500559028 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		57E719FF16FBFD0E0068B631 /* TitleCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCollectionViewController.h; sourceTree = "<group>"; };
 		57E71A0016FBFD0E0068B631 /* TitleCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleCollectionViewController.m; sourceTree = "<group>"; };
 		57E71A0216FBFE000068B631 /* TitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCell.h; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57C66B6F170A7C1500559028 /* StoreKit.framework in Frameworks */,
 				57827BCF17011EB000095B1E /* NewsstandKit.framework in Frameworks */,
 				577E80AE16F1F64F00DA7DBA /* UIKit.framework in Frameworks */,
 				577E80B016F1F64F00DA7DBA /* Foundation.framework in Frameworks */,
@@ -130,6 +133,7 @@
 		577E80A116F1F64F00DA7DBA = {
 			isa = PBXGroup;
 			children = (
+				57C66B6E170A7C1500559028 /* StoreKit.framework */,
 				57C6428016F2D4E10079AFEB /* www */,
 				577E80B316F1F64F00DA7DBA /* ff_ios2 */,
 				577E80D116F1F64F00DA7DBA /* ff_ios2Tests */,

@@ -18,6 +18,7 @@
 
 @property (nonatomic, readonly) BOOL online;
 @property (nonatomic, readonly) BOOL transactionRunning;
+@property (nonatomic, readonly) BOOL restoreRunning;
 @property (nonatomic, readonly) NSDictionary *productDic;
 @property (nonatomic, readonly) NSDate *lastUpdated;
 

@@ -46,6 +46,7 @@
     _onTransactionRestored = restoreBlock;
 
     _online = NO;
+    _restoreRunning = NO;
     _transactionRunning = running;
     NSDictionary *productIdPlistDic = [NSDictionary dictionaryWithContentsOfFile:
                                        [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:
@@ -118,8 +119,16 @@
     [self didChangeValueForKey:@"transactionRunning"];
 }
 
+-(void)setRestoreRunning:(BOOL)restoreRunning {
+    [self willChangeValueForKey:@"restoreRunning"];
+    _restoreRunning = restoreRunning;
+    [self didChangeValueForKey:@"restoreRunning"];
+}
+
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
-//    [self willChangeValueForKey:@"productDic"];
+    [self willChangeValueForKey:@"productDic"];
+    _productMDic = [NSMutableDictionary new];
+    _skProductMDic = [NSMutableDictionary new];
     for (SKProduct *skp in [response products]) {
         InAppPurchaseProduct *p = [InAppPurchaseProduct new];
         p.localizedDescription = [skp localizedDescription];
@@ -131,9 +140,7 @@
         [_productMDic setObject:p forKey: k];
         [_skProductMDic setObject:skp forKey:k];
     }
-    [_productMDic removeObjectsForKeys:[response invalidProductIdentifiers]];
-    [_skProductMDic removeObjectsForKeys:[response invalidProductIdentifiers]];
-//    [self didChangeValueForKey:@"productDic"];
+    [self didChangeValueForKey:@"productDic"];
     
     [self willChangeValueForKey:@"lastUpdated"];
     _lastUpdated = [NSDate date];
@@ -180,6 +187,7 @@
 }
 
 -(void)restore {
+    [self setRestoreRunning: YES];
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
@@ -218,10 +226,17 @@
         [self onTransactionRestored](t.payment.productIdentifier, t.transactionReceipt);
         [queue finishTransaction:t];
     }
+    [self setRestoreRunning: NO];
 }
 
 -(void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
     NSLog(@"restoreCompletedTransactionsFailedWithError %@", error);
+    for (SKPaymentTransaction *t in queue.transactions) {
+        NSLog(@"transaction %@", t);
+        [self onTransactionRestored](t.payment.productIdentifier, t.transactionReceipt);
+        [queue finishTransaction:t];
+    }
+    [self setRestoreRunning: NO];
 }
 
 @end
