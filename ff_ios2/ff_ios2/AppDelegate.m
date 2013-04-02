@@ -72,10 +72,10 @@
     [[RACAble(self.iapStore.online) take: 1] subscribeNext:^(NSNumber *online) {
         NSLog(@"store online");
        // [self.iapStore restore];
-        [self.iapStore buy:@"non_consumable_test_1"];
+       /* [self.iapStore buy:@"non_consumable_test_1"];
         [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
             NSLog(@"buy ok");
-        }]; /* */
+        }];  */
     }];
     
     return YES;
