@@ -64,7 +64,6 @@
             @try {
                 NSMutableDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:d];
                 [_productMDic setDictionary:[dic mutableCopy]];
-                NSLog(@"_productMDic restored: %@", _productMDic);
             }
             @catch (NSException *exception) {
                 _lastUpdated = nil;
@@ -145,8 +144,6 @@
     [self willChangeValueForKey:@"lastUpdated"];
     _lastUpdated = [NSDate date];
     [self didChangeValueForKey:@"lastUpdated"];
-
-    NSLog(@"storekit response: %@", _productMDic);
 
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSData *d = [NSKeyedArchiver archivedDataWithRootObject:_productMDic];

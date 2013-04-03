@@ -7,9 +7,10 @@
 
 #import <UIKit/UIKit.h>
 #import "PSTCollectionView.h"
+#import "TitleInfo.h"
 
 @interface TitleCell : PSTCollectionViewCell
 
-@property (strong, nonatomic) UILabel* label;
+@property (nonatomic) TitleInfo *titleInfo;
 
 @end

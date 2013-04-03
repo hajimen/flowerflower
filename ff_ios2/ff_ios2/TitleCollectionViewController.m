@@ -44,7 +44,20 @@
 
 - (PSTCollectionViewCell *)collectionView:(PSTCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TitleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MY_CELL" forIndexPath:indexPath];
-    cell.label.text = [NSString stringWithFormat: @"%d", indexPath.item];
+    if (indexPath.item == 1) {
+        NSString *p = [[NSBundle mainBundle] pathForResource:@"test_image2" ofType:@"png"];
+        TitleInfo *ti = [[TitleInfo alloc] initWithId:@"test"];
+        ti.thumbnailUrl = [NSURL fileURLWithPath: p];
+        ti.name = @"My Name";
+        ti.tags = @[@"my tag", @"my tag 2", @"my tag 33"];
+        ti.price = [NSDecimalNumber decimalNumberWithString:@"1000"];
+        ti.priceLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"ja_JP"];
+        ti.purchased = YES;
+        ti.status = TitleStatusPushEnabled;
+        ti.footnote = @"初回購入特別価格";
+        cell.titleInfo = ti;
+    }
+
     return cell;
 }
 

@@ -33,8 +33,10 @@
 		57C66B6F170A7C1500559028 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C66B6E170A7C1500559028 /* StoreKit.framework */; };
 		57C66B77170A868300559028 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57C66B79170A868300559028 /* Localizable.strings */; };
 		57C66B7D170AB9F300559028 /* test_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 57C66B7C170AB9F300559028 /* test_image.png */; };
-		57C66B80170ABFC500559028 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C66B7F170ABFC500559028 /* UIImage+Resize.m */; };
 		57C66B83170AE71200559028 /* RoundedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C66B82170AE71200559028 /* RoundedLabel.m */; };
+		57C66B8C170B304800559028 /* TagContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C66B8B170B304700559028 /* TagContainerView.m */; };
+		57C66B8F170BDEEE00559028 /* TitleInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C66B8E170BDEEE00559028 /* TitleInfo.m */; };
+		57C66B94170C1E1500559028 /* test_image2.png in Resources */ = {isa = PBXBuildFile; fileRef = 57C66B93170C1E1500559028 /* test_image2.png */; };
 		57E71A0116FBFD0E0068B631 /* TitleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A0016FBFD0E0068B631 /* TitleCollectionViewController.m */; };
 		57E71A0416FBFE000068B631 /* TitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A0316FBFE000068B631 /* TitleCell.m */; };
 		57E71A4816FC32010068B631 /* TitleCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E71A4716FC32010068B631 /* TitleCollectionViewLayout.m */; };
@@ -92,10 +94,13 @@
 		57C66B6E170A7C1500559028 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		57C66B78170A868300559028 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		57C66B7C170AB9F300559028 /* test_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image.png; sourceTree = "<group>"; };
-		57C66B7E170ABFC500559028 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
-		57C66B7F170ABFC500559028 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		57C66B81170AE71200559028 /* RoundedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedLabel.h; sourceTree = "<group>"; };
 		57C66B82170AE71200559028 /* RoundedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedLabel.m; sourceTree = "<group>"; };
+		57C66B8A170B304700559028 /* TagContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagContainerView.h; sourceTree = "<group>"; };
+		57C66B8B170B304700559028 /* TagContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagContainerView.m; sourceTree = "<group>"; };
+		57C66B8D170BDEEE00559028 /* TitleInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleInfo.h; sourceTree = "<group>"; };
+		57C66B8E170BDEEE00559028 /* TitleInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleInfo.m; sourceTree = "<group>"; };
+		57C66B93170C1E1500559028 /* test_image2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image2.png; sourceTree = "<group>"; };
 		57E719FF16FBFD0E0068B631 /* TitleCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCollectionViewController.h; sourceTree = "<group>"; };
 		57E71A0016FBFD0E0068B631 /* TitleCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleCollectionViewController.m; sourceTree = "<group>"; };
 		57E71A0216FBFE000068B631 /* TitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCell.h; sourceTree = "<group>"; };
@@ -197,6 +202,7 @@
 		577E80B416F1F64F00DA7DBA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				57C66B93170C1E1500559028 /* test_image2.png */,
 				57C66B7C170AB9F300559028 /* test_image.png */,
 				57C66B79170A868300559028 /* Localizable.strings */,
 				57827BD5170461A300095B1E /* MKStoreKitConfigs.plist */,
@@ -239,6 +245,8 @@
 				57827BDA1705224F00095B1E /* InAppPurchaseStore.m */,
 				57827BDC17052E0500095B1E /* InAppPurchaseProduct.h */,
 				57827BDD17052E0500095B1E /* InAppPurchaseProduct.m */,
+				57C66B8D170BDEEE00559028 /* TitleInfo.h */,
+				57C66B8E170BDEEE00559028 /* TitleInfo.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -256,6 +264,8 @@
 				57E71A5316FC54100068B631 /* TitleCollectionViewLayoutAttributes.m */,
 				57C66B81170AE71200559028 /* RoundedLabel.h */,
 				57C66B82170AE71200559028 /* RoundedLabel.m */,
+				57C66B8A170B304700559028 /* TagContainerView.h */,
+				57C66B8B170B304700559028 /* TagContainerView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -263,8 +273,6 @@
 		57E71A5917000AB00068B631 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
-				57C66B7E170ABFC500559028 /* UIImage+Resize.h */,
-				57C66B7F170ABFC500559028 /* UIImage+Resize.m */,
 				57E71A5A17000ADC0068B631 /* GTMDefines.h */,
 				57E71A5B17000ADC0068B631 /* GTMStringEncoding.h */,
 				57E71A5C17000ADC0068B631 /* GTMStringEncoding.m */,
@@ -355,6 +363,7 @@
 				57827BD6170461A300095B1E /* MKStoreKitConfigs.plist in Resources */,
 				57C66B77170A868300559028 /* Localizable.strings in Resources */,
 				57C66B7D170AB9F300559028 /* test_image.png in Resources */,
+				57C66B94170C1E1500559028 /* test_image2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,8 +424,9 @@
 				57827BD217011F6D00095B1E /* Download.m in Sources */,
 				57827BDB1705224F00095B1E /* InAppPurchaseStore.m in Sources */,
 				57827BDE17052E0500095B1E /* InAppPurchaseProduct.m in Sources */,
-				57C66B80170ABFC500559028 /* UIImage+Resize.m in Sources */,
 				57C66B83170AE71200559028 /* RoundedLabel.m in Sources */,
+				57C66B8C170B304800559028 /* TagContainerView.m in Sources */,
+				57C66B8F170BDEEE00559028 /* TitleInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

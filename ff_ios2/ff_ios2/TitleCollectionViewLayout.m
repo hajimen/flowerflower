@@ -25,10 +25,10 @@
     } else {
         self.itemsPerRow = 2;
     }
-    CGFloat itemWidth = (self.collectionView.bounds.size.width - 10 * (self.itemsPerRow - 1)) / self.itemsPerRow;
-    self.itemSize = CGSizeMake(itemWidth, 200);
-    self.minimumLineSpacing = 50;
-    self.minimumInteritemSpacing = 10;
+    CGFloat itemWidth = (self.collectionView.bounds.size.width - 1.0 * (self.itemsPerRow - 1)) / self.itemsPerRow;
+    self.itemSize = CGSizeMake(itemWidth, 108.0);
+    self.minimumLineSpacing = 1.0;
+    self.minimumInteritemSpacing = 1.0;
 
     [super prepareLayout];
 }
