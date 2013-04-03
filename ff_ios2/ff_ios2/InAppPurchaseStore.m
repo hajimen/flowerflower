@@ -19,6 +19,8 @@
 #define PRODUCT_UPDATE_INTERVAL 60.0 * 60.0
 #define TRANSACTION_TIMEOUT 5.0
 
+static InAppPurchaseStore *singletonInstance;
+
 @interface InAppPurchaseStore ()
 
 @property (nonatomic) NSSet *nonConsumableProductIds;
@@ -34,6 +36,18 @@
 @end
 
 @implementation InAppPurchaseStore
+
++(void)initialize {
+    singletonInstance = [self alloc];
+}
+
++(InAppPurchaseStore *)initWithRunningTransaction:(BOOL)running plist:(NSString *)plist onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock {
+    return [singletonInstance initWithRunningTransaction:running plist:plist onPurchase:purchaseBlock onFailed:failBlock onRestore:restoreBlock];
+}
+
++(InAppPurchaseStore *)instance {
+    return singletonInstance;
+};
 
 -(id)initWithRunningTransaction:(BOOL)running plist:(NSString *)plist onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock {
     self = [super init];

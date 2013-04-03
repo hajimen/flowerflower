@@ -44,7 +44,7 @@
 #endif
 
 //    [MKStoreManager sharedManager];ngTransaction:NO plist:@"MKStoreKitConfigs.plist"
-    self.iapStore = [[InAppPurchaseStore alloc] initWithRunningTransaction: NO plist:@"MKStoreKitConfigs.plist" onPurchase:^(NSString *productId, NSData *receiptData){
+    self.iapStore = [InAppPurchaseStore initWithRunningTransaction: NO plist:@"MKStoreKitConfigs.plist" onPurchase:^(NSString *productId, NSData *receiptData){
         NSLog(@"onPurchase called");
     } onFailed:^(NSError *error){
         NSLog(@"onFailed called error: %@", error);

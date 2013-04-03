@@ -11,7 +11,8 @@
 
 @interface InAppPurchaseStore : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
--(id)initWithRunningTransaction:(BOOL)running plist:(NSString *)plist onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock;
++(InAppPurchaseStore *)initWithRunningTransaction:(BOOL)running plist:(NSString *)plist onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock;
++(InAppPurchaseStore *)instance;
 -(void)buy:(NSString *)productId;
 -(void)checkOnline;
 -(void)restore;
