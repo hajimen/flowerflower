@@ -36,18 +36,27 @@ static InAppPurchaseStore *singletonInstance;
 @end
 
 @implementation InAppPurchaseStore
-
+/*
 +(void)initialize {
-    singletonInstance = [self alloc];
+    singletonInstance = [[self alloc] init];
+}
+*/
++(void)setInstance: (InAppPurchaseStore *)i {
+    @synchronized(self) {
+        singletonInstance = i;
+    }
 }
 
 +(InAppPurchaseStore *)initWithRunningTransaction:(BOOL)running plist:(NSString *)plist onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock {
-    return [singletonInstance initWithRunningTransaction:running plist:plist onPurchase:purchaseBlock onFailed:failBlock onRestore:restoreBlock];
+    [InAppPurchaseStore setInstance: [[self alloc] initWithRunningTransaction:running plist:plist onPurchase:purchaseBlock onFailed:failBlock onRestore:restoreBlock]];
+    return [InAppPurchaseStore instance];
 }
 
 +(InAppPurchaseStore *)instance {
-    return singletonInstance;
-};
+    @synchronized(self) {
+        return singletonInstance;
+    }
+}
 
 -(id)initWithRunningTransaction:(BOOL)running plist:(NSString *)plist onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock {
     self = [super init];

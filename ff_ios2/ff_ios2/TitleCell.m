@@ -12,6 +12,7 @@
 #import "RoundedLabel.h"
 #import "UIGlossyButton.h"
 #import "TagContainerView.h"
+#import "InAppPurchaseStore.h"
 
 #define LEFT_VIEW_WIDTH 77.0
 #define IMAGE_WIDTH 64.0
@@ -32,6 +33,8 @@
 @property (nonatomic) UIGlossyButton *bt;
 @property (nonatomic) UILabel *footnoteLabel;
 
+@property (nonatomic) InAppPurchaseStore *iapStore;
+
 @end
 
 @implementation TitleCell
@@ -39,6 +42,7 @@
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         _titleInfo = [[TitleInfo alloc] initWithId:@""];
+        _iapStore = [InAppPurchaseStore instance];
 
         CGFloat height = frame.size.height - MARGIN_Y * 2;
         CGFloat width = frame.size.width;
@@ -93,14 +97,20 @@
         _bt.center = CGPointMake(_rightView.frame.size.width / 2.0, _rightView.frame.size.height / 2.0);
         _bt.buttonCornerRadius = 4.0;
         _bt.tintColor = [UIColor colorWithRed:0.62 green:0.9 blue:0.9 alpha:1.000];
+        _bt.disabledColor = [UIColor lightGrayColor];
         [_bt setGradientType:kUIGlossyButtonGradientTypeLinearGlossyStandard];
         [_bt setTitle:@"$2,000" forState:UIControlStateNormal];
+        [_bt setTitle:@"Offline" forState:UIControlStateDisabled];
         [_bt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_bt.titleLabel setFont:[UIFont systemFontOfSize:12.0]];
         [_rightView addSubview: _bt];
         
+        [RACAble(iapStore.online) subscribeNext:^(NSNumber *online) {
+            NSLog(@"store online at cell");
+        }];
+
         @weakify(self);
-        [[RACSignal combineLatest:@[RACAble(titleInfo.status), RACAble(titleInfo.price), RACAble(titleInfo.priceLocale), RACAble(titleInfo.purchased)] reduce:^(NSNumber *statusN, NSDecimalNumber *price, NSLocale *priceLocale, NSNumber *purchasedN){
+        [[RACSignal combineLatest:@[RACAble(titleInfo.status), RACAble(titleInfo.price), RACAble(titleInfo.priceLocale), RACAble(titleInfo.purchased), RACAble(iapStore.online)] reduce:^(NSNumber *statusN, NSDecimalNumber *price, NSLocale *priceLocale, NSNumber *purchasedN, NSNumber *onlineN){
             @strongify(self);
             TitleStatus status = (TitleStatus)[statusN integerValue];
             if (price && (![purchasedN boolValue])) {
@@ -108,6 +118,7 @@
                 nf.numberStyle = NSNumberFormatterCurrencyStyle;
                 nf.locale = priceLocale;
                 [self setButtonText:[nf stringFromNumber: price] red:159 green:179 blue:230];
+                [self.bt setEnabled:[onlineN boolValue]];
             } else {
                 switch (status) {
                     case TitleStatusCompleted:
