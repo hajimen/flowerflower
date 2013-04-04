@@ -33,20 +33,25 @@
 }
 
 -(void)setTags:(NSArray *)tags {
+    for (UIView *v in self.subviews) {
+        [v removeFromSuperview];
+    }
+
     NSMutableArray *tls = [NSMutableArray arrayWithCapacity:[tags count]];
-    
-    for (NSString *tag in tags) {
-        UILabel *tagLabel = [[RoundedLabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 100, 20)];
-        tagLabel.font = [UIFont systemFontOfSize: FONT_SIZE];
-        tagLabel.textColor = [UIColor blackColor];
-        tagLabel.textAlignment = UITextAlignmentCenter;
-        tagLabel.text = tag;
-        [tagLabel sizeToFit];
-        CGRect f = tagLabel.frame;
-        f.size.width += FONT_SIZE;
-        tagLabel.frame = f;
-        [self addSubview: tagLabel];
-        [tls addObject: tagLabel];
+    if (tags) {
+        for (NSString *tag in tags) {
+            UILabel *tagLabel = [[RoundedLabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 100, 20)];
+            tagLabel.font = [UIFont systemFontOfSize: FONT_SIZE];
+            tagLabel.textColor = [UIColor blackColor];
+            tagLabel.textAlignment = UITextAlignmentCenter;
+            tagLabel.text = tag;
+            [tagLabel sizeToFit];
+            CGRect f = tagLabel.frame;
+            f.size.width += FONT_SIZE;
+            tagLabel.frame = f;
+            [self addSubview: tagLabel];
+            [tls addObject: tagLabel];
+        }
     }
     _tagLabels = tls;
 

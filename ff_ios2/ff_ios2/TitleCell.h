@@ -9,7 +9,7 @@
 #import "PSTCollectionView.h"
 #import "TitleInfo.h"
 
-@interface TitleCell : PSTCollectionViewCell
+@interface TitleCell : PSTCollectionViewCell <UIActionSheetDelegate>
 
 @property (nonatomic) TitleInfo *titleInfo;
 

@@ -56,6 +56,17 @@
         ti.status = TitleStatusPushEnabled;
         ti.footnote = @"初回購入特別価格";
         cell.titleInfo = ti;
+    } else {
+        NSString *p = [[NSBundle mainBundle] pathForResource:@"test_image" ofType:@"png"];
+        TitleInfo *ti = [[TitleInfo alloc] initWithId:@"test2"];
+        ti.thumbnailUrl = [NSURL fileURLWithPath: p];
+        ti.name = @"東京特許許可局 東京特許許可局 東京特許許可局";
+        ti.tags = @[@"tag a", @"tag b", @"tag c", @"tag d", @"tag e", @"tag f", @"tag g"];
+        ti.price = nil;
+        ti.purchased = NO;
+        ti.status = TitleStatusPushEnabled;
+        ti.footnote = nil;
+        cell.titleInfo = ti;
     }
 
     return cell;

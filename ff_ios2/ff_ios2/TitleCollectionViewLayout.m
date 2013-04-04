@@ -22,8 +22,10 @@
 -(void)prepareLayout {
     if (self.collectionView.bounds.size.width > 1000) {
         self.itemsPerRow = 3;
-    } else {
+    } else if (self.collectionView.bounds.size.width > 700) {
         self.itemsPerRow = 2;
+    } else {
+        self.itemsPerRow = 1;
     }
     CGFloat itemWidth = (self.collectionView.bounds.size.width - 1.0 * (self.itemsPerRow - 1)) / self.itemsPerRow;
     self.itemSize = CGSizeMake(itemWidth, 108.0);
