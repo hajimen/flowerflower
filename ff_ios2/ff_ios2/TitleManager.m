@@ -71,8 +71,8 @@ static TitleManager *_instance = nil;
     ti2.purchased = NO;
     ti2.status = TitleStatusPushEnabled;
     ti2.footnote = nil;
-    ti2.lastViewed = [NSDate dateWithTimeIntervalSinceNow:-80];
-    ti2.lastUpdated = [NSDate dateWithTimeIntervalSinceNow:-70];
+    ti2.lastViewed = [NSDate dateWithTimeIntervalSinceNow:-70];
+    ti2.lastUpdated = [NSDate dateWithTimeIntervalSinceNow:-80];
     [_titleInfoSet addObject:ti2];
 
     __block BOOL w = YES;

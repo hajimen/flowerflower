@@ -165,7 +165,24 @@
     if (!self.foreground) {
         self.foreground = [Foreground new];
     }
-    
+/*
+    __block BOOL on;
+    on = YES;
+    {
+        @weakify(self)
+        [[[RACSignal interval:3.0] deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(id x) {
+            NSLog(@"start");
+            @strongify(self)
+            if (on) {
+                self.foreground = nil;
+            } else {
+                self.foreground = [Foreground new];
+            }
+            on = !on;
+            NSLog(@"exit");
+        }];
+    }
+*/
 /*
     NSLog(@"isFeaturePurchased: %d", [MKStoreManager isFeaturePurchased:@"not_hit"]);
     NSLog(@"purchasableObjects: %@", [[MKStoreManager sharedManager] purchasableObjects]);

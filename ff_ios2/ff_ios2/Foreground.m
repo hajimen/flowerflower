@@ -6,6 +6,8 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
+#import "ReactiveCocoa/ReactiveCocoa.h"
+#import "EXTScope.h"
 #import "Foreground.h"
 
 #import "Cordova/CDVViewController.h"

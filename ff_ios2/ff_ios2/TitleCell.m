@@ -25,6 +25,7 @@
 
 @property (nonatomic) UIView *leftView;
 @property (nonatomic) UIImageView *tnView;
+@property (nonatomic) UIView *notifyView;
 
 @property (nonatomic) UIView *middleView;
 @property (nonatomic) UILabel *titleLabel;
@@ -52,7 +53,12 @@
     
     CGFloat height = frame.size.height - MARGIN_Y * 2;
     CGFloat width = frame.size.width;
-    
+
+    _notifyView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, MARGIN_X - 2, frame.size.height)];
+    _notifyView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    RACSignal *notifySignal = [[RACSignal merge:@[RACAble(titleInfo.lastUpdated), RACAble(titleInfo.lastViewed)]] deliverOn:RACScheduler.mainThreadScheduler];
+    [self rac_liftSelector:@selector(updateNotifier:) withObjects:notifySignal];
+
     _leftView = [[UIView alloc] initWithFrame: CGRectMake(MARGIN_X, MARGIN_Y, LEFT_VIEW_WIDTH - MARGIN_X, height)];
     _leftView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
     
@@ -108,7 +114,7 @@
     [_rightView addSubview: _bt];
 
     RACSignal *buttonSignal = [[RACSignal merge:@[RACAble(titleInfo.status), RACAble(titleInfo.price), RACAble(titleInfo.priceLocale), RACAble(titleInfo.purchased), RACAble(iapStore.online)]] deliverOn: RACScheduler.mainThreadScheduler];
-    [self rac_liftSelector:@selector(applyButtonStyle:) withObjects:buttonSignal];
+    [self rac_liftSelector:@selector(updateButtonStyle:) withObjects:buttonSignal];
 
 
     _footnoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, RIGHT_VIEW_WIDTH - MARGIN_X, 30.0)];
@@ -132,6 +138,7 @@
         }
     }] deliverOn: RACScheduler.mainThreadScheduler];
     
+    [self.contentView addSubview: _notifyView];
     [self.contentView addSubview: _leftView];
     [self.contentView addSubview: _middleView];
     [self.contentView addSubview: _rightView];
@@ -139,7 +146,21 @@
     return self;
 }
 
--(void)applyButtonStyle: (id) _ {
+-(void)updateNotifier: (id) _ {
+    NSLog(@"u: %@ v: %@", _titleInfo.lastUpdated, _titleInfo.lastViewed);
+    switch ([_titleInfo.lastUpdated compare: _titleInfo.lastViewed]) {
+        case NSOrderedDescending: {
+            UIColor *c = [UIColor colorWithRed: 144 / 256.0 green: 238 / 256.0 blue: 144 / 256.0 alpha:1.0];
+            _notifyView.backgroundColor = c;
+            break;
+        }
+        default:
+            _notifyView.backgroundColor = [UIColor clearColor];
+            break;
+    }
+}
+
+-(void)updateButtonStyle: (id) _ {
     if (_titleInfo.price && (!_titleInfo.purchased)) {
         if (_iapStore.online) {
             NSNumberFormatter *nf = [NSNumberFormatter new];
