@@ -31,40 +31,13 @@
     _titleManager = [TitleManager instance];
     
     _sortCommand = [RACCommand command];
-    
-    {
-        @weakify(self);
-        [[[RACSignal merge:@[RACAble(self.titleManager, titleInfoSet), _sortCommand]] deliverOn: RACScheduler.mainThreadScheduler] subscribeNext:^(id _){
 
-            @strongify(self);
-            [self generateTitleInfos];
-            [self.collectionView reloadData];
-        }];
-    }
+    RACSignal *reloadSignal = [[RACSignal merge:@[RACAble(self.titleManager, titleInfoSet), _sortCommand]] deliverOn: RACScheduler.mainThreadScheduler];
+    [self rac_liftSelector:@selector(generateTitleInfosAndReload:) withObjects:reloadSignal];
 
     [self generateTitleInfos];
 
     return self;
-}
-
--(void)sortCellsWithOld:(NSArray *)oldTitleInfos {
-    PSTCollectionView *v = self.collectionView;
-    [v performBatchUpdates:^{
-        NSMutableArray *temps = [oldTitleInfos mutableCopy];
-        NSUInteger ni = 0;
-        for (TitleInfo *ti in _titleInfos) {
-            NSUInteger oi = [temps indexOfObject: ti];
-            if (oi == NSNotFound) {
-            } else {
-                [temps insertObject:ti atIndex:ni];
-                NSIndexPath *np = [NSIndexPath indexPathForRow:ni inSection:0];
-                [v insertItemsAtIndexPaths:@[np]];
-            }
-            ni ++;
-        }
-    } completion:^(BOOL finished) {
-        
-    }];
 }
 
 - (void)viewDidLoad
@@ -110,12 +83,13 @@
         [accumulator addObject: RACAble(value, lastViewed)];
         return accumulator;
     }];
-    
-    @weakify(self)
-    [[[RACSignal merge:ds] take: 1] subscribeNext:^(id _) {
-        @strongify(self)
-        [self.sortCommand execute:nil];
-    }];
+
+    [[[RACSignal merge:ds] take: 1] executeCommand:_sortCommand];
+}
+
+-(void)generateTitleInfosAndReload: (id) _ {
+    [self generateTitleInfos];
+    [self.collectionView reloadData];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

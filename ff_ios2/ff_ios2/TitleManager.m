@@ -78,17 +78,17 @@ static TitleManager *_instance = nil;
     __block BOOL w = YES;
     {
     @weakify(self)
-    [[[RACSignal interval:5] take:5] subscribeNext:^(id noop) {
+    [[[RACSignal interval:2] take:1] subscribeNext:^(id noop) {
         NSLog(@"TitleManager tick");
-
+/*
         if (w) {
             ti.lastViewed = [NSDate dateWithTimeIntervalSinceNow:-60];
         } else {
             ti2.lastViewed = [NSDate dateWithTimeIntervalSinceNow:-60];
         }
         w = !w;
+*/
 
-/*
         @strongify(self)
         TitleInfo *ti3 = [TitleInfo instanceWithId:@"test3"];
         ti3.thumbnailUrl = [NSURL fileURLWithPath: p];
@@ -107,7 +107,7 @@ static TitleManager *_instance = nil;
         NSLog(@"TitleManager 3");
         [self didChangeValueForKey:@"titleInfoSet"];
         NSLog(@"TitleManager 4");
-*/
+
     }];
     }
 

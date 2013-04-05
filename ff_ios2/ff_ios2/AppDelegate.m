@@ -8,6 +8,7 @@
 
 #import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
+#import "EXTScope.h"
 #import "SVProgressHUD.h"
 
 #import "AppDelegate.h"
@@ -16,6 +17,8 @@
 #import "RemoteNotification.h"
 #import "Download.h"
 #import "InAppPurchaseStore.h"
+
+#import "LoopTest.h"
 
 @interface AppDelegate()
 {
@@ -68,6 +71,7 @@
     NSLog(@"test 4");
     self.test1 = @"3";
 */
+    /*
     RACCommand *cmd = [RACCommand command];
     RACCommand *cmd2 = [RACCommand command];
     RACSignal *sig = [RACSignal merge:@[cmd, cmd2]];
@@ -79,9 +83,14 @@
     NSLog(@"test 3");
     [cmd2 execute:nil];
     NSLog(@"test 4");
-
-    
-    
+*/
+/*
+    [[RACSignal interval:1.0] subscribeNext:^(id x) {
+        NSLog(@"start");
+        [[LoopTest new] loop];
+        NSLog(@"exit");
+    }];
+*/
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
         [[Download new] resume];
     }
@@ -156,6 +165,7 @@
     if (!self.foreground) {
         self.foreground = [Foreground new];
     }
+    
 /*
     NSLog(@"isFeaturePurchased: %d", [MKStoreManager isFeaturePurchased:@"not_hit"]);
     NSLog(@"purchasableObjects: %@", [[MKStoreManager sharedManager] purchasableObjects]);

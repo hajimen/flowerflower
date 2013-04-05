@@ -98,11 +98,14 @@ static InAppPurchaseStore *singletonInstance;
 	_productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers: s];
 	_productsRequest.delegate = self;
 	[_productsRequest start];
+    
+    // singleton and forever exists. no leaks.
     [[RACSignal interval: PRODUCT_UPDATE_INTERVAL] subscribeNext:^(NSDate *date) {
         [_productsRequest start];
     }];
 
     _transactionConsistentAt = [NSDate date];
+    // singleton and forever exists. no leaks.
     [[RACSignal interval: 1.0] subscribeNext:^(NSDate *date) {
         if (self.transactionRunning && [[[SKPaymentQueue defaultQueue] transactions] count] == 0) {
             if ([date timeIntervalSinceDate: _transactionConsistentAt] > TRANSACTION_TIMEOUT) {
