@@ -18,10 +18,15 @@
 #import "InAppPurchaseStore.h"
 
 @interface AppDelegate()
-
+{
+    NSMutableArray *_events;
+}
 @property (nonatomic) RemoteNotification *remoteNotification;
 @property (nonatomic) Foreground *foreground;
 @property (nonatomic) InAppPurchaseStore *iapStore;
+
+@property (nonatomic) NSString *test1;
+@property (nonatomic) NSString *test2;
 
 @end
 
@@ -30,7 +35,53 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSLog(@"didFinishLaunchingWithOptions");
+/*
+    RACCommand *cmd = [RACCommand command];
+    RACCommand *cmd2 = [RACCommand command];
+    [[RACSignal combineLatest:@[cmd, cmd2] reduce:^(id _, ...) {
+        NSLog(@"test 1");
+        return nil;
+    }] subscribeNext:^(id _){
+    }];
+    
+    [cmd subscribeNext:^(id _) {
+        NSLog(@"test 1.1");
+    }];
+    NSLog(@"test 2");
+    [cmd execute:@1];
+    [cmd2 execute:@1];
+    NSLog(@"test 3");
+    [cmd execute:@2];
+    [cmd2 execute:@2];
+    NSLog(@"test 4");
+    */
+    /*
+    self.test1 = @"0";
+    self.test2 = @"0";
+    [[[RACSignal combineLatest:@[RACAbleWithStart(test1), RACAbleWithStart(test2)]] distinctUntilChanged] subscribeNext:^(id _){
+        NSLog(@"test 1");
+    }];
+    NSLog(@"test 2");
+    self.test1 = @"1";
+    NSLog(@"test 3");
+    self.test2 = @"2";
+    NSLog(@"test 4");
+    self.test1 = @"3";
+*/
+    RACCommand *cmd = [RACCommand command];
+    RACCommand *cmd2 = [RACCommand command];
+    RACSignal *sig = [RACSignal merge:@[cmd, cmd2]];
+    [sig subscribeNext:^(id x) {
+        NSLog(@"test 1");
+    }];
+    NSLog(@"test 2");
+    [cmd execute:nil];
+    NSLog(@"test 3");
+    [cmd2 execute:nil];
+    NSLog(@"test 4");
 
+    
+    
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
         [[Download new] resume];
     }

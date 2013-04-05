@@ -36,11 +36,7 @@ static InAppPurchaseStore *singletonInstance;
 @end
 
 @implementation InAppPurchaseStore
-/*
-+(void)initialize {
-    singletonInstance = [[self alloc] init];
-}
-*/
+
 +(void)setInstance: (InAppPurchaseStore *)i {
     @synchronized(self) {
         singletonInstance = i;

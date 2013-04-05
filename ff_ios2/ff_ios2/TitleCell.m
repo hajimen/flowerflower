@@ -6,6 +6,7 @@
 //
 
 #import "ReactiveCocoa/ReactiveCocoa.h"
+#import "ReactiveCocoa/RACScheduler.h"
 #import "EXTScope.h"
 #import "TitleCell.h"
 #import "TitleCollectionViewLayoutAttributes.h"
@@ -43,9 +44,9 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-        _titleInfo = [[TitleInfo alloc] initWithId:@""];
+        _titleInfo = [TitleInfo instanceWithId:@""];
         _iapStore = [InAppPurchaseStore instance];
-
+        
         CGFloat height = frame.size.height - MARGIN_Y * 2;
         CGFloat width = frame.size.width;
 
@@ -58,7 +59,7 @@
         _tnView.image = img;
         [_leftView addSubview: _tnView];
         
-        RAC(tnView.image) = [RACAble(titleInfo.thumbnailUrl) map:^(NSURL *url) {
+        RAC(tnView.image) = [[RACAble(titleInfo.thumbnailUrl) deliverOn: RACScheduler.mainThreadScheduler] map:^(NSURL *url) {
             if (url) {
                 NSData *d = [NSData dataWithContentsOfURL: url];
                 return [UIImage imageWithData: d];
@@ -84,14 +85,14 @@
         _titleLabel.backgroundColor = [UIColor clearColor];
         [_middleView addSubview: _titleLabel];
 
-        RAC(titleLabel.text) = RACAble(titleInfo.name);
+        RAC(titleLabel.text) = [RACAble(titleInfo.name) deliverOn: RACScheduler.mainThreadScheduler];
         
         _tcv = [[TagContainerView alloc] initWithFrame:CGRectMake(4.0, 44.0, _middleView.frame.size.width - 8.0, height - 44.0)];
         _tcv.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         _tcv.tags = @[@"TAG 1", @"TAG 2", @"TAG 3", @"TAG 4", @"TAG 5", @"TAG 6", @"TAG 7", @"TAG 8"];
         [_middleView addSubview: _tcv];
         
-        RAC(tcv.tags) = RACAble(titleInfo.tags);
+        RAC(tcv.tags) = [RACAble(titleInfo.tags) deliverOn: RACScheduler.mainThreadScheduler];
         
         _bt = [[UIGlossyButton alloc] initWithFrame:CGRectMake(0.0, 0.0, RIGHT_VIEW_WIDTH - MARGIN_X, 20.0)];
         _bt.center = CGPointMake(_rightView.frame.size.width / 2.0, _rightView.frame.size.height / 2.0);
@@ -103,41 +104,11 @@
         [_bt addTarget: self action: @selector(tapped) forControlEvents: UIControlEventTouchUpInside];
         [_rightView addSubview: _bt];
         
-        @weakify(self);
-        [[RACSignal combineLatest:@[RACAbleWithStart(titleInfo.status), RACAbleWithStart(titleInfo.price), RACAbleWithStart(titleInfo.priceLocale), RACAbleWithStart(titleInfo.purchased), RACAbleWithStart(iapStore.online)] reduce:^(NSNumber *statusN, NSDecimalNumber *price, NSLocale *priceLocale, NSNumber *purchasedN, NSNumber *onlineN){
-            @strongify(self);
-            TitleStatus status = (TitleStatus)[statusN integerValue];
-            if (price && (![purchasedN boolValue])) {
-                if ([onlineN boolValue]) {
-                    NSNumberFormatter *nf = [NSNumberFormatter new];
-                    nf.numberStyle = NSNumberFormatterCurrencyStyle;
-                    nf.locale = priceLocale;
-                    [self setButtonText:[nf stringFromNumber: price] red:159 green:179 blue:230 enabled:YES];
-                } else {
-                    [self setButtonText:@"Offline" red:120 green:120 blue:120 enabled:NO];
-                }
-                _tapToBuy = YES;
-            } else {
-                switch (status) {
-                    case TitleStatusCompleted:
-                        [self setButtonText:@"Complete" red:231 green:225 blue:143 enabled:NO];
-                        break;
-                    case TitleStatusOnAir:
-                        [self setButtonText:@"On Air" red:67 green:135 blue:233 enabled:YES];
-                        break;
-                    case TitleStatusPushEnabled:
-                        [self setButtonText:@"Tuned" red:11 green:218 blue:81 enabled:YES];
-                        break;
-                    default:
-                        break;
-                }
-                _tapToBuy = NO;
-            }
-
-            return @0;
-        }] subscribeNext:^(NSNumber *dummy) {
+        @weakify(self)
+        [[[RACSignal merge:@[RACAble(titleInfo.status), RACAble(titleInfo.price), RACAble(titleInfo.priceLocale), RACAble(titleInfo.purchased), RACAble(iapStore.online)]] deliverOn: RACScheduler.mainThreadScheduler] subscribeNext:^(id _) {
+            @strongify(self)
+            [self refreshButtonStyle];
         }];
-        // _titleInfo.purchased = YES; // fire
 
         _footnoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, RIGHT_VIEW_WIDTH - MARGIN_X, 30.0)];
         CGRect f = _footnoteLabel.frame;
@@ -152,7 +123,7 @@
         _footnoteLabel.backgroundColor = [UIColor clearColor];
         [_rightView addSubview:_footnoteLabel];
         
-        RAC(footnoteLabel.text) = [RACAble(titleInfo.footnote) map:^(NSString *note) {
+        RAC(footnoteLabel.text) = [[RACAble(titleInfo.footnote) deliverOn: RACScheduler.mainThreadScheduler] map:^(NSString *note) {
             if (note) {
                 return note;
             } else {
@@ -165,6 +136,35 @@
         [self.contentView addSubview: _rightView];
     }
     return self;
+}
+
+-(void)refreshButtonStyle {
+    if (_titleInfo.price && (!_titleInfo.purchased)) {
+        if (_iapStore.online) {
+            NSNumberFormatter *nf = [NSNumberFormatter new];
+            nf.numberStyle = NSNumberFormatterCurrencyStyle;
+            nf.locale = _titleInfo.priceLocale;
+            [self setButtonText:[nf stringFromNumber: _titleInfo.price] red:159 green:179 blue:230 enabled:YES];
+        } else {
+            [self setButtonText:@"Offline" red:120 green:120 blue:120 enabled:NO];
+        }
+        _tapToBuy = YES;
+    } else {
+        switch (_titleInfo.status) {
+            case TitleStatusCompleted:
+                [self setButtonText:@"Complete" red:231 green:225 blue:143 enabled:NO];
+                break;
+            case TitleStatusOnAir:
+                [self setButtonText:@"On Air" red:67 green:135 blue:233 enabled:YES];
+                break;
+            case TitleStatusPushEnabled:
+                [self setButtonText:@"Tuned" red:11 green:218 blue:81 enabled:YES];
+                break;
+            default:
+                break;
+        }
+        _tapToBuy = NO;
+    }
 }
 
 -(void)setButtonText: (NSString *)text red:(int)red green:(int)green blue:(int)blue enabled:(BOOL)enabled {

@@ -8,7 +8,24 @@
 
 #import "TitleInfo.h"
 
+static NSMutableDictionary *instanceDic;
+
 @implementation TitleInfo
+
++(void)initialize {
+    instanceDic = [NSMutableDictionary new];
+}
+
++(TitleInfo *)instanceWithId: (NSString *)titleId {
+    if ([instanceDic valueForKey:titleId]) {
+        return [instanceDic valueForKey:titleId];
+    }
+    @synchronized(self) {
+        TitleInfo *ti = [[self alloc] initWithId: titleId];
+        [instanceDic setValue:ti forKey:titleId];
+        return ti;
+    }
+}
 
 -(id)initWithId: (NSString *)titleId {
     self = [super init];

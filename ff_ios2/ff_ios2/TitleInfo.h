@@ -20,7 +20,8 @@ typedef NS_ENUM(NSInteger, TitleStatus) {
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSArray *tags;
 @property (nonatomic) TitleStatus status;
-@property (nonatomic) NSDate *atime;
+@property (nonatomic) NSDate *lastViewed;
+@property (nonatomic) NSDate *lastUpdated;
 @property (nonatomic) NSURL *thumbnailUrl;
 @property (nonatomic) NSString *footnote;
 
@@ -29,7 +30,7 @@ typedef NS_ENUM(NSInteger, TitleStatus) {
 @property (nonatomic) BOOL purchased;
 @property (nonatomic) NSString *productId;
 
--(id)initWithId: (NSString *)titleId;
++(TitleInfo *)instanceWithId: (NSString *)titleId;
 
 @end
 

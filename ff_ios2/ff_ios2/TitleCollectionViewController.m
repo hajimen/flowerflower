@@ -6,23 +6,72 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
+#import "ReactiveCocoa/ReactiveCocoa.h"
+#import "EXTScope.h"
 #import "TitleCollectionViewController.h"
 #import "TitleCell.h"
+#import "TitleManager.h"
 
 @interface TitleCollectionViewController ()
-@property (atomic, readwrite, assign) NSInteger cellCount;
+
+@property (nonatomic) TitleManager *titleManager;
+@property (nonatomic) NSArray *titleInfos;
+@property (nonatomic) RACCommand *sortCommand;
+
 @end
 
 @implementation TitleCollectionViewController
 
-// TODO encodeRestorableStateWithCoder, decodeRestorableStateWithCoder (iOS 6)
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (!self) {
+        return self;
+    }
+
+    _titleManager = [TitleManager instance];
+    
+    _sortCommand = [RACCommand command];
+    
+    {
+        @weakify(self);
+        [[[RACSignal merge:@[RACAble(self.titleManager, titleInfoSet), _sortCommand]] deliverOn: RACScheduler.mainThreadScheduler] subscribeNext:^(id _){
+
+            @strongify(self);
+            [self generateTitleInfos];
+            [self.collectionView reloadData];
+        }];
+    }
+
+    [self generateTitleInfos];
+
+    return self;
+}
+
+-(void)sortCellsWithOld:(NSArray *)oldTitleInfos {
+    PSTCollectionView *v = self.collectionView;
+    [v performBatchUpdates:^{
+        NSMutableArray *temps = [oldTitleInfos mutableCopy];
+        NSUInteger ni = 0;
+        for (TitleInfo *ti in _titleInfos) {
+            NSUInteger oi = [temps indexOfObject: ti];
+            if (oi == NSNotFound) {
+            } else {
+                [temps insertObject:ti atIndex:ni];
+                NSIndexPath *np = [NSIndexPath indexPathForRow:ni inSection:0];
+                [v insertItemsAtIndexPaths:@[np]];
+            }
+            ni ++;
+        }
+    } completion:^(BOOL finished) {
+        
+    }];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     self.collectionView.backgroundColor = [UIColor underPageBackgroundColor];
-    self.cellCount = 10;
     [self.collectionView registerClass:[TitleCell class] forCellWithReuseIdentifier:@"MY_CELL"];
 }
 
@@ -36,7 +85,7 @@
 #pragma mark - PSTCollectionViewDataSource
 
 - (NSInteger)collectionView:(PSTCollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    return self.cellCount;
+    return [[_titleManager titleInfoSet] count];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -44,32 +93,29 @@
 
 - (PSTCollectionViewCell *)collectionView:(PSTCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TitleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MY_CELL" forIndexPath:indexPath];
-    if (indexPath.item == 1) {
-        NSString *p = [[NSBundle mainBundle] pathForResource:@"test_image2" ofType:@"png"];
-        TitleInfo *ti = [[TitleInfo alloc] initWithId:@"test"];
-        ti.thumbnailUrl = [NSURL fileURLWithPath: p];
-        ti.name = @"My Name";
-        ti.tags = @[@"my tag", @"my tag 2", @"my tag 33"];
-        ti.price = [NSDecimalNumber decimalNumberWithString:@"1000"];
-        ti.priceLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"ja_JP"];
-        ti.purchased = NO;
-        ti.status = TitleStatusPushEnabled;
-        ti.footnote = @"初回購入特別価格";
-        cell.titleInfo = ti;
-    } else {
-        NSString *p = [[NSBundle mainBundle] pathForResource:@"test_image" ofType:@"png"];
-        TitleInfo *ti = [[TitleInfo alloc] initWithId:@"test2"];
-        ti.thumbnailUrl = [NSURL fileURLWithPath: p];
-        ti.name = @"東京特許許可局 東京特許許可局 東京特許許可局";
-        ti.tags = @[@"tag a", @"tag b", @"tag c", @"tag d", @"tag e", @"tag f", @"tag g"];
-        ti.price = nil;
-        ti.purchased = NO;
-        ti.status = TitleStatusPushEnabled;
-        ti.footnote = nil;
-        cell.titleInfo = ti;
-    }
+
+    cell.titleInfo = [_titleInfos objectAtIndex:indexPath.item];
 
     return cell;
+}
+
+-(void)generateTitleInfos {
+    NSArray *s = [[_titleManager titleInfoSet] allObjects];
+    self.titleInfos = [s sortedArrayUsingComparator:^NSComparisonResult(TitleInfo *l, TitleInfo *r) {
+        return -[[l.lastUpdated laterDate: l.lastViewed] compare: [r.lastUpdated laterDate: r.lastViewed]];
+    }];
+    
+    NSMutableArray *ds = [self.titleInfos.rac_sequence foldLeftWithStart:[NSMutableArray arrayWithCapacity:self.titleInfos.count * 2] combine:^NSMutableArray *(NSMutableArray *accumulator, TitleInfo *value) {
+        [accumulator addObject: RACAble(value, lastUpdated)];
+        [accumulator addObject: RACAble(value, lastViewed)];
+        return accumulator;
+    }];
+    
+    @weakify(self)
+    [[[RACSignal merge:ds] take: 1] subscribeNext:^(id _) {
+        @strongify(self)
+        [self.sortCommand execute:nil];
+    }];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
