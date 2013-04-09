@@ -25,10 +25,11 @@ typedef NS_ENUM(NSInteger, TitleStatus) {
 @property (nonatomic) NSURL *thumbnailUrl;
 @property (nonatomic) NSString *footnote;
 
+@property (nonatomic) NSString *productId;
 @property (nonatomic) NSDecimalNumber *price;   // nil if free
 @property (nonatomic) NSLocale *priceLocale;
 @property (nonatomic) BOOL purchased;
-@property (nonatomic) NSString *productId;
+@property (nonatomic) NSURL *distributionUrl;
 
 +(TitleInfo *)instanceWithId: (NSString *)titleId;
 

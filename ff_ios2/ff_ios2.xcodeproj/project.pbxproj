@@ -29,6 +29,10 @@
 		57827BDE17052E0500095B1E /* InAppPurchaseProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 57827BDD17052E0500095B1E /* InAppPurchaseProduct.m */; };
 		57844F13170E408B00174FD2 /* TitleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F12170E408B00174FD2 /* TitleManager.m */; };
 		57844F16170EE99A00174FD2 /* LoopTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F15170EE99A00174FD2 /* LoopTest.m */; };
+		57844F1D1712BAE600174FD2 /* ContentDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F1C1712BAE600174FD2 /* ContentDownloader.m */; };
+		57844F201712C75F00174FD2 /* DownloadDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F1F1712C75F00174FD2 /* DownloadDelegate.m */; };
+		57844F2417132EC700174FD2 /* AuthDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F2317132EC700174FD2 /* AuthDelegate.m */; };
+		57844F271713C91900174FD2 /* AuthCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F261713C91800174FD2 /* AuthCookie.m */; };
 		57C6427F16F2D4930079AFEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 57C6427E16F2D4930079AFEB /* config.xml */; };
 		57C6428116F2D4E10079AFEB /* www in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428016F2D4E10079AFEB /* www */; };
 		57C6428316F2DC180079AFEB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428216F2DC180079AFEB /* Settings.bundle */; };
@@ -92,6 +96,17 @@
 		57844F12170E408B00174FD2 /* TitleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleManager.m; sourceTree = "<group>"; };
 		57844F14170EE99A00174FD2 /* LoopTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopTest.h; sourceTree = "<group>"; };
 		57844F15170EE99A00174FD2 /* LoopTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoopTest.m; sourceTree = "<group>"; };
+		57844F181712A27600174FD2 /* ff_ios2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ff_ios2.entitlements; sourceTree = "<group>"; };
+		57844F191712A5D600174FD2 /* UserDefaultsKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsKey.h; sourceTree = "<group>"; };
+		57844F1B1712BAE600174FD2 /* ContentDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentDownloader.h; sourceTree = "<group>"; };
+		57844F1C1712BAE600174FD2 /* ContentDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentDownloader.m; sourceTree = "<group>"; };
+		57844F1E1712C75F00174FD2 /* DownloadDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadDelegate.h; sourceTree = "<group>"; };
+		57844F1F1712C75F00174FD2 /* DownloadDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadDelegate.m; sourceTree = "<group>"; };
+		57844F211712DCF100174FD2 /* FFPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FFPath.h; sourceTree = "<group>"; };
+		57844F2217132EC700174FD2 /* AuthDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthDelegate.h; sourceTree = "<group>"; };
+		57844F2317132EC700174FD2 /* AuthDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthDelegate.m; sourceTree = "<group>"; };
+		57844F251713C91800174FD2 /* AuthCookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthCookie.h; sourceTree = "<group>"; };
+		57844F261713C91800174FD2 /* AuthCookie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCookie.m; sourceTree = "<group>"; };
 		57C6427C16F2D0C80079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427D16F2D0C90079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427E16F2D4930079AFEB /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
@@ -189,6 +204,7 @@
 		577E80B316F1F64F00DA7DBA /* ff_ios2 */ = {
 			isa = PBXGroup;
 			children = (
+				57844F1A1712BAB400174FD2 /* Download */,
 				57827BD71705216400095B1E /* Model */,
 				57E71A5917000AB00068B631 /* Tool */,
 				577E80BC16F1F64F00DA7DBA /* AppDelegate.h */,
@@ -201,6 +217,7 @@
 				57827BCC1701194900095B1E /* Foreground.m */,
 				57827BD017011F6D00095B1E /* Download.h */,
 				57827BD117011F6D00095B1E /* Download.m */,
+				57844F191712A5D600174FD2 /* UserDefaultsKey.h */,
 			);
 			path = ff_ios2;
 			sourceTree = "<group>";
@@ -208,6 +225,7 @@
 		577E80B416F1F64F00DA7DBA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				57844F181712A27600174FD2 /* ff_ios2.entitlements */,
 				57C66B93170C1E1500559028 /* test_image2.png */,
 				57C66B7C170AB9F300559028 /* test_image.png */,
 				57C66B79170A868300559028 /* Localizable.strings */,
@@ -257,6 +275,22 @@
 				57844F12170E408B00174FD2 /* TitleManager.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		57844F1A1712BAB400174FD2 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				57844F1B1712BAE600174FD2 /* ContentDownloader.h */,
+				57844F1C1712BAE600174FD2 /* ContentDownloader.m */,
+				57844F1E1712C75F00174FD2 /* DownloadDelegate.h */,
+				57844F1F1712C75F00174FD2 /* DownloadDelegate.m */,
+				57844F211712DCF100174FD2 /* FFPath.h */,
+				57844F2217132EC700174FD2 /* AuthDelegate.h */,
+				57844F2317132EC700174FD2 /* AuthDelegate.m */,
+				57844F251713C91800174FD2 /* AuthCookie.h */,
+				57844F261713C91800174FD2 /* AuthCookie.m */,
+			);
+			name = Download;
 			sourceTree = "<group>";
 		};
 		57E71A5516FFFC870068B631 /* View */ = {
@@ -439,6 +473,10 @@
 				57C66B8C170B304800559028 /* TagContainerView.m in Sources */,
 				57C66B8F170BDEEE00559028 /* TitleInfo.m in Sources */,
 				57844F13170E408B00174FD2 /* TitleManager.m in Sources */,
+				57844F1D1712BAE600174FD2 /* ContentDownloader.m in Sources */,
+				57844F201712C75F00174FD2 /* DownloadDelegate.m in Sources */,
+				57844F2417132EC700174FD2 /* AuthDelegate.m in Sources */,
+				57844F271713C91900174FD2 /* AuthCookie.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,6 +590,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 73AC0F31BFE545E9AFC95898 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ff_ios2/ff_ios2.entitlements;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ff_ios2/ff_ios2-Prefix.pch";
 				INFOPLIST_FILE = "ff_ios2/ff_ios2-Info.plist";
@@ -565,6 +604,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 73AC0F31BFE545E9AFC95898 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ff_ios2/ff_ios2.entitlements;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ff_ios2/ff_ios2-Prefix.pch";
 				INFOPLIST_FILE = "ff_ios2/ff_ios2-Info.plist";

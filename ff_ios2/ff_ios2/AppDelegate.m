@@ -19,6 +19,10 @@
 #import "InAppPurchaseStore.h"
 
 #import "LoopTest.h"
+#import "AuthDelegate.h"
+#import "TitleInfo.h"
+#import "DownloadDelegate.h"
+#import "ContentDownloader.h"
 
 @interface AppDelegate()
 {
@@ -30,6 +34,7 @@
 
 @property (nonatomic) NSString *test1;
 @property (nonatomic) NSString *test2;
+@property (nonatomic) ContentDownloader *cd;
 
 @end
 
@@ -92,8 +97,9 @@
     }];
 */
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
-        [[Download new] resume];
+//        [[Download new] resume];
     }
+    
 /*
     self.remoteNotification = [RemoteNotification new];
     [self.remoteNotification register_];
@@ -110,6 +116,16 @@
         NSLog(@"onFailed called error: %@", error);
     } onRestore:^(NSString *productId, NSData *receiptData){
         NSLog(@"onRestore called productId: %@", productId);
+        TitleInfo *ti = [TitleInfo instanceWithId:@"TEST ISSUE"];
+        ti.distributionUrl = [NSURL URLWithString:@"http://kaoriha.org/miyako/"];
+        AuthDelegate *ad = [[AuthDelegate alloc] initWithReceipt: receiptData titleInfo: ti finishing:^(BOOL successed) {
+            NSLog(@"AuthDelegate success:%d", successed);
+        }];
+        [[ad start] subscribeError:^(NSError *error) {
+            NSLog(@"AuthDelegate error: %@", error);
+        } completed:^{
+            NSLog(@"AuthDelegate completed");
+        }];
     }];
     
     SKPaymentQueue *q = [SKPaymentQueue defaultQueue];
@@ -120,7 +136,7 @@
         NSArray *ts = [q transactions];
         NSLog(@"paymentQueue transactions: %@", ts);
     }];
-
+/*
     [RACAble(self.iapStore.transactionRunning) subscribeNext:^(NSNumber *transactionRunning) {
         if ([transactionRunning boolValue]) {
             [SVProgressHUD showWithStatus: NSLocalizedString(@"transactionRunning", nil) maskType:SVProgressHUDMaskTypeClear];
@@ -128,15 +144,50 @@
             [SVProgressHUD dismiss];
         }
     }];
-    
+*/    
     [[RACAble(self.iapStore.online) take: 1] subscribeNext:^(NSNumber *online) {
         NSLog(@"store online");
-       // [self.iapStore restore];
-       /* [self.iapStore buy:@"non_consumable_test_1"];
+        // [self.iapStore restore];
+        /* [self.iapStore buy:@"non_consumable_test_1"];
         [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
             NSLog(@"buy ok");
         }];  */
+
+        NKLibrary *lib = [NKLibrary sharedLibrary];
+        NKIssue *old = [lib issueWithName:@"TEST ISSUE"];
+        if (old) {
+            NSLog(@"old test issue removed");
+            [lib removeIssue:old];
+        }
+        NKIssue *issue = [lib addIssueWithName:@"TEST ISSUE" date:[NSDate date]];
+        if (![[NSFileManager defaultManager] createDirectoryAtURL:[[issue contentURL] URLByAppendingPathComponent:@"Auth"] withIntermediateDirectories: YES attributes:nil error:nil]) {
+            NSLog(@"cannot create directory");
+        }
+        
+        TitleInfo *ti = [TitleInfo instanceWithId:@"TEST ISSUE"];
+        ti.distributionUrl = [NSURL URLWithString:@"http://kaoriha.org/miyako/"];
+/*
+        DownloadDelegate *dd = [[DownloadDelegate alloc] initWithPath:@"Auth/catalogue.json" titleInfo: ti finishing:^BOOL(BOOL successed, NSURL *storeURL) {
+            return NO;
+        }];
+        [[dd start] subscribeError:^(NSError *error) {
+            NSLog(@"DownloadDelegate error %@", error);
+        } completed:^{
+            NSLog(@"DownloadDelegate completed");
+        }];
+*/
+
+        _cd = [[ContentDownloader alloc] initWithTitleInfo: ti];
+        [_cd start];
+
     }];
+    
+    Download *d = [[Download alloc] init];
+    NKLibrary *lib = [NKLibrary sharedLibrary];
+    for (NKAssetDownload *a in [lib downloadingAssets]) {
+        NSLog(@"unfinished downloads exist");
+        [a downloadWithDelegate: d];
+    }
     
     return YES;
 }
