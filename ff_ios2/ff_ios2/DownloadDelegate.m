@@ -7,6 +7,7 @@
 //
 
 #import <NewsstandKit/NewsstandKit.h>
+#import "JSONKit.h"
 #import "DownloadDelegate.h"
 #import "TitleInfo.h"
 #import "AuthCookie.h"
@@ -15,9 +16,8 @@
 
 @property (nonatomic) NSString *path;
 @property (nonatomic) TitleInfo *titleInfo;
-@property (nonatomic, strong) BOOL (^finishing)(BOOL successed, NSURL *storeURL);
+@property (nonatomic, strong) BOOL (^finishing)(NSURL *storedTo, NSObject *jsonObj);
 
-@property (nonatomic) BOOL cancelled;
 @property (nonatomic) NKIssue *issue;
 @property (nonatomic) RACSubject *finishedSubject;
 @property (nonatomic) AuthCookie *authCookie;
@@ -26,7 +26,7 @@
 
 @implementation DownloadDelegate
 
--(id)initWithPath:(NSString *)path titleInfo:(TitleInfo *)titleInfo finishing:(BOOL (^)(BOOL successed, NSURL *storeURL))finishing{
+-(id)initWithPath:(NSString *)path titleInfo:(TitleInfo *)titleInfo finishing:(BOOL (^)(NSURL *storedTo, NSObject *jsonObj))finishing{
     self = [super init];
     if (!self) {
         return self;
@@ -41,7 +41,6 @@
 }
 
 -(RACSignal *)start {
-    _cancelled = NO;
     _finishedSubject = [RACSubject subject];
 
     NKLibrary *lib = [NKLibrary sharedLibrary];
@@ -69,13 +68,26 @@
     NSError *error1 = nil;
     NSError *error2 = nil;
     BOOL success1 = YES;
-    if (!_cancelled && !_finishing(YES, destinationURL)) {
+    NSData *d = [NSData dataWithContentsOfURL: destinationURL];
+    NSObject *jsonObj;
+    @try {
+        jsonObj = [d objectFromJSONDataWithParseOptions: JKParseOptionNone error:&error1];
+    } @catch (NSException *e) {
+        NSLog(@"JSON parse failed. Exception:%@", e);
+        [_finishedSubject sendError: nil];
+        return;
+    }
+    if (error1) {
+        [_finishedSubject sendError: error1];
+        return;
+    }
+    if(_finishing(destinationURL, jsonObj)) {
         NSURL *storeTo = [[_issue contentURL] URLByAppendingPathComponent: _path];
         success1 = [fm copyItemAtURL: destinationURL toURL: storeTo error: &error1];
     }
     BOOL success2 = [fm removeItemAtURL: destinationURL error: &error2];
 
-    if (success1 && success2 && !_cancelled) {
+    if (success1 && success2) {
         [_finishedSubject sendCompleted];
     } else {
         NSError *error = nil;
@@ -89,23 +101,7 @@
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    if (_cancelled) {
-        return;
-    } else {
-        _finishing(NO, nil);
-    }
     [_finishedSubject sendError: error];
-}
-
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    NSHTTPURLResponse *r = (NSHTTPURLResponse *)response;
-    // TODO not called
-    if ([r statusCode] == 200) {
-        [_authCookie setCookiesWithResponse: response];
-    } else {
-        _cancelled = YES;
-        _finishing(NO, nil);
-    }
 }
 
 @end

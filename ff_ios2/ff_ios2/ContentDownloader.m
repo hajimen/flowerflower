@@ -44,10 +44,8 @@
     self.status = ContentDownloadStatusInProgress;
 
     __weak ContentDownloader *bs = self;
-    DownloadDelegate *dd = [[DownloadDelegate alloc] initWithPath: CATALOGUE_PATH titleInfo:_titleInfo finishing:^(BOOL successed, NSURL *storedTo) {
-        if (successed) {
-            [bs catalogueDownloaded: storedTo];
-        }
+    DownloadDelegate *dd = [[DownloadDelegate alloc] initWithPath: CATALOGUE_PATH titleInfo:_titleInfo finishing:^(NSURL *storedTo, NSObject *jsonObj) {
+        [bs catalogueDownloaded: storedTo json: jsonObj];
         return YES;
     }];
     [[dd start] subscribeError:^(NSError *error) {
@@ -55,7 +53,7 @@
     }];
 }
 
--(void)catalogueDownloaded: (NSURL *)storedTo {
+-(void)catalogueDownloaded: (NSURL *)storedTo json: (NSObject *)jsonObj {
     NSError *error = nil;
     NSFileManager *fm = [NSFileManager defaultManager];
     NKLibrary *lib = [NKLibrary sharedLibrary];
@@ -67,8 +65,7 @@
         return;
     }
 
-    NSData *d = [NSData dataWithContentsOfURL: storedTo];
-    NSDictionary *newCatalogue = [d objectFromJSONData];
+    NSDictionary *newCatalogue = (NSDictionary *)jsonObj;
     NSArray *newLocal = [newCatalogue objectForKey:@"local"];
     NSDictionary *newExpressDic = [newCatalogue objectForKey: @"express"];
     NSMutableArray *newExpress = [NSMutableArray arrayWithCapacity: [newExpressDic count]];
@@ -84,7 +81,7 @@
         NSString *path = [NSString stringWithFormat:PUBLICATION_PATH_FORMAT, name];
         NSURL *fileUrl = [contentUrl URLByAppendingPathComponent: path];
         if (![fileUrl checkResourceIsReachableAndReturnError: nil]) {
-            DownloadDelegate *fdd = [[DownloadDelegate alloc] initWithPath: path titleInfo: _titleInfo finishing:^BOOL(BOOL successed, NSURL *storedTo) {
+            DownloadDelegate *fdd = [[DownloadDelegate alloc] initWithPath: path titleInfo: _titleInfo finishing:^BOOL(NSURL *storedTo, NSObject *jsonObj) {
                 return NO;
             }];
             [toMerge addObject: [fdd start]];

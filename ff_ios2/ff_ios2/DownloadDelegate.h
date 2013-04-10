@@ -13,7 +13,7 @@
 
 @interface DownloadDelegate : NSObject <NSURLConnectionDownloadDelegate, NSURLConnectionDataDelegate>
 
--(id)initWithPath:(NSString *)path titleInfo:(TitleInfo *)titleInfo finishing:(BOOL (^)(BOOL successed, NSURL *storeURL))finishing;
+-(id)initWithPath:(NSString *)path titleInfo:(TitleInfo *)titleInfo finishing:(BOOL (^)(NSURL *storedTo, NSObject *jsonObj))finishing;
 
 -(RACSignal *)start;
 

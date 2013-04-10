@@ -34,6 +34,7 @@
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSData *d = [NSKeyedArchiver archivedDataWithRootObject: cookies];
     [ud setObject: d forKey: [NSString stringWithFormat: UDK_AUTH_COOKIE_FORMAT, _titleInfo.titleId]];
+    [ud synchronize];
 }
 
 -(void)setCookiesWithResponse: (NSURLResponse *)response {
