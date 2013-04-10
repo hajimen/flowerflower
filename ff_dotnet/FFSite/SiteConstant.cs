@@ -38,6 +38,8 @@ namespace FFSite
         public static readonly string MinuteGrainDateTimeFormat = "yyyy年MM月dd日hh時mm分";
         public static readonly int LvlResponseCodeShouldBe;
         public static readonly bool LvlVerifySign;
+        public static readonly string IosAppBundleId;
+        public static readonly string IosProductIdStartsWith;
 
         private SiteConstant()
         {
@@ -64,6 +66,21 @@ namespace FFSite
             if (lv == null || !bool.TryParse(lv, out LvlVerifySign))
             {
                 logger.Fatal("LvlVerifySignがweb.configに設定されていないか、値がboolではありません。");
+                IsConfigurationOK = false;
+                return;
+            }
+
+            IosAppBundleId = ConfigurationManager.AppSettings["IosAppBundleId"];
+            if (IosAppBundleId == null)
+            {
+                logger.Fatal("IosAppBundleIdが設定されていません。");
+                IsConfigurationOK = false;
+                return;
+            }
+            IosProductIdStartsWith = ConfigurationManager.AppSettings["IosProductIdStartsWith"];
+            if (IosProductIdStartsWith == null)
+            {
+                logger.Fatal("IosProductIdStartsWithが設定されていません。");
                 IsConfigurationOK = false;
                 return;
             }

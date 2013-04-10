@@ -14,6 +14,7 @@ namespace FFSite
 {
     public class AuthModule : IHttpModule
     {
+        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private AAuthStrategy authStrategy;
 
         public void context_AuthenticateRequest(Object source, EventArgs e)

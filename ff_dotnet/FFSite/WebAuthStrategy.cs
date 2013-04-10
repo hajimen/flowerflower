@@ -26,7 +26,16 @@ namespace FFSite
         {
             if (context.Request.Cookies[SiteConstant.AuthTokenCookieName] == null)
             {
-                WebUtil.RedirectToAskAuthPage(context);
+                if (context.Request.Path.EndsWith(".html"))
+                {
+                    WebUtil.RedirectToAskAuthPage(context);
+                }
+                else
+                {
+                    logger.Info("no auth cookie request. RequestInfo: " + WebUtil.RequestInfo(context));
+                    context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    context.Response.End();
+                }
                 return;
             }
             string tokenBody = context.Request.Cookies[SiteConstant.AuthTokenCookieName].Value;

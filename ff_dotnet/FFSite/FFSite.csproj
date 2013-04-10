@@ -62,6 +62,7 @@
     <Content Include="Office\LockedOut.aspx" />
     <Content Include="UnknownError.html" />
     <Content Include="Office\Author\RequestAuthCookie.ashx" />
+    <Content Include="Office\IosInAppPurchase\RequestAuthCookie.ashx" />
     <None Include="TestPage\SetupCookie.aspx" />
     <None Include="TestPage\SetupTestToken.aspx" />
     <None Include="tsume\tsume.ttf" />
@@ -116,6 +117,9 @@
       <DependentUpon>RequestAuthToken.ashx</DependentUpon>
     </Compile>
     <Compile Include="Office\IosApns\RequestProcessor.cs" />
+    <Compile Include="Office\IosInAppPurchase\RequestAuthCookie.ashx.cs">
+      <DependentUpon>RequestAuthCookie.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Office\LockedOut.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>LockedOut.aspx</DependentUpon>
