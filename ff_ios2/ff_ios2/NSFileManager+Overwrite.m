@@ -10,22 +10,9 @@
 
 @implementation NSFileManager (Overwrite)
 
--(BOOL)copyOverwriteItemAtPath:(NSString *)srcPath toPath:(NSString *)dstPath error:(NSError *__autoreleasing *)error {
-    if ([self fileExistsAtPath: dstPath]) {
-        if ([self removeItemAtPath: dstPath error: error]) {
-            return NO;
-        }
-    }
-    return [self copyItemAtPath: srcPath toPath: dstPath error: error];
-}
-
 -(BOOL)copyOverwriteItemAtURL:(NSURL *)srcURL toURL:(NSURL *)dstURL error:(NSError *__autoreleasing *)error {
-    if ([dstURL checkResourceIsReachableAndReturnError: nil]) {
-        if (! [self removeItemAtURL: dstURL error: error]) {
-            return NO;
-        }
-    }
-    return [self copyItemAtURL: srcURL toURL: dstURL error: error];
+    NSData *d = [NSData dataWithContentsOfURL: srcURL];
+    return [d writeToFile: [dstURL path] options: NSDataWritingAtomic error:error];
 }
 
 @end

@@ -152,7 +152,7 @@
         [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
             NSLog(@"buy ok");
         }];  */
-/*
+
         NKLibrary *lib = [NKLibrary sharedLibrary];
         NKIssue *old = [lib issueWithName:@"TEST ISSUE"];
         if (old) {

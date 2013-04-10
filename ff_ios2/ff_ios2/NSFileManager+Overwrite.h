@@ -10,8 +10,6 @@
 
 @interface NSFileManager (Overwrite)
 
--(BOOL)copyOverwriteItemAtPath:(NSString *)srcPath toPath:(NSString *)dstPath error:(NSError *__autoreleasing *)error;
-
 -(BOOL)copyOverwriteItemAtURL:(NSURL *)srcURL toURL:(NSURL *)dstURL error:(NSError *__autoreleasing *)error;
 
 @end
