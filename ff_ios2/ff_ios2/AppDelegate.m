@@ -142,7 +142,9 @@
             [SVProgressHUD dismiss];
         }
     }];
-*/    
+*/
+    TitleInfo *ti = [TitleInfo instanceWithId:@"TEST ISSUE"];
+    ti.distributionUrl = [NSURL URLWithString:@"http://kaoriha.org/miyako/"];
     [[RACAble(self.iapStore.online) take: 1] subscribeNext:^(NSNumber *online) {
         NSLog(@"store online");
       //  [self.iapStore restore];
@@ -150,7 +152,7 @@
         [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
             NSLog(@"buy ok");
         }];  */
-
+/*
         NKLibrary *lib = [NKLibrary sharedLibrary];
         NKIssue *old = [lib issueWithName:@"TEST ISSUE"];
         if (old) {
@@ -161,19 +163,6 @@
         if (![[NSFileManager defaultManager] createDirectoryAtURL:[[issue contentURL] URLByAppendingPathComponent:@"Auth"] withIntermediateDirectories: YES attributes:nil error:nil]) {
             NSLog(@"cannot create directory");
         }
-
-        TitleInfo *ti = [TitleInfo instanceWithId:@"TEST ISSUE"];
-        ti.distributionUrl = [NSURL URLWithString:@"http://kaoriha.org/miyako/"];
-/*
-        DownloadDelegate *dd = [[DownloadDelegate alloc] initWithPath:@"Auth/catalogue.json" titleInfo: ti finishing:^BOOL(BOOL successed, NSURL *storeURL) {
-            return NO;
-        }];
-        [[dd start] subscribeError:^(NSError *error) {
-            NSLog(@"DownloadDelegate error %@", error);
-        } completed:^{
-            NSLog(@"DownloadDelegate completed");
-        }];
-*/
 
         _cd = [[ContentDownloader alloc] initWithTitleInfo: ti];
         [[_cd start] subscribeError:^(NSError *error) {
@@ -212,12 +201,12 @@
  */
     }];
     
-    Download *d = [[Download alloc] init];
-    NKLibrary *lib = [NKLibrary sharedLibrary];
-    for (NKAssetDownload *a in [lib downloadingAssets]) {
-        NSLog(@"unfinished downloads exist");
-        [a downloadWithDelegate: d];
-    }
+    _cd = [[ContentDownloader alloc] initWithTitleInfo: ti];
+    [[_cd resume] subscribeError:^(NSError *error) {
+        NSLog(@"ContentDownloader error:%@", error);
+    } completed:^{
+        NSLog(@"ContentDownloader complete.");
+    }];
     
     return YES;
 }

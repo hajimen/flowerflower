@@ -9,14 +9,16 @@
 #import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "JSONKit.h"
+
 #import "ContentDownloader.h"
 #import "FFPath.h"
-#import "UserDefaultsKey.h"
 #import "TitleInfo.h"
-#import "DownloadDelegate.h"
 #import "NSFileManager+Overwrite.h"
+#import "AuthCookie.h"
+#import "AssetDownloadDelegate.h"
 
 #define CATALOGUE_TEMP_PATH @"Auth/catalogye_temp.json"
+#define USER_INFO_PATH_KEY @"path"
 
 @interface ContentDownloader() {
     ContentDownloadStatus _status;
@@ -24,6 +26,8 @@
 
 @property (nonatomic) TitleInfo *titleInfo;
 @property (nonatomic) RACSubject *finishSubject;
+@property (nonatomic) NKIssue *issue;
+@property (nonatomic) AuthCookie *authCookie;
 
 @end
 
@@ -39,38 +43,83 @@
 
     _status = ContentDownloadStatusIdle;
     _titleInfo = titleInfo;
+    _issue = [[NKLibrary sharedLibrary] issueWithName: _titleInfo.titleId];
+    _authCookie = [[AuthCookie alloc] initWithTitleInfo: titleInfo];
     
     return self;
+}
+
+-(NKAssetDownload *)createAssetDownloadWithPath: (NSString *)path {
+    NSURL *u = [_titleInfo.distributionUrl URLByAppendingPathComponent: path];
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL: u];
+    NSDictionary *h = [NSHTTPCookie requestHeaderFieldsWithCookies: _authCookie.cookies];
+    [req setAllHTTPHeaderFields: h];
+    req.HTTPShouldHandleCookies = YES;
+    NKAssetDownload *ad = [_issue addAssetWithRequest:req];
+    ad.userInfo = @{USER_INFO_PATH_KEY : path};
+    return ad;
+}
+
+-(void)startCatalogueDownloadDelegate: (NKAssetDownload *)ad {
+    __weak ContentDownloader *ws = self;
+    AssetDownloadDelegate *add =  [[AssetDownloadDelegate alloc] initWithAssetDownload: ad finishing:^NSURL *(NSURL *storedTo, NSObject *jsonObj) {
+        [ws catalogueDownloaded: storedTo json: jsonObj];
+        return [ws.issue.contentURL URLByAppendingPathComponent: CATALOGUE_TEMP_PATH];;
+    }];
+    [[add start] subscribeError:^(NSError *error) {
+        [ws downloadFailed: error];
+    }];
 }
 
 -(RACSignal *)start {
     self.status = ContentDownloadStatusInProgress;
     _finishSubject = [RACSubject subject];
 
-    __weak ContentDownloader *bs = self;
-    DownloadDelegate *dd = [[DownloadDelegate alloc] initWithPath: CATALOGUE_PATH titleInfo:_titleInfo finishing:^(NSURL *storedTo, NSObject *jsonObj) {
-        [bs catalogueDownloaded: storedTo json: jsonObj];
-        return YES;
-    }];
-    [[dd start] subscribeError:^(NSError *error) {
-        [bs downloadFailed: error];
-    }];
+    NKAssetDownload *ad = [self createAssetDownloadWithPath: CATALOGUE_PATH];
+
+    [self startCatalogueDownloadDelegate: ad];
+
+    return _finishSubject;
+}
+
+-(RACSignal *)resume {
+    if ([[_issue downloadingAssets] count] == 0) {
+        return nil;
+    }
+
+    self.status = ContentDownloadStatusInProgress;
+    _finishSubject = [RACSubject subject];
+
+    NSMutableArray *toMerge = [NSMutableArray new];
+    NSURL *contentUrl = [_issue contentURL];
+
+    for (NKAssetDownload *ad in [_issue downloadingAssets]) {
+        NSLog(@"unfinished downloads exist");
+        NSString *path = [ad.userInfo objectForKey: USER_INFO_PATH_KEY];
+        if ([path isEqualToString: CATALOGUE_PATH]) {
+            [self startCatalogueDownloadDelegate: ad];
+        } else {
+            NSURL *fileUrl = [contentUrl URLByAppendingPathComponent: path];
+            AssetDownloadDelegate *add = [[AssetDownloadDelegate alloc] initWithAssetDownload: ad finishing:^NSURL *(NSURL *storedTo, NSObject *jsonObj) {
+                return fileUrl;
+            }];
+            [toMerge addObject: [add start]];
+        }
+    }
+
+    if ([toMerge count] > 0) {
+        __weak ContentDownloader *bs = self;
+        [[RACSignal merge: toMerge] subscribeError:^(NSError *error) {
+            [bs downloadFailed: error];
+        } completed:^{
+            [bs finishDownload];
+        }];
+    }
 
     return _finishSubject;
 }
 
 -(void)catalogueDownloaded: (NSURL *)storedTo json: (NSObject *)jsonObj {
-    NSError *error = nil;
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NKLibrary *lib = [NKLibrary sharedLibrary];
-    NKIssue *issue = [lib issueWithName: _titleInfo.titleId];
-    NSURL *tempTo = [[issue contentURL] URLByAppendingPathComponent: CATALOGUE_TEMP_PATH];
-    BOOL success = [fm copyOverwriteItemAtURL: storedTo toURL: tempTo error: &error];
-    if (!success) {
-        [self downloadFailed: error];
-        return;
-    }
-
     NSDictionary *newCatalogue = (NSDictionary *)jsonObj;
     NSArray *newLocal = [newCatalogue objectForKey:@"local"];
     NSDictionary *newExpressDic = [newCatalogue objectForKey: @"express"];
@@ -81,16 +130,17 @@
     }
     NSArray *names = [newLocal arrayByAddingObjectsFromArray: newExpress];
 
-    NSURL *contentUrl = [issue contentURL];
+    NSURL *contentUrl = [_issue contentURL];
     NSMutableArray *toMerge = [NSMutableArray new];
     for (NSString *name in names) {
         NSString *path = [NSString stringWithFormat:PUBLICATION_PATH_FORMAT, name];
         NSURL *fileUrl = [contentUrl URLByAppendingPathComponent: path];
         if (![fileUrl checkResourceIsReachableAndReturnError: nil]) {
-            DownloadDelegate *fdd = [[DownloadDelegate alloc] initWithPath: path titleInfo: _titleInfo finishing:^BOOL(NSURL *storedTo, NSObject *jsonObj) {
-                return NO;
+            NKAssetDownload *ad = [self createAssetDownloadWithPath: path];
+            AssetDownloadDelegate *add = [[AssetDownloadDelegate alloc] initWithAssetDownload: ad finishing:^NSURL *(NSURL *storedTo, NSObject *jsonObj) {
+                return fileUrl;
             }];
-            [toMerge addObject: [fdd start]];
+            [toMerge addObject: [add start]];
         }
     }
     
@@ -105,6 +155,7 @@
         self.status = ContentDownloadStatusNotModified;
         [_finishSubject sendCompleted];
     }
+//    exit(0);
 }
 
 -(void)finishDownload {
