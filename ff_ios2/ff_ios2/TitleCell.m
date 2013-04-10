@@ -39,6 +39,9 @@
 
 @property (nonatomic) BOOL tapToBuy;
 
+@property (nonatomic) RACSubject *updateButtonSubject;
+@property (nonatomic) RACSubject *updateNotifierSubject;
+
 @end
 
 @implementation TitleCell
@@ -48,15 +51,17 @@
         return self;
     }
 
-    _titleInfo = [TitleInfo instanceWithId:@""];
+    _titleInfo = nil;
     _iapStore = [InAppPurchaseStore instance];
+    _updateButtonSubject = [RACSubject subject];
+    _updateNotifierSubject = [RACSubject subject];
     
     CGFloat height = frame.size.height - MARGIN_Y * 2;
     CGFloat width = frame.size.width;
 
     _notifyView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, MARGIN_X - 2, frame.size.height)];
     _notifyView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    RACSignal *notifySignal = [[RACSignal merge:@[RACAble(titleInfo.lastUpdated), RACAble(titleInfo.lastViewed)]] deliverOn:RACScheduler.mainThreadScheduler];
+    RACSignal *notifySignal = [RACSignal merge:@[RACAble(titleInfo.lastUpdated), RACAble(titleInfo.lastViewed)]];
     [self rac_liftSelector:@selector(updateNotifier:) withObjects:notifySignal];
 
     _leftView = [[UIView alloc] initWithFrame: CGRectMake(MARGIN_X, MARGIN_Y, LEFT_VIEW_WIDTH - MARGIN_X, height)];
@@ -90,7 +95,7 @@
     _titleLabel.textColor = [UIColor blackColor];
     _titleLabel.numberOfLines = 0;
     _titleLabel.lineBreakMode = UILineBreakModeCharacterWrap | UILineBreakModeTailTruncation;
-    _titleLabel.text = @"東京特許許可局 東京特許許可局 東京特許許可局";
+    _titleLabel.text = @"";
     _titleLabel.backgroundColor = [UIColor clearColor];
     [_middleView addSubview: _titleLabel];
 
@@ -98,7 +103,7 @@
     
     _tcv = [[TagContainerView alloc] initWithFrame:CGRectMake(4.0, 44.0, _middleView.frame.size.width - 8.0, height - 44.0)];
     _tcv.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    _tcv.tags = @[@"TAG 1", @"TAG 2", @"TAG 3", @"TAG 4", @"TAG 5", @"TAG 6", @"TAG 7", @"TAG 8"];
+    _tcv.tags = @[];
     [_middleView addSubview: _tcv];
     
     RAC(tcv.tags) = [RACAble(titleInfo.tags) deliverOn: RACScheduler.mainThreadScheduler];
@@ -108,14 +113,13 @@
     _bt.buttonCornerRadius = 4.0;
     _bt.tintColor = [UIColor colorWithRed:0.62 green:0.9 blue:0.9 alpha:1.000];
     [_bt setGradientType:kUIGlossyButtonGradientTypeLinearGlossyStandard];
-    [_bt setTitle:@"BAD" forState:UIControlStateNormal];
+    [_bt setTitle:@"" forState:UIControlStateNormal];
     [_bt.titleLabel setFont:[UIFont systemFontOfSize:12.0]];
     [_bt addTarget: self action: @selector(tapped) forControlEvents: UIControlEventTouchUpInside];
     [_rightView addSubview: _bt];
 
-    RACSignal *buttonSignal = [[RACSignal merge:@[RACAble(titleInfo.status), RACAble(titleInfo.price), RACAble(titleInfo.priceLocale), RACAble(titleInfo.purchased), RACAble(iapStore.online)]] deliverOn: RACScheduler.mainThreadScheduler];
+    RACSignal *buttonSignal = [RACSignal merge:@[RACAble(titleInfo.status), RACAble(titleInfo.price), RACAble(titleInfo.priceLocale), RACAble(titleInfo.purchased), RACAble(iapStore.online)]];
     [self rac_liftSelector:@selector(updateButtonStyle:) withObjects:buttonSignal];
-
 
     _footnoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, RIGHT_VIEW_WIDTH - MARGIN_X, 30.0)];
     CGRect f = _footnoteLabel.frame;
@@ -126,7 +130,7 @@
     _footnoteLabel.textColor = [UIColor blackColor];
     _footnoteLabel.numberOfLines = 0;
     _footnoteLabel.lineBreakMode = UILineBreakModeCharacterWrap | UILineBreakModeTailTruncation;
-    _footnoteLabel.text = @"購入時の注意事項";
+    _footnoteLabel.text = @"";
     _footnoteLabel.backgroundColor = [UIColor clearColor];
     [_rightView addSubview:_footnoteLabel];
     
@@ -147,46 +151,55 @@
 }
 
 -(void)updateNotifier: (id) _ {
-    NSLog(@"u: %@ v: %@", _titleInfo.lastUpdated, _titleInfo.lastViewed);
-    switch ([_titleInfo.lastUpdated compare: _titleInfo.lastViewed]) {
-        case NSOrderedDescending: {
-            UIColor *c = [UIColor colorWithRed: 144 / 256.0 green: 238 / 256.0 blue: 144 / 256.0 alpha:1.0];
-            _notifyView.backgroundColor = c;
-            break;
+    __weak TitleCell *ws = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (ws) {
+            switch ([ws.titleInfo.lastUpdated compare: ws.titleInfo.lastViewed]) {
+                case NSOrderedDescending: {
+                    UIColor *c = [UIColor colorWithRed: 144 / 256.0 green: 238 / 256.0 blue: 144 / 256.0 alpha:1.0];
+                    ws.notifyView.backgroundColor = c;
+                    break;
+                }
+                default:
+                    ws.notifyView.backgroundColor = [UIColor clearColor];
+                    break;
+            }
         }
-        default:
-            _notifyView.backgroundColor = [UIColor clearColor];
-            break;
-    }
+    });
 }
 
 -(void)updateButtonStyle: (id) _ {
-    if (_titleInfo.price && (!_titleInfo.purchased)) {
-        if (_iapStore.online) {
-            NSNumberFormatter *nf = [NSNumberFormatter new];
-            nf.numberStyle = NSNumberFormatterCurrencyStyle;
-            nf.locale = _titleInfo.priceLocale;
-            [self setButtonText:[nf stringFromNumber: _titleInfo.price] red:159 green:179 blue:230 enabled:YES];
-        } else {
-            [self setButtonText:@"Offline" red:120 green:120 blue:120 enabled:NO];
+    __weak TitleCell *ws = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (ws) {
+            if (ws.titleInfo.price && (!ws.titleInfo.purchased)) {
+                if (ws.iapStore.online) {
+                    NSNumberFormatter *nf = [NSNumberFormatter new];
+                    nf.numberStyle = NSNumberFormatterCurrencyStyle;
+                    nf.locale = ws.titleInfo.priceLocale;
+                    [ws setButtonText:[nf stringFromNumber: ws.titleInfo.price] red:159 green:179 blue:230 enabled:YES];
+                } else {
+                    [ws setButtonText:@"Offline" red:120 green:120 blue:120 enabled:NO];
+                }
+                ws.tapToBuy = YES;
+            } else {
+                switch (ws.titleInfo.status) {
+                    case TitleStatusCompleted:
+                        [ws setButtonText:@"Complete" red:231 green:225 blue:143 enabled:NO];
+                        break;
+                    case TitleStatusOnAir:
+                        [ws setButtonText:@"On Air" red:67 green:135 blue:233 enabled:YES];
+                        break;
+                    case TitleStatusPushEnabled:
+                        [ws setButtonText:@"Tuned" red:11 green:218 blue:81 enabled:YES];
+                        break;
+                    default:
+                        break;
+                }
+                ws.tapToBuy = NO;
+            }
         }
-        _tapToBuy = YES;
-    } else {
-        switch (_titleInfo.status) {
-            case TitleStatusCompleted:
-                [self setButtonText:@"Complete" red:231 green:225 blue:143 enabled:NO];
-                break;
-            case TitleStatusOnAir:
-                [self setButtonText:@"On Air" red:67 green:135 blue:233 enabled:YES];
-                break;
-            case TitleStatusPushEnabled:
-                [self setButtonText:@"Tuned" red:11 green:218 blue:81 enabled:YES];
-                break;
-            default:
-                break;
-        }
-        _tapToBuy = NO;
-    }
+    });
 }
 
 -(void)setButtonText: (NSString *)text red:(int)red green:(int)green blue:(int)blue enabled:(BOOL)enabled {

@@ -79,7 +79,7 @@ static TitleManager *_instance = nil;
     {
     @weakify(self)
     [[[RACSignal interval:2] take:1] subscribeNext:^(id noop) {
-        NSLog(@"TitleManager tick");
+        NSLog(@"TitleManager tick in");
 /*
         if (w) {
             ti.lastViewed = [NSDate dateWithTimeIntervalSinceNow:-60];
@@ -100,14 +100,11 @@ static TitleManager *_instance = nil;
         ti3.footnote = nil;
         ti3.lastViewed = [NSDate dateWithTimeIntervalSinceNow:-80];
         ti3.lastUpdated = [NSDate dateWithTimeIntervalSinceNow:-70];
-        NSLog(@"TitleManager 1");
         [self willChangeValueForKey:@"titleInfoSet"];
-        NSLog(@"TitleManager 2");
         [_titleInfoSet addObject:ti3];
-        NSLog(@"TitleManager 3");
         [self didChangeValueForKey:@"titleInfoSet"];
-        NSLog(@"TitleManager 4");
 
+        NSLog(@"TitleManager tick out");
     }];
     }
 

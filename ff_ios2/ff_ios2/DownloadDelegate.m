@@ -46,9 +46,11 @@
 
     NKLibrary *lib = [NKLibrary sharedLibrary];
     _issue = [lib issueWithName: _titleInfo.titleId];
-    NSURL *u = [_titleInfo.distributionUrl URLByAppendingPathComponent: _path];
-    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL: u];
-    NSLog(@"req url: %@", [u absoluteURL]);
+    NSURL *u1 = [_titleInfo.distributionUrl URLByAppendingPathComponent: _path];
+    NSString *us = [NSString stringWithFormat:@"%@?%.0f", [u1 absoluteString], [[NSDate date] timeIntervalSince1970]];
+    NSURL *u2 = [NSURL URLWithString: us];
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL: u1];
+    NSLog(@"req url: %@", [u1 absoluteURL]);
     NSDictionary *h = [NSHTTPCookie requestHeaderFieldsWithCookies: _authCookie.cookies];
     [req setAllHTTPHeaderFields: h];
     req.HTTPShouldHandleCookies = YES;

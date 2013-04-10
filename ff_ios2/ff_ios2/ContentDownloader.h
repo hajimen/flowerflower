@@ -19,11 +19,12 @@ typedef NS_ENUM(NSInteger, ContentDownloadStatus) {
 };
 
 @class TitleInfo;
+@class RACSignal;
 
 @interface ContentDownloader : NSObject
 
 -(id)initWithTitleInfo:(TitleInfo *)titleInfo;
--(void)start;
+-(RACSignal *)start;
 
 @property (nonatomic, readonly) ContentDownloadStatus status;
 

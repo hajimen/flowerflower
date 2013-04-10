@@ -7,6 +7,7 @@
 //
 
 #import <NewsstandKit/NewsstandKit.h>
+#import "ReactiveCocoa/ReactiveCocoa.h"
 #import "JSONKit.h"
 #import "ContentDownloader.h"
 #import "FFPath.h"
@@ -22,6 +23,7 @@
 }
 
 @property (nonatomic) TitleInfo *titleInfo;
+@property (nonatomic) RACSubject *finishSubject;
 
 @end
 
@@ -41,8 +43,9 @@
     return self;
 }
 
--(void)start {
+-(RACSignal *)start {
     self.status = ContentDownloadStatusInProgress;
+    _finishSubject = [RACSubject subject];
 
     __weak ContentDownloader *bs = self;
     DownloadDelegate *dd = [[DownloadDelegate alloc] initWithPath: CATALOGUE_PATH titleInfo:_titleInfo finishing:^(NSURL *storedTo, NSObject *jsonObj) {
@@ -52,6 +55,8 @@
     [[dd start] subscribeError:^(NSError *error) {
         [bs downloadFailed: error];
     }];
+
+    return _finishSubject;
 }
 
 -(void)catalogueDownloaded: (NSURL *)storedTo json: (NSObject *)jsonObj {
@@ -98,6 +103,7 @@
         }];
     } else {
         self.status = ContentDownloadStatusNotModified;
+        [_finishSubject sendCompleted];
     }
 }
 
@@ -114,6 +120,7 @@
         return;
     }
     self.status = ContentDownloadStatusUpdated;
+    [_finishSubject sendCompleted];
 }
 
 -(void)downloadFailed: (NSError *)error {
@@ -127,6 +134,7 @@
     } else {
         self.status = ContentDownloadStatusFailedByAuth;
     }
+    [_finishSubject sendError: error];
 }
 
 -(void)setStatus:(ContentDownloadStatus)status {

@@ -127,16 +127,14 @@
             NSLog(@"AuthDelegate completed");
         }];
     }];
-    
-    SKPaymentQueue *q = [SKPaymentQueue defaultQueue];
-    NSArray *ts = [q transactions];
-    NSLog(@"first paymentQueue transactions: %@", ts);
+/*
     [[RACSignal interval: 10.0] subscribeNext:^(NSDate *date) {
         SKPaymentQueue *q = [SKPaymentQueue defaultQueue];
         NSArray *ts = [q transactions];
         NSLog(@"paymentQueue transactions: %@", ts);
     }];
-/*
+*/
+ /*
     [RACAble(self.iapStore.transactionRunning) subscribeNext:^(NSNumber *transactionRunning) {
         if ([transactionRunning boolValue]) {
             [SVProgressHUD showWithStatus: NSLocalizedString(@"transactionRunning", nil) maskType:SVProgressHUDMaskTypeClear];
@@ -147,12 +145,12 @@
 */    
     [[RACAble(self.iapStore.online) take: 1] subscribeNext:^(NSNumber *online) {
         NSLog(@"store online");
-        // [self.iapStore restore];
+      //  [self.iapStore restore];
         /* [self.iapStore buy:@"non_consumable_test_1"];
         [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
             NSLog(@"buy ok");
         }];  */
-/*
+
         NKLibrary *lib = [NKLibrary sharedLibrary];
         NKIssue *old = [lib issueWithName:@"TEST ISSUE"];
         if (old) {
@@ -163,7 +161,7 @@
         if (![[NSFileManager defaultManager] createDirectoryAtURL:[[issue contentURL] URLByAppendingPathComponent:@"Auth"] withIntermediateDirectories: YES attributes:nil error:nil]) {
             NSLog(@"cannot create directory");
         }
-*/
+
         TitleInfo *ti = [TitleInfo instanceWithId:@"TEST ISSUE"];
         ti.distributionUrl = [NSURL URLWithString:@"http://kaoriha.org/miyako/"];
 /*
@@ -178,8 +176,40 @@
 */
 
         _cd = [[ContentDownloader alloc] initWithTitleInfo: ti];
-        [_cd start];
+        [[_cd start] subscribeError:^(NSError *error) {
+            NSLog(@"ContentDownloader error:%@", error);
+        } completed:^{
+            NSLog(@"ContentDownloader complete.");
+        }];
 
+/*
+        __block int c = 0;
+        __block void (^loop)();
+        loop = ^(){
+            c ++;
+            NKLibrary *lib = [NKLibrary sharedLibrary];
+            NKIssue *old = [lib issueWithName:@"TEST ISSUE"];
+            if (old) {
+                NSLog(@"old test issue removed");
+                [lib removeIssue:old];
+            }
+            NKIssue *issue = [lib addIssueWithName:@"TEST ISSUE" date:[NSDate date]];
+            if (![[NSFileManager defaultManager] createDirectoryAtURL:[[issue contentURL] URLByAppendingPathComponent:@"Auth"] withIntermediateDirectories: YES attributes:nil error:nil]) {
+                NSLog(@"cannot create directory");
+            }
+            
+            _cd = [[ContentDownloader alloc] initWithTitleInfo: ti];
+            [[_cd start] subscribeError:^(NSError *error) {
+                NSLog(@"loop failed error:%@", error);
+            } completed:^{
+                NSLog(@"loop next");
+                if (c < 1000) {
+                    loop();
+                }
+            }];
+        };
+        // loop();
+ */
     }];
     
     Download *d = [[Download alloc] init];
