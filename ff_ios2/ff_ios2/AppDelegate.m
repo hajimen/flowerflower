@@ -15,13 +15,11 @@
 
 #import "Foreground.h"
 #import "RemoteNotification.h"
-#import "Download.h"
 #import "InAppPurchaseStore.h"
 
 #import "LoopTest.h"
 #import "AuthDelegate.h"
 #import "TitleInfo.h"
-#import "DownloadDelegate.h"
 #import "ContentDownloader.h"
 
 @interface AppDelegate()

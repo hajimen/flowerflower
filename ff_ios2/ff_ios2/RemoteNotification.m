@@ -9,7 +9,6 @@
 #import <NewsstandKit/NewsstandKit.h>
 
 #import "RemoteNotification.h"
-#import "Download.h"
 #import "GTMStringEncoding.h"
 #import "InAppPurchaseStore.h"
 
@@ -41,18 +40,6 @@
         return;
     }
     NSLog(@"remote notification received");
-
-    NKLibrary *lib = [NKLibrary sharedLibrary];
-    NKIssue *old = [lib issueWithName:TEST_ISSUE_NAME];
-    if (old) {
-        NSLog(@"old test issue removed");
-        [lib removeIssue:old];
-    }
-    NKIssue *issue = [lib addIssueWithName:TEST_ISSUE_NAME date:[NSDate date]];
-    NSURL *url = [NSURL URLWithString:TEST_DOWNLOAD_URL];
-    NSURLRequest *req = [NSURLRequest requestWithURL:url];
-    NKAssetDownload *ad = [issue addAssetWithRequest:req];
-    [ad downloadWithDelegate:[Download new]];
     
     // TODO
 }
