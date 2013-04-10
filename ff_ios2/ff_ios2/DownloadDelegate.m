@@ -11,6 +11,7 @@
 #import "DownloadDelegate.h"
 #import "TitleInfo.h"
 #import "AuthCookie.h"
+#import "NSFileManager+Overwrite.h"
 
 @interface DownloadDelegate()
 
@@ -81,9 +82,9 @@
         [_finishedSubject sendError: error1];
         return;
     }
-    if(_finishing(destinationURL, jsonObj)) {
+    if(!_finishing(destinationURL, jsonObj)) {
         NSURL *storeTo = [[_issue contentURL] URLByAppendingPathComponent: _path];
-        success1 = [fm copyItemAtURL: destinationURL toURL: storeTo error: &error1];
+        success1 = [fm copyOverwriteItemAtURL: destinationURL toURL: storeTo error: &error1];
     }
     BOOL success2 = [fm removeItemAtURL: destinationURL error: &error2];
 

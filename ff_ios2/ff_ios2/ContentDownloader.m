@@ -13,6 +13,7 @@
 #import "UserDefaultsKey.h"
 #import "TitleInfo.h"
 #import "DownloadDelegate.h"
+#import "NSFileManager+Overwrite.h"
 
 #define CATALOGUE_TEMP_PATH @"Auth/catalogye_temp.json"
 
@@ -59,7 +60,7 @@
     NKLibrary *lib = [NKLibrary sharedLibrary];
     NKIssue *issue = [lib issueWithName: _titleInfo.titleId];
     NSURL *tempTo = [[issue contentURL] URLByAppendingPathComponent: CATALOGUE_TEMP_PATH];
-    BOOL success = [fm copyItemAtURL: storedTo toURL: tempTo error: &error];
+    BOOL success = [fm copyOverwriteItemAtURL: storedTo toURL: tempTo error: &error];
     if (!success) {
         [self downloadFailed: error];
         return;
@@ -107,7 +108,7 @@
     NSURL *storeTo = [contentUrl URLByAppendingPathComponent: CATALOGUE_PATH];
     NSError *error = nil;
     NSFileManager *fm = [NSFileManager defaultManager];
-    BOOL success = [fm copyItemAtURL: tempFrom toURL: storeTo error: &error];
+    BOOL success = [fm copyOverwriteItemAtURL: tempFrom toURL: storeTo error: &error];
     if (!success) {
         [self downloadFailed: error];
         return;
@@ -117,6 +118,7 @@
 
 -(void)downloadFailed: (NSError *)error {
     if (error) {
+        NSLog(@"ContentDownloader error:%@", error);
         if ([error.domain isEqualToString: @"SSErrorDomain"]) {
             self.status = ContentDownloadStatusFailedByServer;
         } else {

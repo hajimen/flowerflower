@@ -152,7 +152,7 @@
         [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
             NSLog(@"buy ok");
         }];  */
-
+/*
         NKLibrary *lib = [NKLibrary sharedLibrary];
         NKIssue *old = [lib issueWithName:@"TEST ISSUE"];
         if (old) {
@@ -163,7 +163,7 @@
         if (![[NSFileManager defaultManager] createDirectoryAtURL:[[issue contentURL] URLByAppendingPathComponent:@"Auth"] withIntermediateDirectories: YES attributes:nil error:nil]) {
             NSLog(@"cannot create directory");
         }
-        
+*/
         TitleInfo *ti = [TitleInfo instanceWithId:@"TEST ISSUE"];
         ti.distributionUrl = [NSURL URLWithString:@"http://kaoriha.org/miyako/"];
 /*
