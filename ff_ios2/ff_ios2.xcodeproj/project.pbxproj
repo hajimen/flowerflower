@@ -119,6 +119,7 @@
 		57844F391716895B00174FD2 /* miyako_purchased.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = miyako_purchased.zip; sourceTree = "<group>"; };
 		57844F401716B96800174FD2 /* PurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseManager.h; sourceTree = "<group>"; };
 		57844F411716B96800174FD2 /* PurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseManager.m; sourceTree = "<group>"; };
+		57844F471716CCE900174FD2 /* TitleInfosConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TitleInfosConstant.h; sourceTree = "<group>"; };
 		57C6427C16F2D0C80079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427D16F2D0C90079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427E16F2D4930079AFEB /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
@@ -284,6 +285,7 @@
 				57844F12170E408B00174FD2 /* TitleManager.m */,
 				57844F401716B96800174FD2 /* PurchaseManager.h */,
 				57844F411716B96800174FD2 /* PurchaseManager.m */,
+				57844F471716CCE900174FD2 /* TitleInfosConstant.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";

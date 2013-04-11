@@ -15,7 +15,7 @@
 
 #import "Foreground.h"
 #import "RemoteNotification.h"
-#import "InAppPurchaseStore.h"
+#import "PurchaseManager.h"
 
 #import "LoopTest.h"
 #import "AuthDelegate.h"
@@ -28,7 +28,7 @@
 }
 @property (nonatomic) RemoteNotification *remoteNotification;
 @property (nonatomic) Foreground *foreground;
-@property (nonatomic) InAppPurchaseStore *iapStore;
+@property (nonatomic) PurchaseManager *purchaseManager;
 
 @property (nonatomic) NSString *test1;
 @property (nonatomic) NSString *test2;
@@ -107,23 +107,6 @@
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"NKDontThrottleNewsstandContentNotifications"];
 #endif
 
-    self.iapStore = [InAppPurchaseStore initWithRunningTransaction: NO onPurchase:^(NSString *productId, NSData *receiptData){
-        NSLog(@"onPurchase called");
-    } onFailed:^(NSError *error){
-        NSLog(@"onFailed called error: %@", error);
-    } onRestore:^(NSString *productId, NSData *receiptData){
-        NSLog(@"onRestore called productId: %@", productId);
-        TitleInfo *ti = [TitleInfo instanceWithId:@"TEST ISSUE"];
-        ti.distributionUrl = [NSURL URLWithString:@"http://kaoriha.org/miyako/"];
-        AuthDelegate *ad = [[AuthDelegate alloc] initWithReceipt: receiptData titleInfo: ti finishing:^(BOOL successed) {
-            NSLog(@"AuthDelegate success:%d", successed);
-        }];
-        [[ad start] subscribeError:^(NSError *error) {
-            NSLog(@"AuthDelegate error: %@", error);
-        } completed:^{
-            NSLog(@"AuthDelegate completed");
-        }];
-    }];
 /*
     [[RACSignal interval: 10.0] subscribeNext:^(NSDate *date) {
         SKPaymentQueue *q = [SKPaymentQueue defaultQueue];
@@ -142,9 +125,9 @@
 */
     TitleInfo *ti = [TitleInfo instanceWithId:@"TEST ISSUE"];
     ti.distributionUrl = [NSURL URLWithString:@"http://kaoriha.org/miyako/"];
-    [[RACAble(self.iapStore.online) take: 1] subscribeNext:^(NSNumber *online) {
+    [[RACAble(self.purchaseManager.online) take: 1] subscribeNext:^(NSNumber *online) {
         NSLog(@"store online");
-      //  [self.iapStore restore];
+        [self.purchaseManager restore];
         /* [self.iapStore buy:@"non_consumable_test_1"];
         [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
             NSLog(@"buy ok");

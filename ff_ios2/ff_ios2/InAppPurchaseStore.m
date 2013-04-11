@@ -16,8 +16,6 @@
 #define PRODUCT_UPDATE_INTERVAL 60.0 * 60.0
 #define TRANSACTION_TIMEOUT 5.0
 
-static InAppPurchaseStore *singletonInstance;
-
 @interface InAppPurchaseStore ()
 
 @property (nonatomic) NSMutableDictionary *skProductMDic;
@@ -30,21 +28,9 @@ static InAppPurchaseStore *singletonInstance;
 
 @implementation InAppPurchaseStore
 
-+(void)setInstance: (InAppPurchaseStore *)i {
-    @synchronized(self) {
-        singletonInstance = i;
-    }
-}
-
-+(InAppPurchaseStore *)initWithRunningTransaction:(BOOL)running onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock {
-    [InAppPurchaseStore setInstance: [[self alloc] initWithRunningTransaction:running onPurchase:purchaseBlock onFailed:failBlock onRestore:restoreBlock]];
-    return [InAppPurchaseStore instance];
-}
-
-+(InAppPurchaseStore *)instance {
-    @synchronized(self) {
-        return singletonInstance;
-    }
+-(id)init {
+    @throw @"InAppPurchaseStore is singleton";
+    return nil;
 }
 
 -(id)initWithRunningTransaction:(BOOL)running onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock {
@@ -154,7 +140,7 @@ static InAppPurchaseStore *singletonInstance;
     [self setOnline: NO];
 }
 
--(void)buy:(NSString *)productId {
+-(void)buyWithProductId:(NSString *)productId {
     if (![SKPaymentQueue canMakePayments]) {
         NSLog(@"cannot make payments");
         return;

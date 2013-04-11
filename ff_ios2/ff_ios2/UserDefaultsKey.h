@@ -9,3 +9,4 @@
 #define UDK_AUTH_COOKIE_FORMAT @"auth_cookie_%@"
 #define UDK_TITLE_INFO_FORMAT @"title_info_%@"
 #define UDK_TITLE_INFOS_VERSION @"TitleInfos.plist_version"
+#define UDK_IS_TRANSACTION_RUNNING @"isTransactionRunning"

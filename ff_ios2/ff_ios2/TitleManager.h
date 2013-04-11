@@ -8,10 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class TitleInfo;
+
 @interface TitleManager : NSObject
 
 @property (nonatomic, readonly) NSSet *titleInfoSet;
 
 +(TitleManager *)instance;
+
+-(TitleInfo *)titleInfoWithProductId:(NSString *)productId;
+
+-(void)registerPushNotification: (TitleInfo *)titleInfo;
 
 @end

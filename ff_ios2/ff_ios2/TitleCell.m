@@ -13,7 +13,7 @@
 #import "RoundedLabel.h"
 #import "UIGlossyButton.h"
 #import "TagContainerView.h"
-#import "InAppPurchaseStore.h"
+#import "PurchaseManager.h"
 
 #define LEFT_VIEW_WIDTH 77.0
 #define IMAGE_WIDTH 64.0
@@ -35,7 +35,7 @@
 @property (nonatomic) UIGlossyButton *bt;
 @property (nonatomic) UILabel *footnoteLabel;
 
-@property (nonatomic) InAppPurchaseStore *iapStore;
+@property (nonatomic) PurchaseManager *purchaseManager;
 
 @property (nonatomic) BOOL tapToBuy;
 
@@ -52,7 +52,7 @@
     }
 
     _titleInfo = nil;
-    _iapStore = [InAppPurchaseStore instance];
+    _purchaseManager = [PurchaseManager instance];
     _updateButtonSubject = [RACSubject subject];
     _updateNotifierSubject = [RACSubject subject];
     
@@ -118,7 +118,7 @@
     [_bt addTarget: self action: @selector(tapped) forControlEvents: UIControlEventTouchUpInside];
     [_rightView addSubview: _bt];
 
-    RACSignal *buttonSignal = [RACSignal merge:@[RACAble(titleInfo.status), RACAble(titleInfo.price), RACAble(titleInfo.priceLocale), RACAble(titleInfo.purchased), RACAble(iapStore.online)]];
+    RACSignal *buttonSignal = [RACSignal merge:@[RACAble(titleInfo.status), RACAble(titleInfo.price), RACAble(titleInfo.priceLocale), RACAble(titleInfo.purchased), RACAble(purchaseManager.online)]];
     [self rac_liftSelector:@selector(updateButtonStyle:) withObjects:buttonSignal];
 
     _footnoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, RIGHT_VIEW_WIDTH - MARGIN_X, 30.0)];
@@ -173,7 +173,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (ws) {
             if (ws.titleInfo.price && (!ws.titleInfo.purchased)) {
-                if (ws.iapStore.online) {
+                if (ws.purchaseManager.online) {
                     NSNumberFormatter *nf = [NSNumberFormatter new];
                     nf.numberStyle = NSNumberFormatterCurrencyStyle;
                     nf.locale = ws.titleInfo.priceLocale;
@@ -253,7 +253,7 @@
     NSLog(@"clicked");
     if (_tapToBuy) {
         if (buttonIndex == 0) {
-            [_iapStore buy:_titleInfo.productId];
+            [_purchaseManager buyWithTitleInfo: _titleInfo];
         }
     } else {
         if (buttonIndex == 0) {

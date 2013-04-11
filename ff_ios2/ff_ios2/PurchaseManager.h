@@ -12,7 +12,14 @@
 
 @interface PurchaseManager : NSObject
 
--(void)buy: (TitleInfo *) titleInfo;
+@property (nonatomic, readonly) BOOL online;
+@property (nonatomic, readonly) BOOL transactionRunning;
+@property (nonatomic, readonly) BOOL restoreRunning;
+@property (nonatomic, readonly) NSDate *lastUpdated;
+
++(PurchaseManager *)instance;
+
+-(void)buyWithTitleInfo: (TitleInfo *) titleInfo;
 -(void)restore;
 
 @end
