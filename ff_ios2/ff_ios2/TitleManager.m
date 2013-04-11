@@ -6,10 +6,33 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
+#import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
-#import "EXTScope.h"
+#import "ZipArchive.h"
 #import "TitleManager.h"
 #import "TitleInfo.h"
+#import "UserDefaultsKey.h"
+
+#define PLK_VERSION @"version"
+#define PLK_TITLES @"titles"
+#define PLK_ID @"id"
+#define PLK_NAME @"name"
+#define PLK_TAGS @"tags"
+#define PLK_LAST_UPDATED @"lastUpdated"
+#define PLK_BASE_RESOURCE_ZIP_PATH @"baseResourceZipPath"
+#define PLK_PURCHASED_RESOURCE_ZIP_PATH @"purchasedResourceZipPath"
+#define PLK_THUMBNAIL_PATH @"thumbnailPath"
+#define PLK_CONTENT_HTML_PATH @"contentHtmlPath"
+#define PLK_STATUS @"status"
+#define PLK_PRODUCT_ID @"productId"
+#define PLK_TYPE @"type"
+#define PLK_DISTRIBUTION_URL @"distributionUrl"
+
+#define PLV_STATUS_COMPLETED @"completed"
+#define PLV_STATUS_ON_AIR @"onAir"
+
+#define PLV_TYPE_FLOWERFLOWER @"flowerflower"
+#define PLV_TYPE_FIXED_IN_APP @"fixedInApp"
 
 static TitleManager *_instance = nil;
 
@@ -47,65 +70,61 @@ static TitleManager *_instance = nil;
     
     _titleInfoSet = [NSMutableSet new];
 
-    //debug
-    NSString *p = [[NSBundle mainBundle] pathForResource:@"test_image2" ofType:@"png"];
-    TitleInfo *ti = [TitleInfo instanceWithId:@"test"];
-    ti.thumbnailUrl = [NSURL fileURLWithPath: p];
-    ti.name = @"My Name";
-    ti.tags = @[@"my tag", @"my tag 2", @"my tag 33"];
-    ti.price = [NSDecimalNumber decimalNumberWithString:@"1000"];
-    ti.priceLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"ja_JP"];
-    ti.purchased = NO;
-    ti.status = TitleStatusPushEnabled;
-    ti.footnote = @"初回購入特別価格";
-    ti.lastViewed = [NSDate dateWithTimeIntervalSinceNow:-100];
-    ti.lastUpdated = [NSDate dateWithTimeIntervalSinceNow:-90];
-    [_titleInfoSet addObject:ti];
+    NSDictionary *rp = [NSDictionary dictionaryWithContentsOfFile: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"TitleInfos.plist"]];
 
-    p = [[NSBundle mainBundle] pathForResource:@"test_image" ofType:@"png"];
-    TitleInfo *ti2 = [TitleInfo instanceWithId:@"test2"];
-    ti2.thumbnailUrl = [NSURL fileURLWithPath: p];
-    ti2.name = @"東京特許許可局 東京特許許可局 東京特許許可局";
-    ti2.tags = @[@"tag a", @"tag b", @"tag c", @"tag d", @"tag e", @"tag f", @"tag g"];
-    ti2.price = nil;
-    ti2.purchased = NO;
-    ti2.status = TitleStatusPushEnabled;
-    ti2.footnote = nil;
-    ti2.lastViewed = [NSDate dateWithTimeIntervalSinceNow:-70];
-    ti2.lastUpdated = [NSDate dateWithTimeIntervalSinceNow:-80];
-    [_titleInfoSet addObject:ti2];
-
-    __block BOOL w = YES;
-    {
-    @weakify(self)
-    [[[RACSignal interval:2] take:1] subscribeNext:^(id noop) {
-        NSLog(@"TitleManager tick in");
-/*
-        if (w) {
-            ti.lastViewed = [NSDate dateWithTimeIntervalSinceNow:-60];
-        } else {
-            ti2.lastViewed = [NSDate dateWithTimeIntervalSinceNow:-60];
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *versionUD = [ud stringForKey: UDK_TITLE_INFOS_VERSION];
+    int versionPL = [[rp objectForKey: PLK_VERSION] intValue];
+    if (versionUD == nil || [versionUD intValue] < versionPL) {
+        for (NSDictionary *tip in [rp objectForKey: PLK_TITLES]) {
+            TitleInfo *ti = [TitleInfo instanceWithId: [tip objectForKey: PLK_ID]];
+            if (ti.name == nil) {
+                NSString *statusPL = [tip objectForKey: PLK_STATUS];
+                if ([statusPL isEqualToString: PLV_STATUS_COMPLETED]) {
+                    ti.status = TitleStatusCompleted;
+                } else if ([statusPL isEqualToString: PLV_STATUS_ON_AIR]) {
+                    ti.status = TitleStatusOnAir;
+                } else {
+                    @throw @"TitleInfos.plist bad. wrong status";
+                }
+                NKLibrary *lib = [NKLibrary sharedLibrary];
+                NKIssue *issue = [lib issueWithName: ti.titleId];
+                if (issue == nil) {
+                    issue = [lib addIssueWithName: ti.titleId date: [tip objectForKey: PLK_LAST_UPDATED]];
+                }
+                NSString *p = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: [tip objectForKey: PLK_BASE_RESOURCE_ZIP_PATH]];
+                ZipArchive *za = [ZipArchive new];
+                [za UnzipOpenFile: p];
+                [za UnzipFileTo: [[issue contentURL] path] overWrite: YES];
+                [za UnzipCloseFile];
+            }
+            ti.name = [tip objectForKey: PLK_NAME];
+            ti.tags = [[tip objectForKey: PLK_TAGS] componentsSeparatedByString: @","];
+            ti.lastUpdated = [tip objectForKey: PLK_LAST_UPDATED];
+            if (ti.lastViewed == nil) {
+                ti.lastViewed = [ti lastUpdated];
+            }
+            NKLibrary *lib = [NKLibrary sharedLibrary];
+            NKIssue *issue = [lib issueWithName: ti.titleId];
+            NSURL *cu = [issue contentURL];
+            ti.thumbnailUrl = [cu URLByAppendingPathComponent: [tip objectForKey: PLK_THUMBNAIL_PATH]];
+            ti.footnote = @"";
+            if (! ti.price) {
+                ti.price = UNKNOWN_PRICE;
+            }
+            ti.productId = [tip objectForKey: PLK_PRODUCT_ID];
+            NSString *titleTypePL = [tip objectForKey: PLK_TYPE];
+            if ([titleTypePL isEqualToString: PLV_TYPE_FLOWERFLOWER]) {
+                ti.distributionUrl = [NSURL URLWithString: [tip objectForKey: PLK_DISTRIBUTION_URL]];
+            }
         }
-        w = !w;
-*/
-
-        @strongify(self)
-        TitleInfo *ti3 = [TitleInfo instanceWithId:@"test3"];
-        ti3.thumbnailUrl = [NSURL fileURLWithPath: p];
-        ti3.name = @"Test Title";
-        ti3.tags = @[@"tag A"];
-        ti3.price = nil;
-        ti3.purchased = NO;
-        ti3.status = TitleStatusPushEnabled;
-        ti3.footnote = nil;
-        ti3.lastViewed = [NSDate dateWithTimeIntervalSinceNow:-80];
-        ti3.lastUpdated = [NSDate dateWithTimeIntervalSinceNow:-70];
-        [self willChangeValueForKey:@"titleInfoSet"];
-        [_titleInfoSet addObject:ti3];
-        [self didChangeValueForKey:@"titleInfoSet"];
-
-        NSLog(@"TitleManager tick out");
-    }];
+        [ud setObject: [rp objectForKey: PLK_VERSION] forKey: UDK_TITLE_INFOS_VERSION];
+    } else {
+        NSLog(@"load from NSUserDefaults");
+    }
+    for (NSDictionary *tip in [rp objectForKey: PLK_TITLES]) {
+        TitleInfo *ti = [TitleInfo instanceWithId: [tip objectForKey: PLK_ID]];
+        [_titleInfoSet addObject: ti];
     }
 
     return self;

@@ -9,13 +9,10 @@
 #import "ReactiveCocoa/ReactiveCocoa.h"
 
 #import "InAppPurchaseStore.h"
-#import "InAppPurchaseProduct.h"
-
-#define PLIST_KEY_NON_CONSUMABLE @"Non-Consumables"
-#define PLIST_KEY_FREE_SUBSCRIPTION @"Free-Subscriptions"
+#import "TitleManager.h"
+#import "TitleInfo.h"
 
 #define PKEY_LAST_UPDATED @"InAppPurchaseStore.lastUpdated"
-#define PKEY_PRODUCT_DIC @"InAppPurchaseStore.productDic"
 #define PRODUCT_UPDATE_INTERVAL 60.0 * 60.0
 #define TRANSACTION_TIMEOUT 5.0
 
@@ -23,10 +20,6 @@ static InAppPurchaseStore *singletonInstance;
 
 @interface InAppPurchaseStore ()
 
-@property (nonatomic) NSSet *nonConsumableProductIds;
-@property (nonatomic) NSSet *freeSubscriptionProductIds;
-@property (nonatomic) NSMutableDictionary *productMDic;
-@property (nonatomic) SKProductsRequest *productsRequest;
 @property (nonatomic) NSMutableDictionary *skProductMDic;
 @property (nonatomic, strong) void (^onTransactionFailed)(NSError *error);
 @property (nonatomic, strong) void (^onTransactionPurchased)(NSString *productId, NSData* receiptData);
@@ -43,8 +36,8 @@ static InAppPurchaseStore *singletonInstance;
     }
 }
 
-+(InAppPurchaseStore *)initWithRunningTransaction:(BOOL)running plist:(NSString *)plist onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock {
-    [InAppPurchaseStore setInstance: [[self alloc] initWithRunningTransaction:running plist:plist onPurchase:purchaseBlock onFailed:failBlock onRestore:restoreBlock]];
++(InAppPurchaseStore *)initWithRunningTransaction:(BOOL)running onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock {
+    [InAppPurchaseStore setInstance: [[self alloc] initWithRunningTransaction:running onPurchase:purchaseBlock onFailed:failBlock onRestore:restoreBlock]];
     return [InAppPurchaseStore instance];
 }
 
@@ -54,7 +47,7 @@ static InAppPurchaseStore *singletonInstance;
     }
 }
 
--(id)initWithRunningTransaction:(BOOL)running plist:(NSString *)plist onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock {
+-(id)initWithRunningTransaction:(BOOL)running onPurchase:(void (^)(NSString *productId, NSData *receiptData)) purchaseBlock onFailed:(void (^)(NSError *error)) failBlock onRestore:(void (^)(NSString *productId, NSData *receiptData)) restoreBlock {
     self = [super init];
     if (!self) {
         return self;
@@ -67,41 +60,16 @@ static InAppPurchaseStore *singletonInstance;
     _online = NO;
     _restoreRunning = NO;
     _transactionRunning = running;
-    NSDictionary *productIdPlistDic = [NSDictionary dictionaryWithContentsOfFile:
-                                       [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:
-                                        plist]];
-    _nonConsumableProductIds = [NSSet setWithArray:[productIdPlistDic objectForKey:PLIST_KEY_NON_CONSUMABLE]];
-    _freeSubscriptionProductIds = [NSSet setWithArray:[productIdPlistDic objectForKey:PLIST_KEY_FREE_SUBSCRIPTION]];
 
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    _productMDic = [NSMutableDictionary new];
     _skProductMDic = [NSMutableDictionary new];
     _lastUpdated = [ud objectForKey:PKEY_LAST_UPDATED];
-    if (_lastUpdated) {
-        NSData *d = [ud objectForKey: PKEY_PRODUCT_DIC];
-        if (d) {
-            @try {
-                NSMutableDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:d];
-                [_productMDic setDictionary:[dic mutableCopy]];
-            }
-            @catch (NSException *exception) {
-                _lastUpdated = nil;
-                NSLog(@"_productMDic restore failed.");
-            }
-        }
-    }
     
     [[SKPaymentQueue defaultQueue] addTransactionObserver: self];
 
-    NSSet *s = [self.freeSubscriptionProductIds setByAddingObjectsFromSet: self.nonConsumableProductIds];
-    
-	_productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers: s];
-	_productsRequest.delegate = self;
-	[_productsRequest start];
-    
     // singleton and forever exists. no leaks.
     [[RACSignal interval: PRODUCT_UPDATE_INTERVAL] subscribeNext:^(NSDate *date) {
-        [_productsRequest start];
+        [self checkOnline];
     }];
 
     _transactionConsistentAt = [NSDate date];
@@ -117,15 +85,21 @@ static InAppPurchaseStore *singletonInstance;
         }
     }];
 
+    [self checkOnline];
+
     return self;
 }
 
 -(void)checkOnline {
-	[_productsRequest start];
-}
-
--(NSDictionary *)productDic {
-    return _productMDic;
+    NSMutableSet *pids = [NSMutableSet new];
+    for (TitleInfo *ti in [[TitleManager instance] titleInfoSet]) {
+        if ([ti productId]) {
+            [pids addObject: [ti productId]];
+        }
+    }
+	SKProductsRequest *pr = [[SKProductsRequest alloc] initWithProductIdentifiers: pids];
+	pr.delegate = self;
+	[pr start];
 }
 
 -(void)setOnline:(BOOL)online {
@@ -147,29 +121,30 @@ static InAppPurchaseStore *singletonInstance;
 }
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
-    [self willChangeValueForKey:@"productDic"];
-    _productMDic = [NSMutableDictionary new];
     _skProductMDic = [NSMutableDictionary new];
     for (SKProduct *skp in [response products]) {
-        InAppPurchaseProduct *p = [InAppPurchaseProduct new];
-        p.localizedDescription = [skp localizedDescription];
-        p.localizedTitle = [skp localizedTitle];
-        p.price = [skp price];
-        p.priceLocale = [skp priceLocale];
-        p.productIdentifier = [skp productIdentifier];
-        NSString *k = [p productIdentifier];
-        [_productMDic setObject:p forKey: k];
-        [_skProductMDic setObject:skp forKey:k];
+        NSString *pid = [skp productIdentifier];
+        TitleInfo *ti = nil;
+        for (TitleInfo *iti in [[TitleManager instance] titleInfoSet]) {
+            if ([pid isEqualToString: [iti productId]]) {
+                ti = iti;
+                break;
+            }
+        }
+        if (ti == nil) {
+            NSLog(@"InAppPurchaseStore productsRequest received unknown productId: %@", [skp productIdentifier]);
+            continue;
+        }
+        ti.price = [skp price];
+        ti.priceLocale = [skp priceLocale];
+        [_skProductMDic setObject:skp forKey: pid];
     }
-    [self didChangeValueForKey:@"productDic"];
     
     [self willChangeValueForKey:@"lastUpdated"];
     _lastUpdated = [NSDate date];
     [self didChangeValueForKey:@"lastUpdated"];
 
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSData *d = [NSKeyedArchiver archivedDataWithRootObject:_productMDic];
-    [ud setObject:d forKey: PKEY_PRODUCT_DIC];
     [ud setObject:_lastUpdated forKey: PKEY_LAST_UPDATED];
 
     [self setOnline: YES];
@@ -252,7 +227,6 @@ static InAppPurchaseStore *singletonInstance;
     NSLog(@"restoreCompletedTransactionsFailedWithError %@", error);
     for (SKPaymentTransaction *t in queue.transactions) {
         NSLog(@"transaction %@", t);
-        [self onTransactionRestored](t.payment.productIdentifier, t.transactionReceipt);
         [queue finishTransaction:t];
     }
     [self setRestoreRunning: NO];

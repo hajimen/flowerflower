@@ -14,7 +14,9 @@ typedef NS_ENUM(NSInteger, TitleStatus) {
     TitleStatusCompleted
 };
 
-@interface TitleInfo : NSObject
+extern NSDecimalNumber *UNKNOWN_PRICE;
+
+@interface TitleInfo : NSObject <NSCoding>
 
 @property (nonatomic, readonly) NSString *titleId;
 @property (nonatomic) NSString *name;

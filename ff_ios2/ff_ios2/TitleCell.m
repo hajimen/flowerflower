@@ -177,7 +177,12 @@
                     NSNumberFormatter *nf = [NSNumberFormatter new];
                     nf.numberStyle = NSNumberFormatterCurrencyStyle;
                     nf.locale = ws.titleInfo.priceLocale;
-                    [ws setButtonText:[nf stringFromNumber: ws.titleInfo.price] red:159 green:179 blue:230 enabled:YES];
+                    NSDecimalNumber *p = ws.titleInfo.price;
+                    if ([p isEqualToNumber: UNKNOWN_PRICE]) {
+                        [ws setButtonText:@"---" red:120 green:120 blue:120 enabled:NO];
+                    } else {
+                        [ws setButtonText:[nf stringFromNumber: ws.titleInfo.price] red:159 green:179 blue:230 enabled:YES];
+                    }
                 } else {
                     [ws setButtonText:@"Offline" red:120 green:120 blue:120 enabled:NO];
                 }

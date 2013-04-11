@@ -107,8 +107,7 @@
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"NKDontThrottleNewsstandContentNotifications"];
 #endif
 
-//    [MKStoreManager sharedManager];ngTransaction:NO plist:@"MKStoreKitConfigs.plist"
-    self.iapStore = [InAppPurchaseStore initWithRunningTransaction: NO plist:@"MKStoreKitConfigs.plist" onPurchase:^(NSString *productId, NSData *receiptData){
+    self.iapStore = [InAppPurchaseStore initWithRunningTransaction: NO onPurchase:^(NSString *productId, NSData *receiptData){
         NSLog(@"onPurchase called");
     } onFailed:^(NSError *error){
         NSLog(@"onFailed called error: %@", error);
@@ -150,7 +149,7 @@
         [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
             NSLog(@"buy ok");
         }];  */
-
+/*
         NKLibrary *lib = [NKLibrary sharedLibrary];
         NKIssue *old = [lib issueWithName:@"TEST ISSUE"];
         if (old) {

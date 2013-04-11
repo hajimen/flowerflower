@@ -23,9 +23,7 @@
 		577E80D916F1F64F00DA7DBA /* ff_ios2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E80D816F1F64F00DA7DBA /* ff_ios2Tests.m */; };
 		57827BCD1701194900095B1E /* Foreground.m in Sources */ = {isa = PBXBuildFile; fileRef = 57827BCC1701194900095B1E /* Foreground.m */; };
 		57827BCF17011EB000095B1E /* NewsstandKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57827BCE17011EB000095B1E /* NewsstandKit.framework */; };
-		57827BD6170461A300095B1E /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57827BD5170461A300095B1E /* MKStoreKitConfigs.plist */; };
 		57827BDB1705224F00095B1E /* InAppPurchaseStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 57827BDA1705224F00095B1E /* InAppPurchaseStore.m */; };
-		57827BDE17052E0500095B1E /* InAppPurchaseProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 57827BDD17052E0500095B1E /* InAppPurchaseProduct.m */; };
 		57844F13170E408B00174FD2 /* TitleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F12170E408B00174FD2 /* TitleManager.m */; };
 		57844F16170EE99A00174FD2 /* LoopTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F15170EE99A00174FD2 /* LoopTest.m */; };
 		57844F1D1712BAE600174FD2 /* ContentDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F1C1712BAE600174FD2 /* ContentDownloader.m */; };
@@ -33,6 +31,14 @@
 		57844F271713C91900174FD2 /* AuthCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F261713C91800174FD2 /* AuthCookie.m */; };
 		57844F2A1714F60C00174FD2 /* NSFileManager+Overwrite.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F291714F60C00174FD2 /* NSFileManager+Overwrite.m */; };
 		57844F2D1715673100174FD2 /* AssetDownloadDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F2C1715673100174FD2 /* AssetDownloadDelegate.m */; };
+		57844F3217166CF000174FD2 /* TitleInfos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57844F3117166CF000174FD2 /* TitleInfos.plist */; };
+		57844F3A1716895B00174FD2 /* kanzenhitogata_base.zip in Resources */ = {isa = PBXBuildFile; fileRef = 57844F341716895B00174FD2 /* kanzenhitogata_base.zip */; };
+		57844F3B1716895B00174FD2 /* kanzenhitogata_purchased.zip in Resources */ = {isa = PBXBuildFile; fileRef = 57844F351716895B00174FD2 /* kanzenhitogata_purchased.zip */; };
+		57844F3C1716895B00174FD2 /* kouchabutton_base.zip in Resources */ = {isa = PBXBuildFile; fileRef = 57844F361716895B00174FD2 /* kouchabutton_base.zip */; };
+		57844F3D1716895B00174FD2 /* kouchabutton_purchased.zip in Resources */ = {isa = PBXBuildFile; fileRef = 57844F371716895B00174FD2 /* kouchabutton_purchased.zip */; };
+		57844F3E1716895B00174FD2 /* miyako_base.zip in Resources */ = {isa = PBXBuildFile; fileRef = 57844F381716895B00174FD2 /* miyako_base.zip */; };
+		57844F3F1716895B00174FD2 /* miyako_purchased.zip in Resources */ = {isa = PBXBuildFile; fileRef = 57844F391716895B00174FD2 /* miyako_purchased.zip */; };
+		57844F421716B96900174FD2 /* PurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F411716B96800174FD2 /* PurchaseManager.m */; };
 		57C6427F16F2D4930079AFEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 57C6427E16F2D4930079AFEB /* config.xml */; };
 		57C6428116F2D4E10079AFEB /* www in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428016F2D4E10079AFEB /* www */; };
 		57C6428316F2DC180079AFEB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428216F2DC180079AFEB /* Settings.bundle */; };
@@ -85,11 +91,8 @@
 		57827BCB1701194900095B1E /* Foreground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foreground.h; sourceTree = "<group>"; };
 		57827BCC1701194900095B1E /* Foreground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foreground.m; sourceTree = "<group>"; };
 		57827BCE17011EB000095B1E /* NewsstandKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NewsstandKit.framework; path = System/Library/Frameworks/NewsstandKit.framework; sourceTree = SDKROOT; };
-		57827BD5170461A300095B1E /* MKStoreKitConfigs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MKStoreKitConfigs.plist; sourceTree = "<group>"; };
 		57827BD91705224F00095B1E /* InAppPurchaseStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseStore.h; sourceTree = "<group>"; };
 		57827BDA1705224F00095B1E /* InAppPurchaseStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppPurchaseStore.m; sourceTree = "<group>"; };
-		57827BDC17052E0500095B1E /* InAppPurchaseProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseProduct.h; sourceTree = "<group>"; };
-		57827BDD17052E0500095B1E /* InAppPurchaseProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppPurchaseProduct.m; sourceTree = "<group>"; };
 		57844F11170E408B00174FD2 /* TitleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleManager.h; sourceTree = "<group>"; };
 		57844F12170E408B00174FD2 /* TitleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleManager.m; sourceTree = "<group>"; };
 		57844F14170EE99A00174FD2 /* LoopTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopTest.h; sourceTree = "<group>"; };
@@ -107,6 +110,15 @@
 		57844F291714F60C00174FD2 /* NSFileManager+Overwrite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Overwrite.m"; sourceTree = "<group>"; };
 		57844F2B1715673000174FD2 /* AssetDownloadDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetDownloadDelegate.h; sourceTree = "<group>"; };
 		57844F2C1715673100174FD2 /* AssetDownloadDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetDownloadDelegate.m; sourceTree = "<group>"; };
+		57844F3117166CF000174FD2 /* TitleInfos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TitleInfos.plist; sourceTree = "<group>"; };
+		57844F341716895B00174FD2 /* kanzenhitogata_base.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = kanzenhitogata_base.zip; sourceTree = "<group>"; };
+		57844F351716895B00174FD2 /* kanzenhitogata_purchased.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = kanzenhitogata_purchased.zip; sourceTree = "<group>"; };
+		57844F361716895B00174FD2 /* kouchabutton_base.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = kouchabutton_base.zip; sourceTree = "<group>"; };
+		57844F371716895B00174FD2 /* kouchabutton_purchased.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = kouchabutton_purchased.zip; sourceTree = "<group>"; };
+		57844F381716895B00174FD2 /* miyako_base.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = miyako_base.zip; sourceTree = "<group>"; };
+		57844F391716895B00174FD2 /* miyako_purchased.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = miyako_purchased.zip; sourceTree = "<group>"; };
+		57844F401716B96800174FD2 /* PurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseManager.h; sourceTree = "<group>"; };
+		57844F411716B96800174FD2 /* PurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseManager.m; sourceTree = "<group>"; };
 		57C6427C16F2D0C80079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427D16F2D0C90079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427E16F2D4930079AFEB /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
@@ -204,6 +216,7 @@
 		577E80B316F1F64F00DA7DBA /* ff_ios2 */ = {
 			isa = PBXGroup;
 			children = (
+				57844F33171688CB00174FD2 /* Title Resources */,
 				57844F1A1712BAB400174FD2 /* Download */,
 				57827BD71705216400095B1E /* Model */,
 				57E71A5917000AB00068B631 /* Tool */,
@@ -227,7 +240,6 @@
 				57C66B93170C1E1500559028 /* test_image2.png */,
 				57C66B7C170AB9F300559028 /* test_image.png */,
 				57C66B79170A868300559028 /* Localizable.strings */,
-				57827BD5170461A300095B1E /* MKStoreKitConfigs.plist */,
 				57C6428216F2DC180079AFEB /* Settings.bundle */,
 				57C6427E16F2D4930079AFEB /* config.xml */,
 				577E80B516F1F64F00DA7DBA /* ff_ios2-Info.plist */,
@@ -237,6 +249,7 @@
 				577E80BF16F1F64F00DA7DBA /* Default.png */,
 				577E80C116F1F64F00DA7DBA /* Default@2x.png */,
 				577E80C316F1F64F00DA7DBA /* Default-568h@2x.png */,
+				57844F3117166CF000174FD2 /* TitleInfos.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -265,12 +278,12 @@
 			children = (
 				57827BD91705224F00095B1E /* InAppPurchaseStore.h */,
 				57827BDA1705224F00095B1E /* InAppPurchaseStore.m */,
-				57827BDC17052E0500095B1E /* InAppPurchaseProduct.h */,
-				57827BDD17052E0500095B1E /* InAppPurchaseProduct.m */,
 				57C66B8D170BDEEE00559028 /* TitleInfo.h */,
 				57C66B8E170BDEEE00559028 /* TitleInfo.m */,
 				57844F11170E408B00174FD2 /* TitleManager.h */,
 				57844F12170E408B00174FD2 /* TitleManager.m */,
+				57844F401716B96800174FD2 /* PurchaseManager.h */,
+				57844F411716B96800174FD2 /* PurchaseManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -289,6 +302,19 @@
 				57844F2C1715673100174FD2 /* AssetDownloadDelegate.m */,
 			);
 			name = Download;
+			sourceTree = "<group>";
+		};
+		57844F33171688CB00174FD2 /* Title Resources */ = {
+			isa = PBXGroup;
+			children = (
+				57844F341716895B00174FD2 /* kanzenhitogata_base.zip */,
+				57844F351716895B00174FD2 /* kanzenhitogata_purchased.zip */,
+				57844F361716895B00174FD2 /* kouchabutton_base.zip */,
+				57844F371716895B00174FD2 /* kouchabutton_purchased.zip */,
+				57844F381716895B00174FD2 /* miyako_base.zip */,
+				57844F391716895B00174FD2 /* miyako_purchased.zip */,
+			);
+			name = "Title Resources";
 			sourceTree = "<group>";
 		};
 		57E71A5516FFFC870068B631 /* View */ = {
@@ -404,10 +430,16 @@
 				57C6427F16F2D4930079AFEB /* config.xml in Resources */,
 				57C6428116F2D4E10079AFEB /* www in Resources */,
 				57C6428316F2DC180079AFEB /* Settings.bundle in Resources */,
-				57827BD6170461A300095B1E /* MKStoreKitConfigs.plist in Resources */,
 				57C66B77170A868300559028 /* Localizable.strings in Resources */,
 				57C66B7D170AB9F300559028 /* test_image.png in Resources */,
 				57C66B94170C1E1500559028 /* test_image2.png in Resources */,
+				57844F3217166CF000174FD2 /* TitleInfos.plist in Resources */,
+				57844F3A1716895B00174FD2 /* kanzenhitogata_base.zip in Resources */,
+				57844F3B1716895B00174FD2 /* kanzenhitogata_purchased.zip in Resources */,
+				57844F3C1716895B00174FD2 /* kouchabutton_base.zip in Resources */,
+				57844F3D1716895B00174FD2 /* kouchabutton_purchased.zip in Resources */,
+				57844F3E1716895B00174FD2 /* miyako_base.zip in Resources */,
+				57844F3F1716895B00174FD2 /* miyako_purchased.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,7 +499,6 @@
 				57E71A5D17000ADC0068B631 /* GTMStringEncoding.m in Sources */,
 				57827BCD1701194900095B1E /* Foreground.m in Sources */,
 				57827BDB1705224F00095B1E /* InAppPurchaseStore.m in Sources */,
-				57827BDE17052E0500095B1E /* InAppPurchaseProduct.m in Sources */,
 				57C66B83170AE71200559028 /* RoundedLabel.m in Sources */,
 				57C66B8C170B304800559028 /* TagContainerView.m in Sources */,
 				57C66B8F170BDEEE00559028 /* TitleInfo.m in Sources */,
@@ -477,6 +508,7 @@
 				57844F271713C91900174FD2 /* AuthCookie.m in Sources */,
 				57844F2A1714F60C00174FD2 /* NSFileManager+Overwrite.m in Sources */,
 				57844F2D1715673100174FD2 /* AssetDownloadDelegate.m in Sources */,
+				57844F421716B96900174FD2 /* PurchaseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
