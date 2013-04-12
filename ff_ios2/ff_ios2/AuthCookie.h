@@ -16,5 +16,6 @@
 
 -(id)initWithTitleInfo: (TitleInfo *)titleInfo;
 -(void)setCookiesWithResponse: (NSURLResponse *)response;
+-(void)setCookiesWithUrl: (NSURL *)url;
 
 @end

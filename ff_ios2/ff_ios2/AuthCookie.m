@@ -43,6 +43,10 @@
     [self setCookies: cookies];
 }
 
+-(void)setCookiesWithUrl: (NSURL *)url {
+    self.cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL: url];
+}
+
 -(NSArray *)cookies {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSData *d = [ud objectForKey: [NSString stringWithFormat: UDK_AUTH_COOKIE_FORMAT, _titleInfo.titleId]];

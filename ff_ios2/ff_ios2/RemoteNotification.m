@@ -10,7 +10,6 @@
 
 #import "RemoteNotification.h"
 #import "GTMStringEncoding.h"
-#import "InAppPurchaseStore.h"
 
 @implementation RemoteNotification
 

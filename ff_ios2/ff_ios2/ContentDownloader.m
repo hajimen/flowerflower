@@ -68,6 +68,8 @@
     }];
     [[add start] subscribeError:^(NSError *error) {
         [ws downloadFailed: error];
+    } completed:^{
+        [ws.authCookie setCookiesWithUrl: ws.titleInfo.distributionUrl];
     }];
 }
 
@@ -155,7 +157,6 @@
         self.status = ContentDownloadStatusNotModified;
         [_finishSubject sendCompleted];
     }
-//    exit(0);
 }
 
 -(void)finishDownload {
