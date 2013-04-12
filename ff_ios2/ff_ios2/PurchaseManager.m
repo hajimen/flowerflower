@@ -88,15 +88,19 @@ static PurchaseManager *instance = nil;
     [_inAppPurchaseStore buyWithProductId: titleInfo.productId];
 }
 
+-(void)restoreLegacyTitleWithBundleId: (NSString *)bundleId titleId:(NSString *)titleId {
+    NSUbiquitousKeyValueStore *us = [NSUbiquitousKeyValueStore defaultStore];
+    if ([self isAppInstalled: bundleId] || [us boolForKey: titleId]) {
+        TitleInfo *ti = [TitleInfo instanceWithId: titleId];
+        [us setBool: YES forKey: titleId];
+        [us synchronize];
+        [self purchased: ti.productId];
+    }
+}
+
 -(void)restore {
-    if ([self isAppInstalled: KOUCHABUTTON_BUNDLE_ID]) {
-        TitleInfo *ti = [TitleInfo instanceWithId: KOUCHABUTTON_TITLE_ID];
-        [self purchased: ti.productId];
-    }
-    if ([self isAppInstalled: KANZENHITOGATA_BUNDLE_ID]) {
-        TitleInfo *ti = [TitleInfo instanceWithId: KANZENHITOGATA_TITLE_ID];
-        [self purchased: ti.productId];
-    }
+    [self restoreLegacyTitleWithBundleId: KOUCHABUTTON_BUNDLE_ID titleId: KOUCHABUTTON_TITLE_ID];
+    [self restoreLegacyTitleWithBundleId: KANZENHITOGATA_BUNDLE_ID titleId: KANZENHITOGATA_TITLE_ID];
     [_inAppPurchaseStore restore];
 }
 
