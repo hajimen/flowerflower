@@ -1,53 +1,56 @@
 //
-//  AuthDelegate.m
+//  RegisterApnsDelegate.m
 //  ff_ios2
 //
-//  Created by 岩田 健一 on 13/04/09.
+//  Created by 岩田 健一 on 13/04/13.
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
-#import <NewsstandKit/NewsstandKit.h>
-#import "GTMStringEncoding.h"
-#import "AuthDelegate.h"
-#import "TitleInfo.h"
-#import "FFPath.h"
+#import "ReactiveCocoa/ReactiveCocoa.h"
+#import "RegisterApnsDelegate.h"
 #import "AuthCookie.h"
+#import "FFPath.h"
+#import "GTMStringEncoding.h"
 
-@interface AuthDelegate()
+@interface RegisterApnsDelegate ()
 
-@property (nonatomic) NSData *receipt;
-@property (nonatomic) TitleInfo *titleInfo;
+@property (nonatomic) NSData *deviceTokenData;
+@property (nonatomic) NSURL *url;
 
-@property (nonatomic) NKIssue *issue;
 @property (nonatomic) RACSubject *finishedSubject;
 @property (nonatomic) NSURLConnection *conn;
 @property (nonatomic) int statusCode;
-@property (nonatomic) AuthCookie *authCookie;
 
 @end
 
-@implementation AuthDelegate
+@implementation RegisterApnsDelegate
 
--(id)initWithReceipt:(NSData *)receipt titleInfo:(TitleInfo *)titleInfo {
+-(id)initWithDeviceTokenData:(NSData *)deviceTokenData url:(NSURL *)url {
+
     self = [super init];
     if (!self) {
         return self;
     }
-
-    _receipt = receipt;
-    _titleInfo = titleInfo;
+    
+    _deviceTokenData = deviceTokenData;
+    _url = url;
     _conn = nil;
-    _authCookie = [[AuthCookie alloc] initWithTitleInfo: titleInfo];
-
+    
     return self;
 }
 
--(RACSignal *)start {
-    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL: [_titleInfo.distributionUrl URLByAppendingPathComponent: AUTH_OFFICE]];
+-(RACSignal *)startWithEnable: (BOOL) enable {
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL: [_url URLByAppendingPathComponent: REGISTER_APNS_OFFICE]];
     [req setHTTPMethod: @"POST"];
     [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    NSString *rs = [[GTMStringEncoding rfc4648Base64StringEncoding] encode: _receipt];
-    NSString *ps = [NSString stringWithFormat: @"receipt=%@", [self urlEncode: rs]];
+    NSString *ds = [[GTMStringEncoding hexStringEncoding] encode: _deviceTokenData];
+    NSString *es;
+    if (enable) {
+        es = @"true";
+    } else {
+        es = @"false";
+    }
+    NSString *ps = [NSString stringWithFormat: @"deviceToken=%@&enable=%@", ds, es];
     NSData *psData = [ps dataUsingEncoding: NSUTF8StringEncoding];
     [req setHTTPBody: psData];
     
@@ -57,7 +60,7 @@
     _conn = [[NSURLConnection alloc] initWithRequest: req delegate: self];
     
     _finishedSubject = [RACSubject subject];
-
+    
     return _finishedSubject;
 }
 
@@ -69,7 +72,7 @@
 
 -(void)connectionDidFinishDownloading:(NSURLConnection *)connection destinationURL:(NSURL *)destinationURL {
     NSError *error = nil;
-
+    
     if (_statusCode == 200) {
         [_finishedSubject sendCompleted];
     } else {
@@ -83,15 +86,6 @@
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     _statusCode = [(NSHTTPURLResponse *)response statusCode];
-    if (_statusCode == 200) {
-        [_authCookie setCookiesWithResponse: response];
-    }
-}
-
-- (NSString *) urlEncode: (NSString *)s
-{
-    CFStringRef sr = CFURLCreateStringByAddingPercentEscapes(NULL,  (CFStringRef)s,  NULL,  (CFStringRef)@"!*'();:@&amp;=+$,/?%#[]",  kCFStringEncodingUTF8);
-    return (__bridge_transfer NSString *)sr;
 }
 
 @end

@@ -13,7 +13,7 @@
 
 @interface AuthDelegate : NSObject <NSURLConnectionDownloadDelegate>
 
--(id)initWithReceipt:(NSData *)receipt titleInfo:(TitleInfo *)titleInfo finishing:(void (^)(BOOL successed))finishing;
+-(id)initWithReceipt:(NSData *)receipt titleInfo:(TitleInfo *)titleInfo;
 
 -(RACSignal *)start;
 

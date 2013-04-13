@@ -9,10 +9,13 @@
 #import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "ZipArchive.h"
+#import "Reachability.h"
+
 #import "TitleManager.h"
 #import "TitleInfo.h"
 #import "UserDefaultsKey.h"
 #import "TitleInfosConstant.h"
+#import "RemoteNotification.h"
 
 static TitleManager *_instance = nil;
 
@@ -124,7 +127,8 @@ static TitleManager *_instance = nil;
 }
 
 -(void)registerPushNotification: (TitleInfo *)titleInfo {
-    // TODO
+    BOOL enable = (titleInfo.status == TitleStatusPushEnabled);
+    [[RemoteNotification instance] registerApnsTo: [titleInfo distributionUrl] enable: enable];
 }
 
 @end

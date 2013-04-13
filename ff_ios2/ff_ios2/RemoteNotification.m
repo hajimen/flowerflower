@@ -7,14 +7,53 @@
 //
 
 #import <NewsstandKit/NewsstandKit.h>
+#import "ReactiveCocoa/ReactiveCocoa.h"
+#import "Reachability.h"
 
 #import "RemoteNotification.h"
 #import "GTMStringEncoding.h"
+#import "RegisterApnsDelegate.h"
+
+static RemoteNotification *instance = nil;
+
+@interface RemoteNotification ()
+
+@property (nonatomic) NSData *deviceTokenData;
+
+@end
 
 @implementation RemoteNotification
 
 #define TEST_ISSUE_NAME @"TEST ISSUE"
 #define TEST_DOWNLOAD_URL @"http://kaoriha.org/nikki/index.rdf"
+
++(void)initialize {
+    @synchronized(self) {
+        if (instance == nil) {
+            instance = [RemoteNotification new];
+        }
+    }
+}
+
+-(id)init {
+    @throw @"RemoteNotification is singleton.";
+}
+
++(RemoteNotification *)instance {
+    return instance;
+}
+
+-(void)registerApnsTo: (NSURL *)url enable: (BOOL)enable {
+    Reachability *rb = [Reachability reachabilityWithHostname: [url host]];
+    rb.reachableBlock = ^(Reachability *rbb) {
+        RegisterApnsDelegate *rad = [[RegisterApnsDelegate alloc] initWithDeviceTokenData:_deviceTokenData url: url];
+        [[rad startWithEnable: enable] subscribeError:^(NSError *error) {
+            NSLog(@"device token registration failed. url: %@", url);
+        } completed:^{
+            NSLog(@"device token registration ok");
+        }];
+    };
+}
 
 -(void)register_ {
     [[UIApplication sharedApplication]
@@ -24,8 +63,7 @@
 -(void)registerOk:(NSData *) deviceTokenData {
     NSString *deviceTokenHex = [[GTMStringEncoding hexStringEncoding] encode:deviceTokenData];
     NSLog(@"device token: %@", deviceTokenHex);
-
-    // TODO tell server deviceToken
+    _deviceTokenData = deviceTokenData;
 }
 
 -(void)registerFailedWithError:(NSError *)error {
@@ -40,7 +78,7 @@
     }
     NSLog(@"remote notification received");
     
-    // TODO
+    // TODO read custom payload
 }
 
 - (void)clearBadge:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{

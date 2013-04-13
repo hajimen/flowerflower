@@ -99,7 +99,7 @@
     }
     
 /*
-    self.remoteNotification = [RemoteNotification new];
+    self.remoteNotification = [RemoteNotification instance];
     [self.remoteNotification register_];
     [self.remoteNotification receive:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
 */

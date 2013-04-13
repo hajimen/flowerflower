@@ -16,6 +16,7 @@
 #import "TitleInfo.h"
 #import "TitleManager.h"
 #import "ContentDownloader.h"
+#import "AuthDelegate.h"
 
 #define KOUCHABUTTON_BUNDLE_ID @"org.kaoriha.flowerflower.kouchabutton"
 #define KOUCHABUTTON_TITLE_ID @"kouchabutton"
@@ -94,7 +95,7 @@ static PurchaseManager *instance = nil;
         TitleInfo *ti = [TitleInfo instanceWithId: titleId];
         [us setBool: YES forKey: titleId];
         [us synchronize];
-        [self purchased: ti.productId];
+        [self purchased: ti.productId receiptData: nil];
     }
 }
 
@@ -105,39 +106,60 @@ static PurchaseManager *instance = nil;
 }
 
 -(void) onPurchaseWithProductId:(NSString *)productId receiptData: (NSData *)receiptData {
-    [self purchased: productId];
+    [self purchased: productId receiptData: receiptData];
 }
 
 -(void) onRestoreWithProductId:(NSString *)productId receiptData: (NSData *)receiptData {
-    [self purchased: productId];
+    [self purchased: productId receiptData: receiptData];
 }
 
--(void)purchased:(NSString *)productId {
+-(void)purchased:(NSString *)productId receiptData: (NSData *)receiptData {
     TitleInfo *ti = [[TitleManager instance] titleInfoWithProductId: productId];
     ti.purchased = YES;
-    [self unzipPurchasedTitleResource: ti];
+    NSDictionary *tip = [self findFromTitleInfoPlist: ti];
+    [self unzipPurchasedTitleResource: ti titleInfoPlist: tip];
     if (ti.distributionUrl) {
-        [self startDownload: ti];
-        [[TitleManager instance] registerPushNotification: ti];
+        NSString *s = [tip objectForKey: PLK_STATUS];
+        BOOL pushEnabled = s && [s isEqualToString: PLV_STATUS_ON_AIR];
+        AuthDelegate *ad = [[AuthDelegate alloc] initWithReceipt: receiptData titleInfo: ti];
+        [[ad start] subscribeError:^(NSError *error) {
+             // TODO
+            NSLog(@"AuthDelegate error: %@", error);
+        } completed:^{
+            // singleton self. no leaks.
+            [self startDownload: ti];
+            if (pushEnabled) {
+                [[TitleManager instance] registerPushNotification: ti];
+            }
+        }];
+        if (pushEnabled) {
+            ti.status = TitleStatusPushEnabled;
+        } else {
+            ti.status = TitleStatusCompleted;
+        }
     }
 }
 
--(void)unzipPurchasedTitleResource:(TitleInfo *)titleInfo {
+-(NSDictionary *)findFromTitleInfoPlist: (TitleInfo *)titleInfo {
     NSDictionary *rp = [NSDictionary dictionaryWithContentsOfFile: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: BUNDLE_PATH_TITLE_INFOS]];
     for (NSDictionary *tip in [rp objectForKey: PLK_TITLES]) {
         NSString *tid = [tip objectForKey: PLK_ID];
         if ([titleInfo.titleId isEqualToString: tid]) {
-            NKLibrary *lib = [NKLibrary sharedLibrary];
-            NKIssue *issue = [lib issueWithName: titleInfo.titleId];
-            NSString *p = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: [tip objectForKey: PLK_PURCHASED_RESOURCE_ZIP_PATH]];
-            ZipArchive *za = [ZipArchive new];
-            [za UnzipOpenFile: p];
-            [za UnzipFileTo: [[issue contentURL] path] overWrite: YES];
-            [za UnzipCloseFile];
-            return;
+            return tip;
         }
     }
-    @throw [NSString stringWithFormat:@"unzipPurchasedTitleResource bad titleId: %@", titleInfo.titleId];
+    return nil;
+}
+
+-(void)unzipPurchasedTitleResource:(TitleInfo *)titleInfo titleInfoPlist: (NSDictionary *)tip {
+    NKLibrary *lib = [NKLibrary sharedLibrary];
+    NKIssue *issue = [lib issueWithName: titleInfo.titleId];
+    NSString *p = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: [tip objectForKey: PLK_PURCHASED_RESOURCE_ZIP_PATH]];
+    ZipArchive *za = [ZipArchive new];
+    [za UnzipOpenFile: p];
+    [za UnzipFileTo: [[issue contentURL] path] overWrite: YES];
+    [za UnzipCloseFile];
+    return;
 }
 
 -(void)startDownload:(TitleInfo *)titleInfo {

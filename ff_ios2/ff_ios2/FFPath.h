@@ -9,3 +9,4 @@
 #define CATALOGUE_PATH @"Auth/catalogue.json"
 #define PUBLICATION_PATH_FORMAT @"Auth/%@.json"
 #define AUTH_OFFICE @"Office/IosInAppPurchase/RequestAuthCookie.ashx"
+#define REGISTER_APNS_OFFICE @"Office/IosInAppPurchase/RegisterApns.ashx"

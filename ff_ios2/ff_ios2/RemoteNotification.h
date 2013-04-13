@@ -10,10 +10,12 @@
 
 @interface RemoteNotification : NSObject
 
++(RemoteNotification *)instance;
 -(void)register_;
 -(void)registerOk:(NSData *) data;
 -(void)registerFailedWithError:(NSError *)error;
 -(void)receive:(NSDictionary *)payload;
-- (void)clearBadge:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+-(void)clearBadge:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+-(void)registerApnsTo: (NSURL *)url enable: (BOOL)enable;
 
 @end
