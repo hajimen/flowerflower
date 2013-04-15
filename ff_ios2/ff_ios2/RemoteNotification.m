@@ -30,13 +30,18 @@ static RemoteNotification *instance = nil;
 +(void)initialize {
     @synchronized(self) {
         if (instance == nil) {
-            instance = [RemoteNotification new];
+            instance = [[RemoteNotification alloc] initOnce];
         }
     }
 }
 
 -(id)init {
     @throw @"RemoteNotification is singleton.";
+}
+
+-(id)initOnce {
+    self = [super init];
+    return self;
 }
 
 +(RemoteNotification *)instance {
