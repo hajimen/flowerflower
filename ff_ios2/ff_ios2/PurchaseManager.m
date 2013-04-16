@@ -17,6 +17,7 @@
 #import "TitleManager.h"
 #import "ContentDownloader.h"
 #import "AuthDelegate.h"
+#import "Reachability.h"
 
 #define KOUCHABUTTON_BUNDLE_ID @"org.kaoriha.flowerflower.kouchabutton"
 #define KOUCHABUTTON_TITLE_ID @"kouchabutton"
@@ -28,6 +29,7 @@ static PurchaseManager *instance = nil;
 @interface  PurchaseManager ()
 
 @property (nonatomic)InAppPurchaseStore *inAppPurchaseStore;
+@property (nonatomic)Reachability *internetReachability;
 
 @end
 
@@ -61,7 +63,14 @@ static PurchaseManager *instance = nil;
         [ws onRestoreWithProductId: productId receiptData: receiptData];
     }];
     
+    _internetReachability = [Reachability reachabilityForInternetConnection];
+    [_internetReachability startNotifier];
     RAC(online) = RACAbleWithStart(inAppPurchaseStore.online);
+    [RACAble(internetReachability.isReachable) subscribeNext:^(NSNumber *reachable) {
+        if ([reachable boolValue]) {
+            [ws.inAppPurchaseStore checkOnline];
+        }
+    }];
     RAC(transactionRunning) = RACAbleWithStart(inAppPurchaseStore.transactionRunning);
     RAC(restoreRunning) = RACAbleWithStart(inAppPurchaseStore.restoreRunning);
     RAC(lastUpdated) = RACAbleWithStart(inAppPurchaseStore.lastUpdated);
@@ -123,20 +132,19 @@ static PurchaseManager *instance = nil;
         BOOL pushEnabled = s && [s isEqualToString: PLV_STATUS_ON_AIR];
         AuthDelegate *ad = [[AuthDelegate alloc] initWithReceipt: receiptData titleInfo: ti];
         [[ad start] subscribeError:^(NSError *error) {
-             // TODO
             NSLog(@"AuthDelegate error: %@", error);
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Auth Error" message:@"Distribution server trouble. Please restore your purchase later." delegate: self cancelButtonTitle: @"Close" otherButtonTitles: nil];
+            [av show];
         } completed:^{
             // singleton self. no leaks.
             [self startDownload: ti];
             if (pushEnabled) {
                 [[TitleManager instance] registerPushNotification: ti];
+                ti.status = TitleStatusPushEnabled;
+            } else {
+                ti.status = TitleStatusCompleted;
             }
         }];
-        if (pushEnabled) {
-            ti.status = TitleStatusPushEnabled;
-        } else {
-            ti.status = TitleStatusCompleted;
-        }
     }
 }
 
@@ -166,6 +174,8 @@ static PurchaseManager *instance = nil;
     __block ContentDownloader *cd = [[ContentDownloader alloc] initWithTitleInfo: titleInfo];
     [[cd start] subscribeError:^(NSError *error) {
         NSLog(@"ContentDownloader error:%@", error);
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Download Error" message:@"Distribution server trouble. Please wait until recovery." delegate: self cancelButtonTitle: @"Close" otherButtonTitles: nil];
+        [av show];
         cd = nil;
     } completed:^{
         NSLog(@"ContentDownloader complete.");
@@ -174,8 +184,9 @@ static PurchaseManager *instance = nil;
 }
 
 -(void)onFailed: (NSError *)error {
-    // TODO
     NSLog(@"PurchaseManager IAP transaction failed. error:%@", error);
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Purchase Aborted" message:@"Purchase Aborted" delegate: self cancelButtonTitle: @"Close" otherButtonTitles: nil];
+    [av show];
 }
 
 -(BOOL)isAppInstalled:(NSString *)customUrlScheme {

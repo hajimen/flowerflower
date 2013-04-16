@@ -40,6 +40,9 @@
 		57844F3F1716895B00174FD2 /* miyako_purchased.zip in Resources */ = {isa = PBXBuildFile; fileRef = 57844F391716895B00174FD2 /* miyako_purchased.zip */; };
 		57844F421716B96900174FD2 /* PurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F411716B96800174FD2 /* PurchaseManager.m */; };
 		57844F4D17195F1B00174FD2 /* RegisterApnsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F4C17195F1B00174FD2 /* RegisterApnsDelegate.m */; };
+		57844F51171C1A2100174FD2 /* AlertAuthError.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F50171C1A2100174FD2 /* AlertAuthError.m */; };
+		57844F54171C230100174FD2 /* AlertServerNotReachable.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F53171C230100174FD2 /* AlertServerNotReachable.m */; };
+		57844F57171D041F00174FD2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F56171D041F00174FD2 /* Reachability.m */; };
 		57C6427F16F2D4930079AFEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 57C6427E16F2D4930079AFEB /* config.xml */; };
 		57C6428116F2D4E10079AFEB /* www in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428016F2D4E10079AFEB /* www */; };
 		57C6428316F2DC180079AFEB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428216F2DC180079AFEB /* Settings.bundle */; };
@@ -123,6 +126,12 @@
 		57844F471716CCE900174FD2 /* TitleInfosConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TitleInfosConstant.h; sourceTree = "<group>"; };
 		57844F4B17195F1B00174FD2 /* RegisterApnsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterApnsDelegate.h; sourceTree = "<group>"; };
 		57844F4C17195F1B00174FD2 /* RegisterApnsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterApnsDelegate.m; sourceTree = "<group>"; };
+		57844F4F171C1A2100174FD2 /* AlertAuthError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertAuthError.h; sourceTree = "<group>"; };
+		57844F50171C1A2100174FD2 /* AlertAuthError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertAuthError.m; sourceTree = "<group>"; };
+		57844F52171C230100174FD2 /* AlertServerNotReachable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertServerNotReachable.h; sourceTree = "<group>"; };
+		57844F53171C230100174FD2 /* AlertServerNotReachable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertServerNotReachable.m; sourceTree = "<group>"; };
+		57844F55171D041F00174FD2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		57844F56171D041F00174FD2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		57C6427C16F2D0C80079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427D16F2D0C90079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427E16F2D4930079AFEB /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
@@ -220,6 +229,7 @@
 		577E80B316F1F64F00DA7DBA /* ff_ios2 */ = {
 			isa = PBXGroup;
 			children = (
+				57844F4E171C19D100174FD2 /* Alert */,
 				57844F33171688CB00174FD2 /* Title Resources */,
 				57844F1A1712BAB400174FD2 /* Download */,
 				57827BD71705216400095B1E /* Model */,
@@ -324,6 +334,17 @@
 			name = "Title Resources";
 			sourceTree = "<group>";
 		};
+		57844F4E171C19D100174FD2 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				57844F4F171C1A2100174FD2 /* AlertAuthError.h */,
+				57844F50171C1A2100174FD2 /* AlertAuthError.m */,
+				57844F52171C230100174FD2 /* AlertServerNotReachable.h */,
+				57844F53171C230100174FD2 /* AlertServerNotReachable.m */,
+			);
+			name = Alert;
+			sourceTree = "<group>";
+		};
 		57E71A5516FFFC870068B631 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,6 +367,8 @@
 		57E71A5917000AB00068B631 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				57844F55171D041F00174FD2 /* Reachability.h */,
+				57844F56171D041F00174FD2 /* Reachability.m */,
 				57E71A5A17000ADC0068B631 /* GTMDefines.h */,
 				57E71A5B17000ADC0068B631 /* GTMStringEncoding.h */,
 				57E71A5C17000ADC0068B631 /* GTMStringEncoding.m */,
@@ -517,6 +540,9 @@
 				57844F2D1715673100174FD2 /* AssetDownloadDelegate.m in Sources */,
 				57844F421716B96900174FD2 /* PurchaseManager.m in Sources */,
 				57844F4D17195F1B00174FD2 /* RegisterApnsDelegate.m in Sources */,
+				57844F51171C1A2100174FD2 /* AlertAuthError.m in Sources */,
+				57844F54171C230100174FD2 /* AlertServerNotReachable.m in Sources */,
+				57844F57171D041F00174FD2 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
