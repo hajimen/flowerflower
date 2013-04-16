@@ -70,10 +70,9 @@ static TitleManager *_instance = nil;
                 } else {
                     @throw @"TitleInfos.plist bad. wrong status";
                 }
-                NKLibrary *lib = [NKLibrary sharedLibrary];
-                NKIssue *issue = [lib issueWithName: ti.titleId];
+                NKIssue *issue = ti.issue;
                 if (issue == nil) {
-                    issue = [lib addIssueWithName: ti.titleId date: [tip objectForKey: PLK_LAST_UPDATED]];
+                    issue = [[NKLibrary sharedLibrary] addIssueWithName: ti.titleId date: [tip objectForKey: PLK_LAST_UPDATED]];
                 }
                 NSString *p = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: [tip objectForKey: PLK_BASE_RESOURCE_ZIP_PATH]];
                 ZipArchive *za = [ZipArchive new];
@@ -87,9 +86,7 @@ static TitleManager *_instance = nil;
             if (ti.lastViewed == nil) {
                 ti.lastViewed = [ti lastUpdated];
             }
-            NKLibrary *lib = [NKLibrary sharedLibrary];
-            NKIssue *issue = [lib issueWithName: ti.titleId];
-            NSURL *cu = [issue contentURL];
+            NSURL *cu = [ti.issue contentURL];
             ti.thumbnailUrl = [cu URLByAppendingPathComponent: [tip objectForKey: PLK_THUMBNAIL_PATH]];
             ti.footnote = @"";
             if (! ti.price) {

@@ -13,6 +13,7 @@
 #import "TitleCell.h"
 #import "TitleManager.h"
 #import "PurchaseManager.h"
+#import "Foreground.h"
 
 @interface TitleCollectionViewController ()
 
@@ -78,6 +79,11 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - PSTCollectionViewDelegate
+
+-(void)collectionView:(PSTCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    TitleInfo *ti = [_titleInfos objectAtIndex:indexPath.item];
+    [[Foreground instance] cellTapped: ti];
+}
 
 - (PSTCollectionViewCell *)collectionView:(PSTCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TitleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MY_CELL" forIndexPath:indexPath];

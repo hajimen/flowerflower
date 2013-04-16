@@ -6,6 +6,8 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
+@class TitleInfo;
+
 #import <Foundation/Foundation.h>
 
 @interface Foreground : NSObject
@@ -13,5 +15,9 @@
 @property (nonatomic) UIWindow *window;
 
 @property (nonatomic) UIViewController *viewController;
+
++(Foreground *)instance;
+
+-(void)cellTapped:(TitleInfo *)titleInfo;
 
 @end

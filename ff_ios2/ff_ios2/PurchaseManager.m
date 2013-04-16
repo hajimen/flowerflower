@@ -178,12 +178,10 @@ static PurchaseManager *instance = nil;
 }
 
 -(void)unzipPurchasedTitleResource:(TitleInfo *)titleInfo titleInfoPlist: (NSDictionary *)tip {
-    NKLibrary *lib = [NKLibrary sharedLibrary];
-    NKIssue *issue = [lib issueWithName: titleInfo.titleId];
     NSString *p = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: [tip objectForKey: PLK_PURCHASED_RESOURCE_ZIP_PATH]];
     ZipArchive *za = [ZipArchive new];
     [za UnzipOpenFile: p];
-    [za UnzipFileTo: [[issue contentURL] path] overWrite: YES];
+    [za UnzipFileTo: [[titleInfo.issue contentURL] path] overWrite: YES];
     [za UnzipCloseFile];
     return;
 }

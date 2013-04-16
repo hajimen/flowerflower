@@ -6,6 +6,7 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
+#import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "TitleInfo.h"
 #import "UserDefaultsKey.h"
@@ -111,5 +112,11 @@ NSDecimalNumber *UNKNOWN_PRICE;
     [aCoder encodeInt:_purchased forKey:@"purchased"];
     [aCoder encodeObject:_distributionUrl forKey:@"distributionUrl"];
 }
+
+-(NKIssue *)issue {
+    NKLibrary *lib = [NKLibrary sharedLibrary];
+    return [lib issueWithName: _titleId];
+}
+
 
 @end

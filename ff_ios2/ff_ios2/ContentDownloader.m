@@ -26,7 +26,6 @@
 
 @property (nonatomic) TitleInfo *titleInfo;
 @property (nonatomic) RACSubject *finishSubject;
-@property (nonatomic) NKIssue *issue;
 @property (nonatomic) AuthCookie *authCookie;
 
 @end
@@ -43,7 +42,6 @@
 
     _status = ContentDownloadStatusIdle;
     _titleInfo = titleInfo;
-    _issue = [[NKLibrary sharedLibrary] issueWithName: _titleInfo.titleId];
     _authCookie = [[AuthCookie alloc] initWithTitleInfo: titleInfo];
     
     return self;
@@ -55,7 +53,7 @@
     NSDictionary *h = [NSHTTPCookie requestHeaderFieldsWithCookies: _authCookie.cookies];
     [req setAllHTTPHeaderFields: h];
     req.HTTPShouldHandleCookies = YES;
-    NKAssetDownload *ad = [_issue addAssetWithRequest:req];
+    NKAssetDownload *ad = [_titleInfo.issue addAssetWithRequest:req];
     ad.userInfo = @{USER_INFO_PATH_KEY : path};
     return ad;
 }
@@ -64,7 +62,7 @@
     __weak ContentDownloader *ws = self;
     AssetDownloadDelegate *add =  [[AssetDownloadDelegate alloc] initWithAssetDownload: ad finishing:^NSURL *(NSURL *storedTo, NSObject *jsonObj) {
         [ws catalogueDownloaded: storedTo json: jsonObj];
-        return [ws.issue.contentURL URLByAppendingPathComponent: CATALOGUE_TEMP_PATH];;
+        return [ws.titleInfo.issue.contentURL URLByAppendingPathComponent: CATALOGUE_TEMP_PATH];;
     }];
     [[add start] subscribeError:^(NSError *error) {
         [ws downloadFailed: error];
@@ -85,7 +83,7 @@
 }
 
 -(RACSignal *)resume {
-    if ([[_issue downloadingAssets] count] == 0) {
+    if ([[_titleInfo.issue downloadingAssets] count] == 0) {
         return nil;
     }
 
@@ -93,9 +91,9 @@
     _finishSubject = [RACSubject subject];
 
     NSMutableArray *toMerge = [NSMutableArray new];
-    NSURL *contentUrl = [_issue contentURL];
+    NSURL *contentUrl = [_titleInfo.issue contentURL];
 
-    for (NKAssetDownload *ad in [_issue downloadingAssets]) {
+    for (NKAssetDownload *ad in [_titleInfo.issue downloadingAssets]) {
         NSLog(@"unfinished downloads exist");
         NSString *path = [ad.userInfo objectForKey: USER_INFO_PATH_KEY];
         if ([path isEqualToString: CATALOGUE_PATH]) {
@@ -132,7 +130,7 @@
     }
     NSArray *names = [newLocal arrayByAddingObjectsFromArray: newExpress];
 
-    NSURL *contentUrl = [_issue contentURL];
+    NSURL *contentUrl = [_titleInfo.issue contentURL];
     NSMutableArray *toMerge = [NSMutableArray new];
     for (NSString *name in names) {
         NSString *path = [NSString stringWithFormat:PUBLICATION_PATH_FORMAT, name];
