@@ -7,16 +7,19 @@
 //
 
 #import "ReactiveCocoa/ReactiveCocoa.h"
-#import "EXTScope.h"
+#import "SVProgressHUD.h"
+
 #import "TitleCollectionViewController.h"
 #import "TitleCell.h"
 #import "TitleManager.h"
+#import "PurchaseManager.h"
 
 @interface TitleCollectionViewController ()
 
 @property (nonatomic) TitleManager *titleManager;
 @property (nonatomic) NSArray *titleInfos;
 @property (nonatomic) RACCommand *sortCommand;
+@property (nonatomic) PurchaseManager *purchaseManager;
 
 @end
 
@@ -32,11 +35,23 @@
     
     _sortCommand = [RACCommand command];
 
+    _purchaseManager = [PurchaseManager instance];
+
     RACSignal *reloadSignal = [[RACSignal merge:@[RACAble(self.titleManager, titleInfoSet), _sortCommand]] deliverOn: RACScheduler.mainThreadScheduler];
     [self rac_liftSelector:@selector(generateTitleInfosAndReload:) withObjects:reloadSignal];
 
     [self generateTitleInfos];
 
+    [[[[RACSignal combineLatest:@[RACAbleWithStart(purchaseManager.transactionRunning), RACAbleWithStart(purchaseManager.initializing)] reduce:^(NSNumber *t, NSNumber *i){
+        return [NSNumber numberWithBool:[t boolValue] || [i boolValue]];
+    }] distinctUntilChanged] deliverOn: RACScheduler.mainThreadScheduler] subscribeNext:^(NSNumber *prepareing) {
+        if ([prepareing boolValue]) {
+            [SVProgressHUD showWithStatus: NSLocalizedString(@"prepareing", nil) maskType:SVProgressHUDMaskTypeClear];
+        } else {
+            [SVProgressHUD dismiss];
+        }
+    }];
+    
     return self;
 }
 

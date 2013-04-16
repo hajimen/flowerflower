@@ -94,6 +94,12 @@ static PurchaseManager *instance = nil;
     [self didChangeValueForKey:@"transactionRunning"];
 }
 
+-(void)setInitializing:(BOOL)initializing {
+    [self willChangeValueForKey:@"transactionRunning"];
+    _initializing = initializing;
+    [self didChangeValueForKey:@"transactionRunning"];
+}
+
 -(void)buyWithTitleInfo:(TitleInfo *)titleInfo {
     [_inAppPurchaseStore buyWithProductId: titleInfo.productId];
 }
@@ -126,6 +132,7 @@ static PurchaseManager *instance = nil;
     TitleInfo *ti = [[TitleManager instance] titleInfoWithProductId: productId];
     ti.purchased = YES;
     NSDictionary *tip = [self findFromTitleInfoPlist: ti];
+    self.initializing = YES;
     [self unzipPurchasedTitleResource: ti titleInfoPlist: tip];
     if (ti.distributionUrl) {
         NSString *s = [tip objectForKey: PLK_STATUS];
@@ -135,9 +142,20 @@ static PurchaseManager *instance = nil;
             NSLog(@"AuthDelegate error: %@", error);
             UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Auth Error" message:@"Distribution server trouble. Please restore your purchase later." delegate: self cancelButtonTitle: @"Close" otherButtonTitles: nil];
             [av show];
+            self.initializing = NO;
         } completed:^{
-            // singleton self. no leaks.
-            [self startDownload: ti];
+            __block ContentDownloader *cd = [[ContentDownloader alloc] initWithTitleInfo: ti];
+            [[cd start] subscribeError:^(NSError *error) {
+                NSLog(@"ContentDownloader error:%@", error);
+                UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Download Error" message:@"Distribution server trouble. Please wait until recovery." delegate: self cancelButtonTitle: @"Close" otherButtonTitles: nil];
+                [av show];
+                self.initializing = NO;
+                cd = nil;
+            } completed:^{
+                NSLog(@"ContentDownloader complete.");
+                self.initializing = NO;
+                cd = nil;
+            }];
             if (pushEnabled) {
                 [[TitleManager instance] registerPushNotification: ti];
                 ti.status = TitleStatusPushEnabled;
@@ -168,19 +186,6 @@ static PurchaseManager *instance = nil;
     [za UnzipFileTo: [[issue contentURL] path] overWrite: YES];
     [za UnzipCloseFile];
     return;
-}
-
--(void)startDownload:(TitleInfo *)titleInfo {
-    __block ContentDownloader *cd = [[ContentDownloader alloc] initWithTitleInfo: titleInfo];
-    [[cd start] subscribeError:^(NSError *error) {
-        NSLog(@"ContentDownloader error:%@", error);
-        UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Download Error" message:@"Distribution server trouble. Please wait until recovery." delegate: self cancelButtonTitle: @"Close" otherButtonTitles: nil];
-        [av show];
-        cd = nil;
-    } completed:^{
-        NSLog(@"ContentDownloader complete.");
-        cd = nil;
-    }];
 }
 
 -(void)onFailed: (NSError *)error {

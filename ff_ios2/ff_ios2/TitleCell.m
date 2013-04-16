@@ -7,7 +7,7 @@
 
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "ReactiveCocoa/RACScheduler.h"
-#import "EXTScope.h"
+
 #import "TitleCell.h"
 #import "TitleCollectionViewLayoutAttributes.h"
 #import "RoundedLabel.h"
