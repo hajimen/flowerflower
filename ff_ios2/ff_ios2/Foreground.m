@@ -18,6 +18,7 @@
 #import "TitleCollectionViewController.h"
 #import "TitleCollectionViewLayout.h"
 #import "TitleInfo.h"
+#import "InfoViewController.h"
 
 static Foreground *instance = nil;
 
@@ -62,7 +63,7 @@ static Foreground *instance = nil;
      sv.delegate = self;
      self.viewController = sv;
      */
-    
+    /*
     self.viewController = [[TitleCollectionViewController alloc] initWithCollectionViewLayout:[TitleCollectionViewLayout new]];
     
     UITabBarController *tabController = [UITabBarController new];
@@ -71,6 +72,10 @@ static Foreground *instance = nil;
     
     [tabController setViewControllers:[NSArray arrayWithObject:navController] animated:NO];
     self.viewController = tabController;
+    */
+
+    InfoViewController *ivc = [InfoViewController new];
+    self.viewController = ivc;
     
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
