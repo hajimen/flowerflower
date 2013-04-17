@@ -83,6 +83,7 @@ static Foreground *instance = nil;
 
 -(void)cellTapped:(TitleInfo *)titleInfo {
     // TODO blog
+    titleInfo.lastViewed = [NSDate date];
     [self showCdvViewContoller: titleInfo];
 }
 
