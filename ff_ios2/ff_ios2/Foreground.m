@@ -63,20 +63,18 @@ static Foreground *instance = nil;
      sv.delegate = self;
      self.viewController = sv;
      */
-    /*
+
     self.viewController = [[TitleCollectionViewController alloc] initWithCollectionViewLayout:[TitleCollectionViewLayout new]];
     
     UITabBarController *tabController = [UITabBarController new];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
-    
-    [tabController setViewControllers:[NSArray arrayWithObject:navController] animated:NO];
-    self.viewController = tabController;
-    */
 
     InfoViewController *ivc = [InfoViewController new];
-    self.viewController = ivc;
-    
+
+    [tabController setViewControllers:@[navController, ivc] animated:NO];
+    self.viewController = tabController;
+
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
 
