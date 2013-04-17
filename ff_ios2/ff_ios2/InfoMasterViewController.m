@@ -47,13 +47,6 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    NSIndexPath *ip = [NSIndexPath indexPathForItem: 0 inSection: 0];
-    [self tableView: self.tableView didSelectRowAtIndexPath: ip];
-    [self.tableView selectRowAtIndexPath: ip animated: NO scrollPosition:UITableViewScrollPositionBottom];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

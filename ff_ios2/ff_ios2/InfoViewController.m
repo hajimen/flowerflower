@@ -9,9 +9,23 @@
 #import "InfoViewController.h"
 #import "InfoMasterViewController.h"
 
+@interface SplitViewControllerDelegate: NSObject <UISplitViewControllerDelegate>
+@end
+
 @interface InfoViewController ()
 
 @property (nonatomic)UISplitViewController *splitVC;
+@property (nonatomic)UINavigationController *nvc;
+@property (nonatomic)InfoMasterViewController *infoMasterVC;
+@property (nonatomic)SplitViewControllerDelegate *splitVCDelegate;
+
+@end
+
+@implementation SplitViewControllerDelegate
+
+-(BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
+    return NO;
+}
 
 @end
 
@@ -22,6 +36,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _splitVC = nil;
     }
     return self;
 }
@@ -30,14 +45,38 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    _splitVC = [UISplitViewController new];
-    UIViewController *r_vc = [UIViewController new];
-    __weak InfoViewController *ws = self;
-    UITableViewController *l_vc = [[InfoMasterViewController alloc] initWithSelectionHandler:^(UIViewController *viewController) {
-        ws.splitVC.viewControllers = @[ws.splitVC.viewControllers[0], viewController];
-    }];
-    _splitVC.viewControllers = @[l_vc, r_vc];
-    [self.view addSubview: _splitVC.view];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        _splitVC = [UISplitViewController new];
+        _splitVCDelegate = [SplitViewControllerDelegate new];
+        _splitVC.delegate = _splitVCDelegate;
+        __weak InfoViewController *ws = self;
+        _infoMasterVC = [[InfoMasterViewController alloc] initWithSelectionHandler:^(UIViewController *viewController) {
+            if (ws) {
+                ws.splitVC.viewControllers = @[ws.splitVC.viewControllers[0], viewController];
+            }
+        }];
+        _splitVC.viewControllers = @[_infoMasterVC, [UIViewController new]];
+        [self.view addSubview: _splitVC.view];
+    } else {
+        _nvc = [UINavigationController new];
+        __weak InfoViewController *ws = self;
+        _infoMasterVC = [[InfoMasterViewController alloc] initWithSelectionHandler:^(UIViewController *viewController) {
+            if (ws) {
+                [ws.nvc pushViewController: viewController animated: YES];
+            }
+        }];
+        [_nvc pushViewController: _infoMasterVC animated: NO];
+        [self.view addSubview: _nvc.view];
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (_splitVC) {
+        NSIndexPath *ip = [NSIndexPath indexPathForItem: 0 inSection: 0];
+        [_infoMasterVC tableView: _infoMasterVC.tableView didSelectRowAtIndexPath: ip];
+        [_infoMasterVC.tableView selectRowAtIndexPath: ip animated: NO scrollPosition:UITableViewScrollPositionBottom];
+    }
 }
 
 - (void)didReceiveMemoryWarning
