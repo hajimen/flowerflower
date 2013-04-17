@@ -9,6 +9,18 @@
 #import "InfoMasterViewController.h"
 #import "IASKAppSettingsViewController.h"
 
+@interface  RestoreViewController : UIViewController
+
+@end
+
+@implementation RestoreViewController
+
+-(id)init {
+    return [super initWithNibName: @"RestoreView" bundle: [NSBundle mainBundle]];
+}
+
+@end
+
 @interface InfoMasterViewController ()
 
 @property (nonatomic) NSArray *cells;
@@ -31,7 +43,9 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        _cells = @[@[@"Settings", [IASKAppSettingsViewController class]]];
+        _cells = @[@[@"Settings", [IASKAppSettingsViewController class]],
+                   @[@"Restore", [RestoreViewController class]]
+                   ];
     }
     return self;
 }
