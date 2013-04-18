@@ -83,7 +83,7 @@ static Foreground *instance = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (ws) {
             if ([prepareing boolValue]) {
-                [SVProgressHUD showWithStatus: NSLocalizedString(@"prepareing", nil) maskType:SVProgressHUDMaskTypeClear];
+                [SVProgressHUD showWithStatus: NSLocalizedString(@"Prepareing...", nil) maskType:SVProgressHUDMaskTypeClear];
             } else {
                 [SVProgressHUD dismiss];
             }

@@ -18,7 +18,7 @@
         return;
     }	
     
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Distribution Server Down" message: @"Couldn't connect to distribution server. Please wait until recovery." delegate: self cancelButtonTitle:@"Close" otherButtonTitles: nil];
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Distribution Server Down", nil) message: NSLocalizedString(@"Couldn't connect to distribution server. Please wait until recovery.", nil) delegate: self cancelButtonTitle: NSLocalizedString(@"Close", nil) otherButtonTitles: nil];
     [av show];
 }
 

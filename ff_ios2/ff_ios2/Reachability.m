@@ -434,11 +434,9 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
         [self willChangeValueForKey:@"isInterventionRequired"];
         [self willChangeValueForKey:@"currentReachabilityStatus"];
         [self willChangeValueForKey:@"reachabilityFlags"];
-        [self willChangeValueForKey:@"currentReachabilityString"];
         [self willChangeValueForKey:@"currentReachabilityFlags"];
         _lastFlags = flags;
         [self didChangeValueForKey:@"currentReachabilityFlags"];
-        [self didChangeValueForKey:@"currentReachabilityString"];
         [self didChangeValueForKey:@"reachabilityFlags"];
         [self didChangeValueForKey:@"currentReachabilityStatus"];
         [self didChangeValueForKey:@"isInterventionRequired"];
@@ -449,23 +447,6 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
         [self didChangeValueForKey:@"isReachableViaWWAN"];
         [self didChangeValueForKey:@"isReachable"];
     }
-}
-
--(NSString*)currentReachabilityString
-{
-	NetworkStatus temp = [self currentReachabilityStatus];
-	
-	if(temp == reachableOnWWAN)
-	{
-        // updated for the fact we have CDMA phones now!
-		return NSLocalizedString(@"Cellular", @"");
-	}
-	if (temp == ReachableViaWiFi) 
-	{
-		return NSLocalizedString(@"WiFi", @"");
-	}
-	
-	return NSLocalizedString(@"No Connection", @"");
 }
 
 -(NSString*)currentReachabilityFlags

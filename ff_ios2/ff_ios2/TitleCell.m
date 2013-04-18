@@ -184,19 +184,19 @@
                         [ws setButtonText:[nf stringFromNumber: ws.titleInfo.price] red:159 green:179 blue:230 enabled:YES];
                     }
                 } else {
-                    [ws setButtonText:@"Offline" red:120 green:120 blue:120 enabled:NO];
+                    [ws setButtonText: NSLocalizedString(@"Offline", nil) red:120 green:120 blue:120 enabled:NO];
                 }
                 ws.tapToBuy = YES;
             } else {
                 switch (ws.titleInfo.status) {
                     case TitleStatusCompleted:
-                        [ws setButtonText:@"Complete" red:231 green:225 blue:143 enabled:NO];
+                        [ws setButtonText: NSLocalizedString(@"Completed", nil) red:231 green:225 blue:143 enabled:NO];
                         break;
                     case TitleStatusOnAir:
-                        [ws setButtonText:@"On Air" red:67 green:135 blue:233 enabled:YES];
+                        [ws setButtonText: NSLocalizedString(@"On Air", nil) red:67 green:135 blue:233 enabled:YES];
                         break;
                     case TitleStatusPushEnabled:
-                        [ws setButtonText:@"Tuned" red:11 green:218 blue:81 enabled:YES];
+                        [ws setButtonText: NSLocalizedString(@"Tuned", nil) red:11 green:218 blue:81 enabled:YES];
                         break;
                     default:
                         break;
@@ -236,21 +236,20 @@
     UIActionSheet *as = [UIActionSheet new];
     as.delegate = self;
     if (_tapToBuy) {
-        [as addButtonWithTitle:@"Buy Now"];
+        [as addButtonWithTitle: NSLocalizedString(@"Buy Now", nil)];
         as.destructiveButtonIndex = 0;
     } else {
-        [as addButtonWithTitle:@"Tune On"];
-        [as addButtonWithTitle:@"Tune Off"];
+        [as addButtonWithTitle: NSLocalizedString(@"Tune On", nil)];
+        [as addButtonWithTitle: NSLocalizedString(@"Tune Off", nil)];
     }
     if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
-        [as addButtonWithTitle:@"Cancel"];
+        [as addButtonWithTitle: NSLocalizedString(@"Cancel", nil)];
         as.cancelButtonIndex = as.numberOfButtons - 1;
     }
     [as showFromRect:_bt.frame inView:_bt.superview animated:YES];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSLog(@"clicked");
     if (_tapToBuy) {
         if (buttonIndex == 0) {
             [_purchaseManager buyWithTitleInfo: _titleInfo];

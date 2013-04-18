@@ -23,6 +23,7 @@
     self = [super init];
     if (self) {
         self.showDoneButton = NO;
+        self.title = NSLocalizedString(@"Restore", nil);
     }
     return self;
 }
@@ -38,13 +39,15 @@
 
 -(id)init {
     self = [super initWithNibName: @"RestoreView" bundle: [NSBundle mainBundle]];
+    if (self) {
+        self.title = NSLocalizedString(@"Restore", nil);
+    }
     return self;
 }
 
 -(IBAction)restoreButtonTapped: (id)sender {
-    NSLog(@"tapped");
     if (![[PurchaseManager instance] online]) {
-        UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Not Online" message: @"Not online. Later please." delegate: nil cancelButtonTitle: @"Close" otherButtonTitles: nil];
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Not Online", nil) message: NSLocalizedString(@"Not online. Later please.", nil) delegate: nil cancelButtonTitle: NSLocalizedString(@"Close", nil) otherButtonTitles: nil];
         [av show];
         return;
     }
@@ -60,6 +63,9 @@
 
 -(id)init {
     self = [super initWithNibName: @"TagDescriptionView" bundle: [NSBundle mainBundle]];
+    if (self) {
+        self.title = NSLocalizedString(@"Tag Description", nil);
+    }
     return self;
 }
 
@@ -72,6 +78,9 @@
 
 -(id)init {
     self = [super initWithNibName: @"AboutThisAppView" bundle: [NSBundle mainBundle]];
+    if (self) {
+        self.title = NSLocalizedString(@"About This App", nil);
+    }
     return self;
 }
 
@@ -90,6 +99,7 @@
     self = [self initWithStyle: UITableViewStylePlain];
     if (self) {
         _selectionHandler = selectionHandler;
+        self.title = NSLocalizedString(@"Infos And Settings", nil);
     }
     return self;
 }
@@ -99,10 +109,10 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        _cells = @[@[@"Settings", [SettingsViewController class]],
-                   @[@"Restore", [RestoreViewController class]],
-                   @[@"Tags", [TagDescriptionViewController class]],
-                   @[@"About This App", [AboutThisAppViewController class]],
+        _cells = @[@[NSLocalizedString(@"Settings", nil), [SettingsViewController class]],
+                   @[NSLocalizedString(@"Restore", nil), [RestoreViewController class]],
+                   @[NSLocalizedString(@"Tag Description", nil), [TagDescriptionViewController class]],
+                   @[NSLocalizedString(@"About This App", nil), [AboutThisAppViewController class]],
                    ];
     }
     return self;

@@ -114,15 +114,7 @@
         NSLog(@"paymentQueue transactions: %@", ts);
     }];
 */
- /*
-    [RACAble(self.iapStore.transactionRunning) subscribeNext:^(NSNumber *transactionRunning) {
-        if ([transactionRunning boolValue]) {
-            [SVProgressHUD showWithStatus: NSLocalizedString(@"transactionRunning", nil) maskType:SVProgressHUDMaskTypeClear];
-        } else {
-            [SVProgressHUD dismiss];
-        }
-    }];
-*/
+
     TitleInfo *ti = [TitleInfo instanceWithId:@"TEST ISSUE"];
     ti.distributionUrl = [NSURL URLWithString:@"http://kaoriha.org/miyako/"];
     [[RACAble(self.purchaseManager.online) take: 1] subscribeNext:^(NSNumber *online) {

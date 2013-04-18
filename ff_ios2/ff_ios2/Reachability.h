@@ -96,7 +96,6 @@ typedef void (^NetworkUnreachable)(Reachability * reachability);
 
 -(NetworkStatus)currentReachabilityStatus;
 -(SCNetworkReachabilityFlags)reachabilityFlags;
--(NSString*)currentReachabilityString;
 -(NSString*)currentReachabilityFlags;
 
 @end

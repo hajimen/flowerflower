@@ -156,14 +156,14 @@ static PurchaseManager *instance = nil;
         AuthDelegate *ad = [[AuthDelegate alloc] initWithReceipt: receiptData titleInfo: ti];
         [[ad start] subscribeError:^(NSError *error) {
             NSLog(@"AuthDelegate error: %@", error);
-            UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Auth Error" message:@"Distribution server trouble. Please restore your purchase later." delegate: self cancelButtonTitle: @"Close" otherButtonTitles: nil];
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Auth Error", nil) message: NSLocalizedString(@"Distribution server trouble. Please restore your purchase later.", nil) delegate: self cancelButtonTitle: NSLocalizedString(@"Close", nil) otherButtonTitles: nil];
             [av show];
             [self decrementInitializingTitleCount];
         } completed:^{
             __block ContentDownloader *cd = [[ContentDownloader alloc] initWithTitleInfo: ti];
             [[cd start] subscribeError:^(NSError *error) {
                 NSLog(@"ContentDownloader error:%@", error);
-                UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Download Error" message:@"Distribution server trouble. Please wait until recovery." delegate: self cancelButtonTitle: @"Close" otherButtonTitles: nil];
+                UIAlertView *av = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Download Error", nil) message: NSLocalizedString(@"Distribution server trouble. Please wait until recovery.", nil) delegate: self cancelButtonTitle: NSLocalizedString(@"Close", nil) otherButtonTitles: nil];
                 [av show];
                 [self decrementInitializingTitleCount];
                 cd = nil;
@@ -204,7 +204,7 @@ static PurchaseManager *instance = nil;
 
 -(void)onFailed: (NSError *)error {
     NSLog(@"PurchaseManager IAP transaction failed. error:%@", error);
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Purchase Aborted" message:@"Purchase Aborted" delegate: self cancelButtonTitle: @"Close" otherButtonTitles: nil];
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Purchase Aborted", nil) message: NSLocalizedString(@"Purchase Aborted", nil) delegate: self cancelButtonTitle: NSLocalizedString(@"Close", nil) otherButtonTitles: nil];
     [av show];
 }
 
