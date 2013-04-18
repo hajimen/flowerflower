@@ -13,6 +13,8 @@
 #import "RemoteNotification.h"
 #import "GTMStringEncoding.h"
 #import "RegisterApnsDelegate.h"
+#import "TitleManager.h"
+#import "TitleInfo.h"
 
 static RemoteNotification *instance = nil;
 
@@ -23,9 +25,6 @@ static RemoteNotification *instance = nil;
 @end
 
 @implementation RemoteNotification
-
-#define TEST_ISSUE_NAME @"TEST ISSUE"
-#define TEST_DOWNLOAD_URL @"http://kaoriha.org/nikki/index.rdf"
 
 +(void)initialize {
     @synchronized(self) {
@@ -41,6 +40,9 @@ static RemoteNotification *instance = nil;
 
 -(id)initOnce {
     self = [super init];
+    if (self) {
+        _deviceTokenData = nil;
+    }
     return self;
 }
 
@@ -49,15 +51,20 @@ static RemoteNotification *instance = nil;
 }
 
 -(void)registerApnsTo: (NSURL *)url enable: (BOOL)enable {
+    if (!_deviceTokenData) {
+        // in simulator
+        return;
+    }
+
     Reachability *rb = [Reachability reachabilityWithHostname: [url host]];
-    rb.reachableBlock = ^(Reachability *rbb) {
+    if ([rb isReachable]) {
         RegisterApnsDelegate *rad = [[RegisterApnsDelegate alloc] initWithDeviceTokenData:_deviceTokenData url: url];
         [[rad startWithEnable: enable] subscribeError:^(NSError *error) {
             NSLog(@"device token registration failed. url: %@", url);
         } completed:^{
             NSLog(@"device token registration ok");
         }];
-    };
+    }
 }
 
 -(void)register_ {

@@ -21,7 +21,10 @@ static TitleManager *_instance = nil;
 
 @interface TitleManager () {
     NSMutableSet *_titleInfoSet;
+    BOOL _shouldRegisterToServer;
 }
+
+@property (nonatomic) Reachability *reachability;
 
 @end
 
@@ -51,6 +54,9 @@ static TitleManager *_instance = nil;
         return self;
     }
     
+    _shouldRegisterToServer = YES;
+    _reachability = [Reachability reachabilityForInternetConnection];
+
     _titleInfoSet = [NSMutableSet new];
 
     NSDictionary *rp = [NSDictionary dictionaryWithContentsOfFile: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: BUNDLE_PATH_TITLE_INFOS]];
@@ -107,6 +113,8 @@ static TitleManager *_instance = nil;
         [_titleInfoSet addObject: ti];
     }
 
+    [self rac_liftSelector: @selector(onReachabilityChanged:) withObjects: RACAble(reachability.isReachable)];
+    
     return self;
 }
 
@@ -123,9 +131,24 @@ static TitleManager *_instance = nil;
     @throw [NSString stringWithFormat: @"titleInfoWithProductId not found. bad productId: %@", productId];
 }
 
+-(void)onReachabilityChanged:(NSNumber *)reachable {
+    if (_shouldRegisterToServer && [reachable boolValue]) {
+        for (TitleInfo *ti in _titleInfoSet) {
+            if (ti.status != TitleStatusCompleted) {
+                [self registerPushNotification: ti];
+            }
+        }
+        _shouldRegisterToServer = NO;
+    }
+}
+
 -(void)registerPushNotification: (TitleInfo *)titleInfo {
-    BOOL enable = (titleInfo.status == TitleStatusPushEnabled);
-    [[RemoteNotification instance] registerApnsTo: [titleInfo distributionUrl] enable: enable];
+    if (_reachability.isReachable) {
+        BOOL enable = (titleInfo.status == TitleStatusPushEnabled);
+        [[RemoteNotification instance] registerApnsTo: [titleInfo distributionUrl] enable: enable];
+    } else {
+        _shouldRegisterToServer = YES;
+    }
 }
 
 @end

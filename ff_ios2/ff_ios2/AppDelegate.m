@@ -8,8 +8,6 @@
 
 #import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
-#import "EXTScope.h"
-#import "SVProgressHUD.h"
 
 #import "AppDelegate.h"
 
@@ -21,6 +19,7 @@
 #import "AuthDelegate.h"
 #import "TitleInfo.h"
 #import "ContentDownloader.h"
+#import "TitleManager.h"
 
 @interface AppDelegate()
 {
@@ -40,62 +39,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSLog(@"didFinishLaunchingWithOptions");
-/*
-    RACCommand *cmd = [RACCommand command];
-    RACCommand *cmd2 = [RACCommand command];
-    [[RACSignal combineLatest:@[cmd, cmd2] reduce:^(id _, ...) {
-        NSLog(@"test 1");
-        return nil;
-    }] subscribeNext:^(id _){
-    }];
-    
-    [cmd subscribeNext:^(id _) {
-        NSLog(@"test 1.1");
-    }];
-    NSLog(@"test 2");
-    [cmd execute:@1];
-    [cmd2 execute:@1];
-    NSLog(@"test 3");
-    [cmd execute:@2];
-    [cmd2 execute:@2];
-    NSLog(@"test 4");
-    */
-    /*
-    self.test1 = @"0";
-    self.test2 = @"0";
-    [[[RACSignal combineLatest:@[RACAbleWithStart(test1), RACAbleWithStart(test2)]] distinctUntilChanged] subscribeNext:^(id _){
-        NSLog(@"test 1");
-    }];
-    NSLog(@"test 2");
-    self.test1 = @"1";
-    NSLog(@"test 3");
-    self.test2 = @"2";
-    NSLog(@"test 4");
-    self.test1 = @"3";
-*/
-    /*
-    RACCommand *cmd = [RACCommand command];
-    RACCommand *cmd2 = [RACCommand command];
-    RACSignal *sig = [RACSignal merge:@[cmd, cmd2]];
-    [sig subscribeNext:^(id x) {
-        NSLog(@"test 1");
-    }];
-    NSLog(@"test 2");
-    [cmd execute:nil];
-    NSLog(@"test 3");
-    [cmd2 execute:nil];
-    NSLog(@"test 4");
-*/
-/*
-    [[RACSignal interval:1.0] subscribeNext:^(id x) {
-        NSLog(@"start");
-        [[LoopTest new] loop];
-        NSLog(@"exit");
-    }];
-*/
-    if ([launchOptions objectForKey:UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
-//        [[Download new] resume];
+    if ([launchOptions objectForKey: UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
+        for (TitleInfo *ti in [[TitleManager instance] titleInfoSet]) {
+            if (ti.status != TitleStatusCompleted) {
+                [[[ContentDownloader alloc] initWithTitleInfo: ti] resume];
+            }
+        }
     }
     
 /*
@@ -107,79 +56,6 @@
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"NKDontThrottleNewsstandContentNotifications"];
 #endif
 
-/*
-    [[RACSignal interval: 10.0] subscribeNext:^(NSDate *date) {
-        SKPaymentQueue *q = [SKPaymentQueue defaultQueue];
-        NSArray *ts = [q transactions];
-        NSLog(@"paymentQueue transactions: %@", ts);
-    }];
-*/
-
-    TitleInfo *ti = [TitleInfo instanceWithId:@"TEST ISSUE"];
-    ti.distributionUrl = [NSURL URLWithString:@"http://kaoriha.org/miyako/"];
-    [[RACAble(self.purchaseManager.online) take: 1] subscribeNext:^(NSNumber *online) {
-        NSLog(@"store online");
-        [self.purchaseManager restore];
-        /* [self.iapStore buy:@"non_consumable_test_1"];
-        [[RACAble(self.iapStore.transactionRunning) take: 1] subscribeNext:^(NSNumber *running) {
-            NSLog(@"buy ok");
-        }];  */
-/*
-        NKLibrary *lib = [NKLibrary sharedLibrary];
-        NKIssue *old = [lib issueWithName:@"TEST ISSUE"];
-        if (old) {
-            NSLog(@"old test issue removed");
-            [lib removeIssue:old];
-        }
-        NKIssue *issue = [lib addIssueWithName:@"TEST ISSUE" date:[NSDate date]];
-        if (![[NSFileManager defaultManager] createDirectoryAtURL:[[issue contentURL] URLByAppendingPathComponent:@"Auth"] withIntermediateDirectories: YES attributes:nil error:nil]) {
-            NSLog(@"cannot create directory");
-        }
-
-        _cd = [[ContentDownloader alloc] initWithTitleInfo: ti];
-        [[_cd start] subscribeError:^(NSError *error) {
-            NSLog(@"ContentDownloader error:%@", error);
-        } completed:^{
-            NSLog(@"ContentDownloader complete.");
-        }];
-
-/*
-        __block int c = 0;
-        __block void (^loop)();
-        loop = ^(){
-            c ++;
-            NKLibrary *lib = [NKLibrary sharedLibrary];
-            NKIssue *old = [lib issueWithName:@"TEST ISSUE"];
-            if (old) {
-                NSLog(@"old test issue removed");
-                [lib removeIssue:old];
-            }
-            NKIssue *issue = [lib addIssueWithName:@"TEST ISSUE" date:[NSDate date]];
-            if (![[NSFileManager defaultManager] createDirectoryAtURL:[[issue contentURL] URLByAppendingPathComponent:@"Auth"] withIntermediateDirectories: YES attributes:nil error:nil]) {
-                NSLog(@"cannot create directory");
-            }
-            
-            _cd = [[ContentDownloader alloc] initWithTitleInfo: ti];
-            [[_cd start] subscribeError:^(NSError *error) {
-                NSLog(@"loop failed error:%@", error);
-            } completed:^{
-                NSLog(@"loop next");
-                if (c < 1000) {
-                    loop();
-                }
-            }];
-        };
-        // loop();
- */
-    }];
-    
-    _cd = [[ContentDownloader alloc] initWithTitleInfo: ti];
-    [[_cd resume] subscribeError:^(NSError *error) {
-        NSLog(@"ContentDownloader error:%@", error);
-    } completed:^{
-        NSLog(@"ContentDownloader complete.");
-    }];
-    
     return YES;
 }
 
@@ -207,29 +83,6 @@
     if (!self.foreground) {
         self.foreground = [Foreground instance];
     }
-/*
-    __block BOOL on;
-    on = YES;
-    {
-        @weakify(self)
-        [[[RACSignal interval:3.0] deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(id x) {
-            NSLog(@"start");
-            @strongify(self)
-            if (on) {
-                self.foreground = nil;
-            } else {
-                self.foreground = [Foreground new];
-            }
-            on = !on;
-            NSLog(@"exit");
-        }];
-    }
-*/
-/*
-    NSLog(@"isFeaturePurchased: %d", [MKStoreManager isFeaturePurchased:@"not_hit"]);
-    NSLog(@"purchasableObjects: %@", [[MKStoreManager sharedManager] purchasableObjects]);
-    NSLog(@"pricesDictionary: %@", [[MKStoreManager sharedManager] pricesDictionary]);
-*/
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
