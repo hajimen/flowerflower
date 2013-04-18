@@ -6,17 +6,33 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
+#import "ReactiveCocoa/ReactiveCocoa.h"
+
 #import "InfoMasterViewController.h"
 #import "IASKAppSettingsViewController.h"
 #import "ScrollableViewController.h"
+#import "PurchaseManager.h"
 
 @interface  RestoreViewController : ScrollableViewController
+-(IBAction)restoreButtonTapped: (id)sender;
+@property (nonatomic)PurchaseManager *purchaseManager;
 @end
 
 @implementation RestoreViewController
 
 -(id)init {
-    return [super initWithNibName: @"RestoreView" bundle: [NSBundle mainBundle]];
+    self = [super initWithNibName: @"RestoreView" bundle: [NSBundle mainBundle]];
+    return self;
+}
+
+-(IBAction)restoreButtonTapped: (id)sender {
+    NSLog(@"tapped");
+    if (![[PurchaseManager instance] online]) {
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Not Online" message: @"Not online. Later please." delegate: nil cancelButtonTitle: @"Close" otherButtonTitles: nil];
+        [av show];
+        return;
+    }
+    [[PurchaseManager instance] restore];
 }
 
 @end
@@ -27,7 +43,8 @@
 @implementation TagDescriptionViewController
 
 -(id)init {
-    return [super initWithNibName: @"TagDescriptionView" bundle: [NSBundle mainBundle]];
+    self = [super initWithNibName: @"TagDescriptionView" bundle: [NSBundle mainBundle]];
+    return self;
 }
 
 @end
@@ -38,7 +55,8 @@
 @implementation AboutThisAppViewController
 
 -(id)init {
-    return [super initWithNibName: @"AboutThisAppView" bundle: [NSBundle mainBundle]];
+    self = [super initWithNibName: @"AboutThisAppView" bundle: [NSBundle mainBundle]];
+    return self;
 }
 
 @end

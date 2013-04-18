@@ -7,6 +7,8 @@
 //
 
 #import <NewsstandKit/NewsstandKit.h>
+#import <libkern/OSAtomic.h>
+
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "ZipArchive.h"
 #import "PurchaseManager.h"
@@ -26,7 +28,9 @@
 
 static PurchaseManager *instance = nil;
 
-@interface  PurchaseManager ()
+@interface  PurchaseManager () {
+    volatile int32_t initializingTitleCount;
+}
 
 @property (nonatomic)InAppPurchaseStore *inAppPurchaseStore;
 @property (nonatomic)Reachability *internetReachability;
@@ -75,6 +79,8 @@ static PurchaseManager *instance = nil;
     RAC(restoreRunning) = RACAbleWithStart(inAppPurchaseStore.restoreRunning);
     RAC(lastUpdated) = RACAbleWithStart(inAppPurchaseStore.lastUpdated);
 
+    initializingTitleCount = 0;
+
     return self;
 }
 
@@ -95,9 +101,9 @@ static PurchaseManager *instance = nil;
 }
 
 -(void)setInitializing:(BOOL)initializing {
-    [self willChangeValueForKey:@"transactionRunning"];
+    [self willChangeValueForKey:@"initializing"];
     _initializing = initializing;
-    [self didChangeValueForKey:@"transactionRunning"];
+    [self didChangeValueForKey:@"initializing"];
 }
 
 -(void)buyWithTitleInfo:(TitleInfo *)titleInfo {
@@ -128,11 +134,21 @@ static PurchaseManager *instance = nil;
     [self purchased: productId receiptData: receiptData];
 }
 
+-(void)incrementInitializingTitleCount {
+    OSAtomicIncrement32(&initializingTitleCount);
+    self.initializing = (initializingTitleCount > 0);
+}
+
+-(void)decrementInitializingTitleCount {
+    OSAtomicDecrement32(&initializingTitleCount);
+    self.initializing = (initializingTitleCount > 0);
+}
+
 -(void)purchased:(NSString *)productId receiptData: (NSData *)receiptData {
     TitleInfo *ti = [[TitleManager instance] titleInfoWithProductId: productId];
     ti.purchased = YES;
     NSDictionary *tip = [self findFromTitleInfoPlist: ti];
-    self.initializing = YES;
+    [self incrementInitializingTitleCount];
     [self unzipPurchasedTitleResource: ti titleInfoPlist: tip];
     if (ti.distributionUrl) {
         NSString *s = [tip objectForKey: PLK_STATUS];
@@ -142,18 +158,18 @@ static PurchaseManager *instance = nil;
             NSLog(@"AuthDelegate error: %@", error);
             UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Auth Error" message:@"Distribution server trouble. Please restore your purchase later." delegate: self cancelButtonTitle: @"Close" otherButtonTitles: nil];
             [av show];
-            self.initializing = NO;
+            [self decrementInitializingTitleCount];
         } completed:^{
             __block ContentDownloader *cd = [[ContentDownloader alloc] initWithTitleInfo: ti];
             [[cd start] subscribeError:^(NSError *error) {
                 NSLog(@"ContentDownloader error:%@", error);
                 UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Download Error" message:@"Distribution server trouble. Please wait until recovery." delegate: self cancelButtonTitle: @"Close" otherButtonTitles: nil];
                 [av show];
-                self.initializing = NO;
+                [self decrementInitializingTitleCount];
                 cd = nil;
             } completed:^{
                 NSLog(@"ContentDownloader complete.");
-                self.initializing = NO;
+                [self decrementInitializingTitleCount];
                 cd = nil;
             }];
             if (pushEnabled) {

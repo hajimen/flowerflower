@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
+#import "SVProgressHUD.h"
 #import "Foreground.h"
 
 #import "Cordova/CDVViewController.h"
@@ -19,12 +20,14 @@
 #import "TitleCollectionViewLayout.h"
 #import "TitleInfo.h"
 #import "InfoViewController.h"
+#import "PurchaseManager.h"
 
 static Foreground *instance = nil;
 
 @interface Foreground()
 
 @property (nonatomic) CDVViewController *cdvViewController;
+@property (nonatomic) PurchaseManager *purchaseManager;
 
 @end
 
@@ -64,7 +67,28 @@ static Foreground *instance = nil;
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
 
+    _purchaseManager = [PurchaseManager instance];
+    
+    RACSignal *prepareSignal = [[RACSignal combineLatest:@[RACAbleWithStart(purchaseManager.transactionRunning), RACAbleWithStart(purchaseManager.restoreRunning), RACAbleWithStart(purchaseManager.initializing)] reduce:^(NSNumber *t, NSNumber *r, NSNumber *i){
+        NSLog(@"transactionRunning or initializing status changed");
+        return [NSNumber numberWithBool:[t boolValue] || [i boolValue] || [r boolValue]];
+    }] distinctUntilChanged];
+    [self rac_liftSelector: @selector(prepareStatusChanged:) withObjects: prepareSignal];
+    
     return self;
+}
+
+-(void) prepareStatusChanged:(NSNumber *)prepareing {
+    __weak Foreground *ws = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (ws) {
+            if ([prepareing boolValue]) {
+                [SVProgressHUD showWithStatus: NSLocalizedString(@"prepareing", nil) maskType:SVProgressHUDMaskTypeClear];
+            } else {
+                [SVProgressHUD dismiss];
+            }
+        }
+    });
 }
 
 -(void)cellTapped:(TitleInfo *)titleInfo {
