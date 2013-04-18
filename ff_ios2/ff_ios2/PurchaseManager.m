@@ -173,8 +173,8 @@ static PurchaseManager *instance = nil;
                 cd = nil;
             }];
             if (pushEnabled) {
-                [[TitleManager instance] registerPushNotification: ti];
                 ti.status = TitleStatusPushEnabled;
+                [[TitleManager instance] registerPushNotification: ti];
             } else {
                 ti.status = TitleStatusCompleted;
             }

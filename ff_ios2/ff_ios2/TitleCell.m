@@ -14,6 +14,7 @@
 #import "UIGlossyButton.h"
 #import "TagContainerView.h"
 #import "PurchaseManager.h"
+#import "TitleManager.h"
 
 #define LEFT_VIEW_WIDTH 77.0
 #define IMAGE_WIDTH 64.0
@@ -260,6 +261,7 @@
         } else if (buttonIndex == 1) {
             _titleInfo.status = TitleStatusOnAir;
         }
+        [[TitleManager instance] registerPushNotification: _titleInfo];
     }
 }
 
