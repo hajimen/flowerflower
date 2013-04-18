@@ -33,7 +33,7 @@
     
     _sortCommand = [RACCommand command];
 
-    RACSignal *reloadSignal = [[RACSignal merge:@[RACAble(self.titleManager, titleInfoSet), _sortCommand]] deliverOn: RACScheduler.mainThreadScheduler];
+    RACSignal *reloadSignal = [RACSignal merge:@[RACAble(self.titleManager, titleInfoSet), _sortCommand]];
     [self rac_liftSelector:@selector(generateTitleInfosAndReload:) withObjects:reloadSignal];
 
     [self generateTitleInfos];
@@ -94,8 +94,13 @@
 }
 
 -(void)generateTitleInfosAndReload: (id) _ {
-    [self generateTitleInfos];
-    [self.collectionView reloadData];
+    __weak TitleCollectionViewController *ws = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (ws) {
+            [ws generateTitleInfos];
+            [ws.collectionView reloadData];
+        }
+    });
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

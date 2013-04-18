@@ -73,14 +73,14 @@
     _tnView.image = img;
     [_leftView addSubview: _tnView];
 
-    RAC(tnView.image) = [[RACAble(titleInfo.thumbnailUrl) deliverOn: RACScheduler.mainThreadScheduler] map:^(NSURL *url) {
+    RAC(tnView.image) = [[RACAble(titleInfo.thumbnailUrl) map:^(NSURL *url) {
         if (url) {
             NSData *d = [NSData dataWithContentsOfURL: url];
             return [UIImage imageWithData: d];
         } else {
             return [UIImage imageNamed:@"test_image.png"];
         }
-    }];
+    }] deliverOn: RACScheduler.mainThreadScheduler];
     
     _middleView = [[UIView alloc] initWithFrame: CGRectMake(LEFT_VIEW_WIDTH, MARGIN_Y, width - LEFT_VIEW_WIDTH - RIGHT_VIEW_WIDTH - MARGIN_X, height)];
     _middleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
