@@ -36,7 +36,7 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIButton" id="32114107">
+					<object class="IBUIButton" id="420397768">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{124, 242}, {73, 44}}</string>
@@ -50,7 +50,7 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">リストア</string>
-						<object class="NSColor" key="IBUIHighlightedTitleColor" id="256270090">
+						<object class="NSColor" key="IBUIHighlightedTitleColor" id="938885434">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
@@ -72,7 +72,7 @@
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
-					<object class="IBUILabel" id="107295683">
+					<object class="IBUILabel" id="362058087">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{20, 20}, {280, 214}}</string>
@@ -87,45 +87,45 @@
 						<bool key="IBUIUsesAttributedText">YES</bool>
 						<object class="NSAttributedString" key="IBUIAttributedText">
 							<string type="base64-UTF8" key="NSString">6LO85YWl44Gu44Oq44K544OI44KiDQoN5LiL44Gu44Oc44K/44Oz44KS5oq844GZ44Go44CB6YGO5Y67
-44Gr6LO85YWl44GX44Gf44K/44Kk44OI44Or44Gu6LO85YWl5oOF5aCx44KS56uv5pyr44Gr44Oq44K5
-44OI44Ki44GX44G+44GZ44CCDQ3jgI7ntIXojLbjg5zjgr/jg7PjgI/jgI7lrozlhajkurrlnovjgI8N
-DeWNmOS9k+OCouODl+ODquOBruOAjue0heiMtuODnOOCv+ODs+OAj+OAjuWujOWFqOS6uuWei+OAj+OB
-ruizvOWFpeaDheWgseOCkuW8leOBjee2meOBkOOBk+OBqOOBjOOBp+OBjeOBvuOBmeOAguS4i+OBruOD
-nOOCv+ODs+OCkuaKvOOBmeWJjeOBq+OAgeWQhOOCouODl+ODquOCkuacgOaWsOeJiOOBq+OCouODg+OD
-l+ODh+ODvOODiOOBl+OBpuOBj+OBoOOBleOBhOOAgg</string>
+44Gr6LO85YWl44GX44Gf44K/44Kk44OI44Or44Gu6LO85YWl5oOF5aCx44GM56uv5pyr44Gr44Oq44K5
+44OI44Ki44GV44KM44G+44GZ44CCDQ3jgI7ntIXojLbjg5zjgr/jg7PjgI/jgI7lrozlhajkurrlnovj
+gI8NDeWNmOS9k+OCouODl+ODquOBruOAjue0heiMtuODnOOCv+ODs+OAj+OAjuWujOWFqOS6uuWei+OA
+j+OBruizvOWFpeaDheWgseOCkuW8leOBjee2meOBkOOBk+OBqOOBjOOBp+OBjeOBvuOBmeOAguS4i+OB
+ruODnOOCv+ODs+OCkuaKvOOBmeWJjeOBq+OAgeWQhOOCouODl+ODquOCkuacgOaWsOeJiOOBq+OCouOD
+g+ODl+ODh+ODvOODiOOBl+OBpuOBj+OBoOOBleOBhOOAgg</string>
 							<array class="NSMutableArray" key="NSAttributes">
 								<dictionary>
-									<object class="NSColor" key="NSColor" id="978120564">
+									<object class="NSColor" key="NSColor" id="487263670">
 										<int key="NSColorSpace">1</int>
 										<bytes key="NSRGB">MCAwIDAAA</bytes>
 										<string key="IBUIColorCocoaTouchKeyPath">darkTextColor</string>
 									</object>
-									<object class="NSFont" key="NSFont" id="499761584">
+									<object class="NSFont" key="NSFont" id="171561924">
 										<string key="NSName">HiraKakuProN-W3</string>
 										<double key="NSSize">24</double>
 										<int key="NSfFlags">16</int>
 									</object>
-									<reference key="NSOriginalFont" ref="499761584"/>
-									<object class="NSMutableParagraphStyle" key="NSParagraphStyle" id="49086607">
+									<reference key="NSOriginalFont" ref="171561924"/>
+									<object class="NSMutableParagraphStyle" key="NSParagraphStyle" id="810847070">
 										<nil key="NSTabStops"/>
 									</object>
 								</dictionary>
 								<dictionary>
-									<reference key="NSColor" ref="978120564"/>
-									<object class="NSFont" key="NSFont" id="188688818">
+									<reference key="NSColor" ref="487263670"/>
+									<object class="NSFont" key="NSFont" id="536866081">
 										<string key="NSName">HiraKakuProN-W3</string>
 										<double key="NSSize">14</double>
 										<int key="NSfFlags">16</int>
 									</object>
-									<reference key="NSParagraphStyle" ref="49086607"/>
+									<reference key="NSParagraphStyle" ref="810847070"/>
 								</dictionary>
 								<dictionary>
-									<reference key="NSFont" ref="188688818"/>
-									<reference key="NSParagraphStyle" ref="49086607"/>
+									<reference key="NSFont" ref="536866081"/>
+									<reference key="NSParagraphStyle" ref="810847070"/>
 								</dictionary>
 							</array>
 							<object class="NSMutableData" key="NSAttributeInfo">
-								<bytes key="NS.bytes">BwABAQECKQENAEgBA</bytes>
+								<bytes key="NS.bytes">BwABAQECKgENAEgBA</bytes>
 							</object>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
@@ -139,7 +139,7 @@ l+ODh+ODvOODiOOBl+OBpuOBj+OBoOOBleOBhOOAgg</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView"/>
-				<reference key="IBUIBackgroundColor" ref="256270090"/>
+				<reference key="IBUIBackgroundColor" ref="938885434"/>
 				<object class="IBUIScreenMetrics" key="IBUISimulatedDestinationMetrics">
 					<string key="IBUISimulatedSizeMetricsClass">IBUIScreenMetrics</string>
 					<object class="NSMutableDictionary" key="IBUINormalizedOrientationToSizeMap">
@@ -183,8 +183,8 @@ l+ODh+ODvOODiOOBl+OBpuOBj+OBoOOBleOBhOOAgg</string>
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="32114107"/>
-							<reference ref="107295683"/>
+							<reference ref="420397768"/>
+							<reference ref="362058087"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -201,12 +201,12 @@ l+ODh+ODvOODiOOBl+OBpuOBj+OBoOOBleOBhOOAgg</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">8</int>
-						<reference key="object" ref="32114107"/>
+						<reference key="object" ref="420397768"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">9</int>
-						<reference key="object" ref="107295683"/>
+						<reference key="object" ref="362058087"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>

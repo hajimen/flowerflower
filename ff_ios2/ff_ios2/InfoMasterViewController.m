@@ -10,13 +10,23 @@
 #import "IASKAppSettingsViewController.h"
 
 @interface  RestoreViewController : UIViewController
-
 @end
 
 @implementation RestoreViewController
 
 -(id)init {
     return [super initWithNibName: @"RestoreView" bundle: [NSBundle mainBundle]];
+}
+
+@end
+
+@interface  TagDescriptionViewController : UIViewController
+@end
+
+@implementation TagDescriptionViewController
+
+-(id)init {
+    return [super initWithNibName: @"TagDescriptionView" bundle: [NSBundle mainBundle]];
 }
 
 @end
@@ -44,7 +54,8 @@
     if (self) {
         // Custom initialization
         _cells = @[@[@"Settings", [IASKAppSettingsViewController class]],
-                   @[@"Restore", [RestoreViewController class]]
+                   @[@"Restore", [RestoreViewController class]],
+                   @[@"Tags", [TagDescriptionViewController class]],
                    ];
     }
     return self;
