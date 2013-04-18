@@ -134,7 +134,7 @@ static TitleManager *_instance = nil;
 -(void)onReachabilityChanged:(NSNumber *)reachable {
     if (_shouldRegisterToServer && [reachable boolValue]) {
         for (TitleInfo *ti in _titleInfoSet) {
-            if (ti.status != TitleStatusCompleted) {
+            if (ti.status != TitleStatusCompleted && ti.purchased) {
                 [self registerPushNotification: ti];
             }
         }

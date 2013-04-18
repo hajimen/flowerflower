@@ -21,6 +21,7 @@
 #import "TitleInfo.h"
 #import "InfoViewController.h"
 #import "PurchaseManager.h"
+#import "ContentDownloader.h"
 
 static Foreground *instance = nil;
 
@@ -94,6 +95,9 @@ static Foreground *instance = nil;
 -(void)cellTapped:(TitleInfo *)titleInfo {
     // TODO blog
     titleInfo.lastViewed = [NSDate date];
+    if (titleInfo.status != TitleStatusCompleted && titleInfo.purchased) {
+        [[[ContentDownloader alloc] initWithTitleInfo: titleInfo] start]; // TODO notify to web view
+    }
     [self showCdvViewContoller: titleInfo];
 }
 
