@@ -8,8 +8,9 @@
 
 #import "InfoMasterViewController.h"
 #import "IASKAppSettingsViewController.h"
+#import "ScrollableViewController.h"
 
-@interface  RestoreViewController : UIViewController
+@interface  RestoreViewController : ScrollableViewController
 @end
 
 @implementation RestoreViewController
@@ -20,8 +21,7 @@
 
 @end
 
-@interface  TagDescriptionViewController : UIViewController
-@property (nonatomic) IBOutlet UIView *contentView;
+@interface  TagDescriptionViewController : ScrollableViewController
 @end
 
 @implementation TagDescriptionViewController
@@ -30,20 +30,9 @@
     return [super initWithNibName: @"TagDescriptionView" bundle: [NSBundle mainBundle]];
 }
 
--(void)viewDidLoad {
-    [super viewDidLoad];
-    [self.view addSubview: self.contentView];
-    ((UIScrollView *)self.view).contentSize = self.contentView.frame.size;
-}
-
--(void)viewDidUnload {
-    self.contentView = nil;
-    [super viewDidUnload];
-}
-
 @end
 
-@interface AboutThisAppViewController : UIViewController
+@interface AboutThisAppViewController : ScrollableViewController
 @end
 
 @implementation AboutThisAppViewController

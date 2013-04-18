@@ -17,6 +17,7 @@
 @property (nonatomic)UISplitViewController *splitVC;
 @property (nonatomic)UINavigationController *nvc;
 @property (nonatomic)InfoMasterViewController *infoMasterVC;
+@property (nonatomic)UIViewController *detailVC;
 @property (nonatomic)SplitViewControllerDelegate *splitVCDelegate;
 
 @end
@@ -48,14 +49,16 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         _splitVC = [UISplitViewController new];
         _splitVCDelegate = [SplitViewControllerDelegate new];
-        _splitVC.delegate = _splitVCDelegate;
         __weak InfoViewController *ws = self;
         _infoMasterVC = [[InfoMasterViewController alloc] initWithSelectionHandler:^(UIViewController *viewController) {
             if (ws) {
+                viewController.view.frame = _detailVC.view.frame;
                 ws.splitVC.viewControllers = @[ws.splitVC.viewControllers[0], viewController];
             }
         }];
-        _splitVC.viewControllers = @[_infoMasterVC, [UIViewController new]];
+        _detailVC = [UIViewController new];
+        _splitVC.viewControllers = @[_infoMasterVC, _detailVC];
+        _splitVC.delegate = _splitVCDelegate;
         [self.view addSubview: _splitVC.view];
     } else {
         _nvc = [UINavigationController new];

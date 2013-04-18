@@ -48,6 +48,7 @@
 		57844F64171F0E4300174FD2 /* RestoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57844F63171F0E4200174FD2 /* RestoreView.xib */; };
 		57844F66171FCFFB00174FD2 /* TagDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57844F65171FCFFB00174FD2 /* TagDescriptionView.xib */; };
 		57844F68171FDF9300174FD2 /* AboutThisAppView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57844F67171FDF9300174FD2 /* AboutThisAppView.xib */; };
+		57844F6B171FF4D700174FD2 /* ScrollableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F6A171FF4D500174FD2 /* ScrollableViewController.m */; };
 		57C6427F16F2D4930079AFEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 57C6427E16F2D4930079AFEB /* config.xml */; };
 		57C6428116F2D4E10079AFEB /* www in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428016F2D4E10079AFEB /* www */; };
 		57C6428316F2DC180079AFEB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428216F2DC180079AFEB /* Settings.bundle */; };
@@ -144,6 +145,8 @@
 		57844F63171F0E4200174FD2 /* RestoreView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestoreView.xib; sourceTree = "<group>"; };
 		57844F65171FCFFB00174FD2 /* TagDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagDescriptionView.xib; sourceTree = "<group>"; };
 		57844F67171FDF9300174FD2 /* AboutThisAppView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutThisAppView.xib; sourceTree = "<group>"; };
+		57844F69171FF4D400174FD2 /* ScrollableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollableViewController.h; sourceTree = "<group>"; };
+		57844F6A171FF4D500174FD2 /* ScrollableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollableViewController.m; sourceTree = "<group>"; };
 		57C6427C16F2D0C80079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427D16F2D0C90079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427E16F2D4930079AFEB /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				57844F63171F0E4200174FD2 /* RestoreView.xib */,
 				57844F65171FCFFB00174FD2 /* TagDescriptionView.xib */,
 				57844F67171FDF9300174FD2 /* AboutThisAppView.xib */,
+				57844F69171FF4D400174FD2 /* ScrollableViewController.h */,
+				57844F6A171FF4D500174FD2 /* ScrollableViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -567,6 +572,7 @@
 				57844F57171D041F00174FD2 /* Reachability.m in Sources */,
 				57844F5A171D50C000174FD2 /* InfoViewController.m in Sources */,
 				57844F5F171D57CD00174FD2 /* InfoMasterViewController.m in Sources */,
+				57844F6B171FF4D700174FD2 /* ScrollableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
