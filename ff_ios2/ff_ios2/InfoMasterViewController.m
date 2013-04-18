@@ -31,6 +31,17 @@
 
 @end
 
+@interface AboutThisAppViewController : UIViewController
+@end
+
+@implementation AboutThisAppViewController
+
+-(id)init {
+    return [super initWithNibName: @"AboutThisAppView" bundle: [NSBundle mainBundle]];
+}
+
+@end
+
 @interface InfoMasterViewController ()
 
 @property (nonatomic) NSArray *cells;
@@ -56,6 +67,7 @@
         _cells = @[@[@"Settings", [IASKAppSettingsViewController class]],
                    @[@"Restore", [RestoreViewController class]],
                    @[@"Tags", [TagDescriptionViewController class]],
+                   @[@"About This App", [AboutThisAppViewController class]],
                    ];
     }
     return self;
