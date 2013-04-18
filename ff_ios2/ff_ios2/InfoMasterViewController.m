@@ -21,12 +21,24 @@
 @end
 
 @interface  TagDescriptionViewController : UIViewController
+@property (nonatomic) IBOutlet UIView *contentView;
 @end
 
 @implementation TagDescriptionViewController
 
 -(id)init {
     return [super initWithNibName: @"TagDescriptionView" bundle: [NSBundle mainBundle]];
+}
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    [self.view addSubview: self.contentView];
+    ((UIScrollView *)self.view).contentSize = self.contentView.frame.size;
+}
+
+-(void)viewDidUnload {
+    self.contentView = nil;
+    [super viewDidUnload];
 }
 
 @end
