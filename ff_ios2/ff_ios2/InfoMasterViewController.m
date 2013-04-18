@@ -13,6 +13,22 @@
 #import "ScrollableViewController.h"
 #import "PurchaseManager.h"
 
+@interface SettingsViewController : IASKAppSettingsViewController
+
+@end
+
+@implementation SettingsViewController
+
+-(id)init {
+    self = [super init];
+    if (self) {
+        self.showDoneButton = NO;
+    }
+    return self;
+}
+
+@end
+
 @interface  RestoreViewController : ScrollableViewController
 -(IBAction)restoreButtonTapped: (id)sender;
 @property (nonatomic)PurchaseManager *purchaseManager;
@@ -83,7 +99,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        _cells = @[@[@"Settings", [IASKAppSettingsViewController class]],
+        _cells = @[@[@"Settings", [SettingsViewController class]],
                    @[@"Restore", [RestoreViewController class]],
                    @[@"Tags", [TagDescriptionViewController class]],
                    @[@"About This App", [AboutThisAppViewController class]],
