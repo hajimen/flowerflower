@@ -22,6 +22,7 @@ static TitleManager *_instance = nil;
 @interface TitleManager () {
     NSMutableSet *_titleInfoSet;
     BOOL _shouldRegisterToServer;
+    NSMutableDictionary *_updateSubjectDic;
 }
 
 @property (nonatomic) Reachability *reachability;
@@ -54,6 +55,7 @@ static TitleManager *_instance = nil;
         return self;
     }
     
+    _updateSubjectDic = [NSMutableDictionary new];
     _shouldRegisterToServer = YES;
     _reachability = [Reachability reachabilityForInternetConnection];
 
@@ -150,5 +152,22 @@ static TitleManager *_instance = nil;
         _shouldRegisterToServer = YES;
     }
 }
+
+-(void)notifyUpdated:(TitleInfo *)titleInfo {
+    RACSubject *s = [_updateSubjectDic objectForKey: titleInfo.titleId];
+    if (s) {
+        [s sendNext: @YES];
+    }
+}
+
+-(RACSignal *)updateSignal:(TitleInfo *)titleInfo {
+    RACSubject *s = [_updateSubjectDic objectForKey: titleInfo.titleId];
+    if (!s) {
+        s = [RACSubject subject];
+        [_updateSubjectDic setObject: s forKey: titleInfo.titleId];
+    }
+    return s;
+}
+
 
 @end

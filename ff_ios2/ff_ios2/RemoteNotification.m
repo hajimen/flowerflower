@@ -15,6 +15,7 @@
 #import "RegisterApnsDelegate.h"
 #import "TitleManager.h"
 #import "TitleInfo.h"
+#import "ContentDownloader.h"
 
 static RemoteNotification *instance = nil;
 
@@ -42,6 +43,7 @@ static RemoteNotification *instance = nil;
     self = [super init];
     if (self) {
         _deviceTokenData = nil;
+        _updatedTitle = nil;
     }
     return self;
 }
@@ -90,11 +92,22 @@ static RemoteNotification *instance = nil;
     }
     NSLog(@"remote notification received");
     
-    // TODO read custom payload
+    NSString *titleId = [payload objectForKey: @"titleId"];
+    if (titleId) {
+        TitleInfo *ti = [TitleInfo instanceWithId: titleId];
+        self.updatedTitle = ti;
+        [[[ContentDownloader alloc] initWithTitleInfo: ti] start];
+    }
 }
 
 - (void)clearBadge:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+}
+
+-(void)setUpdatedTitle:(TitleInfo *)updatedTitle {
+    [self willChangeValueForKey: @"updatedTitle"];
+    _updatedTitle = updatedTitle;
+    [self didChangeValueForKey: @"updatedTitle"];
 }
 
 @end

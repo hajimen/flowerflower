@@ -16,6 +16,7 @@
 #import "NSFileManager+Overwrite.h"
 #import "AuthCookie.h"
 #import "AssetDownloadDelegate.h"
+#import "TitleManager.h"
 
 #define CATALOGUE_TEMP_PATH @"Auth/catalogye_temp.json"
 #define USER_INFO_PATH_KEY @"path"
@@ -171,6 +172,7 @@
     }
     self.status = ContentDownloadStatusUpdated;
     [_finishSubject sendCompleted];
+    [[TitleManager instance] notifyUpdated: _titleInfo];
 }
 
 -(void)downloadFailed: (NSError *)error {

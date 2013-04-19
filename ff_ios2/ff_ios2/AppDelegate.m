@@ -47,11 +47,11 @@
         }
     }
     
-/*
+
     self.remoteNotification = [RemoteNotification instance];
-    [self.remoteNotification register_];
+//    [self.remoteNotification register_];
     [self.remoteNotification receive:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
-*/
+
 #if DEBUG
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"NKDontThrottleNewsstandContentNotifications"];
 #endif
@@ -82,6 +82,9 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     if (!self.foreground) {
         self.foreground = [Foreground instance];
+        if (self.remoteNotification.updatedTitle) {
+            [self.foreground showTitle: self.remoteNotification.updatedTitle];
+        }
     }
 }
 

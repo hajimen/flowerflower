@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class TitleInfo;
+@class RACSignal;
 
 @interface TitleManager : NSObject
 
@@ -19,5 +20,9 @@
 -(TitleInfo *)titleInfoWithProductId:(NSString *)productId;
 
 -(void)registerPushNotification: (TitleInfo *)titleInfo;
+
+-(void)notifyUpdated:(TitleInfo *)titleInfo;
+
+-(RACSignal *)updateSignal:(TitleInfo *)titleInfo;
 
 @end

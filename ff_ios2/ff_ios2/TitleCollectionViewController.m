@@ -67,7 +67,7 @@
 
 -(void)collectionView:(PSTCollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     TitleInfo *ti = [_titleInfos objectAtIndex:indexPath.item];
-    [[Foreground instance] cellTapped: ti];
+    [[Foreground instance] showTitle: ti];
 }
 
 - (PSTCollectionViewCell *)collectionView:(PSTCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

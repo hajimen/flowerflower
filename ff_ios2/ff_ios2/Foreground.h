@@ -18,6 +18,6 @@
 
 +(Foreground *)instance;
 
--(void)cellTapped:(TitleInfo *)titleInfo;
+-(void)showTitle:(TitleInfo *)titleInfo;
 
 @end

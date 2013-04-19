@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class TitleInfo;
+
 @interface RemoteNotification : NSObject
 
 +(RemoteNotification *)instance;
@@ -17,5 +19,7 @@
 -(void)receive:(NSDictionary *)payload;
 -(void)clearBadge:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
 -(void)registerApnsTo: (NSURL *)url enable: (BOOL)enable;
+
+@property (nonatomic, readonly) TitleInfo *updatedTitle;
 
 @end

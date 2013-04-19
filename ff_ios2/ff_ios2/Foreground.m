@@ -92,11 +92,11 @@ static Foreground *instance = nil;
     });
 }
 
--(void)cellTapped:(TitleInfo *)titleInfo {
+-(void)showTitle:(TitleInfo *)titleInfo {
     // TODO blog
     titleInfo.lastViewed = [NSDate date];
     if (titleInfo.status != TitleStatusCompleted && titleInfo.purchased) {
-        [[[ContentDownloader alloc] initWithTitleInfo: titleInfo] start]; // TODO notify to web view
+        [[[ContentDownloader alloc] initWithTitleInfo: titleInfo] start];
     }
     [self showCdvViewContoller: titleInfo];
 }
