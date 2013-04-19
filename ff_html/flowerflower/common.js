@@ -596,6 +596,7 @@
 				"beforeSend" : this.$1,
 				"success" : this.$2,
 				"error" : this.$3,
+				"dataType" : "json",
 				"timeout" : TIMEOUT
 			};
 			$.ajax(opt);

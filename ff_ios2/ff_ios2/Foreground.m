@@ -12,7 +12,7 @@
 #import "SVProgressHUD.h"
 #import "Foreground.h"
 
-#import "Cordova/CDVViewController.h"
+#import "FlowerFlowerContentViewController.h"
 #import "IASKAppSettingsViewController.h"
 #import "PSTCollectionView.h"
 
@@ -27,7 +27,7 @@ static Foreground *instance = nil;
 
 @interface Foreground()
 
-@property (nonatomic) CDVViewController *cdvViewController;
+@property (nonatomic) FlowerFlowerContentViewController *ffcViewController;
 @property (nonatomic) PurchaseManager *purchaseManager;
 @property (nonatomic) UINavigationController *settingsViewController;
 
@@ -105,22 +105,22 @@ static Foreground *instance = nil;
 }
 
 -(void)showCdvViewContoller:(TitleInfo *)titleInfo {
-    _cdvViewController = [CDVViewController new];
-    _cdvViewController.wwwFolderName = [[titleInfo.issue contentURL] absoluteString];
-    _cdvViewController.startPage = @"flowerflower/index.html";
-    _cdvViewController.view.frame = [[UIScreen mainScreen] bounds];
+    _ffcViewController = [FlowerFlowerContentViewController new];
+    _ffcViewController.wwwFolderName = [[titleInfo.issue contentURL] absoluteString];
+    _ffcViewController.startPage = @"flowerflower/index.html";
+    _ffcViewController.view.frame = [[UIScreen mainScreen] bounds];
 
     UISwipeGestureRecognizer* rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleCdvViewControllerRightSwipeGesture:)];
     rightSwipeRecognizer.numberOfTouchesRequired = 1;
     rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
     rightSwipeRecognizer.cancelsTouchesInView = YES;
-    [_cdvViewController.view addGestureRecognizer: rightSwipeRecognizer];
+    [_ffcViewController.view addGestureRecognizer: rightSwipeRecognizer];
 
     UISwipeGestureRecognizer* leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleCdvViewControllerLeftSwipeGesture:)];
     leftSwipeRecognizer.numberOfTouchesRequired = 1;
     leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
     leftSwipeRecognizer.cancelsTouchesInView = YES;
-    [_cdvViewController.view addGestureRecognizer: leftSwipeRecognizer];
+    [_ffcViewController.view addGestureRecognizer: leftSwipeRecognizer];
     
     CATransition *transition = [CATransition animation];
     transition.duration = 0.4;
@@ -130,7 +130,7 @@ static Foreground *instance = nil;
     
     [[self.viewController.view.window layer] addAnimation:transition forKey:@"SwitchToView"];
     
-    [self.viewController presentModalViewController: _cdvViewController animated:NO];
+    [self.viewController presentModalViewController: _ffcViewController animated:NO];
 }
 
 -(void)handleCdvViewControllerRightSwipeGesture:(UISwipeGestureRecognizer *)sender {
@@ -156,9 +156,9 @@ static Foreground *instance = nil;
     transition.type = kCATransitionMoveIn;
     transition.subtype = [self transitionSubtype:YES];
     
-    [[_cdvViewController.view.window layer] addAnimation: transition forKey:@"SwitchToView"];
+    [[_ffcViewController.view.window layer] addAnimation: transition forKey:@"SwitchToView"];
     
-    [_cdvViewController presentModalViewController: _settingsViewController animated: NO];
+    [_ffcViewController presentModalViewController: _settingsViewController animated: NO];
 }
 
 -(void) settingsViewControllerDidEnd: (IASKAppSettingsViewController *) sender {
@@ -169,7 +169,8 @@ static Foreground *instance = nil;
     transition.subtype = [self transitionSubtype:NO];
     [[_settingsViewController.view.window layer] addAnimation:transition forKey:nil];
     
-    [_cdvViewController dismissModalViewControllerAnimated: NO];
+    [_ffcViewController syncSettings];
+    [_ffcViewController dismissModalViewControllerAnimated: NO];
 }
 
 -(void)dismissCdvViewController {
@@ -178,7 +179,7 @@ static Foreground *instance = nil;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionReveal;
     transition.subtype = [self transitionSubtype:NO];
-    [[_cdvViewController.view.window layer] addAnimation:transition forKey:nil];
+    [[_ffcViewController.view.window layer] addAnimation:transition forKey:nil];
     
     [self.viewController dismissModalViewControllerAnimated: NO];
 }

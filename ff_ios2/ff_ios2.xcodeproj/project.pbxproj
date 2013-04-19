@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		571F8F6417216822005AB4F0 /* ScaleChanger.m in Sources */ = {isa = PBXBuildFile; fileRef = 571F8F6317216822005AB4F0 /* ScaleChanger.m */; };
+		571F8F681721AAE5005AB4F0 /* FlowerFlowerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 571F8F671721AAE5005AB4F0 /* FlowerFlowerContentViewController.m */; };
 		577E80AE16F1F64F00DA7DBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577E80AD16F1F64F00DA7DBA /* UIKit.framework */; };
 		577E80B016F1F64F00DA7DBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577E80AF16F1F64F00DA7DBA /* Foundation.framework */; };
 		577E80B216F1F64F00DA7DBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577E80B116F1F64F00DA7DBA /* CoreGraphics.framework */; };
@@ -78,6 +80,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		571F8F6217216822005AB4F0 /* ScaleChanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScaleChanger.h; sourceTree = "<group>"; };
+		571F8F6317216822005AB4F0 /* ScaleChanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleChanger.m; sourceTree = "<group>"; };
+		571F8F661721AAE5005AB4F0 /* FlowerFlowerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlowerFlowerContentViewController.h; sourceTree = "<group>"; };
+		571F8F671721AAE5005AB4F0 /* FlowerFlowerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlowerFlowerContentViewController.m; sourceTree = "<group>"; };
 		577E80AA16F1F64F00DA7DBA /* ff_ios2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ff_ios2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		577E80AD16F1F64F00DA7DBA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		577E80AF16F1F64F00DA7DBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -204,6 +210,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		571F8F6517216829005AB4F0 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				571F8F6217216822005AB4F0 /* ScaleChanger.h */,
+				571F8F6317216822005AB4F0 /* ScaleChanger.m */,
+			);
+			name = Plugin;
+			sourceTree = "<group>";
+		};
 		577E80A116F1F64F00DA7DBA = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +256,7 @@
 		577E80B316F1F64F00DA7DBA /* ff_ios2 */ = {
 			isa = PBXGroup;
 			children = (
+				571F8F6517216829005AB4F0 /* Plugin */,
 				57844F4E171C19D100174FD2 /* Alert */,
 				57844F33171688CB00174FD2 /* Title Resources */,
 				57844F1A1712BAB400174FD2 /* Download */,
@@ -381,6 +397,8 @@
 				57844F67171FDF9300174FD2 /* AboutThisAppView.xib */,
 				57844F69171FF4D400174FD2 /* ScrollableViewController.h */,
 				57844F6A171FF4D500174FD2 /* ScrollableViewController.m */,
+				571F8F661721AAE5005AB4F0 /* FlowerFlowerContentViewController.h */,
+				571F8F671721AAE5005AB4F0 /* FlowerFlowerContentViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -569,6 +587,8 @@
 				57844F5A171D50C000174FD2 /* InfoViewController.m in Sources */,
 				57844F5F171D57CD00174FD2 /* InfoMasterViewController.m in Sources */,
 				57844F6B171FF4D700174FD2 /* ScrollableViewController.m in Sources */,
+				571F8F6417216822005AB4F0 /* ScaleChanger.m in Sources */,
+				571F8F681721AAE5005AB4F0 /* FlowerFlowerContentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
