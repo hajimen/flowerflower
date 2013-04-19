@@ -29,6 +29,7 @@ static Foreground *instance = nil;
 
 @property (nonatomic) CDVViewController *cdvViewController;
 @property (nonatomic) PurchaseManager *purchaseManager;
+@property (nonatomic) UINavigationController *settingsViewController;
 
 @end
 
@@ -113,6 +114,12 @@ static Foreground *instance = nil;
     rightSwipeRecognizer.cancelsTouchesInView = YES;
     [_cdvViewController.view addGestureRecognizer: rightSwipeRecognizer];
 
+    UISwipeGestureRecognizer* leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleCdvViewControllerLeftSwipeGesture:)];
+    leftSwipeRecognizer.numberOfTouchesRequired = 1;
+    leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    leftSwipeRecognizer.cancelsTouchesInView = YES;
+    [_cdvViewController.view addGestureRecognizer: leftSwipeRecognizer];
+    
     CATransition *transition = [CATransition animation];
     transition.duration = 0.4;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -126,6 +133,39 @@ static Foreground *instance = nil;
 
 -(void)handleCdvViewControllerRightSwipeGesture:(UISwipeGestureRecognizer *)sender {
     [self dismissCdvViewController];
+}
+
+-(void)handleCdvViewControllerLeftSwipeGesture:(UISwipeGestureRecognizer *)sender {
+    [self showSettingsViewController];
+}
+
+-(void)showSettingsViewController {
+    IASKAppSettingsViewController *sv = [IASKAppSettingsViewController new];
+    sv.showDoneButton = YES;
+    sv.delegate = self;
+    
+    _settingsViewController = [[UINavigationController alloc] initWithRootViewController: sv];
+
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.4;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionMoveIn;
+    transition.subtype = [self transitionSubtype:YES];
+    
+    [[_cdvViewController.view.window layer] addAnimation:transition forKey:@"SwitchToView"];
+    
+    [_cdvViewController presentModalViewController: _settingsViewController animated: NO];
+}
+
+-(void) settingsViewControllerDidEnd: (IASKAppSettingsViewController *) sender {
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.4;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionReveal;
+    transition.subtype = [self transitionSubtype:NO];
+    [[_settingsViewController.view.window layer] addAnimation:transition forKey:nil];
+    
+    [_cdvViewController dismissModalViewControllerAnimated: NO];
 }
 
 -(void)dismissCdvViewController {

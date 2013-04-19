@@ -23,7 +23,7 @@
     self = [super init];
     if (self) {
         self.showDoneButton = NO;
-        self.title = NSLocalizedString(@"Restore", nil);
+        self.title = NSLocalizedString(@"Settings", nil);
     }
     return self;
 }

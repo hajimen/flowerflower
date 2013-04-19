@@ -9,8 +9,9 @@
 @class TitleInfo;
 
 #import <Foundation/Foundation.h>
+#import "IASKAppSettingsViewController.h"
 
-@interface Foreground : NSObject
+@interface Foreground : NSObject <IASKSettingsDelegate>
 
 @property (nonatomic) UIWindow *window;
 

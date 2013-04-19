@@ -50,7 +50,6 @@
 		57844F68171FDF9300174FD2 /* AboutThisAppView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57844F67171FDF9300174FD2 /* AboutThisAppView.xib */; };
 		57844F6B171FF4D700174FD2 /* ScrollableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57844F6A171FF4D500174FD2 /* ScrollableViewController.m */; };
 		57C6427F16F2D4930079AFEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 57C6427E16F2D4930079AFEB /* config.xml */; };
-		57C6428116F2D4E10079AFEB /* www in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428016F2D4E10079AFEB /* www */; };
 		57C6428316F2DC180079AFEB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57C6428216F2DC180079AFEB /* Settings.bundle */; };
 		57C66B6F170A7C1500559028 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C66B6E170A7C1500559028 /* StoreKit.framework */; };
 		57C66B77170A868300559028 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57C66B79170A868300559028 /* Localizable.strings */; };
@@ -150,7 +149,6 @@
 		57C6427C16F2D0C80079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427D16F2D0C90079AFEB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		57C6427E16F2D4930079AFEB /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
-		57C6428016F2D4E10079AFEB /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		57C6428216F2DC180079AFEB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		57C66B6E170A7C1500559028 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		57C66B78170A868300559028 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -209,7 +207,6 @@
 		577E80A116F1F64F00DA7DBA = {
 			isa = PBXGroup;
 			children = (
-				57C6428016F2D4E10079AFEB /* www */,
 				577E80B316F1F64F00DA7DBA /* ff_ios2 */,
 				577E80D116F1F64F00DA7DBA /* ff_ios2Tests */,
 				577E80AC16F1F64F00DA7DBA /* Frameworks */,
@@ -482,7 +479,6 @@
 				577E80C216F1F64F00DA7DBA /* Default@2x.png in Resources */,
 				577E80C416F1F64F00DA7DBA /* Default-568h@2x.png in Resources */,
 				57C6427F16F2D4930079AFEB /* config.xml in Resources */,
-				57C6428116F2D4E10079AFEB /* www in Resources */,
 				57C6428316F2DC180079AFEB /* Settings.bundle in Resources */,
 				57C66B77170A868300559028 /* Localizable.strings in Resources */,
 				57C66B7D170AB9F300559028 /* test_image.png in Resources */,
