@@ -77,6 +77,8 @@ static Foreground *instance = nil;
     }] distinctUntilChanged];
     [self rac_liftSelector: @selector(prepareStatusChanged:) withObjects: prepareSignal];
     
+    _settingsViewController = nil;
+    
     return self;
 }
 
@@ -140,11 +142,13 @@ static Foreground *instance = nil;
 }
 
 -(void)showSettingsViewController {
-    IASKAppSettingsViewController *sv = [IASKAppSettingsViewController new];
-    sv.showDoneButton = YES;
-    sv.delegate = self;
-    
-    _settingsViewController = [[UINavigationController alloc] initWithRootViewController: sv];
+    if (!_settingsViewController) {
+        IASKAppSettingsViewController *sv = [IASKAppSettingsViewController new];
+        sv.showDoneButton = YES;
+        sv.delegate = self;
+        
+        _settingsViewController = [[UINavigationController alloc] initWithRootViewController: sv];
+    }
 
     CATransition *transition = [CATransition animation];
     transition.duration = 0.4;
@@ -152,7 +156,7 @@ static Foreground *instance = nil;
     transition.type = kCATransitionMoveIn;
     transition.subtype = [self transitionSubtype:YES];
     
-    [[_cdvViewController.view.window layer] addAnimation:transition forKey:@"SwitchToView"];
+    [[_cdvViewController.view.window layer] addAnimation: transition forKey:@"SwitchToView"];
     
     [_cdvViewController presentModalViewController: _settingsViewController animated: NO];
 }
