@@ -8,6 +8,7 @@
 
 #import "FlowerFlowerContentViewController.h"
 #import "ScaleChanger.h"
+#import "UserDefaultsKey.h"
 
 @interface FlowerFlowerContentViewController () {
     BOOL settingsChanged;
@@ -30,16 +31,41 @@
     return self;
 }
 
+-(NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+-(BOOL)shouldAutorotate {
+    return [[NSUserDefaults standardUserDefaults] boolForKey: UDK_AUTO_ROTATE_SWITCH];
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return [self shouldAutorotate];
+}
+
 -(void)userDefaultChanged {
     settingsChanged = YES;
 }
 
 -(void)syncSettings {
     if (settingsChanged) {
-        ScaleChanger *sc = [self getCommandInstance:@"org.kaoriha.phonegap.plugins.scalechanger"];
-        [sc scaleChanged];
+        [self scaleChanged];
         settingsChanged = NO;
     }
+}
+
+- (void)didRotateFromInterfaceOrientation: (UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+
+    [self.webView stringByEvaluatingJavaScriptFromString:
+     [NSString stringWithFormat:
+      @"document.querySelector('meta[name=viewport]').setAttribute('content', 'width=%d;', false); ",
+      (int)self.webView.frame.size.width]];
+    [self scaleChanged];
+}
+
+-(void)scaleChanged {
+    [(ScaleChanger *)[self getCommandInstance:@"org.kaoriha.phonegap.plugins.scalechanger"] scaleChanged];
 }
 
 -(void)dealloc {

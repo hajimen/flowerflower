@@ -11,3 +11,4 @@
 #define UDK_TITLE_INFOS_VERSION @"TitleInfos.plist_version"
 #define UDK_IS_TRANSACTION_RUNNING @"isTransactionRunning"
 #define UDK_SCALE_SLIDER @"scaleSlider"
+#define UDK_AUTO_ROTATE_SWITCH @"autoRotateSwitch"

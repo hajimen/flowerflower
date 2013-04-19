@@ -22,14 +22,54 @@
 #import "InfoViewController.h"
 #import "PurchaseManager.h"
 #import "ContentDownloader.h"
+#import "UserDefaultsKey.h"
 
 static Foreground *instance = nil;
+
+@interface TabBarController : UITabBarController
+@end
+
+@implementation TabBarController
+
+-(NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+-(BOOL)shouldAutorotate {
+    return [[NSUserDefaults standardUserDefaults] boolForKey: UDK_AUTO_ROTATE_SWITCH];
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return [self shouldAutorotate];
+}
+
+@end
+
+@interface NavigationController : UINavigationController
+@end
+
+@implementation NavigationController
+
+-(NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+-(BOOL)shouldAutorotate {
+    return [[NSUserDefaults standardUserDefaults] boolForKey: UDK_AUTO_ROTATE_SWITCH];
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return [self shouldAutorotate];
+}
+
+@end
+
 
 @interface Foreground()
 
 @property (nonatomic) FlowerFlowerContentViewController *ffcViewController;
 @property (nonatomic) PurchaseManager *purchaseManager;
-@property (nonatomic) UINavigationController *settingsViewController;
+@property (nonatomic) NavigationController *settingsViewController;
 
 @end
 
@@ -53,13 +93,15 @@ static Foreground *instance = nil;
         return nil;
     }
 
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(userDefaultChanged) name: NSUserDefaultsDidChangeNotification object: nil];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
 
     TitleCollectionViewController *tvc = [[TitleCollectionViewController alloc] initWithCollectionViewLayout:[TitleCollectionViewLayout new]];
     
-    UITabBarController *tabController = [UITabBarController new];
+    TabBarController *tabController = [TabBarController new];
     
     InfoViewController *ivc = [InfoViewController new];
 
@@ -147,7 +189,7 @@ static Foreground *instance = nil;
         sv.showDoneButton = YES;
         sv.delegate = self;
         
-        _settingsViewController = [[UINavigationController alloc] initWithRootViewController: sv];
+        _settingsViewController = [[NavigationController alloc] initWithRootViewController: sv];
     }
 
     CATransition *transition = [CATransition animation];
@@ -222,5 +264,14 @@ static Foreground *instance = nil;
     }
 }
 
+-(void)userDefaultChanged {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: UDK_AUTO_ROTATE_SWITCH]) {
+        [UIViewController attemptRotationToDeviceOrientation];
+   }
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+}
 
 @end
