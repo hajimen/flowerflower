@@ -36,11 +36,12 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">306</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUILabel" id="285767284">
+					<object class="IBUILabel" id="439426947">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{20, 20}, {280, 90}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -75,13 +76,11 @@ vuOBmeOAgg3jgYrllY/jgYTlkIjjgo/jgZvvvJpoYWppbWVAa2FvcmloYS5vcmc</string>
 				</array>
 				<string key="NSFrameSize">{320, 130}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView" ref="285767284"/>
+				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="439426947"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MQA</bytes>
-					<object class="NSColorSpace" key="NSCustomColorSpace">
-						<int key="NSID">2</int>
-					</object>
+					<int key="NSColorSpace">2</int>
+					<bytes key="NSRGB">MC44Nzg0MzEzNzI1IDAuOTA1ODgyMzUyOSAwLjk0MTE3NjQ3MDYAA</bytes>
 				</object>
 				<object class="IBUISimulatedSizeMetrics" key="IBUISimulatedDestinationMetrics">
 					<string key="IBUISimulatedSizeMetricsClass">IBUISimulatedFreeformSizeMetricsSentinel</string>
@@ -89,11 +88,12 @@ vuOBmeOAgg3jgYrllY/jgYTlkIjjgo/jgZvvvJpoYWppbWVAa2FvcmloYS5vcmc</string>
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
-			<object class="IBUIScrollView" id="379359532">
+			<object class="IBUIScrollView" id="539971329">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
-				<string key="NSFrameSize">{164, 126}</string>
+				<string key="NSFrameSize">{145, 57}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -106,7 +106,7 @@ vuOBmeOAgg3jgYrllY/jgYTlkIjjgo/jgZvvvJpoYWppbWVAa2FvcmloYS5vcmc</string>
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">view</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="379359532"/>
+						<reference key="destination" ref="539971329"/>
 					</object>
 					<int key="connectionID">6</int>
 				</object>
@@ -121,7 +121,7 @@ vuOBmeOAgg3jgYrllY/jgYTlkIjjgo/jgZvvvJpoYWppbWVAa2FvcmloYS5vcmc</string>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
-						<reference key="source" ref="379359532"/>
+						<reference key="source" ref="539971329"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">8</int>
@@ -139,7 +139,7 @@ vuOBmeOAgg3jgYrllY/jgYTlkIjjgo/jgZvvvJpoYWppbWVAa2FvcmloYS5vcmc</string>
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="285767284"/>
+							<reference ref="439426947"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -156,12 +156,12 @@ vuOBmeOAgg3jgYrllY/jgYTlkIjjgo/jgZvvvJpoYWppbWVAa2FvcmloYS5vcmc</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3</int>
-						<reference key="object" ref="285767284"/>
+						<reference key="object" ref="439426947"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">5</int>
-						<reference key="object" ref="379359532"/>
+						<reference key="object" ref="539971329"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</array>
@@ -181,7 +181,37 @@ vuOBmeOAgg3jgYrllY/jgYTlkIjjgo/jgZvvvJpoYWppbWVAa2FvcmloYS5vcmc</string>
 			<nil key="sourceID"/>
 			<int key="maxID">8</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">AboutThisAppViewController</string>
+					<string key="superclassName">ScrollableViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AboutThisAppViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">ScrollableViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">contentView</string>
+						<string key="NS.object.0">UIView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">contentView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">contentView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/ScrollableViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
