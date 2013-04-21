@@ -16,13 +16,14 @@
 #define PRODUCT_UPDATE_INTERVAL 60.0 * 60.0
 #define TRANSACTION_TIMEOUT 5.0
 
-@interface InAppPurchaseStore ()
+@interface InAppPurchaseStore () {
+    BOOL transactionResumed;
+}
 
 @property (nonatomic) NSMutableDictionary *skProductMDic;
 @property (nonatomic, strong) void (^onTransactionFailed)(NSError *error);
 @property (nonatomic, strong) void (^onTransactionPurchased)(NSString *productId, NSData* receiptData);
 @property (nonatomic, strong) void (^onTransactionRestored)(NSString *productId, NSData* receiptData);
-@property (nonatomic) NSDate *transactionConsistentAt;
 
 @end
 
@@ -46,6 +47,7 @@
     _online = NO;
     _restoreRunning = NO;
     _transactionRunning = running;
+    transactionResumed = running;
 
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     _skProductMDic = [NSMutableDictionary new];
@@ -58,18 +60,9 @@
         [self checkOnline];
     }];
 
-    _transactionConsistentAt = [NSDate date];
-    // singleton and forever exists. no leaks.
-    [[RACSignal interval: 1.0] subscribeNext:^(NSDate *date) {
-        if (self.transactionRunning && [[[SKPaymentQueue defaultQueue] transactions] count] == 0) {
-            if ([date timeIntervalSinceDate: _transactionConsistentAt] > TRANSACTION_TIMEOUT) {
-                NSLog(@"transaction timeouted");
-                self.transactionRunning = NO;
-            }
-        } else {
-            _transactionConsistentAt = date;
-        }
-    }];
+    if (transactionResumed) {
+        [self performSelector: @selector(checkResumedTransaction) withObject: nil afterDelay:TRANSACTION_TIMEOUT];
+    }
 
     [self checkOnline];
 
@@ -88,6 +81,12 @@
 	[pr start];
 }
 
+-(void)checkResumedTransaction {
+    if (transactionResumed) {
+        self.transactionRunning = NO;
+    }
+}
+
 -(void)setOnline:(BOOL)online {
     [self willChangeValueForKey:@"online"];
     _online = online;
@@ -97,6 +96,7 @@
 -(void)setTransactionRunning:(BOOL)transactionRunning {
     [self willChangeValueForKey:@"transactionRunning"];
     _transactionRunning = transactionRunning;
+    transactionResumed = NO;
     [self didChangeValueForKey:@"transactionRunning"];
 }
 
