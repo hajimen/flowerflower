@@ -18,6 +18,10 @@
 
 @implementation FlowerFlowerContentViewController
 
++(void)initialize {
+    [[NSURLCache sharedURLCache] setMemoryCapacity: 0];
+}
+
 -(id)init {
     self = [super init];
     if (!self) {

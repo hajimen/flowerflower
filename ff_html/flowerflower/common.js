@@ -727,6 +727,16 @@
 					break;
 				}
 			}
+			if (from == local.length) {
+				if (this.toNextUpdate === -1) {
+					nextUpdate = NEXT_RELEASE_UNKNOWN_SPAN + new Date().getTime();
+				} else if (this.toNextUpdate > NEXT_RELEASE_UPDATING_SPAN) {
+					nextUpdate = this.toNextUpdate + new Date().getTime();
+				}
+				StatusSection.Set(StatusSection.Type.InAction, null);
+				StatusSection.Set(StatusSection.Type.Schedule, null);
+				return;
+			}
 
 			var express = catalogue.express;
 			var diffFilenameList = [];
@@ -994,7 +1004,7 @@
 
 	var Initialize = new Sequence([
 		function() {
-			StatusSection.Set(StatusSection.Type.InAction, "アプリを初期化しています...");
+			StatusSection.Set(StatusSection.Type.InAction, "初期化しています...");
 			ScreenMode.Set(ScreenMode.Loading);
 
 			if (localStorage.getItem(DepotStorageKey.Index) === null) {
@@ -1075,7 +1085,7 @@
 			Initialize.Start();
 		}, false);
 		ScreenMode.Set(ScreenMode.NotInitialized);
-		StatusSection.Set(StatusSection.Type.Error, "アプリの初期化に失敗しました。",
+		StatusSection.Set(StatusSection.Type.Error, "初期化に失敗しました。",
 			"リトライ", function() { Initialize.Start() });
 	});
 	sequenceInstanceSet['Initialize'] = Initialize;

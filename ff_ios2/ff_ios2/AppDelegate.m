@@ -39,6 +39,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self registerDefaultsFromSettingsBundle];
+
     if ([launchOptions objectForKey: UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
         for (TitleInfo *ti in [[TitleManager instance] titleInfoSet]) {
             if (ti.status != TitleStatusCompleted) {
@@ -109,6 +111,30 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)payload {
     NSLog(@"didReceiveNotification");
     [self.remoteNotification receive:payload];
+}
+
+////////////////////////////////////////////////////////////////////////
+// defaults
+////////////////////////////////////////////////////////////////////////
+- (void)registerDefaultsFromSettingsBundle {
+    NSString *settingsBundle = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
+    if(!settingsBundle) {
+        NSLog(@"Could not find Settings.bundle");
+        return;
+    }
+    
+    NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:[settingsBundle stringByAppendingPathComponent:@"Root.plist"]];
+    NSArray *preferences = [settings objectForKey:@"PreferenceSpecifiers"];
+    
+    NSMutableDictionary *defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:[preferences count]];
+    for(NSDictionary *prefSpecification in preferences) {
+        NSString *key = [prefSpecification objectForKey:@"Key"];
+        if(key) {
+            [defaultsToRegister setObject:[prefSpecification objectForKey:@"DefaultValue"] forKey:key];
+        }
+    }
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultsToRegister];
 }
 
 @end
