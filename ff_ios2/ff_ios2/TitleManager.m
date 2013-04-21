@@ -154,17 +154,23 @@ static TitleManager *_instance = nil;
 }
 
 -(void)notifyUpdated:(TitleInfo *)titleInfo {
-    RACSubject *s = [_updateSubjectDic objectForKey: titleInfo.titleId];
+    RACSubject *s;
+    @synchronized(self) {
+        s = [_updateSubjectDic objectForKey: titleInfo.titleId];
+    }
     if (s) {
         [s sendNext: @YES];
     }
 }
 
 -(RACSignal *)updateSignal:(TitleInfo *)titleInfo {
-    RACSubject *s = [_updateSubjectDic objectForKey: titleInfo.titleId];
-    if (!s) {
-        s = [RACSubject subject];
-        [_updateSubjectDic setObject: s forKey: titleInfo.titleId];
+    RACSubject *s;
+    @synchronized(self) {
+        s = [_updateSubjectDic objectForKey: titleInfo.titleId];
+        if (!s) {
+            s = [RACSubject subject];
+            [_updateSubjectDic setObject: s forKey: titleInfo.titleId];
+        }
     }
     return s;
 }

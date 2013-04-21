@@ -962,6 +962,7 @@
 	window.ff.CharacterNoteElement = '<a href="javascript:void(0)" onclick="window.ff.OnLinkClick(\'character_note\'); return false;">';
 
 	window.ff.FireUpdate = function(after) {
+		console.log("FireUpdate called");
 		if (isUpdating || isContentFixed) {
 			return;
 		}

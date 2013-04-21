@@ -8,8 +8,11 @@
 
 #import "Cordova/CDVViewController.h"
 
+@class TitleInfo;
+
 @interface FlowerFlowerContentViewController : CDVViewController
 
 -(void)syncSettings;
+-(id)initWithTitleInfo: (TitleInfo *)titleInfo;
 
 @end

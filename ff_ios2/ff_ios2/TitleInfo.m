@@ -26,20 +26,18 @@ NSDecimalNumber *UNKNOWN_PRICE;
 }
 
 +(TitleInfo *)instanceWithId: (NSString *)titleId {
-    if ([instanceDic valueForKey:titleId]) {
-        return [instanceDic valueForKey:titleId];
-    }
     @synchronized(self) {
-        TitleInfo *ti;
-        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-        NSData *d = [ud dataForKey: [NSString stringWithFormat: UDK_TITLE_INFO_FORMAT, titleId]];
-        if (d) {
-            ti = [NSKeyedUnarchiver unarchiveObjectWithData: d];
-        } else {
-            ti = [[self alloc] initWithId: titleId];
+        TitleInfo *ti = [instanceDic valueForKey:titleId];
+        if (!ti) {
+            NSData *d = [[NSUserDefaults standardUserDefaults] dataForKey: [NSString stringWithFormat: UDK_TITLE_INFO_FORMAT, titleId]];
+            if (d) {
+                ti = [NSKeyedUnarchiver unarchiveObjectWithData: d];
+            } else {
+                ti = [[self alloc] initWithId: titleId];
+            }
             [instanceDic setValue:ti forKey:titleId];
+            [ti preparePersistence];
         }
-        [ti preparePersistence];
         return ti;
     }
 }

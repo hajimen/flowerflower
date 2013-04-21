@@ -147,10 +147,7 @@ static Foreground *instance = nil;
 }
 
 -(void)showCdvViewContoller:(TitleInfo *)titleInfo {
-    _ffcViewController = [FlowerFlowerContentViewController new];
-    _ffcViewController.wwwFolderName = [[titleInfo.issue contentURL] absoluteString];
-    _ffcViewController.startPage = @"flowerflower/index.html";
-    _ffcViewController.view.frame = [[UIScreen mainScreen] bounds];
+    _ffcViewController = [[FlowerFlowerContentViewController alloc] initWithTitleInfo: titleInfo];
 
     UISwipeGestureRecognizer* rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleCdvViewControllerRightSwipeGesture:)];
     rightSwipeRecognizer.numberOfTouchesRequired = 1;

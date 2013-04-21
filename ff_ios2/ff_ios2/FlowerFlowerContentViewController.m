@@ -6,9 +6,14 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
+#import <NewsstandKit/NewsstandKit.h>
+#import "ReactiveCocoa/ReactiveCocoa.h"
+
 #import "FlowerFlowerContentViewController.h"
 #import "ScaleChanger.h"
 #import "UserDefaultsKey.h"
+#import "TitleInfo.h"
+#import "TitleManager.h"
 
 @interface FlowerFlowerContentViewController () {
     BOOL settingsChanged;
@@ -22,7 +27,7 @@
     [[NSURLCache sharedURLCache] setMemoryCapacity: 0];
 }
 
--(id)init {
+-(id)initWithTitleInfo: (TitleInfo *)titleInfo {
     self = [super init];
     if (!self) {
         return self;
@@ -32,7 +37,22 @@
 
     settingsChanged = NO;
 
+    self.wwwFolderName = [[titleInfo.issue contentURL] absoluteString];
+    self.startPage = @"flowerflower/index.html";
+    self.view.frame = [[UIScreen mainScreen] bounds];
+
+    [self rac_liftSelector: @selector(contentUpdated:) withObjects: [[TitleManager instance] updateSignal: titleInfo]];
+
     return self;
+}
+
+-(void)contentUpdated:(id) _ {
+    __weak FlowerFlowerContentViewController *ws = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (ws) {
+            [ws.webView stringByEvaluatingJavaScriptFromString: @"window.ff.FireUpdate(0);"];
+        }
+    });
 }
 
 -(NSUInteger)supportedInterfaceOrientations {
