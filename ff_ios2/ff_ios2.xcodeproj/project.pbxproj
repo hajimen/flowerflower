@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		571F8F6417216822005AB4F0 /* ScaleChanger.m in Sources */ = {isa = PBXBuildFile; fileRef = 571F8F6317216822005AB4F0 /* ScaleChanger.m */; };
 		571F8F681721AAE5005AB4F0 /* FlowerFlowerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 571F8F671721AAE5005AB4F0 /* FlowerFlowerContentViewController.m */; };
+		571F8F6E1724AED2005AB4F0 /* AlertStorageStavation.m in Sources */ = {isa = PBXBuildFile; fileRef = 571F8F6D1724AED2005AB4F0 /* AlertStorageStavation.m */; };
 		577E80AE16F1F64F00DA7DBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577E80AD16F1F64F00DA7DBA /* UIKit.framework */; };
 		577E80B016F1F64F00DA7DBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577E80AF16F1F64F00DA7DBA /* Foundation.framework */; };
 		577E80B216F1F64F00DA7DBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577E80B116F1F64F00DA7DBA /* CoreGraphics.framework */; };
@@ -84,6 +85,8 @@
 		571F8F6317216822005AB4F0 /* ScaleChanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleChanger.m; sourceTree = "<group>"; };
 		571F8F661721AAE5005AB4F0 /* FlowerFlowerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlowerFlowerContentViewController.h; sourceTree = "<group>"; };
 		571F8F671721AAE5005AB4F0 /* FlowerFlowerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlowerFlowerContentViewController.m; sourceTree = "<group>"; };
+		571F8F6C1724AED2005AB4F0 /* AlertStorageStavation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertStorageStavation.h; sourceTree = "<group>"; };
+		571F8F6D1724AED2005AB4F0 /* AlertStorageStavation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertStorageStavation.m; sourceTree = "<group>"; };
 		577E80AA16F1F64F00DA7DBA /* ff_ios2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ff_ios2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		577E80AD16F1F64F00DA7DBA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		577E80AF16F1F64F00DA7DBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -369,6 +372,8 @@
 				57844F50171C1A2100174FD2 /* AlertAuthError.m */,
 				57844F52171C230100174FD2 /* AlertServerNotReachable.h */,
 				57844F53171C230100174FD2 /* AlertServerNotReachable.m */,
+				571F8F6C1724AED2005AB4F0 /* AlertStorageStavation.h */,
+				571F8F6D1724AED2005AB4F0 /* AlertStorageStavation.m */,
 			);
 			name = Alert;
 			sourceTree = "<group>";
@@ -589,6 +594,7 @@
 				57844F6B171FF4D700174FD2 /* ScrollableViewController.m in Sources */,
 				571F8F6417216822005AB4F0 /* ScaleChanger.m in Sources */,
 				571F8F681721AAE5005AB4F0 /* FlowerFlowerContentViewController.m in Sources */,
+				571F8F6E1724AED2005AB4F0 /* AlertStorageStavation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

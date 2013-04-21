@@ -10,6 +10,7 @@
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "TitleInfo.h"
 #import "UserDefaultsKey.h"
+#import "AlertStorageStavation.h"
 
 static NSMutableDictionary *instanceDic;
 NSDecimalNumber *UNKNOWN_PRICE;
@@ -116,5 +117,11 @@ NSDecimalNumber *UNKNOWN_PRICE;
     return [lib issueWithName: _titleId];
 }
 
+-(NSURL *)thumbnailUrl {
+    if (![_thumbnailUrl checkResourceIsReachableAndReturnError: nil]) {
+        [[AlertStorageStavation new] show];
+    }
+    return _thumbnailUrl;
+}
 
 @end
