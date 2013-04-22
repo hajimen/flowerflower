@@ -21,4 +21,6 @@
 
 -(void)showTitle:(TitleInfo *)titleInfo;
 
+-(void)dismissCdvViewController;
+
 @end

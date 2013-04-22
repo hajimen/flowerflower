@@ -11,6 +11,7 @@ if (userAgent.match(/android/)) {
 } else {
 	document.write("<script src='../ios/cordova.ios.js'></script>"
 			+ "<script src='../ios/scaleChanger.js'></script>"
+			+ "<script src='../ios/purchase.js'></script>"
 			+ "<script src='../flowerflower/ios_iap.js'></script>"
 //			+ "<script src='../flowerflower/web.js'></script>"
 			);

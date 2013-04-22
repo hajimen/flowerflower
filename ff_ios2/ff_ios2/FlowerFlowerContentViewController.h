@@ -12,6 +12,8 @@
 
 @interface FlowerFlowerContentViewController : CDVViewController
 
+@property (nonatomic, readonly) TitleInfo *titleInfo;
+
 -(void)syncSettings;
 -(id)initWithTitleInfo: (TitleInfo *)titleInfo;
 

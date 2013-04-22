@@ -43,9 +43,15 @@
 
     [self rac_liftSelector: @selector(contentUpdated:) withObjects: [[TitleManager instance] updateSignal: titleInfo]];
 
+    _titleInfo = titleInfo;
+
     return self;
 }
 
+-(void)tapped: (id)sender {
+    NSLog(@"tapped");
+    
+}
 -(void)contentUpdated:(id) _ {
     __weak FlowerFlowerContentViewController *ws = self;
     dispatch_async(dispatch_get_main_queue(), ^{
