@@ -8,6 +8,7 @@
 
 #import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
+#import "SVProgressHUD.h"
 
 #import "FlowerFlowerContentViewController.h"
 #import "ScaleChanger.h"
@@ -58,12 +59,17 @@
         NSURLRequest *nr = [NSURLRequest requestWithURL: storeTo];
         __weak FlowerFlowerContentViewController *ws = self;
         [[[hdd start] deliverOn: RACScheduler.mainThreadScheduler] subscribeError:^(NSError *error) {
-            NSLog(@"download error");
-            [ws.webView loadRequest: nr];
+            if ([storeTo checkResourceIsReachableAndReturnError: nil]) {
+                [ws.webView loadRequest: nr];
+            } else {
+                [SVProgressHUD showErrorWithStatus: NSLocalizedString(@"Cannot connect to distribution server.", nil)];
+            }
         } completed:^{
-            NSLog(@"download ok");
             [ws.webView loadRequest: nr];
         }];
+        return NO;
+    } else if ([url hasPrefix: @"http:"] || [url hasPrefix: @"https:"]){
+        [[UIApplication sharedApplication] openURL: [request URL]];
         return NO;
     } else {
         return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
