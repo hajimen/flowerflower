@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
   s.name                  = "Cordova"
-  s.version               = "2.5.0"
+  s.version               = "2.5.0.1"
   s.summary               = "Apache Cordova is a platform for building native mobile applications using HTML, CSS and JavaScript."
   s.homepage              = "http://cordova.apache.org/"
   s.author                = "Original developed by Nitobi (acquire by Adobe) and all other PhoneGap and Cordova Contributors"
 
   s.license               = 'Apache License, Version 2.0'
 
-  s.source                = { :git => "https://github.com/hajimen/cordova-ios.git", :tag => "2.5.0" }
+  s.source                = { :git => "https://github.com/hajimen/cordova-ios.git", :commit => "2705bfca3b2a27bbf4bb87fe66f1081f6b10d875" }
   s.source_files          = 'CordovaLib/Classes/*.{h,m}'
   s.resources             = 'CordovaLib/cordova.ios.js', 'CordovaLib/VERSION'
 
