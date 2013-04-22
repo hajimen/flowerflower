@@ -18,7 +18,7 @@
 #import "AssetDownloadDelegate.h"
 #import "TitleManager.h"
 
-#define CATALOGUE_TEMP_PATH @"Auth/catalogye_temp.json"
+#define CATALOGUE_TEMP_PATH @"Auth/catalogue_temp.json"
 #define USER_INFO_PATH_KEY @"path"
 
 @interface ContentDownloader() {
