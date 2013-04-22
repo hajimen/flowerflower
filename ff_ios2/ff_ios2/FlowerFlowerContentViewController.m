@@ -14,6 +14,7 @@
 #import "UserDefaultsKey.h"
 #import "TitleInfo.h"
 #import "TitleManager.h"
+#import "HtmlDownloadDelegate.h"
 
 @interface FlowerFlowerContentViewController () {
     BOOL settingsChanged;
@@ -48,10 +49,27 @@
     return self;
 }
 
--(void)tapped: (id)sender {
-    NSLog(@"tapped");
-    
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSString *url = [[request URL] absoluteString];
+    if ([url hasPrefix: [_titleInfo.distributionUrl absoluteString]]) {
+        NSString *path = [url substringFromIndex: [[_titleInfo.distributionUrl absoluteString] length]];
+        NSURL *storeTo = [[_titleInfo.issue contentURL] URLByAppendingPathComponent: path];
+        HtmlDownloadDelegate *hdd = [[HtmlDownloadDelegate alloc] initWithUrl: [request URL] storeTo: storeTo];
+        NSURLRequest *nr = [NSURLRequest requestWithURL: storeTo];
+        __weak FlowerFlowerContentViewController *ws = self;
+        [[[hdd start] deliverOn: RACScheduler.mainThreadScheduler] subscribeError:^(NSError *error) {
+            NSLog(@"download error");
+            [ws.webView loadRequest: nr];
+        } completed:^{
+            NSLog(@"download ok");
+            [ws.webView loadRequest: nr];
+        }];
+        return NO;
+    } else {
+        return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+    }
 }
+
 -(void)contentUpdated:(id) _ {
     __weak FlowerFlowerContentViewController *ws = self;
     dispatch_async(dispatch_get_main_queue(), ^{
