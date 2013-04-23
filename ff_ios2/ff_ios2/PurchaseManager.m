@@ -175,6 +175,8 @@ static PurchaseManager *instance = nil;
             if (pushEnabled) {
                 ti.status = TitleStatusPushEnabled;
                 [[TitleManager instance] registerPushNotification: ti];
+                NSData *d = [NSData dataWithContentsOfURL: ti.thumbnailUrl];
+                [[UIApplication sharedApplication] setNewsstandIconImage: [UIImage imageWithData: d]];
             } else {
                 ti.status = TitleStatusCompleted;
             }
