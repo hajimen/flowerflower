@@ -101,9 +101,10 @@ static TitleManager *_instance = nil;
                 ti.price = UNKNOWN_PRICE;
             }
             ti.productId = [tip objectForKey: PLK_PRODUCT_ID];
-            NSString *titleTypePL = [tip objectForKey: PLK_TYPE];
-            if ([titleTypePL isEqualToString: PLV_TYPE_FLOWERFLOWER]) {
-                ti.distributionUrl = [NSURL URLWithString: [tip objectForKey: PLK_DISTRIBUTION_URL]];
+//            NSString *titleTypePL = [tip objectForKey: PLK_TYPE];
+            NSString *duls = [tip objectForKey: PLK_DISTRIBUTION_URL];
+            if (duls) {
+                ti.distributionUrl = [NSURL URLWithString: duls];
             }
         }
         [ud setObject: [rp objectForKey: PLK_VERSION] forKey: UDK_TITLE_INFOS_VERSION];

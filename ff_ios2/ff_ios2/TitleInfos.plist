@@ -53,6 +53,8 @@
 			<string>fixedInApp</string>
 			<key>productId</key>
 			<string>org.kaoriha.kanzenhitogata</string>
+			<key>distributionUrl</key>
+			<string>http://kaoriha.org/kanzenhitogata/</string>
 		</dict>
 		<dict>
 			<key>id</key>
@@ -77,6 +79,8 @@
 			<string>fixedInApp</string>
 			<key>productId</key>
 			<string>org.kaoriha.kouchabutton</string>
+			<key>distributionUrl</key>
+			<string>http://kaoriha.org/kouchabutton/</string>
 		</dict>
 	</array>
 	<key>version</key>
