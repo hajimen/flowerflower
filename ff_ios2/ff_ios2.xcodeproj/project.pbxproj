@@ -12,6 +12,10 @@
 		571F8F6E1724AED2005AB4F0 /* AlertStorageStavation.m in Sources */ = {isa = PBXBuildFile; fileRef = 571F8F6D1724AED2005AB4F0 /* AlertStorageStavation.m */; };
 		571F8F741724B2CE005AB4F0 /* Purchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 571F8F731724B2CE005AB4F0 /* Purchase.m */; };
 		571F8F771724D39C005AB4F0 /* HtmlDownloadDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 571F8F761724D39C005AB4F0 /* HtmlDownloadDelegate.m */; };
+		571F8F7C1726382D005AB4F0 /* tabbar-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 571F8F781726382C005AB4F0 /* tabbar-settings.png */; };
+		571F8F7D1726382D005AB4F0 /* tabbar-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 571F8F791726382C005AB4F0 /* tabbar-settings@2x.png */; };
+		571F8F7E1726382D005AB4F0 /* tabbar-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 571F8F7A1726382D005AB4F0 /* tabbar-title.png */; };
+		571F8F7F1726382D005AB4F0 /* tabbar-title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 571F8F7B1726382D005AB4F0 /* tabbar-title@2x.png */; };
 		577E80AE16F1F64F00DA7DBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577E80AD16F1F64F00DA7DBA /* UIKit.framework */; };
 		577E80B016F1F64F00DA7DBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577E80AF16F1F64F00DA7DBA /* Foundation.framework */; };
 		577E80B216F1F64F00DA7DBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577E80B116F1F64F00DA7DBA /* CoreGraphics.framework */; };
@@ -93,6 +97,10 @@
 		571F8F731724B2CE005AB4F0 /* Purchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Purchase.m; sourceTree = "<group>"; };
 		571F8F751724D39C005AB4F0 /* HtmlDownloadDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HtmlDownloadDelegate.h; sourceTree = "<group>"; };
 		571F8F761724D39C005AB4F0 /* HtmlDownloadDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HtmlDownloadDelegate.m; sourceTree = "<group>"; };
+		571F8F781726382C005AB4F0 /* tabbar-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-settings.png"; sourceTree = "<group>"; };
+		571F8F791726382C005AB4F0 /* tabbar-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-settings@2x.png"; sourceTree = "<group>"; };
+		571F8F7A1726382D005AB4F0 /* tabbar-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-title.png"; sourceTree = "<group>"; };
+		571F8F7B1726382D005AB4F0 /* tabbar-title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar-title@2x.png"; sourceTree = "<group>"; };
 		577E80AA16F1F64F00DA7DBA /* ff_ios2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ff_ios2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		577E80AD16F1F64F00DA7DBA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		577E80AF16F1F64F00DA7DBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -289,6 +297,10 @@
 		577E80B416F1F64F00DA7DBA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				571F8F781726382C005AB4F0 /* tabbar-settings.png */,
+				571F8F791726382C005AB4F0 /* tabbar-settings@2x.png */,
+				571F8F7A1726382D005AB4F0 /* tabbar-title.png */,
+				571F8F7B1726382D005AB4F0 /* tabbar-title@2x.png */,
 				57844F181712A27600174FD2 /* ff_ios2.entitlements */,
 				57C66B93170C1E1500559028 /* test_image2.png */,
 				57C66B7C170AB9F300559028 /* test_image.png */,
@@ -526,6 +538,10 @@
 				57844F64171F0E4300174FD2 /* RestoreView.xib in Resources */,
 				57844F66171FCFFB00174FD2 /* TagDescriptionView.xib in Resources */,
 				57844F68171FDF9300174FD2 /* AboutThisAppView.xib in Resources */,
+				571F8F7C1726382D005AB4F0 /* tabbar-settings.png in Resources */,
+				571F8F7D1726382D005AB4F0 /* tabbar-settings@2x.png in Resources */,
+				571F8F7E1726382D005AB4F0 /* tabbar-title.png in Resources */,
+				571F8F7F1726382D005AB4F0 /* tabbar-title@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

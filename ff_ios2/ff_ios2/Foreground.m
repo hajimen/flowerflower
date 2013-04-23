@@ -100,10 +100,14 @@ static Foreground *instance = nil;
     self.window.backgroundColor = [UIColor whiteColor];
 
     TitleCollectionViewController *tvc = [[TitleCollectionViewController alloc] initWithCollectionViewLayout:[TitleCollectionViewLayout new]];
+    tvc.tabBarItem.image = [UIImage imageNamed:@"tabbar-title.png"];
+    tvc.tabBarItem.title = NSLocalizedString(@"Titles", nil);
     
     TabBarController *tabController = [TabBarController new];
     
     InfoViewController *ivc = [InfoViewController new];
+    ivc.tabBarItem.image = [UIImage imageNamed:@"tabbar-settings.png"];
+    ivc.tabBarItem.title = NSLocalizedString(@"Infos & Settings", nil);
 
     [tabController setViewControllers:@[tvc, ivc] animated: NO];
     self.viewController = tabController;
