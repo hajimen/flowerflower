@@ -28,6 +28,7 @@ extern NSDecimalNumber *UNKNOWN_PRICE;
 @property (nonatomic) NSDate *lastUpdated;
 @property (nonatomic) NSURL *thumbnailUrl;
 @property (nonatomic) NSString *footnote;
+@property (nonatomic) NSString *contentHtmlPath;
 
 @property (nonatomic) NSString *productId;
 @property (nonatomic) NSDecimalNumber *price;   // nil if free

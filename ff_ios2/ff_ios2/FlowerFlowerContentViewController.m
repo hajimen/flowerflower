@@ -40,7 +40,7 @@
     settingsChanged = NO;
 
     self.wwwFolderName = [[titleInfo.issue contentURL] absoluteString];
-    self.startPage = @"flowerflower/index.html";
+    self.startPage = titleInfo.contentHtmlPath;
     self.view.frame = [[UIScreen mainScreen] bounds];
 
     [self rac_liftSelector: @selector(contentUpdated:) withObjects: [[TitleManager instance] updateSignal: titleInfo]];

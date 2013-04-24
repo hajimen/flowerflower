@@ -6,6 +6,32 @@
 	<array>
 		<dict>
 			<key>id</key>
+			<string>notification</string>
+			<key>name</key>
+			<string>お知らせ</string>
+			<key>tags</key>
+			<string>お知らせ,無料</string>
+			<key>lastUpdated</key>
+			<date>2013-04-24T08:53:47Z</date>
+			<key>baseResourceZipPath</key>
+			<string>notification_base.zip</string>
+			<key>purchasedResourceZipPath</key>
+			<string>notification_purchased.zip</string>
+			<key>thumbnailPath</key>
+			<string>thumbnail.png</string>
+			<key>contentHtmlPath</key>
+			<string>index.html</string>
+			<key>status</key>
+			<string>onAir</string>
+			<key>type</key>
+			<string>fixedInApp</string>
+			<key>productId</key>
+			<string>org.kaoriha.notification</string>
+			<key>distributionUrl</key>
+			<string>http://kaoriha.org/notification/</string>
+		</dict>
+		<dict>
+			<key>id</key>
 			<string>miyako</string>
 			<key>name</key>
 			<string>鄙の姫、宮処の巫女、余所者の嫁</string>

@@ -16,6 +16,7 @@
 #import "TitleManager.h"
 #import "TitleInfo.h"
 #import "ContentDownloader.h"
+#import "AlertNewContent.h"
 
 static RemoteNotification *instance = nil;
 
@@ -71,7 +72,7 @@ static RemoteNotification *instance = nil;
 
 -(void)register_ {
     [[UIApplication sharedApplication]
-     registerForRemoteNotificationTypes: UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeNewsstandContentAvailability | UIRemoteNotificationTypeSound];
+     registerForRemoteNotificationTypes: UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeNewsstandContentAvailability];
 }
 
 -(void)registerOk:(NSData *) deviceTokenData {
@@ -92,22 +93,28 @@ static RemoteNotification *instance = nil;
     }
     NSLog(@"remote notification received");
     
+    NSDictionary *aps = [payload objectForKey: @"aps"];
     NSString *titleId = [payload objectForKey: @"titleId"];
     if (titleId) {
         TitleInfo *ti = [TitleInfo instanceWithId: titleId];
         self.updatedTitle = ti;
         [[[ContentDownloader alloc] initWithTitleInfo: ti] start];
+        NSLog(@"content download started");
+
+        if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+            AlertNewContent *anc = [AlertNewContent new];
+            [anc showWithMessage: [aps objectForKey: @"alert"]];
+             
+        }
+        UILocalNotification *n =[UILocalNotification new];
+        n.alertBody = [aps objectForKey: @"alert"];
+        n.userInfo = @{@"titleId" : titleId};
+        [[UIApplication sharedApplication] scheduleLocalNotification: n];
     }
 }
 
 - (void)clearBadge:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options{
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-}
-
--(void)setUpdatedTitle:(TitleInfo *)updatedTitle {
-    [self willChangeValueForKey: @"updatedTitle"];
-    _updatedTitle = updatedTitle;
-    [self didChangeValueForKey: @"updatedTitle"];
 }
 
 @end

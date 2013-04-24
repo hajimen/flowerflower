@@ -85,6 +85,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
     _lastUpdated = [aDecoder decodeObjectForKey:@"lastUpdated"];
     _thumbnailUrl = [aDecoder decodeObjectForKey:@"thumbnailUrl"];
     _footnote = [aDecoder decodeObjectForKey:@"footnote"];
+    _contentHtmlPath = [aDecoder decodeObjectForKey:@"contentHtmlPath"];
     
     _productId = [aDecoder decodeObjectForKey:@"productId"];
     _price = [aDecoder decodeObjectForKey:@"price"];
@@ -104,6 +105,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
     [aCoder encodeObject:_lastUpdated forKey:@"lastUpdated"];
     [aCoder encodeObject:_thumbnailUrl forKey:@"thumbnailUrl"];
     [aCoder encodeObject:_footnote forKey:@"footnote"];
+    [aCoder encodeObject:_contentHtmlPath forKey:@"contentHtmlPath"];
 
     [aCoder encodeObject:_productId forKey:@"productId"];
     [aCoder encodeObject:_price forKey:@"price"];

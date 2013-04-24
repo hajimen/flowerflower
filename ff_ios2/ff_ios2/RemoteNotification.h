@@ -20,6 +20,6 @@
 -(void)clearBadge:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
 -(void)registerApnsTo: (NSURL *)url enable: (BOOL)enable;
 
-@property (nonatomic, readonly) TitleInfo *updatedTitle;
+@property (nonatomic) TitleInfo *updatedTitle;
 
 @end

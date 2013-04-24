@@ -153,6 +153,15 @@ static Foreground *instance = nil;
 -(void)showCdvViewContoller:(TitleInfo *)titleInfo {
     _ffcViewController = [[FlowerFlowerContentViewController alloc] initWithTitleInfo: titleInfo];
 
+    for (UILocalNotification *ln in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
+        if (ln.userInfo) {
+            NSString *titleId = [ln.userInfo objectForKey: @"titleId"];
+            if (titleId && [titleInfo.titleId isEqualToString: titleId]) {
+                [[UIApplication sharedApplication] cancelLocalNotification: ln];
+            }
+        }
+    }
+
     UISwipeGestureRecognizer* rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleCdvViewControllerRightSwipeGesture:)];
     rightSwipeRecognizer.numberOfTouchesRequired = 1;
     rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;

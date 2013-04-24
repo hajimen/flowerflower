@@ -32,6 +32,7 @@
 @property (nonatomic) NSString *test1;
 @property (nonatomic) NSString *test2;
 @property (nonatomic) ContentDownloader *cd;
+@property (nonatomic) TitleInfo *updatedTitle;
 
 @end
 
@@ -49,9 +50,10 @@
         }
     }
     
+    [self localNotification: [launchOptions objectForKey: UIApplicationLaunchOptionsLocalNotificationKey]];
 
     self.remoteNotification = [RemoteNotification instance];
-//    [self.remoteNotification register_];
+    [self.remoteNotification register_];
     [self.remoteNotification receive:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
 
 #if DEBUG
@@ -84,10 +86,16 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     if (!self.foreground) {
         self.foreground = [Foreground instance];
-        if (self.remoteNotification.updatedTitle) {
-            [self.foreground showTitle: self.remoteNotification.updatedTitle];
-        }
     }
+    if (_updatedTitle) {
+        [self.foreground showTitle: _updatedTitle];
+    } else if (self.remoteNotification.updatedTitle) {
+        [self.foreground showTitle: self.remoteNotification.updatedTitle];
+    }
+    _updatedTitle = nil;
+    self.remoteNotification.updatedTitle = nil;
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -111,6 +119,24 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)payload {
     NSLog(@"didReceiveNotification");
     [self.remoteNotification receive:payload];
+}
+
+////////////////////////////////////////////////////////////////////////
+// local notification
+////////////////////////////////////////////////////////////////////////
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    [self localNotification: notification];
+}
+
+-(void)localNotification:(UILocalNotification *)ln {
+    if (ln && ln.userInfo) {
+        NSLog(@"local notification received");
+        NSString *titleId = [ln.userInfo objectForKey: @"titleId"];
+        _updatedTitle = [TitleInfo instanceWithId: titleId];
+    } else {
+        _updatedTitle = nil;
+    }
+
 }
 
 ////////////////////////////////////////////////////////////////////////

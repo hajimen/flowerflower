@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5714C4A91727D479004D04D0 /* notification_base.zip in Resources */ = {isa = PBXBuildFile; fileRef = 5714C4A71727D479004D04D0 /* notification_base.zip */; };
+		5714C4AA1727D479004D04D0 /* notification_purchased.zip in Resources */ = {isa = PBXBuildFile; fileRef = 5714C4A81727D479004D04D0 /* notification_purchased.zip */; };
+		5714C4AD172832DA004D04D0 /* AlertNewContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5714C4AC172832DA004D04D0 /* AlertNewContent.m */; };
 		571F8F6417216822005AB4F0 /* ScaleChanger.m in Sources */ = {isa = PBXBuildFile; fileRef = 571F8F6317216822005AB4F0 /* ScaleChanger.m */; };
 		571F8F681721AAE5005AB4F0 /* FlowerFlowerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 571F8F671721AAE5005AB4F0 /* FlowerFlowerContentViewController.m */; };
 		571F8F6E1724AED2005AB4F0 /* AlertStorageStavation.m in Sources */ = {isa = PBXBuildFile; fileRef = 571F8F6D1724AED2005AB4F0 /* AlertStorageStavation.m */; };
@@ -93,6 +96,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5714C4A71727D479004D04D0 /* notification_base.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = notification_base.zip; sourceTree = "<group>"; };
+		5714C4A81727D479004D04D0 /* notification_purchased.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = notification_purchased.zip; sourceTree = "<group>"; };
+		5714C4AB172832DA004D04D0 /* AlertNewContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertNewContent.h; sourceTree = "<group>"; };
+		5714C4AC172832DA004D04D0 /* AlertNewContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertNewContent.m; sourceTree = "<group>"; };
 		571F8F6217216822005AB4F0 /* ScaleChanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScaleChanger.h; sourceTree = "<group>"; };
 		571F8F6317216822005AB4F0 /* ScaleChanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleChanger.m; sourceTree = "<group>"; };
 		571F8F661721AAE5005AB4F0 /* FlowerFlowerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlowerFlowerContentViewController.h; sourceTree = "<group>"; };
@@ -395,6 +402,8 @@
 		57844F33171688CB00174FD2 /* Title Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5714C4A71727D479004D04D0 /* notification_base.zip */,
+				5714C4A81727D479004D04D0 /* notification_purchased.zip */,
 				57844F341716895B00174FD2 /* kanzenhitogata_base.zip */,
 				57844F351716895B00174FD2 /* kanzenhitogata_purchased.zip */,
 				57844F361716895B00174FD2 /* kouchabutton_base.zip */,
@@ -414,6 +423,8 @@
 				57844F53171C230100174FD2 /* AlertServerNotReachable.m */,
 				571F8F6C1724AED2005AB4F0 /* AlertStorageStavation.h */,
 				571F8F6D1724AED2005AB4F0 /* AlertStorageStavation.m */,
+				5714C4AB172832DA004D04D0 /* AlertNewContent.h */,
+				5714C4AC172832DA004D04D0 /* AlertNewContent.m */,
 			);
 			name = Alert;
 			sourceTree = "<group>";
@@ -566,6 +577,8 @@
 				571F8F891727BC9B005AB4F0 /* Default-Portrait@2x~ipad.png in Resources */,
 				571F8F8B1727BCA9005AB4F0 /* Default-Landscape~ipad.png in Resources */,
 				571F8F8D1727BCB6005AB4F0 /* Default-Landscape@2x~ipad.png in Resources */,
+				5714C4A91727D479004D04D0 /* notification_base.zip in Resources */,
+				5714C4AA1727D479004D04D0 /* notification_purchased.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,6 +660,7 @@
 				571F8F6E1724AED2005AB4F0 /* AlertStorageStavation.m in Sources */,
 				571F8F741724B2CE005AB4F0 /* Purchase.m in Sources */,
 				571F8F771724D39C005AB4F0 /* HtmlDownloadDelegate.m in Sources */,
+				5714C4AD172832DA004D04D0 /* AlertNewContent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,11 +789,15 @@
 			baseConfigurationReference = 73AC0F31BFE545E9AFC95898 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ff_ios2/ff_ios2.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ff_ios2/ff_ios2-Prefix.pch";
 				INFOPLIST_FILE = "ff_ios2/ff_ios2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -12,7 +12,7 @@
 @implementation AlertAuthError
 
 -(void)showWithUrl:(NSURL *)url {
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Auth Error" message:@"Distribution server auth error. Please restore your purchase." delegate: self cancelButtonTitle: @"Cancel" otherButtonTitles: @"Restore Now", nil];
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"Auth Error", nil) message: NSLocalizedString(@"Distribution server auth error. Please restore your purchase.", nil) delegate: self cancelButtonTitle: NSLocalizedString(@"Cancel", nil) otherButtonTitles: NSLocalizedString(@"Restore Now", nil), nil];
     [av show];
 }
 

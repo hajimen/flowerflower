@@ -90,6 +90,7 @@ static TitleManager *_instance = nil;
             }
             ti.name = [tip objectForKey: PLK_NAME];
             ti.tags = [[tip objectForKey: PLK_TAGS] componentsSeparatedByString: @","];
+            ti.contentHtmlPath = [tip objectForKey: PLK_CONTENT_HTML_PATH];
             ti.lastUpdated = [tip objectForKey: PLK_LAST_UPDATED];
             if (ti.lastViewed == nil) {
                 ti.lastViewed = [ti lastUpdated];
