@@ -68,19 +68,17 @@
     _leftView = [[UIView alloc] initWithFrame: CGRectMake(MARGIN_X, MARGIN_Y, LEFT_VIEW_WIDTH - MARGIN_X, height)];
     _leftView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
     
-    UIImage *img = [UIImage imageNamed:@"test_image.png"];
+//    UIImage *img = [UIImage imageNamed:@"test_image.png"];
     _tnView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, IMAGE_WIDTH, height)];
     _tnView.contentMode = UIViewContentModeScaleAspectFit;
-    _tnView.image = img;
+//    _tnView.image = img;
     [_leftView addSubview: _tnView];
 
-    RAC(tnView.image) = [[RACAble(titleInfo.thumbnailUrl) map:^(NSURL *url) {
-        if (url) {
-            NSData *d = [NSData dataWithContentsOfURL: url];
-            return [UIImage imageWithData: d];
-        } else {
-            return [UIImage imageNamed:@"test_image.png"];
-        }
+    RAC(tnView.image) = [[[RACAble(titleInfo.thumbnailUrl) filter:^BOOL(id value) {
+        return value != nil;
+    }] map:^(NSURL *url) {
+        NSData *d = [NSData dataWithContentsOfURL: url];
+        return [UIImage imageWithData: d];
     }] deliverOn: RACScheduler.mainThreadScheduler];
     
     _middleView = [[UIView alloc] initWithFrame: CGRectMake(LEFT_VIEW_WIDTH, MARGIN_Y, width - LEFT_VIEW_WIDTH - RIGHT_VIEW_WIDTH - MARGIN_X, height)];

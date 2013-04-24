@@ -29,21 +29,24 @@
 	var isContentFixed = false;
 	var sequenceInstanceSet = {};
 
-	// iPad 3.2 bug workaround
+	// Separate titles
 	var localStorage = {
 		'setItem' : function(k, v) {
+			k = k + window.ff.Site;
 			if (window.localStorage.getItem(k) != null) {
 				window.localStorage.removeItem(k);
 			}
 			window.localStorage.setItem(k, v);
 		},
 		'getItem' : function(k) {
+			k = k + window.ff.Site;
 			return window.localStorage.getItem(k);
 		},
 		'clear' : function() {
 			window.localStorage.clear();
 		},
 		'removeItem' : function(k) {
+			k = k + window.ff.Site;
 			window.localStorage.removeItem(k);
 		}
 	};

@@ -54,7 +54,9 @@
         <plugin name="Notification" value="CDVNotification" />
         <plugin name="Media" value="CDVSound" />
         <plugin name="Capture" value="CDVCapture" />
+        <!--
         <plugin name="SplashScreen" value="CDVSplashScreen" />
+         -->
         <plugin name="Battery" value="CDVBattery" />
         <plugin name="Globalization" value="CDVGlobalization" />
         <plugin name="InAppBrowser" value="CDVInAppBrowser" />

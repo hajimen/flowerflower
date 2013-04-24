@@ -148,9 +148,10 @@ static PurchaseManager *instance = nil;
     TitleInfo *ti = [[TitleManager instance] titleInfoWithProductId: productId];
     ti.purchased = YES;
     NSDictionary *tip = [self findFromTitleInfoPlist: ti];
-    [self incrementInitializingTitleCount];
     [self unzipPurchasedTitleResource: ti titleInfoPlist: tip];
-    if (ti.distributionUrl) {
+    NSString *ty = [tip objectForKey: PLK_TYPE];
+    if (ty && ![ty isEqualToString: PLV_TYPE_FIXED_IN_APP]) {
+        [self incrementInitializingTitleCount];
         NSString *s = [tip objectForKey: PLK_STATUS];
         BOOL pushEnabled = s && [s isEqualToString: PLV_STATUS_ON_AIR];
         AuthDelegate *ad = [[AuthDelegate alloc] initWithReceipt: receiptData titleInfo: ti];
@@ -182,6 +183,7 @@ static PurchaseManager *instance = nil;
             }
         }];
     }
+    ti.lastViewed = [NSDate date];
 }
 
 -(NSDictionary *)findFromTitleInfoPlist: (TitleInfo *)titleInfo {
