@@ -26,16 +26,7 @@ namespace FFSite
         {
             if (context.Request.Cookies[SiteConstant.AuthTokenCookieName] == null)
             {
-                if (context.Request.Path.EndsWith(".html"))
-                {
-                    WebUtil.RedirectToAskAuthPage(context);
-                }
-                else
-                {
-                    logger.Info("no auth cookie request. RequestInfo: " + WebUtil.RequestInfo(context));
-                    context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                    context.Response.End();
-                }
+                WebUtil.HandleForbiddenAccess(context);
                 return;
             }
             string tokenBody = context.Request.Cookies[SiteConstant.AuthTokenCookieName].Value;
@@ -43,7 +34,7 @@ namespace FFSite
             if (!v.IsValid)
             {
                 logger.Info("token invalid. RequestInfo: " + WebUtil.RequestInfo(context));
-                WebUtil.RedirectToAskAuthPage(context);
+                WebUtil.HandleForbiddenAccess(context);
                 return;
             }
             if (v.IsLockedOut)

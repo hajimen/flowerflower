@@ -47,6 +47,16 @@ namespace FFCommon.Apns
             }
         }
 
+        private bool contentAvailable = false;
+        public bool ContentAvailable
+        {
+            get { return contentAvailable; }
+            set
+            {
+                contentAvailable = value;
+            }
+        }
+
         private Dictionary<string, object> custom = new Dictionary<string, object>();
 
         public Dictionary<string, object> Custom
@@ -73,6 +83,10 @@ namespace FFCommon.Apns
             if (sound != null)
             {
                 aps["sound"] = sound;
+            }
+            if (contentAvailable)
+            {
+                aps["content-available"] = 1;
             }
 
             Dictionary<string, object> root;

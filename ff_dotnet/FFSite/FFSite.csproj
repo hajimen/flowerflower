@@ -63,6 +63,7 @@
     <Content Include="UnknownError.html" />
     <Content Include="Office\Author\RequestAuthCookie.ashx" />
     <Content Include="Office\IosInAppPurchase\RequestAuthCookie.ashx" />
+    <Content Include="Office\IosInAppPurchase\RegisterApns.ashx" />
     <None Include="TestPage\SetupCookie.aspx" />
     <None Include="TestPage\SetupTestToken.aspx" />
     <None Include="tsume\tsume.ttf" />
@@ -117,9 +118,13 @@
       <DependentUpon>RequestAuthToken.ashx</DependentUpon>
     </Compile>
     <Compile Include="Office\IosApns\RequestProcessor.cs" />
+    <Compile Include="Office\IosInAppPurchase\RegisterApns.ashx.cs">
+      <DependentUpon>RegisterApns.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Office\IosInAppPurchase\RequestAuthCookie.ashx.cs">
       <DependentUpon>RequestAuthCookie.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Office\IosInAppPurchase\RequestProcessor.cs" />
     <Compile Include="Office\LockedOut.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>LockedOut.aspx</DependentUpon>
@@ -177,7 +182,7 @@
     <Content Include="design\before_restore_scroll_position.css" />
     <Content Include="design\blank_square.png" />
     <Content Include="design\design.css" />
-    <Content Include="design\design.js" />
+    <Content Include="design\design_web.js" />
     <Content Include="design\design_ie8.css" />
     <Content Include="design\google_play_badge.png" />
     <Content Include="design\left_top.png" />
@@ -185,6 +190,7 @@
     <Content Include="design\list_marker_current.png" />
     <Content Include="design\now_loading.png" />
     <Content Include="flowerflower\fire_content_updated.js" />
+    <Content Include="flowerflower\load.js" />
     <Content Include="flowerflower\restore_scroll.js" />
     <Content Include="jquery-1.6.2.min.js" />
     <Content Include="jquery-cookie.js" />

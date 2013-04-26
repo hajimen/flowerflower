@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Text;
+using System.Net;
 
 namespace FFSite
 {
@@ -26,10 +27,17 @@ namespace FFSite
                 + HttpUtility.UrlEncode(until.ToString(SiteConstant.MinuteGrainDateTimeFormat)));
         }
 
-        public static void RedirectToAskAuthPage(HttpContext context)
+        public static void HandleForbiddenAccess(HttpContext context)
         {
-            context.Response.Redirect(SiteConstant.AskAuthenticationKeyPage + "?from="
-                + HttpUtility.UrlEncode(context.Request.Path));
+            if (context.Request.Path.EndsWith(".html") || context.Request.Path.EndsWith(".aspx"))
+            {
+                context.Response.Redirect(SiteConstant.AskAuthenticationKeyPage + "?from="
+                    + HttpUtility.UrlEncode(context.Request.Path));
+            }
+            else
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+            }
         }
 
         public static string RequestInfo(HttpContext context)

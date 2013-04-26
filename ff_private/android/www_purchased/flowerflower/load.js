@@ -1,0 +1,12 @@
+document.write("<script src='../jquery-1.6.2.min.js'></script>"
+		+ "<script src='../design/spin.min.js'></script>"
+		+ "<script src='../android/phonegap-1.1.0.js'></script>"
+		+ "<script src='../android/licenseverification.js'></script>"
+		+ "<script src='../android/releasenotification.js'></script>"
+		+ "<script src='../flowerflower/android_lvl.js'></script>"
+		+ "<script src='../flowerflower/common.js'></script>"
+		+ "<script src='../design/design.js'></script>"
+		+ "<script src='../tsume/tsume.js'></script>"
+		+ "<script src='../flowerflower/site_constant.js'></script>"
+		+ "<script src='../android/ruby_fix.js'></script>"
+		);

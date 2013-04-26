@@ -12,6 +12,7 @@ namespace FFCommon
         private static Dictionary<long, ApnsPusher> InstanceDictionary = new Dictionary<long, ApnsPusher>();
  
         private readonly long id;
+        private readonly string titleName;
         private readonly Credential credential;
         private readonly ANotificationService service;
 
@@ -20,6 +21,7 @@ namespace FFCommon
             CredentialTableAdapter cta = new CredentialTableAdapter();
 
             this.id = title.Id;
+            this.titleName = title.Name;
             this.credential = new Credential(title);
 
             service = Settings.NewNotificationService(credential.ApnsIsSandbox, credential.ApnsPkcs12FilePath, credential.ApnsPkcs12FilePassword);
@@ -70,6 +72,8 @@ namespace FFCommon
                 Payload p = new Payload();
                 p.Message = msg;
                 p.Badge = apnsRow.UnreadRelease;
+                p.Custom["titleId"] = titleName;
+                p.ContentAvailable = true;
                 Notification n = new NotificationImpl(int.MaxValue, p, apnsRow.DeviceToken, apnsRow.Id);
                 service.Enqueue(n);
             }
