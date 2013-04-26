@@ -10,6 +10,6 @@
 
 @interface InfoMasterViewController : UITableViewController <UITableViewDelegate>
 
--(id)initWithSelectionHandler:(void (^)(UIViewController *viewController)) selectionHandler;
+-(id)initWithSelectionHandler:(void (^)(UIViewController *viewController)) selectionHandler showDisclosureButton: (BOOL)show;
 
 @end

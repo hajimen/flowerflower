@@ -107,7 +107,6 @@
 // remote notification
 ////////////////////////////////////////////////////////////////////////
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-	NSLog(@"deviceToken: %@", deviceToken);
     [self.remoteNotification registerOk: deviceToken];
 }
 

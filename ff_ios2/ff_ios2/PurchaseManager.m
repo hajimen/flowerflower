@@ -146,6 +146,12 @@ static PurchaseManager *instance = nil;
 
 -(void)purchased:(NSString *)productId receiptData: (NSData *)receiptData {
     TitleInfo *ti = [[TitleManager instance] titleInfoWithProductId: productId];
+    if (!ti) {
+        return;
+    }
+    if (ti.purchased) {
+        return;
+    }
     ti.purchased = YES;
     NSDictionary *tip = [self findFromTitleInfoPlist: ti];
     [self unzipPurchasedTitleResource: ti titleInfoPlist: tip];

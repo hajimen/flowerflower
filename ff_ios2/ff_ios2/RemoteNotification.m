@@ -65,7 +65,7 @@ static RemoteNotification *instance = nil;
         [[rad startWithEnable: enable] subscribeError:^(NSError *error) {
             NSLog(@"device token registration failed. url: %@", url);
         } completed:^{
-            NSLog(@"device token registration ok");
+            // NSLog(@"device token registration ok");
         }];
     }
 }
@@ -76,8 +76,8 @@ static RemoteNotification *instance = nil;
 }
 
 -(void)registerOk:(NSData *) deviceTokenData {
-    NSString *deviceTokenHex = [[GTMStringEncoding hexStringEncoding] encode:deviceTokenData];
-    NSLog(@"device token: %@", deviceTokenHex);
+    // NSString *deviceTokenHex = [[GTMStringEncoding hexStringEncoding] encode:deviceTokenData];
+    // NSLog(@"device token: %@", deviceTokenHex);
     _deviceTokenData = deviceTokenData;
 }
 
@@ -88,13 +88,16 @@ static RemoteNotification *instance = nil;
 }
 
 - (void)receive:(NSDictionary *)payload {
+    NSLog(@"remote notification received");
     if (!payload) {
+        NSLog(@"no payload");
         return;
     }
-    NSLog(@"remote notification received");
     
     NSDictionary *aps = [payload objectForKey: @"aps"];
+    NSLog(@"payload aps: %@", aps);
     NSString *titleId = [payload objectForKey: @"titleId"];
+    NSLog(@"payload titleId: %@", titleId);
     if (titleId) {
         TitleInfo *ti = [TitleInfo instanceWithId: titleId];
         self.updatedTitle = ti;

@@ -55,7 +55,7 @@
                 viewController.view.frame = _detailVC.view.frame;
                 ws.splitVC.viewControllers = @[ws.splitVC.viewControllers[0], viewController];
             }
-        }];
+        } showDisclosureButton: NO];
         _detailVC = [UIViewController new];
         _splitVC.viewControllers = @[_infoMasterVC, _detailVC];
         _splitVC.delegate = _splitVCDelegate;
@@ -67,7 +67,7 @@
             if (ws) {
                 [ws.nvc pushViewController: viewController animated: YES];
             }
-        }];
+        } showDisclosureButton: YES];
         [_nvc pushViewController: _infoMasterVC animated: NO];
         [self.view addSubview: _nvc.view];
     }

@@ -118,7 +118,6 @@ static Foreground *instance = nil;
     _purchaseManager = [PurchaseManager instance];
     
     RACSignal *prepareSignal = [[RACSignal combineLatest:@[RACAbleWithStart(purchaseManager.transactionRunning), RACAbleWithStart(purchaseManager.restoreRunning), RACAbleWithStart(purchaseManager.initializing)] reduce:^(NSNumber *t, NSNumber *r, NSNumber *i){
-        NSLog(@"transactionRunning or initializing status changed");
         return [NSNumber numberWithBool:[t boolValue] || [i boolValue] || [r boolValue]];
     }] distinctUntilChanged];
     [self rac_liftSelector: @selector(prepareStatusChanged:) withObjects: prepareSignal];

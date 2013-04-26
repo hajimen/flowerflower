@@ -132,7 +132,7 @@ static TitleManager *_instance = nil;
             return ti;
         }
     }
-    @throw [NSString stringWithFormat: @"titleInfoWithProductId not found. bad productId: %@", productId];
+    return nil;
 }
 
 -(void)onReachabilityChanged:(NSNumber *)reachable {

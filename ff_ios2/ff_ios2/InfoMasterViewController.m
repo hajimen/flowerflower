@@ -86,7 +86,9 @@
 
 @end
 
-@interface InfoMasterViewController ()
+@interface InfoMasterViewController () {
+    BOOL _showDisclosureButton;
+}
 
 @property (nonatomic) NSArray *cells;
 @property (nonatomic, strong) void (^selectionHandler)(UIViewController *viewController);
@@ -95,9 +97,10 @@
 
 @implementation InfoMasterViewController
 
--(id)initWithSelectionHandler:(void (^)(UIViewController *viewController)) selectionHandler {
+-(id)initWithSelectionHandler:(void (^)(UIViewController *viewController)) selectionHandler showDisclosureButton: (BOOL)show {
     self = [self initWithStyle: UITableViewStylePlain];
     if (self) {
+        _showDisclosureButton = show;
         _selectionHandler = selectionHandler;
         self.title = NSLocalizedString(@"Infos And Settings", nil);
     }
@@ -153,6 +156,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: CellIdentifier];
+        if (_showDisclosureButton) {
+            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        }
     }
     // Configure the cell...
     cell.textLabel.text = [[_cells objectAtIndex: indexPath.item] objectAtIndex: 0];
