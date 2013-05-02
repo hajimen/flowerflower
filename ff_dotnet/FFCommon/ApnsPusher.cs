@@ -73,7 +73,7 @@ namespace FFCommon
                 p.Message = msg;
                 p.Badge = apnsRow.UnreadRelease;
                 p.Custom["titleId"] = titleName;
-                p.ContentAvailable = true;
+                p.ContentAvailable = false;
                 Notification n = new NotificationImpl(int.MaxValue, p, apnsRow.DeviceToken, apnsRow.Id);
                 service.Enqueue(n);
             }
