@@ -7,7 +7,6 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "SVProgressHUD.h"
 #import "Foreground.h"

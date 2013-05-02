@@ -74,9 +74,11 @@
 //    _tnView.image = img;
     [_leftView addSubview: _tnView];
 
-    RAC(tnView.image) = [[[RACAble(titleInfo.thumbnailUrl) filter:^BOOL(id value) {
+    __weak TitleCell *ws = self;
+    RAC(tnView.image) = [[[RACAble(titleInfo.thumbnailPath) filter:^BOOL(id value) {
         return value != nil;
-    }] map:^(NSURL *url) {
+    }] map:^(NSString *path) {
+        NSURL *url = [ws.titleInfo.depot URLByAppendingPathComponent: path];
         NSData *d = [NSData dataWithContentsOfURL: url];
         return [UIImage imageWithData: d];
     }] deliverOn: RACScheduler.mainThreadScheduler];

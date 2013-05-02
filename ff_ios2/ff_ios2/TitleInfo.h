@@ -16,8 +16,6 @@ typedef NS_ENUM(NSInteger, TitleStatus) {
 
 extern NSDecimalNumber *UNKNOWN_PRICE;
 
-@class NKIssue;
-
 @interface TitleInfo : NSObject <NSCoding>
 
 @property (nonatomic, readonly) NSString *titleId;
@@ -26,7 +24,7 @@ extern NSDecimalNumber *UNKNOWN_PRICE;
 @property (nonatomic) TitleStatus status;
 @property (nonatomic) NSDate *lastViewed;
 @property (nonatomic) NSDate *lastUpdated;
-@property (nonatomic) NSURL *thumbnailUrl;
+@property (nonatomic) NSString *thumbnailPath;
 @property (nonatomic) NSString *footnote;
 @property (nonatomic) NSString *contentHtmlPath;
 
@@ -35,9 +33,9 @@ extern NSDecimalNumber *UNKNOWN_PRICE;
 @property (nonatomic) NSLocale *priceLocale;
 @property (nonatomic) BOOL purchased;
 @property (nonatomic) NSURL *distributionUrl;
+@property (nonatomic) NSURL *depot;
 
 +(TitleInfo *)instanceWithId: (NSString *)titleId;
--(NKIssue *)issue;
 
 @end
 

@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
-#import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "TitleInfo.h"
 #import "UserDefaultsKey.h"
@@ -51,7 +50,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
 
 -(void)preparePersistence {
     __weak TitleInfo *ws = self;
-    [[RACSignal merge:@[RACAble(name), RACAble(tags), RACAble(status), RACAble(lastViewed), RACAble(lastUpdated), RACAble(thumbnailUrl), RACAble(footnote), RACAble(productId), RACAble(price), RACAble(priceLocale), RACAble(distributionUrl)]] subscribeNext:^(id _) {
+    [[RACSignal merge:@[RACAble(name), RACAble(tags), RACAble(status), RACAble(lastViewed), RACAble(lastUpdated), RACAble(thumbnailPath), RACAble(footnote), RACAble(productId), RACAble(price), RACAble(priceLocale), RACAble(distributionUrl), RACAble(depot)]] subscribeNext:^(id _) {
         [ws save];
     }];
     [RACAble(purchased) subscribeNext:^(id _) {
@@ -83,7 +82,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
     _status = [aDecoder decodeIntForKey:@"status"];
     _lastViewed = [aDecoder decodeObjectForKey:@"lastViewed"];
     _lastUpdated = [aDecoder decodeObjectForKey:@"lastUpdated"];
-    _thumbnailUrl = [aDecoder decodeObjectForKey:@"thumbnailUrl"];
+    _thumbnailPath = [aDecoder decodeObjectForKey:@"thumbnailPath"];
     _footnote = [aDecoder decodeObjectForKey:@"footnote"];
     _contentHtmlPath = [aDecoder decodeObjectForKey:@"contentHtmlPath"];
     
@@ -92,6 +91,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
     _priceLocale = [aDecoder decodeObjectForKey:@"priceLocale"];
     _purchased = [aDecoder decodeIntForKey:@"purchased"];
     _distributionUrl = [aDecoder decodeObjectForKey:@"distributionUrl"];
+    _depot = [aDecoder decodeObjectForKey:@"depot"];
 
     return self;
 }
@@ -103,7 +103,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
     [aCoder encodeInt:_status forKey:@"status"];
     [aCoder encodeObject:_lastViewed forKey:@"lastViewed"];
     [aCoder encodeObject:_lastUpdated forKey:@"lastUpdated"];
-    [aCoder encodeObject:_thumbnailUrl forKey:@"thumbnailUrl"];
+    [aCoder encodeObject:_thumbnailPath forKey:@"thumbnailPath"];
     [aCoder encodeObject:_footnote forKey:@"footnote"];
     [aCoder encodeObject:_contentHtmlPath forKey:@"contentHtmlPath"];
 
@@ -112,18 +112,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
     [aCoder encodeObject:_priceLocale forKey:@"priceLocale"];
     [aCoder encodeInt:_purchased forKey:@"purchased"];
     [aCoder encodeObject:_distributionUrl forKey:@"distributionUrl"];
-}
-
--(NKIssue *)issue {
-    NKLibrary *lib = [NKLibrary sharedLibrary];
-    return [lib issueWithName: _titleId];
-}
-
--(NSURL *)thumbnailUrl {
-    if (![_thumbnailUrl checkResourceIsReachableAndReturnError: nil]) {
-        [[AlertStorageStavation new] show];
-    }
-    return _thumbnailUrl;
+    [aCoder encodeObject:_depot forKey:@"depot"];
 }
 
 @end

@@ -32,21 +32,21 @@
 	// Separate titles
 	var localStorage = {
 		'setItem' : function(k, v) {
-			k = k + window.ff.Site;
+			k = k + "miyako";
 			if (window.localStorage.getItem(k) != null) {
 				window.localStorage.removeItem(k);
 			}
 			window.localStorage.setItem(k, v);
 		},
 		'getItem' : function(k) {
-			k = k + window.ff.Site;
+			k = k + "miyako";
 			return window.localStorage.getItem(k);
 		},
 		'clear' : function() {
 			window.localStorage.clear();
 		},
 		'removeItem' : function(k) {
-			k = k + window.ff.Site;
+			k = k + "miyako";
 			window.localStorage.removeItem(k);
 		}
 	};

@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
-#import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "ZipArchive.h"
 #import "Reachability.h"
@@ -16,6 +15,7 @@
 #import "UserDefaultsKey.h"
 #import "TitleInfosConstant.h"
 #import "RemoteNotification.h"
+#import "Uuid.h"
 
 static TitleManager *_instance = nil;
 
@@ -78,14 +78,17 @@ static TitleManager *_instance = nil;
                 } else {
                     @throw @"TitleInfos.plist bad. wrong status";
                 }
-                NKIssue *issue = ti.issue;
-                if (issue == nil) {
-                    issue = [[NKLibrary sharedLibrary] addIssueWithName: ti.titleId date: [tip objectForKey: PLK_LAST_UPDATED]];
+                NSString *dd = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex: 0];
+                ti.depot = [NSURL fileURLWithPath: [dd stringByAppendingPathComponent: [Uuid string]] isDirectory: YES];
+                NSError *error;
+                [[NSFileManager defaultManager] createDirectoryAtPath: [ti.depot path] withIntermediateDirectories: YES attributes: nil error: &error];
+                if (error) {
+                    NSLog(@"cannot create dir. Error: %@", error);
                 }
                 NSString *p = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: [tip objectForKey: PLK_BASE_RESOURCE_ZIP_PATH]];
                 ZipArchive *za = [ZipArchive new];
                 [za UnzipOpenFile: p];
-                [za UnzipFileTo: [[issue contentURL] path] overWrite: YES];
+                [za UnzipFileTo: [ti.depot path] overWrite: YES];
                 [za UnzipCloseFile];
             }
             ti.name = [tip objectForKey: PLK_NAME];
@@ -95,8 +98,7 @@ static TitleManager *_instance = nil;
             if (ti.lastViewed == nil) {
                 ti.lastViewed = [ti lastUpdated];
             }
-            NSURL *cu = [ti.issue contentURL];
-            ti.thumbnailUrl = [cu URLByAppendingPathComponent: [tip objectForKey: PLK_THUMBNAIL_PATH]];
+            ti.thumbnailPath = [tip objectForKey: PLK_THUMBNAIL_PATH];
             ti.footnote = @"";
             if (! ti.price) {
                 ti.price = UNKNOWN_PRICE;

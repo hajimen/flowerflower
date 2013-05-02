@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
-#import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
 
 #import "AppDelegate.h"
@@ -42,23 +41,11 @@
 {
     [self registerDefaultsFromSettingsBundle];
 
-    if ([launchOptions objectForKey: UIApplicationLaunchOptionsNewsstandDownloadsKey]) {
-        for (TitleInfo *ti in [[TitleManager instance] titleInfoSet]) {
-            if (ti.status != TitleStatusCompleted) {
-                [[[ContentDownloader alloc] initWithTitleInfo: ti] resume];
-            }
-        }
-    }
-    
     [self localNotification: [launchOptions objectForKey: UIApplicationLaunchOptionsLocalNotificationKey]];
 
     self.remoteNotification = [RemoteNotification instance];
     [self.remoteNotification register_];
     [self.remoteNotification receive:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
-
-#if DEBUG
-    [[NSUserDefaults standardUserDefaults] setBool: YES forKey:@"NKDontThrottleNewsstandContentNotifications"];
-#endif
 
     return YES;
 }

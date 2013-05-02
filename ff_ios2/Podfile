@@ -1,5 +1,5 @@
 platform :ios, '5.1'
-pod 'Cordova', '>=2.5.0.1', :podspec => 'Cordova.podspec'
+pod 'Cordova', '=2.5.0', :podspec => 'Cordova.podspec'
 pod 'InAppSettingsKit', :podspec => 'InAppSettingsKit.podspec'
 pod 'PSTCollectionView', :podspec => 'PSTCollectionView.podspec'
 pod 'ReactiveCocoa'
