@@ -25,7 +25,6 @@ typedef NS_ENUM(NSInteger, ContentDownloadStatus) {
 
 -(id)initWithTitleInfo:(TitleInfo *)titleInfo;
 -(RACSignal *)start;
--(RACSignal *)resume;
 
 @property (nonatomic, readonly) ContentDownloadStatus status;
 

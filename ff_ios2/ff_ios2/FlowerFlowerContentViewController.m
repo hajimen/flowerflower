@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
-#import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "SVProgressHUD.h"
 
@@ -39,7 +38,7 @@
 
     settingsChanged = NO;
 
-    self.wwwFolderName = [[titleInfo.issue contentURL] absoluteString];
+    self.wwwFolderName = [titleInfo.depot absoluteString];
     self.startPage = titleInfo.contentHtmlPath;
     self.view.frame = [[UIScreen mainScreen] bounds];
 
@@ -54,7 +53,7 @@
     NSString *url = [[request URL] absoluteString];
     if ([url hasPrefix: [_titleInfo.distributionUrl absoluteString]]) {
         NSString *path = [url substringFromIndex: [[_titleInfo.distributionUrl absoluteString] length]];
-        NSURL *storeTo = [[_titleInfo.issue contentURL] URLByAppendingPathComponent: path];
+        NSURL *storeTo = [_titleInfo.depot URLByAppendingPathComponent: path];
         HtmlDownloadDelegate *hdd = [[HtmlDownloadDelegate alloc] initWithUrl: [request URL] storeTo: storeTo];
         NSURLRequest *nr = [NSURLRequest requestWithURL: storeTo];
         __weak FlowerFlowerContentViewController *ws = self;

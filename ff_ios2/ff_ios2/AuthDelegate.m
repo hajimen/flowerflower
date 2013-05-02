@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
-#import <NewsstandKit/NewsstandKit.h>
 #import "GTMStringEncoding.h"
 #import "AuthDelegate.h"
 #import "TitleInfo.h"
@@ -18,7 +17,6 @@
 @property (nonatomic) NSData *receipt;
 @property (nonatomic) TitleInfo *titleInfo;
 
-@property (nonatomic) NKIssue *issue;
 @property (nonatomic) RACSubject *finishedSubject;
 @property (nonatomic) NSURLConnection *conn;
 @property (nonatomic) int statusCode;

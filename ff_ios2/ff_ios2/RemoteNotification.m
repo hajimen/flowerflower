@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
-#import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "Reachability.h"
 
@@ -72,7 +71,7 @@ static RemoteNotification *instance = nil;
 
 -(void)register_ {
     [[UIApplication sharedApplication]
-     registerForRemoteNotificationTypes: UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeNewsstandContentAvailability];
+     registerForRemoteNotificationTypes: UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge];
 }
 
 -(void)registerOk:(NSData *) deviceTokenData {

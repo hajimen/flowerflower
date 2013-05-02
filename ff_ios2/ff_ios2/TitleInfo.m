@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 NAKAZATO Hajime. All rights reserved.
 //
 
-#import <NewsstandKit/NewsstandKit.h>
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "TitleInfo.h"
 #import "UserDefaultsKey.h"
@@ -51,7 +50,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
 
 -(void)preparePersistence {
     __weak TitleInfo *ws = self;
-    [[RACSignal merge:@[RACAble(name), RACAble(tags), RACAble(status), RACAble(lastViewed), RACAble(lastUpdated), RACAble(thumbnailUrl), RACAble(footnote), RACAble(productId), RACAble(price), RACAble(priceLocale), RACAble(distributionUrl)]] subscribeNext:^(id _) {
+    [[RACSignal merge:@[RACAble(name), RACAble(tags), RACAble(status), RACAble(lastViewed), RACAble(lastUpdated), RACAble(thumbnailUrl), RACAble(footnote), RACAble(productId), RACAble(price), RACAble(priceLocale), RACAble(distributionUrl), RACAble(depot)]] subscribeNext:^(id _) {
         [ws save];
     }];
     [RACAble(purchased) subscribeNext:^(id _) {
@@ -92,6 +91,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
     _priceLocale = [aDecoder decodeObjectForKey:@"priceLocale"];
     _purchased = [aDecoder decodeIntForKey:@"purchased"];
     _distributionUrl = [aDecoder decodeObjectForKey:@"distributionUrl"];
+    _depot = [aDecoder decodeObjectForKey:@"depot"];
 
     return self;
 }
@@ -112,11 +112,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
     [aCoder encodeObject:_priceLocale forKey:@"priceLocale"];
     [aCoder encodeInt:_purchased forKey:@"purchased"];
     [aCoder encodeObject:_distributionUrl forKey:@"distributionUrl"];
-}
-
--(NKIssue *)issue {
-    NKLibrary *lib = [NKLibrary sharedLibrary];
-    return [lib issueWithName: _titleId];
+    [aCoder encodeObject:_depot forKey:@"depot"];
 }
 
 -(NSURL *)thumbnailUrl {
