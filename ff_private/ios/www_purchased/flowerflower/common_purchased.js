@@ -29,21 +29,24 @@
 	var isContentFixed = false;
 	var sequenceInstanceSet = {};
 
-	// iPad 3.2 bug workaround
+	// Separate titles
 	var localStorage = {
 		'setItem' : function(k, v) {
+			k = k + window.ff.Site;
 			if (window.localStorage.getItem(k) != null) {
 				window.localStorage.removeItem(k);
 			}
 			window.localStorage.setItem(k, v);
 		},
 		'getItem' : function(k) {
+			k = k + window.ff.Site;
 			return window.localStorage.getItem(k);
 		},
 		'clear' : function() {
 			window.localStorage.clear();
 		},
 		'removeItem' : function(k) {
+			k = k + window.ff.Site;
 			window.localStorage.removeItem(k);
 		}
 	};
@@ -908,8 +911,6 @@
 			}
 		}
 		nav += '<li><a href="javascript:void(0)" onclick="window.ff.OnLinkClick(\'character_note\'); return false;">登場人物紹介</a></li>';
-		nav += '<li><a href="javascript:void(0)" onclick="window.ff.OnLinkClick(\'about_this_app\'); return false;">このアプリについて</a></li>';
-		nav += '<li><a href="http://kaoriha.org/latest_item.html">近刊案内</a></li>';
 
 		$('#nav ul').html(nav);
 

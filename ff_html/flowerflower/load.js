@@ -9,10 +9,10 @@ if (userAgent.match(/android/)) {
 			+ "<script src='../flowerflower/android_lvl.js'></script>"
 			);
 } else {
-	document.write("<script src='../ios/phonegap-1.1.0.js'></script>"
-			+ "<script src='../ios/remoteNotification.js'></script>"
+	document.write("<script src='../ios/cordova.ios.js'></script>"
 			+ "<script src='../ios/scaleChanger.js'></script>"
-			+ "<script src='../flowerflower/ios_apns.js'></script>"
+			+ "<script src='../ios/purchase.js'></script>"
+			+ "<script src='../flowerflower/ios_iap.js'></script>"
 //			+ "<script src='../flowerflower/web.js'></script>"
 			);
 }
