@@ -15,6 +15,7 @@
 #import "UserDefaultsKey.h"
 #import "TitleInfosConstant.h"
 #import "RemoteNotification.h"
+#import "Uuid.h"
 
 static TitleManager *_instance = nil;
 
@@ -78,7 +79,12 @@ static TitleManager *_instance = nil;
                     @throw @"TitleInfos.plist bad. wrong status";
                 }
                 NSString *dd = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex: 0];
-                ti.depot = [NSURL URLWithString: [dd stringByAppendingPathComponent: [self newUuid]]];
+                ti.depot = [NSURL fileURLWithPath: [dd stringByAppendingPathComponent: [Uuid string]] isDirectory: YES];
+                NSError *error;
+                [[NSFileManager defaultManager] createDirectoryAtPath: [ti.depot path] withIntermediateDirectories: YES attributes: nil error: &error];
+                if (error) {
+                    NSLog(@"cannot create dir. Error: %@", error);
+                }
                 NSString *p = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: [tip objectForKey: PLK_BASE_RESOURCE_ZIP_PATH]];
                 ZipArchive *za = [ZipArchive new];
                 [za UnzipOpenFile: p];
@@ -92,7 +98,7 @@ static TitleManager *_instance = nil;
             if (ti.lastViewed == nil) {
                 ti.lastViewed = [ti lastUpdated];
             }
-            ti.thumbnailUrl = [ti.depot URLByAppendingPathComponent: [tip objectForKey: PLK_THUMBNAIL_PATH]];
+            ti.thumbnailPath = [tip objectForKey: PLK_THUMBNAIL_PATH];
             ti.footnote = @"";
             if (! ti.price) {
                 ti.price = UNKNOWN_PRICE;
@@ -116,13 +122,6 @@ static TitleManager *_instance = nil;
     [self rac_liftSelector: @selector(onReachabilityChanged:) withObjects: RACAble(reachability.isReachable)];
     
     return self;
-}
-
--(NSString *)newUuid {
-    CFUUIDRef ur = CFUUIDCreate(nil);
-    NSString *us = (NSString *)CFBridgingRelease(CFUUIDCreateString(nil, ur));
-    CFRelease(ur);
-    return us;
 }
 
 -(NSSet *)titleInfoSet {

@@ -19,6 +19,7 @@
 #import "ContentDownloader.h"
 #import "AuthDelegate.h"
 #import "Reachability.h"
+#import "Uuid.h"
 
 #define KOUCHABUTTON_BUNDLE_ID @"org.kaoriha.flowerflower.kouchabutton"
 #define KOUCHABUTTON_TITLE_ID @"kouchabutton"
@@ -153,6 +154,17 @@ static PurchaseManager *instance = nil;
     }
     ti.purchased = YES;
     NSDictionary *tip = [self findFromTitleInfoPlist: ti];
+
+    NSString *dd = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex: 0];
+    NSString *newDepot = [dd stringByAppendingPathComponent: [Uuid string]];
+    NSError *error;
+    [[NSFileManager defaultManager] moveItemAtPath: [ti.depot path] toPath: newDepot error: &error];
+    if (error) {
+        NSLog(@"ContentDownloader error:%@", error);
+        return;
+    }
+    ti.depot = [NSURL fileURLWithPath: newDepot isDirectory: YES];
+
     [self unzipPurchasedTitleResource: ti titleInfoPlist: tip];
     NSString *ty = [tip objectForKey: PLK_TYPE];
     if (ty && ![ty isEqualToString: PLV_TYPE_FIXED_IN_APP]) {

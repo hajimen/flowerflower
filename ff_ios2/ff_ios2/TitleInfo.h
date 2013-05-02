@@ -24,7 +24,7 @@ extern NSDecimalNumber *UNKNOWN_PRICE;
 @property (nonatomic) TitleStatus status;
 @property (nonatomic) NSDate *lastViewed;
 @property (nonatomic) NSDate *lastUpdated;
-@property (nonatomic) NSURL *thumbnailUrl;
+@property (nonatomic) NSString *thumbnailPath;
 @property (nonatomic) NSString *footnote;
 @property (nonatomic) NSString *contentHtmlPath;
 

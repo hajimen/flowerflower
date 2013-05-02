@@ -44,7 +44,7 @@
     if (_conn) {
         [_conn cancel];
     }
-    NSURL *url = [_titleInfo.depot URLByAppendingPathComponent: _path];
+    NSURL *url = [_titleInfo.distributionUrl URLByAppendingPathComponent: _path];
     _conn = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL: url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval: 2.0] delegate: self];
     
     _finishedSubject = [RACSubject subject];

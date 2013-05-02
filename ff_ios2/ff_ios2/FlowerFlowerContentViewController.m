@@ -25,10 +25,11 @@
 @implementation FlowerFlowerContentViewController
 
 +(void)initialize {
-    [[NSURLCache sharedURLCache] setMemoryCapacity: 0];
+//    [[NSURLCache sharedURLCache] setMemoryCapacity: 0];
 }
 
 -(id)initWithTitleInfo: (TitleInfo *)titleInfo {
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     self = [super init];
     if (!self) {
         return self;
@@ -45,7 +46,7 @@
     [self rac_liftSelector: @selector(contentUpdated:) withObjects: [[TitleManager instance] updateSignal: titleInfo]];
 
     _titleInfo = titleInfo;
-
+    
     return self;
 }
 

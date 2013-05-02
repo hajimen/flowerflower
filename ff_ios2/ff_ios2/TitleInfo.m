@@ -50,7 +50,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
 
 -(void)preparePersistence {
     __weak TitleInfo *ws = self;
-    [[RACSignal merge:@[RACAble(name), RACAble(tags), RACAble(status), RACAble(lastViewed), RACAble(lastUpdated), RACAble(thumbnailUrl), RACAble(footnote), RACAble(productId), RACAble(price), RACAble(priceLocale), RACAble(distributionUrl), RACAble(depot)]] subscribeNext:^(id _) {
+    [[RACSignal merge:@[RACAble(name), RACAble(tags), RACAble(status), RACAble(lastViewed), RACAble(lastUpdated), RACAble(thumbnailPath), RACAble(footnote), RACAble(productId), RACAble(price), RACAble(priceLocale), RACAble(distributionUrl), RACAble(depot)]] subscribeNext:^(id _) {
         [ws save];
     }];
     [RACAble(purchased) subscribeNext:^(id _) {
@@ -82,7 +82,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
     _status = [aDecoder decodeIntForKey:@"status"];
     _lastViewed = [aDecoder decodeObjectForKey:@"lastViewed"];
     _lastUpdated = [aDecoder decodeObjectForKey:@"lastUpdated"];
-    _thumbnailUrl = [aDecoder decodeObjectForKey:@"thumbnailUrl"];
+    _thumbnailPath = [aDecoder decodeObjectForKey:@"thumbnailPath"];
     _footnote = [aDecoder decodeObjectForKey:@"footnote"];
     _contentHtmlPath = [aDecoder decodeObjectForKey:@"contentHtmlPath"];
     
@@ -103,7 +103,7 @@ NSDecimalNumber *UNKNOWN_PRICE;
     [aCoder encodeInt:_status forKey:@"status"];
     [aCoder encodeObject:_lastViewed forKey:@"lastViewed"];
     [aCoder encodeObject:_lastUpdated forKey:@"lastUpdated"];
-    [aCoder encodeObject:_thumbnailUrl forKey:@"thumbnailUrl"];
+    [aCoder encodeObject:_thumbnailPath forKey:@"thumbnailPath"];
     [aCoder encodeObject:_footnote forKey:@"footnote"];
     [aCoder encodeObject:_contentHtmlPath forKey:@"contentHtmlPath"];
 
@@ -113,13 +113,6 @@ NSDecimalNumber *UNKNOWN_PRICE;
     [aCoder encodeInt:_purchased forKey:@"purchased"];
     [aCoder encodeObject:_distributionUrl forKey:@"distributionUrl"];
     [aCoder encodeObject:_depot forKey:@"depot"];
-}
-
--(NSURL *)thumbnailUrl {
-    if (![_thumbnailUrl checkResourceIsReachableAndReturnError: nil]) {
-        [[AlertStorageStavation new] show];
-    }
-    return _thumbnailUrl;
 }
 
 @end
