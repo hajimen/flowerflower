@@ -25,7 +25,7 @@
 @implementation FlowerFlowerContentViewController
 
 +(void)initialize {
-//    [[NSURLCache sharedURLCache] setMemoryCapacity: 0];
+    [[NSURLCache sharedURLCache] setMemoryCapacity: 0];
 }
 
 -(id)initWithTitleInfo: (TitleInfo *)titleInfo {
